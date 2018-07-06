@@ -16,7 +16,7 @@ public class ImgNerfTest
 	{
 		try
 		{
-			ImgNerf.convertImage("resources" + File.separator + "Normal.gif");
+			ImgNerf.convertImage("resources" + File.separator + "Char4_I.png");
 		}catch(IOException e)
 		{
 			Assert.fail();

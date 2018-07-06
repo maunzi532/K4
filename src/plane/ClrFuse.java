@@ -48,7 +48,7 @@ public class ClrFuse
 		return arr;
 	}
 
-	public static int avgclr(boolean bg, int[] clrs)
+	public static int avgclr(boolean bg, int... clrs)
 	{
 		if(clrs.length == 0)
 			return 0x0000;
@@ -159,18 +159,18 @@ public class ClrFuse
 				if(arr0.length != 0 && arr0[0] == -1)
 					bg = avgclr(true, arr0);
 				else
-					bg = cl0;
+					bg = avgclr(true, cl0);
 			}
 			else if(arr0.length != 0 && arr0[0] == -1)
 			{
 				code2 ^= 0b1111;
 				fg = cl0;
-				bg = cl1;
+				bg = avgclr(true, cl1);
 			}
 			else
 			{
 				fg = cl1;
-				bg = cl0;
+				bg = avgclr(true, cl0);
 			}
 			return (bg << 24) | (fg << 16) | fuseChars(code2, subpixels, k1);
 		}

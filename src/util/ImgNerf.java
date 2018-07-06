@@ -69,8 +69,8 @@ public class ImgNerf
 			return 0b00010000;
 		if(clr0.length == 1)
 		{
-			if(clr0[0] == 0)
-				return 0b00010000;
+			/*if(clr0[0] == 0)
+				return 0b00010000;*/
 			return clr0[0];
 		}
 		int a = -1;

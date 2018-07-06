@@ -40,7 +40,7 @@ public class TerminalFormatter
 
 	private static String cnumFg(int num)
 	{
-		return (num < 8 ? "21;" : "1;") + ((num % 8) + 30);
+		return (num < 8 ? "22;" : "1;") + ((num % 8) + 30);
 	}
 
 	private static String cnumBg(int num)
