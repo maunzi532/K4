@@ -31,6 +31,8 @@ public class ClrFuse
 					0x0020, 0x2591, 0x2592, 0x2593, 0x2588
 			};
 
+	private static boolean flag = false;
+
 	public static int[] extractclrs(int clr)
 	{
 		int ok = 4 - Integer.bitCount(clr & 0x10101010);
@@ -48,8 +50,16 @@ public class ClrFuse
 		return arr;
 	}
 
+	public static int toBg(int clr)
+	{
+		if(clr == 0b1000)
+			return 0b0111;
+		return clr & 0b0111;
+	}
+
 	public static int avgclr(boolean bg, int... clrs)
 	{
+		flag = false;
 		if(clrs.length == 0)
 			return 0x0000;
 		boolean ok1 = true;
@@ -58,6 +68,8 @@ public class ClrFuse
 				ok1 = false;
 		if(ok1)
 		{
+			if(!bg && ((clrs[0] & 0b1000) > 0))
+				flag = true;
 			if(bg)
 			{
 				if(clrs[0] == 0b1000)
@@ -75,7 +87,7 @@ public class ClrFuse
 		}
 		int light = rgb[0] + rgb[1] + rgb[2];
 		if(!bg && light >= 0)
-			clrs[0] = -1; //HAX
+			flag = true;
 		int re0;
 		if(rgb[0] == rgb[1])
 		{
@@ -148,35 +160,37 @@ public class ClrFuse
 				k1++;
 			}
 		int cl0 = arr0.length == 0 ? 0 : avgclr(false, arr0);
+		boolean li0 = flag;
 		int cl1 = arr1.length == 0 ? 0 : avgclr(false, arr1);
+		boolean li1 = flag;
 		if(subpixels || arr0.length == 2)
 		{
 			int fg;
 			int bg;
-			if(arr1.length != 0 && arr1[0] == -1)
+			if(li1)
 			{
 				fg = cl1;
-				if(arr0.length != 0 && arr0[0] == -1)
+				if(li0)
 					bg = avgclr(true, arr0);
 				else
-					bg = avgclr(true, cl0);
+					bg = toBg(cl0);
 			}
-			else if(arr0.length != 0 && arr0[0] == -1)
+			else if(li0)
 			{
 				code2 ^= 0b1111;
 				fg = cl0;
-				bg = avgclr(true, cl1);
+				bg = toBg(cl1);
 			}
 			else
 			{
 				fg = cl1;
-				bg = avgclr(true, cl0);
+				bg = toBg(cl0);
 			}
 			return (bg << 24) | (fg << 16) | fuseChars(code2, subpixels, k1);
 		}
 		else if(k1 == 3)
 		{
-			if(arr1.length != 0 && arr1[0] == -1)
+			if(li1)
 				cl1 = avgclr(true, arr1);
 			code2 ^= 0b1111;
 			return (cl1 << 24) | (cl0 << 16) | fuseChars(code2, false, k0);

@@ -16,6 +16,8 @@ public class SubPixelPlane implements Plane
 	private int subXSize;
 	private int yAdd;
 	private int xAdd;
+	private boolean flippedY;
+	private boolean flippedX;
 	private int[][] data;
 	private ImageLoader loader;
 
@@ -68,10 +70,15 @@ public class SubPixelPlane implements Plane
 	@Override
 	public int codec(int y, int x)
 	{
-		y = y * 2 - subYShift + 1;
-		x = x * 2 - subXShift + 1;
-		return 0x40000000 | (data[y][x] << 24) | (data[y][x + 1] << 16) |
-				(data[y + 1][x] << 8) | data[y + 1][x + 1];
+		y = y * 2 - subYShift;
+		x = x * 2 - subXShift;
+		return 0x40000000 | (data(y, x) << 24) | (data(y, x + 1) << 16) |
+				(data(y + 1, x) << 8) | data(y + 1, x + 1);
+	}
+
+	private int data(int y, int x)
+	{
+		return data[flippedY ? subYSize - y : y + 1][flippedX ? subXSize - x : x + 1];
 	}
 
 	@Override
@@ -180,10 +187,33 @@ public class SubPixelPlane implements Plane
 			return (num - 1) / 2;
 	}
 
+	public boolean isFlippedY()
+	{
+		return flippedY;
+	}
+
+	public boolean isFlippedX()
+	{
+		return flippedX;
+	}
+
+	public void setFlippedY(boolean flippedY)
+	{
+		this.flippedY = flippedY;
+	}
+
+	public void setFlippedX(boolean flippedX)
+	{
+		this.flippedX = flippedX;
+	}
+
 	@Override
 	public void draw(Graphics2D gd, FrameFormatter format)
 	{
-		gd.drawImage(loader.byExtra(0), subXShift * format.xchar / 2, subYShift * format.ychar / 2,
-				subXSize * format.xchar / 2, subYSize * format.ychar / 2, null);
+		BufferedImage image0 = loader.byExtra(0);
+		gd.drawImage(image0, subXShift * format.xchar / 2, subYShift * format.ychar / 2,
+				(subXShift + subXSize) * format.xchar / 2, (subYShift + subYSize) * format.ychar / 2,
+				flippedX ? image0.getWidth() : 0, flippedY ? image0.getHeight() : 0,
+				flippedX ? 0 : image0.getWidth(), flippedY ? 0 : image0.getHeight(), null);
 	}
 }

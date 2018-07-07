@@ -156,17 +156,13 @@ public class PlaneRenderer
 		return ((prev & 0x0f000000) >>> 8) | 0x2588;
 	}
 
-	public void argh(FrameFormatter format)
+	public BufferedImage renderImage(FrameFormatter format, List<Plane> planes, List<PlaneFrame> frames)
 	{
-		if(format != null)
+		if(image == null)
 		{
 			image = new BufferedImage(width * format.xchar, height * format.ychar, BufferedImage.TYPE_INT_ARGB);
 			gd = image.createGraphics();
 		}
-	}
-
-	public BufferedImage renderImage(FrameFormatter format, List<Plane> planes, List<PlaneFrame> frames)
-	{
 		gd.setColor(format.getColors().get(bgCode >> 24));
 		gd.fillRect(0, 0, width * format.xchar, height * format.ychar);
 		for(int n = planes.size() - 1; n >= 0; n--)

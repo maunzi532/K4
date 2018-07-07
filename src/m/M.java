@@ -52,13 +52,15 @@ public class M
 		drawMode = drawMode && drawModeStart;
 		Dimension xy = device.startDimension();
 		PlaneRenderer planeRenderer = new PlaneRenderer(xy.height, xy.width, 0x0);
+
 		SpriteList spriteList = new SpriteList(new PlaneFrame(3, 6, xy.height - 3, xy.width - 6));
-		SubPixelPlane background = new SubPixelPlane().init("N1_I", "N1_IT");
-		SubPixelPlane character = new SubPixelPlane().init("Char4_I", "Char4_IT");
-		planeRenderer.argh(device.getFormatter());
-		spriteList.addSprite(new XSprite(0, 0, 0, 0, 0, background));
-		spriteList.addSprite(new XSprite(xy.height * 3 / 2, xy.width, character.getSubYSize(), character.getSubXSize() / 2, 1, character));
+		spriteList.addSprite(new XSprite(0, 0, 0, 0, 0, new SubPixelPlane().init("N1_I", "N1_IT")));
+		SubPixelPlane character = new SubPixelPlane().init("Char6_N", "Char6_NT");
+		//character.setFlippedY(true);
+		XSprite sprite = new XSprite(xy.height * 2, xy.width, character.getSubYSize(), character.getSubXSize() / 2, 1, character);
+		spriteList.addSprite(sprite);
 		spriteList.addSprite(new TSprite(0, 0, 0, 0, 2, new TextPlane(15, 0, "ARGH wugu ---", "ffcxgxhdx")));
+
 		int ys = 0;
 		int xs = 0;
 		label68: while(true)
@@ -68,6 +70,7 @@ public class M
 				device.toScreen(planeRenderer.renderImage(device.getFormatter(), spriteList.planes(), spriteList.planeFrames()));
 			else
 				device.toScreen(planeRenderer.renderPlanes(subpixels, spriteList.planes(), spriteList.planeFrames()), subpixels);
+
 			int c = -1;
 			while(c < 0)
 				c = device.getInput();
@@ -83,9 +86,13 @@ public class M
 					break;
 				case 'a':
 					xs--;
+					sprite.x -= 9;
+					character.setFlippedX(true);
 					break;
 				case 'd':
 					xs++;
+					sprite.x += 9;
+					character.setFlippedX(false);
 					break;
 				case 'm':
 					subpixels = !subpixels;

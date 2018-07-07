@@ -15,9 +15,8 @@ public class FrameFormatter
 	private static List<Integer> halfChars = Arrays.asList(
 			0x0020, 0x2591, 0x2592, 0x2593, 0x2588);
 
-
-	public int ychar = 18;
-	public int xchar = 9;
+	public int ychar = 2;
+	public int xchar = 1;
 	private List<Color> colors;
 	private Font fN;
 	private Font fB;
