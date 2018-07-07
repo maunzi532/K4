@@ -48,19 +48,14 @@ public class M
 
 	public static void wugu(CDevice device, boolean subpixels, boolean drawMode) throws IOException, InterruptedException
 	{
-		boolean drawModeStart = drawMode;
+		boolean drawModeStart = device.getFormatter() != null;
+		drawMode = drawMode && drawModeStart;
 		Dimension xy = device.startDimension();
 		PlaneRenderer planeRenderer = new PlaneRenderer(xy.height, xy.width, 0x0);
-		if(drawMode)
-			planeRenderer.argh(FrameFormatter.YCHAR, FrameFormatter.XCHAR, ((FrameDevice) device).getColors());
 		SpriteList spriteList = new SpriteList(new PlaneFrame(3, 6, xy.height - 3, xy.width - 6));
-		SubPixelPlane background = new SubPixelPlane().init(Lader7.imageResource("N1_IC.png"));
-		SubPixelPlane character = new SubPixelPlane().init(Lader7.imageResource("Char4_IC.png"));
-		if(drawModeStart)
-		{
-			background.drawModeImage(Lader7.imageResource("N1_IT.png"));
-			character.drawModeImage(Lader7.imageResource("Char4_IT.png"));
-		}
+		SubPixelPlane background = new SubPixelPlane().init("N1_I", "N1_IT");
+		SubPixelPlane character = new SubPixelPlane().init("Char4_I", "Char4_IT");
+		planeRenderer.argh(device.getFormatter());
 		spriteList.addSprite(new XSprite(0, 0, 0, 0, 0, background));
 		spriteList.addSprite(new XSprite(xy.height * 3 / 2, xy.width, character.getSubYSize(), character.getSubXSize() / 2, 1, character));
 		spriteList.addSprite(new TSprite(0, 0, 0, 0, 2, new TextPlane(15, 0, "ARGH wugu ---", "ffcxgxhdx")));
@@ -70,7 +65,7 @@ public class M
 		{
 			spriteList.updatePositions(ys * -5, xs * -9);
 			if(drawMode)
-				device.toScreen(planeRenderer.renderImage(subpixels, spriteList.planes(), spriteList.planeFrames()));
+				device.toScreen(planeRenderer.renderImage(device.getFormatter(), spriteList.planes(), spriteList.planeFrames()));
 			else
 				device.toScreen(planeRenderer.renderPlanes(subpixels, spriteList.planes(), spriteList.planeFrames()), subpixels);
 			int c = -1;

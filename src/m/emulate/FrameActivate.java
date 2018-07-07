@@ -11,12 +11,12 @@ public class FrameActivate
 	private BufferedImage screen;
 	private Graphics2D gd;
 
-	public FrameActivate(int xs, int ys, FrameInput tasten)
+	public FrameActivate(int xs, int ys, FrameInput tasten, FrameFormatter format)
 	{
 		frame = new JFrame();
 		frame.setLayout(null);
-		screen = new BufferedImage(FrameFormatter.XCHAR * xs,
-				FrameFormatter.YCHAR * ys, BufferedImage.TYPE_INT_RGB);
+		screen = new BufferedImage(format.xchar * xs,
+				format.ychar * ys, BufferedImage.TYPE_INT_RGB);
 		gd = screen.createGraphics();
 		frame.setSize(screen.getWidth(), screen.getHeight());
 		tasten.einbau(frame);

@@ -3,6 +3,7 @@ package m;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
+import m.emulate.*;
 
 public interface CDevice
 {
@@ -15,4 +16,6 @@ public interface CDevice
 	void toScreen(BufferedImage image);
 
 	void end() throws IOException, InterruptedException;
+
+	FrameFormatter getFormatter();
 }

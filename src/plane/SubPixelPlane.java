@@ -3,7 +3,8 @@ package plane;
 import java.awt.*;
 import java.awt.image.*;
 import java.util.*;
-import java.util.List;
+import m.emulate.*;
+import util.*;
 
 public class SubPixelPlane implements Plane
 {
@@ -16,10 +17,12 @@ public class SubPixelPlane implements Plane
 	private int yAdd;
 	private int xAdd;
 	private int[][] data;
-	private BufferedImage image;
+	private ImageLoader loader;
 
-	public SubPixelPlane init(BufferedImage image)
+	public SubPixelPlane init(String baseLocation, String... extra)
 	{
+		loader = new ImageLoader(baseLocation, extra);
+		BufferedImage image = loader.bySuffix("C");
 		WritableRaster raster = image.getRaster();
 		int numBands = raster.getNumBands();
 		int[] temp = new int[numBands];
@@ -60,11 +63,6 @@ public class SubPixelPlane implements Plane
 		setSubYSize(yl);
 		setSubXSize(xl);
 		return this;
-	}
-
-	public void drawModeImage(BufferedImage image)
-	{
-		this.image = image;
 	}
 
 	@Override
@@ -183,9 +181,9 @@ public class SubPixelPlane implements Plane
 	}
 
 	@Override
-	public void draw(Graphics2D gd, int yc, int xc, List<Color> colors, boolean subpixels)
+	public void draw(Graphics2D gd, FrameFormatter format)
 	{
-		gd.drawImage(image, subXShift * xc / 2, subYShift * yc / 2,
-				subXSize * xc / 2, subYSize * yc / 2, null);
+		gd.drawImage(loader.byExtra(0), subXShift * format.xchar / 2, subYShift * format.ychar / 2,
+				subXSize * format.xchar / 2, subYSize * format.ychar / 2, null);
 	}
 }

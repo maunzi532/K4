@@ -8,17 +8,17 @@ import m.*;
 public class FrameDevice implements CDevice
 {
 	private int ys, xs;
-	private int colorSet;
-	private FrameActivate frameActivate;
 	private FrameInput tasten;
+	private FrameFormatter format;
+	private FrameActivate frameActivate;
 
 	public FrameDevice(int ys, int xs, int colorSet)
 	{
 		this.ys = ys;
 		this.xs = xs;
-		this.colorSet = colorSet;
 		tasten = new FrameInput();
-		frameActivate = new FrameActivate(xs, ys, tasten);
+		format = new FrameFormatter(colorSet);
+		frameActivate = new FrameActivate(xs, ys, tasten, format);
 	}
 
 	@Override
@@ -36,13 +36,8 @@ public class FrameDevice implements CDevice
 	@Override
 	public void toScreen(int[][] chars2, boolean subpixels)
 	{
-		FrameFormatter.format(frameActivate.reset(), chars2, colorSet, subpixels);
+		format.format(frameActivate.reset(), chars2, subpixels);
 		frameActivate.imageToFrame();
-	}
-
-	public int[] getColors()
-	{
-		return FrameFormatter.colors(colorSet);
 	}
 
 	@Override
@@ -55,5 +50,11 @@ public class FrameDevice implements CDevice
 	public void end() throws IOException, InterruptedException
 	{
 		frameActivate.end();
+	}
+
+	@Override
+	public FrameFormatter getFormatter()
+	{
+		return format;
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
 import m.*;
+import m.emulate.*;
 
 public class TerminalDevice implements CDevice
 {
@@ -37,5 +38,11 @@ public class TerminalDevice implements CDevice
 	public void end() throws IOException, InterruptedException
 	{
 		TerminalActivate.end();
+	}
+
+	@Override
+	public FrameFormatter getFormatter()
+	{
+		return null;
 	}
 }

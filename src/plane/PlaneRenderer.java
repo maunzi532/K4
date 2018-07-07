@@ -2,9 +2,8 @@ package plane;
 
 import java.awt.*;
 import java.awt.image.*;
-import java.util.*;
 import java.util.List;
-import java.util.stream.*;
+import m.emulate.*;
 
 public class PlaneRenderer
 {
@@ -12,9 +11,6 @@ public class PlaneRenderer
 	public int width;
 	public int bgCode;
 	public PlaneFrame standardFrame;
-	private int cHeight;
-	private int cWidth;
-	private List<Color> colors;
 	private BufferedImage image;
 	private Graphics2D gd;
 
@@ -160,34 +156,31 @@ public class PlaneRenderer
 		return ((prev & 0x0f000000) >>> 8) | 0x2588;
 	}
 
-	public void argh(int cHeight, int cWidth, int[] colors)
+	public void argh(FrameFormatter format)
 	{
-		this.cHeight = cHeight;
-		this.cWidth = cWidth;
-		this.colors = new ArrayList<>();
-		this.colors.addAll(Arrays.stream(colors).mapToObj(Color::new).collect(Collectors.toList()));
-		this.colors.add(new Color(0, 0, 0, 0));
-		image = new BufferedImage(width * cWidth, height * cHeight, BufferedImage.TYPE_INT_ARGB);
-		gd = image.createGraphics();
-		gd.setFont(new Font("Monospace", Font.PLAIN, cHeight * 2 / 3));
+		if(format != null)
+		{
+			image = new BufferedImage(width * format.xchar, height * format.ychar, BufferedImage.TYPE_INT_ARGB);
+			gd = image.createGraphics();
+		}
 	}
 
-	public BufferedImage renderImage(boolean subpixels, List<Plane> planes, List<PlaneFrame> frames)
+	public BufferedImage renderImage(FrameFormatter format, List<Plane> planes, List<PlaneFrame> frames)
 	{
-		gd.setColor(colors.get(bgCode >> 24));
-		gd.fillRect(0, 0, width * cWidth, height * cHeight);
+		gd.setColor(format.getColors().get(bgCode >> 24));
+		gd.fillRect(0, 0, width * format.xchar, height * format.ychar);
 		for(int n = planes.size() - 1; n >= 0; n--)
 		{
 			Plane plane = planes.get(n);
 			PlaneFrame frame = frames != null ? frames.get(n) : null;
 			if(frame == null)
 				frame = standardFrame;
-			gd.setClip(frame.startX * cWidth, frame.startY * cHeight,
-					(frame.endX - frame.startX) * cWidth, (frame.endY - frame.startY) * cHeight);
+			gd.setClip(frame.startX * format.xchar, frame.startY * format.ychar,
+					(frame.endX - frame.startX) * format.xchar, (frame.endY - frame.startY) * format.ychar);
 			if(Math.max(frame.startY, plane.getYShift()) < Math.min(frame.endY, plane.getYShift() + plane.getYSize())
 				&& Math.max(frame.startX, plane.getXShift()) < Math.min(frame.endX, plane.getXShift() + plane.getXSize()))
 			{
-				plane.draw(gd, cHeight, cWidth, colors, subpixels);
+				plane.draw(gd, format);
 			}
 		}
 		gd.setClip(null);
