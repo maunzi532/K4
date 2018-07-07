@@ -44,6 +44,11 @@ public class FrameActivate
 		frame.getGraphics().drawImage(screen, 0, 0, null);
 	}
 
+	public void imageToFrame(BufferedImage image)
+	{
+		frame.getGraphics().drawImage(image, 0, 0, null);
+	}
+
 	public void end()
 	{
 		frame.dispose();

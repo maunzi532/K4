@@ -1,6 +1,7 @@
 package m.emulate;
 
 import java.awt.*;
+import java.awt.image.*;
 import java.io.*;
 import m.*;
 
@@ -37,6 +38,17 @@ public class FrameDevice implements CDevice
 	{
 		FrameFormatter.format(frameActivate.reset(), chars2, colorSet, subpixels);
 		frameActivate.imageToFrame();
+	}
+
+	public int[] getColors()
+	{
+		return FrameFormatter.colors(colorSet);
+	}
+
+	@Override
+	public void toScreen(BufferedImage image)
+	{
+		frameActivate.imageToFrame(image);
 	}
 
 	@Override

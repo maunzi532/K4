@@ -16,12 +16,37 @@ public class EmulationTest
 	}
 
 	@Test
-	public void test0()
+	public void normal()
 	{
 		init();
 		try
 		{
-			M.wugu(device, true);
+			M.wugu(device, true, false);
+		}catch(InterruptedException | IOException e)
+		{
+			e.printStackTrace();
+			Assert.fail();
+		}
+		finally
+		{
+			try
+			{
+				device.end();
+			}catch(IOException | InterruptedException e)
+			{
+				e.printStackTrace();
+				Assert.fail();
+			}
+		}
+	}
+
+	@Test
+	public void drawMode()
+	{
+		init();
+		try
+		{
+			M.wugu(device, true, true);
 		}catch(InterruptedException | IOException e)
 		{
 			e.printStackTrace();

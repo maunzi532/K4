@@ -1,7 +1,9 @@
 package plane;
 
+import java.awt.*;
 import java.awt.image.*;
 import java.util.*;
+import java.util.List;
 
 public class SubPixelPlane implements Plane
 {
@@ -14,6 +16,7 @@ public class SubPixelPlane implements Plane
 	private int yAdd;
 	private int xAdd;
 	private int[][] data;
+	private BufferedImage image;
 
 	public SubPixelPlane init(BufferedImage image)
 	{
@@ -57,6 +60,11 @@ public class SubPixelPlane implements Plane
 		setSubYSize(yl);
 		setSubXSize(xl);
 		return this;
+	}
+
+	public void drawModeImage(BufferedImage image)
+	{
+		this.image = image;
 	}
 
 	@Override
@@ -172,5 +180,12 @@ public class SubPixelPlane implements Plane
 			return num / 2;
 		else
 			return (num - 1) / 2;
+	}
+
+	@Override
+	public void draw(Graphics2D gd, int yc, int xc, List<Color> colors, boolean subpixels)
+	{
+		gd.drawImage(image, subXShift * xc / 2, subYShift * yc / 2,
+				subXSize * xc / 2, subYSize * yc / 2, null);
 	}
 }

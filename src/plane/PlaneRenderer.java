@@ -1,14 +1,22 @@
 package plane;
 
+import java.awt.*;
+import java.awt.image.*;
 import java.util.*;
+import java.util.List;
+import java.util.stream.*;
 
 public class PlaneRenderer
 {
 	public int height;
 	public int width;
 	public int bgCode;
-	public int[][] chars2;
 	public PlaneFrame standardFrame;
+	private int cHeight;
+	private int cWidth;
+	private List<Color> colors;
+	private BufferedImage image;
+	private Graphics2D gd;
 
 	public PlaneRenderer(int height, int width, int bg)
 	{
@@ -18,12 +26,9 @@ public class PlaneRenderer
 		standardFrame = new PlaneFrame(0, 0, height, width);
 	}
 
-	public void renderPlanes(boolean subpixels, List<Plane> planes, List<PlaneFrame> frames)
+	public int[][] renderPlanes(boolean subpixels, List<Plane> planes, List<PlaneFrame> frames)
 	{
-		/*for(int iy = 0; iy < height; iy++)
-			for(int ix = 0; ix < width; ix++)
-				chars2[iy][ix] = 0;*/
-		chars2 = new int[height][width];
+		int[][] chars2 = new int[height][width];
 		for(int n = 0; n < planes.size(); n++)
 		{
 			Plane plane = planes.get(n);
@@ -40,6 +45,7 @@ public class PlaneRenderer
 				chars2[iy][ix] = mergeData(chars2[iy][ix], bgCode);
 				chars2[iy][ix] = prepare(chars2[iy][ix], subpixels);
 			}
+		return chars2;
 	}
 
 	public static int mergeData(int prev, int add)
@@ -152,5 +158,39 @@ public class PlaneRenderer
 		}
 		//bg to fg
 		return ((prev & 0x0f000000) >>> 8) | 0x2588;
+	}
+
+	public void argh(int cHeight, int cWidth, int[] colors)
+	{
+		this.cHeight = cHeight;
+		this.cWidth = cWidth;
+		this.colors = new ArrayList<>();
+		this.colors.addAll(Arrays.stream(colors).mapToObj(Color::new).collect(Collectors.toList()));
+		this.colors.add(new Color(0, 0, 0, 0));
+		image = new BufferedImage(width * cWidth, height * cHeight, BufferedImage.TYPE_INT_ARGB);
+		gd = image.createGraphics();
+		gd.setFont(new Font("Monospace", Font.PLAIN, cHeight * 2 / 3));
+	}
+
+	public BufferedImage renderImage(boolean subpixels, List<Plane> planes, List<PlaneFrame> frames)
+	{
+		gd.setColor(colors.get(bgCode >> 24));
+		gd.fillRect(0, 0, width * cWidth, height * cHeight);
+		for(int n = planes.size() - 1; n >= 0; n--)
+		{
+			Plane plane = planes.get(n);
+			PlaneFrame frame = frames != null ? frames.get(n) : null;
+			if(frame == null)
+				frame = standardFrame;
+			gd.setClip(frame.startX * cWidth, frame.startY * cHeight,
+					(frame.endX - frame.startX) * cWidth, (frame.endY - frame.startY) * cHeight);
+			if(Math.max(frame.startY, plane.getYShift()) < Math.min(frame.endY, plane.getYShift() + plane.getYSize())
+				&& Math.max(frame.startX, plane.getXShift()) < Math.min(frame.endX, plane.getXShift() + plane.getXSize()))
+			{
+				plane.draw(gd, cHeight, cWidth, colors, subpixels);
+			}
+		}
+		gd.setClip(null);
+		return image;
 	}
 }

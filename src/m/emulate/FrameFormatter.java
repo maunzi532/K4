@@ -20,13 +20,18 @@ public class FrameFormatter
 	private static List<Integer> halfChars = Arrays.asList(
 			0x0020, 0x2591, 0x2592, 0x2593, 0x2588);
 
+	public static int[] colors(int colorSet)
+	{
+		return colorSet > 0 ? TerminalColors.termColors1 : TerminalColors.termColors0;
+	}
+
 	public static void format(Graphics2D gd, int[][] chars2, int colorSet, boolean subpixels)
 	{
 		int height = chars2.length;
 		if(height <= 0)
 			return;
 		int width = chars2[0].length;
-		int[] colors = colorSet > 0 ? TerminalColors.termColors1 : TerminalColors.termColors0;
+		int[] colors = colors(colorSet);
 		int lastBg = -1;
 		for(int iy = 0; iy < height; iy++)
 			for(int ix = 0; ix < width; ix++)

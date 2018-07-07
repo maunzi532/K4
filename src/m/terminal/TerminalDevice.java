@@ -1,6 +1,7 @@
 package m.terminal;
 
 import java.awt.*;
+import java.awt.image.*;
 import java.io.*;
 import m.*;
 
@@ -24,6 +25,12 @@ public class TerminalDevice implements CDevice
 	public void toScreen(int[][] chars2, boolean subpixels)
 	{
 		System.out.print(TerminalFormatter.format(chars2));
+	}
+
+	@Override
+	public void toScreen(BufferedImage image)
+	{
+		throw new RuntimeException();
 	}
 
 	@Override
