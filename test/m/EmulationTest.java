@@ -24,13 +24,13 @@ public class EmulationTest
 	public void normal()
 	{
 		device = new FrameDevice(48, 170, 16, 8, 0);
-		Start.start(device, true, false, new A());
+		Start.start(device, true, false, DrawSetting.T, new A());
 	}
 
 	@Test
 	public void drawMode()
 	{
 		device = new FrameDevice(48, 170, 16, 8, 0);
-		Start.start(device, true, true, new A());
+		Start.start(device, true, true, DrawSetting.A, new A());
 	}
 }

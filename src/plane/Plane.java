@@ -2,6 +2,7 @@ package plane;
 
 import java.awt.*;
 import m.emulate.*;
+import util.*;
 
 public interface Plane
 {
@@ -19,5 +20,5 @@ public interface Plane
 
 	void setXShift(int xShift);
 
-	void draw(Graphics2D gd, FrameFormatter format);
+	void draw(Graphics2D gd, FrameFormatter format, DrawSetting drawSetting);
 }

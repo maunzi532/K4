@@ -5,33 +5,33 @@ import java.util.*;
 
 public class ImageLoader
 {
-	private String baseLocation;
-	private List<String> extra;
-	private Map<String, BufferedImage> images;
+	public static final int C = 0;
+	public static final int T = 1;
+	public static final int E = 2;
+	public static final int A = 3;
+
+	private List images;
 
 	public ImageLoader(String baseLocation, String... extra)
 	{
-		this.baseLocation = baseLocation;
-		this.extra = Arrays.asList(extra);
-		images = new HashMap<>();
+		images = new ArrayList();
+		images.add(baseLocation + "C.png");
+		images.add(baseLocation + "T.png");
+		images.add(baseLocation + "E.png");
+		Arrays.stream(extra).map(e -> e + ".png").forEach(images::add);
 	}
 
-	private BufferedImage loadGet(String code)
+	public BufferedImage getImage(DrawSetting n)
 	{
-		if(images.containsKey(code))
-			return images.get(code);
-		BufferedImage image = Lader7.imageResource(code);
-		images.put(code, image);
-		return image;
-	}
-
-	public BufferedImage bySuffix(String suffix)
-	{
-		return loadGet(baseLocation + suffix + ".png");
-	}
-
-	public BufferedImage byExtra(int num)
-	{
-		return loadGet(extra.get(num) + ".png");
+		Object object = images.get(n.ordinal());
+		if(object instanceof BufferedImage)
+			return (BufferedImage) object;
+		if(object instanceof String)
+		{
+			BufferedImage image = Lader7.imageResource((String) object);
+			images.set(n.ordinal(), image);
+			return image;
+		}
+		throw new RuntimeException();
 	}
 }

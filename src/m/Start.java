@@ -4,10 +4,11 @@ import java.awt.*;
 import java.io.*;
 import java.util.*;
 import plane.*;
+import util.*;
 
 public class Start
 {
-	public static void start(CDevice device, boolean subpixels, boolean drawMode, Game game)
+	public static void start(CDevice device, boolean subpixels, boolean drawMode, DrawSetting drawSetting, Game game)
 	{
 		try
 		{
@@ -22,7 +23,7 @@ public class Start
 				ArrayList<PlaneFrame> frames = new ArrayList<>();
 				game.fillLists(planes, frames);
 				if(drawMode)
-					device.toScreen(planeRenderer.renderImage(device.getFormatter(), planes, frames));
+					device.toScreen(planeRenderer.renderImage(device.getFormatter(), drawSetting, planes, frames));
 				else
 					device.toScreen(planeRenderer.renderPlanes(subpixels, planes, frames), subpixels);
 
@@ -38,6 +39,18 @@ public class Start
 					case 'n':
 						if(drawModeStart)
 							drawMode = !drawMode;
+						break;
+					case '7':
+						if(drawModeStart)
+							drawSetting = DrawSetting.T;
+						break;
+					case '8':
+						if(drawModeStart)
+							drawSetting = DrawSetting.E;
+						break;
+					case '9':
+						if(drawModeStart)
+							drawSetting = DrawSetting.A;
 						break;
 					default:
 						game.handleInput(c);

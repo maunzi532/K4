@@ -24,7 +24,7 @@ public class SubPixelPlane implements Plane
 	public SubPixelPlane init(String baseLocation, String... extra)
 	{
 		loader = new ImageLoader(baseLocation, extra);
-		BufferedImage image = loader.bySuffix("C");
+		BufferedImage image = loader.getImage(DrawSetting.C);
 		WritableRaster raster = image.getRaster();
 		int numBands = raster.getNumBands();
 		int[] temp = new int[numBands];
@@ -208,9 +208,9 @@ public class SubPixelPlane implements Plane
 	}
 
 	@Override
-	public void draw(Graphics2D gd, FrameFormatter format)
+	public void draw(Graphics2D gd, FrameFormatter format, DrawSetting drawSetting)
 	{
-		BufferedImage image0 = loader.byExtra(0);
+		BufferedImage image0 = loader.getImage(drawSetting);
 		gd.drawImage(image0, subXShift * format.xchar / 2, subYShift * format.ychar / 2,
 				(subXShift + subXSize) * format.xchar / 2, (subYShift + subYSize) * format.ychar / 2,
 				flippedX ? image0.getWidth() : 0, flippedY ? image0.getHeight() : 0,

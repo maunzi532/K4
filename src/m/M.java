@@ -31,6 +31,6 @@ public class M
 		{
 			device = new TerminalDevice();
 		}
-		Start.start(device, subpixels, false, new A());
+		Start.start(device, subpixels, false, DrawSetting.T, new A());
 	}
 }

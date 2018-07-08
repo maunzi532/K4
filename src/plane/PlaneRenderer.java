@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.*;
 import java.util.List;
 import m.emulate.*;
+import util.*;
 
 public class PlaneRenderer
 {
@@ -156,7 +157,7 @@ public class PlaneRenderer
 		return ((prev & 0x0f000000) >>> 8) | 0x2588;
 	}
 
-	public BufferedImage renderImage(FrameFormatter format, List<Plane> planes, List<PlaneFrame> frames)
+	public BufferedImage renderImage(FrameFormatter format, DrawSetting drawSetting, List<Plane> planes, List<PlaneFrame> frames)
 	{
 		if(image == null)
 		{
@@ -176,7 +177,7 @@ public class PlaneRenderer
 			if(Math.max(frame.startY, plane.getYShift()) < Math.min(frame.endY, plane.getYShift() + plane.getYSize())
 				&& Math.max(frame.startX, plane.getXShift()) < Math.min(frame.endX, plane.getXShift() + plane.getXSize()))
 			{
-				plane.draw(gd, format);
+				plane.draw(gd, format, drawSetting);
 			}
 		}
 		gd.setClip(null);

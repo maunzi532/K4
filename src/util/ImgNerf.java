@@ -1,7 +1,6 @@
 package util;
 
 import java.awt.image.*;
-import java.io.*;
 
 public class ImgNerf
 {
@@ -69,8 +68,6 @@ public class ImgNerf
 			return 0b00010000;
 		if(clr0.length == 1)
 		{
-			/*if(clr0[0] == 0)
-				return 0b00010000;*/
 			return clr0[0];
 		}
 		int a = -1;
@@ -91,16 +88,11 @@ public class ImgNerf
 
 	public static void main(String[] args)
 	{
-		try
-		{
-			convertImage(args[0]);
-		}catch(IOException e)
-		{
-			throw new RuntimeException(e);
-		}
+		Lader7.inJarCheck();
+		convertImage(args[0]);
 	}
 
-	public static void convertImage(String s) throws IOException
+	public static void convertImage(String s)
 	{
 		ImgNerf nerf = new ImgNerf(Lader7.imageSavedata(s));
 		nerf.convert();

@@ -29,6 +29,11 @@ public class SpriteList
 		sprites.remove(sprite);
 	}
 
+	public void removeAll()
+	{
+		sprites.clear();
+	}
+
 	public void updatePositions(int yScroll, int xScroll)
 	{
 		for(Sprite sprite : sprites)
