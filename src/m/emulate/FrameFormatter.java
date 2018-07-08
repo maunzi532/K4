@@ -15,14 +15,16 @@ public class FrameFormatter
 	private static List<Integer> halfChars = Arrays.asList(
 			0x0020, 0x2591, 0x2592, 0x2593, 0x2588);
 
-	public int ychar = 2;
-	public int xchar = 1;
+	public int ychar;
+	public int xchar;
 	private List<Color> colors;
 	private Font fN;
 	private Font fB;
 
-	public FrameFormatter(int colorSet)
+	public FrameFormatter(int ychar, int xchar, int colorSet)
 	{
+		this.ychar = ychar;
+		this.xchar = xchar;
 		int[] colors0 = colorSet > 0 ? TerminalColors.termColors1 : TerminalColors.termColors0;
 		colors = Arrays.stream(colors0).mapToObj(Color::new).collect(Collectors.toList());
 		fN = new Font("Monospace", Font.PLAIN, ychar * 2 / 3);

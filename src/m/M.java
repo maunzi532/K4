@@ -1,12 +1,10 @@
 package m;
 
-import java.awt.*;
 import java.io.*;
 import m.emulate.*;
 import m.terminal.*;
-import plane.*;
-import sprites.*;
 import util.*;
+import game.*;
 
 public class M
 {
@@ -26,82 +24,13 @@ public class M
 			if(args.length > 2)
 			{
 				device = new FrameDevice(Integer.parseInt(args[c]),
-						Integer.parseInt(args[c + 1]), Integer.parseInt(args[c + 2]));
+						Integer.parseInt(args[c + 1]), 16, 8, Integer.parseInt(args[c + 2]));
 			}
 		}
 		if(device == null)
 		{
 			device = new TerminalDevice();
 		}
-		try
-		{
-			wugu(device, subpixels, false);
-		}catch(InterruptedException | IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		finally
-		{
-			device.end();
-		}
-	}
-
-	public static void wugu(CDevice device, boolean subpixels, boolean drawMode) throws IOException, InterruptedException
-	{
-		boolean drawModeStart = device.getFormatter() != null;
-		drawMode = drawMode && drawModeStart;
-		Dimension xy = device.startDimension();
-		PlaneRenderer planeRenderer = new PlaneRenderer(xy.height, xy.width, 0x0);
-
-		SpriteList spriteList = new SpriteList(new PlaneFrame(3, 6, xy.height - 3, xy.width - 6));
-		spriteList.addSprite(new XSprite(0, 0, 0, 0, 0, new SubPixelPlane().init("N1_I", "N1_IT")));
-		SubPixelPlane character = new SubPixelPlane().init("Char6_N", "Char6_NT");
-		//character.setFlippedY(true);
-		XSprite sprite = new XSprite(xy.height * 2, xy.width, character.getSubYSize(), character.getSubXSize() / 2, 1, character);
-		spriteList.addSprite(sprite);
-		spriteList.addSprite(new TSprite(0, 0, 0, 0, 2, new TextPlane(15, 0, "ARGH wugu ---", "ffcxgxhdx")));
-
-		int ys = 0;
-		int xs = 0;
-		label68: while(true)
-		{
-			spriteList.updatePositions(ys * -5, xs * -9);
-			if(drawMode)
-				device.toScreen(planeRenderer.renderImage(device.getFormatter(), spriteList.planes(), spriteList.planeFrames()));
-			else
-				device.toScreen(planeRenderer.renderPlanes(subpixels, spriteList.planes(), spriteList.planeFrames()), subpixels);
-
-			int c = -1;
-			while(c < 0)
-				c = device.getInput();
-			switch(c)
-			{
-				case '1':
-					break label68;
-				case 'w':
-					ys--;
-					break;
-				case 's':
-					ys++;
-					break;
-				case 'a':
-					xs--;
-					sprite.x -= 9;
-					character.setFlippedX(true);
-					break;
-				case 'd':
-					xs++;
-					sprite.x += 9;
-					character.setFlippedX(false);
-					break;
-				case 'm':
-					subpixels = !subpixels;
-					break;
-				case 'n':
-					if(drawModeStart)
-						drawMode = !drawMode;
-					break;
-			}
-		}
+		Start.start(device, subpixels, false, new A());
 	}
 }

@@ -12,12 +12,12 @@ public class FrameDevice implements CDevice
 	private FrameFormatter format;
 	private FrameActivate frameActivate;
 
-	public FrameDevice(int ys, int xs, int colorSet)
+	public FrameDevice(int ys, int xs, int ychar, int xchar, int colorSet)
 	{
 		this.ys = ys;
 		this.xs = xs;
 		tasten = new FrameInput();
-		format = new FrameFormatter(colorSet);
+		format = new FrameFormatter(ychar, xchar, colorSet);
 		frameActivate = new FrameActivate(xs, ys, tasten, format);
 	}
 

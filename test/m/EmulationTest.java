@@ -1,6 +1,6 @@
 package m;
 
-import java.io.*;
+import game.*;
 import m.emulate.*;
 import org.junit.*;
 import util.*;
@@ -23,52 +23,14 @@ public class EmulationTest
 	@Test
 	public void normal()
 	{
-		device = new FrameDevice(48, 170, 0);
-		init();
-		try
-		{
-			M.wugu(device, true, false);
-		}catch(InterruptedException | IOException e)
-		{
-			e.printStackTrace();
-			Assert.fail();
-		}
-		finally
-		{
-			try
-			{
-				device.end();
-			}catch(IOException | InterruptedException e)
-			{
-				e.printStackTrace();
-				Assert.fail();
-			}
-		}
+		device = new FrameDevice(48, 170, 16, 8, 0);
+		Start.start(device, true, false, new A());
 	}
 
 	@Test
 	public void drawMode()
 	{
-		device = new FrameDevice(48, 170, 0);
-		init();
-		try
-		{
-			M.wugu(device, true, true);
-		}catch(InterruptedException | IOException e)
-		{
-			e.printStackTrace();
-			Assert.fail();
-		}
-		finally
-		{
-			try
-			{
-				device.end();
-			}catch(IOException | InterruptedException e)
-			{
-				e.printStackTrace();
-				Assert.fail();
-			}
-		}
+		device = new FrameDevice(48, 170, 16, 8, 0);
+		Start.start(device, true, true, new A());
 	}
 }

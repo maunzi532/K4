@@ -10,7 +10,7 @@ public class CharTest
 	public static void charTest(String c1, String start, String end)
 	{
 		boolean bold = false;
-		if(c1.startsWith("x"))
+		if(c1.startsWith("game"))
 		{
 			bold = true;
 			c1 = c1.substring(1);
