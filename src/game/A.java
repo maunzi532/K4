@@ -35,7 +35,7 @@ public class A implements Game
 	@Override
 	public void handleInput(int input)
 	{
-		character.handleInput(input);
+		character.update(input);
 		yscroll = screen.height - (character.sprite.yLEdge() + character.sprite.yHEdge()) / 2;
 		xscroll = screen.width - character.getX();
 	}

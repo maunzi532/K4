@@ -5,6 +5,10 @@ import sprites.*;
 
 public class XChar
 {
+	public static final int LAG = 8;
+	public static final int MAX = 3;
+
+	private XInputBuffer inputBuffer;
 	public XSprite sprite;
 	public int direction;
 	public int walkingSpeed;
@@ -12,27 +16,43 @@ public class XChar
 
 	public XChar()
 	{
+		inputBuffer = new XInputBuffer(MAX);
 		SubPixelPlane cPlane = new SubPixelPlane().init("Char6_N", "Char6_AC");
 		sprite = new XSprite(100, 100, cPlane.getSubYSize(), cPlane.getSubXSize() / 2, 1, cPlane);
 		direction = 1;
 	}
 
-	public void handleInput(int input)
+	public void update(int input)
+	{
+		inputBuffer.addInput(input);
+		do
+		{
+			int inputC = inputBuffer.getInput();
+			if(inputC == -2)
+				break;
+			inputBuffer.newLag(handleInput(inputC));
+		}while(inputBuffer.zeroLag());
+		sprite.x += direction * walkingSpeed * 4;
+		sprite.y -= ySpeed;
+		if(ySpeed > -1)
+			ySpeed--;
+	}
+
+	public int handleInput(int input)
 	{
 		switch(input)
 		{
 			case 'w':
-				//ys--;
 				ySpeed = 6;
-				break;
+				return LAG;
 			case 's':
-				//ys++;
 				walkingSpeed = 0;
-				break;
+				return LAG;
 			case 'a':
-				//xs--;
 				if(direction < 0 && walkingSpeed > 0)
 				{
+					if(walkingSpeed >= 2)
+						return 0;
 					walkingSpeed = 2;
 				}
 				else
@@ -41,11 +61,12 @@ public class XChar
 					walkingSpeed = 1;
 				}
 				sprite.plane.setFlippedX(true);
-				break;
+				return LAG;
 			case 'd':
-				//xs++;
 				if(direction > 0 && walkingSpeed > 0)
 				{
+					if(walkingSpeed >= 2)
+						return 0;
 					walkingSpeed = 2;
 				}
 				else
@@ -54,12 +75,10 @@ public class XChar
 					walkingSpeed = 1;
 				}
 				sprite.plane.setFlippedX(false);
-				break;
+				return LAG;
+			default:
+				return 0;
 		}
-		sprite.x += direction * walkingSpeed * 4;
-		sprite.y -= ySpeed;
-		if(ySpeed > -1)
-			ySpeed--;
 	}
 
 	public int getY()
