@@ -1,0 +1,46 @@
+package sets;
+
+import effekt.*;
+import effekt.bedingung.*;
+import effekt.wirkung.*;
+import karten.*;
+import kartenset.*;
+
+public class SetV2Waffen extends Kartenset<Waffenkarte>
+{
+	public SetV2Waffen()
+	{
+		super();
+		neueKarte(new Waffenkarte("Stange", 5, 4, 1, Karte.alleKlassen));
+		neueKarte(new Waffenkarte("Großer Stock", 6, 4, 3, 0b11011011));
+		neueKarte(new Waffenkarte("Eisenschwert", 6, 3, 5, 0b10001000));
+		neueKarte(new Waffenkarte("Spiegelsplitter", 8, 1, 9, 0b00001100,
+				new ZTEBuilder(EffektAn.WAFFE).setStartTrigger(StartTrigger2.VERWENDET)
+						.setBedingungen(new BHauptwaffe()).setAn(EffektAn.CHARAKTER).setWirkung(StatWirkung.verteidigung(-2))
+						.setEndTrigger(EndTrigger2.VERWENDET).generateText().createZTE(),
+				new ZTEBuilder(EffektAn.WAFFE).setNum(1).setStartTrigger(StartTrigger2.IMMER_NACH)
+						.setBedingungen(new BHauptwaffe()).setWirkung(StatWirkung.verteidigung(-1))
+						.setBetrifftGegner(true).setAn(EffektAn.CHARAKTER).setDauer(3).generateText().createZTE()));
+		neueKarte(new Waffenkarte("Ast", 9, 4, 1, 0b00000001,
+				new ZTEBuilder(EffektAn.WAFFE).setStartTrigger(StartTrigger2.GES_NACH)
+						.setWirkung(StatWirkung.extraangriffe(1)).generateText().createZTE()));
+		neueKarte(new Waffenkarte("Fortges. Waffe"/*"Fortgeschrittene Waffe"*/, 12, 7, 5, Karte.alleKlassen));
+		neueKarte(new Waffenkarte("Fortg. Ausl. stab"/*"Fortgeschrittener Auslassstab"*/, 13, 4, 6, Karte.alleKlassen,
+				new ZTEBuilder(EffektAn.WAFFE).setStartTrigger(StartTrigger2.GES_VOR).setBedingungen(new BMagieAusgeben())
+						.setWirkung(new StatWirkung(2, 2, 2, 0, 2))
+						.generateText().createZTE()));
+		neueKarte(new Waffenkarte("Giftbogen", 12, 0, 8, 0b01000001,
+				new ZTEBuilder(EffektAn.WAFFE).setStartTrigger(StartTrigger2.IMMER_NACH)
+						.setBetrifftGegner(true).setAn(EffektAn.CHARAKTER).setDauer(2)
+						.setWirkung(new StatWirkung(2, 2, 2, 0, 2))
+						.generateText().createZTE()));
+		/*neueKarte(new Waffenkarte("Abenteuerschwert", 7, 4, 5, 0b10000000));
+		neueKarte(new Waffenkarte("?Bogen", 10, 2, 6, 0b01000000));
+		neueKarte(new Waffenkarte("Geladener Stab", 8, 2, 5, 0b00100000));
+		neueKarte(new Waffenkarte("Schutzflügel", 7, 2, 4, 0b00010000));
+		neueKarte(new Waffenkarte("Politurfaust", 7, 4, 4, 0b00001000));
+		neueKarte(new Waffenkarte("Spuk", 8, 1, 6, 0b00000100));
+		neueKarte(new Waffenkarte("?Wasser", 5, 2, 3, 0b00000010));
+		neueKarte(new Waffenkarte("?Beschwörung", 8, 2, 4, 0b00000001));*/
+	}
+}
