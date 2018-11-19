@@ -248,6 +248,11 @@ public class NTeilnehmer
 		return magie;
 	}
 
+	public void setMagie(int magie)
+	{
+		this.magie = magie;
+	}
+
 	public int getLeben()
 	{
 		return leben;

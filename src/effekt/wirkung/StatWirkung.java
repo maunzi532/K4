@@ -10,27 +10,29 @@ public class StatWirkung implements Wirkung
 	private final int verteidigung;
 	private final int mindestschaden;
 	private final int mindestschutz;
+	private final int magie;
 	private final int extraangriffe;
 	private final int setzeangriffe;
 
 	public StatWirkung(int angriff, int geschwindigkeit, int verteidigung)
 	{
-		this(angriff, geschwindigkeit, verteidigung, 0, 0, 0, -1);
+		this(angriff, geschwindigkeit, verteidigung, 0, 0, 0, 0, -1);
 	}
 
 	public StatWirkung(int angriff, int geschwindigkeit, int verteidigung, int mindestschaden, int mindestschutz)
 	{
-		this(angriff, geschwindigkeit, verteidigung, mindestschaden, mindestschutz, 0, -1);
+		this(angriff, geschwindigkeit, verteidigung, mindestschaden, mindestschutz, 0, 0, -1);
 	}
 
 	public StatWirkung(int angriff, int geschwindigkeit, int verteidigung, int mindestschaden, int mindestschutz,
-			int extraangriffe, int setzeangriffe)
+			int magie, int extraangriffe, int setzeangriffe)
 	{
 		this.angriff = angriff;
 		this.geschwindigkeit = geschwindigkeit;
 		this.verteidigung = verteidigung;
 		this.mindestschaden = mindestschaden;
 		this.mindestschutz = mindestschutz;
+		this.magie = magie;
 		this.extraangriffe = extraangriffe;
 		this.setzeangriffe = setzeangriffe;
 		text = generateText();
@@ -50,6 +52,10 @@ public class StatWirkung implements Wirkung
 		if(extraangriffe != 0)
 		{
 			return extraangriffe + " Extraangriff" + (extraangriffe == 1 ? "" : "e");
+		}
+		if(magie != 0)
+		{
+			return (magie > 0 ? "+" : "") + magie + " Magie für eigene Aktionen";
 		}
 		StringBuilder sb = new StringBuilder();
 		boolean k = false;
@@ -99,6 +105,11 @@ public class StatWirkung implements Wirkung
 		return mindestschutz;
 	}
 
+	public int magie()
+	{
+		return magie;
+	}
+
 	public int extraangriffe()
 	{
 		return extraangriffe;
@@ -116,36 +127,41 @@ public class StatWirkung implements Wirkung
 
 	public static StatWirkung angriff(int angriff)
 	{
-		return new StatWirkung(angriff, 0, 0, 0, 0, 0, -1);
+		return new StatWirkung(angriff, 0, 0, 0, 0, 0, 0, -1);
 	}
 
 	public static StatWirkung geschwindigkeit(int geschwindigkeit)
 	{
-		return new StatWirkung(0, geschwindigkeit, 0, 0, 0, 0, -1);
+		return new StatWirkung(0, geschwindigkeit, 0, 0, 0, 0, 0, -1);
 	}
 
 	public static StatWirkung verteidigung(int verteidigung)
 	{
-		return new StatWirkung(0, 0, verteidigung, 0, 0, 0, -1);
+		return new StatWirkung(0, 0, verteidigung, 0, 0, 0, 0, -1);
 	}
 
 	public static StatWirkung mindestschaden(int mindestschaden)
 	{
-		return new StatWirkung(0, 0, 0, mindestschaden, 0, 0, -1);
+		return new StatWirkung(0, 0, 0, mindestschaden, 0, 0, 0, -1);
 	}
 
 	public static StatWirkung mindestschutz(int mindestschutz)
 	{
-		return new StatWirkung(0, 0, 0, 0, mindestschutz, 0, -1);
+		return new StatWirkung(0, 0, 0, 0, mindestschutz, 0, 0, -1);
+	}
+
+	public static StatWirkung magie(int magie)
+	{
+		return new StatWirkung(0, 0, 0, 0, 0, magie, 0, -1);
 	}
 
 	public static StatWirkung extraangriffe(int extraangriffe)
 	{
-		return new StatWirkung(0, 0, 0, 0, 0, extraangriffe, -1);
+		return new StatWirkung(0, 0, 0, 0, 0, 0, extraangriffe, -1);
 	}
 
 	public static StatWirkung setzeangriffe(int setzeangriffe)
 	{
-		return new StatWirkung(0, 0, 0, 0, 0, 0, setzeangriffe);
+		return new StatWirkung(0, 0, 0, 0, 0, 0, 0, setzeangriffe);
 	}
 }

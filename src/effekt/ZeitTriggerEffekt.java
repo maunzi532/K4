@@ -29,36 +29,6 @@ public class ZeitTriggerEffekt extends TriggerEffekt
 		this.wirkung = wirkung;
 	}
 
-	public EndTrigger getEndTrigger()
-	{
-		return endTrigger;
-	}
-
-	public int getDauer()
-	{
-		return dauer;
-	}
-
-	public Wirkung getWirkung()
-	{
-		return wirkung;
-	}
-
-	public boolean isBetrifftGegner()
-	{
-		return betrifftGegner;
-	}
-
-	public NKartentyp getAn()
-	{
-		return an;
-	}
-
-	public W getZielWaffe()
-	{
-		return zielWaffe;
-	}
-
 	@Override
 	public void triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
 	{

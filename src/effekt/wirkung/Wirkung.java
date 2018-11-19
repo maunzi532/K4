@@ -12,6 +12,8 @@ public interface Wirkung
 
 	int mindestschutz();
 
+	int magie();
+
 	int extraangriffe();
 
 	int setzeangriffe();

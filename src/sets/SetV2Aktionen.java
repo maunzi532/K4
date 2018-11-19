@@ -2,6 +2,7 @@ package sets;
 
 import effekt.*;
 import effekt.bedingung.*;
+import effekt.direktwirkung.*;
 import effekt.wirkung.*;
 import karten.*;
 import kartenset.*;
@@ -44,5 +45,8 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 		neueKarte(new Aktionskarte("Schutzangriff", 1, 1, -5, true,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
 						.setWirkung(StatWirkung.verteidigung(3)).generateText().createZTE()));
+		neueKarte(new Aktionskarte("Magieklatsch", 0, -2, 0, false,
+				new DTEBuilder().setStartTrigger(StartTrigger.IMMER_NACH)
+						.setDirektWirkung(new MagieWirkung(2, false)).generateText().createDTE()));
 	}
 }

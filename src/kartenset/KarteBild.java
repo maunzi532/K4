@@ -112,7 +112,7 @@ public class KarteBild
 		if(kartenEffekt == null)
 			return 0;
 		int zeilen = 1;
-		int l0 = kartenEffekt.getTyp() == null ? 0 : kartenEffekt.getTyp().length() + 1;
+		int l0 = kartenEffekt.getTyp() == null ? 0 : kartenEffekt.getTyp().length();
 		int lt = breiteInnen - l0;
 		String text = kartenEffekt.getText();
 		while(text.length() > lt)
@@ -122,7 +122,7 @@ public class KarteBild
 			if(zeilen <= 1)
 			{
 				if(kartenEffekt.getTyp() != null)
-					sb.append(kartenEffekt.getTyp()).append(' ');
+					sb.append(kartenEffekt.getTyp());
 			}
 			else
 			{
@@ -140,7 +140,7 @@ public class KarteBild
 		if(zeilen <= 1)
 		{
 			if(kartenEffekt.getTyp() != null)
-				sb.append(kartenEffekt.getTyp()).append(' ');
+				sb.append(kartenEffekt.getTyp());
 		}
 		else
 		{

@@ -2,6 +2,7 @@ package sets;
 
 import effekt.*;
 import effekt.bedingung.*;
+import effekt.direktwirkung.*;
 import effekt.wirkung.*;
 import karten.*;
 import kartenset.*;
@@ -32,8 +33,14 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 		neueKarte(new Waffenkarte("Giftbogen", 12, 0, 8, 0b01000001,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH)
 						.setBetrifftGegner(true).setAn(NKartentyp.CHARAKTER).setDauer(2)
-						.setWirkung(new StatWirkung(2, 2, 2, 0, 2))
+						.setWirkung(new StatWirkung(0, -2, -2))
 						.generateText().createZTE()));
+		neueKarte(new Waffenkarte("Fortg. Mag. Stab" /*"Fortgeschrittener Magischer Stab"*/,
+				15, 6, 6, Karte.alleKlassen,
+				new DTEBuilder().setStartTrigger(StartTrigger.ANFANG)
+						.setDirektWirkung(new MagieWirkung(2, false)).generateText().createDTE(),
+				new ZTEBuilder(NKartentyp.WAFFE).setNum(1).setStartTrigger(StartTrigger.VERWENDET)
+						.setWirkung(StatWirkung.magie(1)).setEndTrigger(EndTrigger.VERWENDET).generateText().createZTE()));
 		/*neueKarte(new Waffenkarte("Abenteuerschwert", 7, 4, 5, 0b10000000));
 		neueKarte(new Waffenkarte("?Bogen", 10, 2, 6, 0b01000000));
 		neueKarte(new Waffenkarte("Geladener Stab", 8, 2, 5, 0b00100000));
