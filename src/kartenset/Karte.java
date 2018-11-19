@@ -16,5 +16,5 @@ public interface Karte
 		return -1;
 	}
 
-	List<Effekt> effekte();
+	List<KartenEffekt> effekte();
 }

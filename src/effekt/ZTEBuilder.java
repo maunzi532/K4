@@ -7,20 +7,20 @@ import karten.*;
 
 public class ZTEBuilder
 {
-	private EffektAn auf;
+	private NKartentyp auf;
 	private String text;
 	private int num = 0;
-	private StartTrigger2 startTrigger;
-	private TriggerSeite startSeite = TriggerSeite.EIGENE;
+	private StartTrigger startTrigger;
+	private StartTriggerSeite startTriggerSeite = StartTriggerSeite.EIGENE;
 	private List<Bedingung> bedingungen = List.of();
-	private EndTrigger2 endTrigger = EndTrigger2.ZUG_ENDE;
+	private EndTrigger endTrigger = EndTrigger.ZUG_ENDE;
 	private int dauer = 1;
 	private boolean betrifftGegner = false;
-	private EffektAn an;
+	private NKartentyp an;
 	private W zielWaffe = W.OK;
-	private ZeitWirkung wirkung;
+	private Wirkung wirkung;
 
-	public ZTEBuilder(EffektAn auf)
+	public ZTEBuilder(NKartentyp auf)
 	{
 		this.auf = auf;
 		an = auf;
@@ -38,21 +38,15 @@ public class ZTEBuilder
 		return this;
 	}
 
-	public ZTEBuilder setStartTrigger(StartTrigger2 startTrigger)
+	public ZTEBuilder setStartTrigger(StartTrigger startTrigger)
 	{
 		this.startTrigger = startTrigger;
 		return this;
 	}
 
-	public ZTEBuilder setStartSeite(TriggerSeite startSeite)
+	public ZTEBuilder setStartTriggerSeite(StartTriggerSeite startTriggerSeite)
 	{
-		this.startSeite = startSeite;
-		return this;
-	}
-
-	public ZTEBuilder setBedingungen(List<Bedingung> bedingungen)
-	{
-		this.bedingungen = bedingungen;
+		this.startTriggerSeite = startTriggerSeite;
 		return this;
 	}
 
@@ -62,7 +56,7 @@ public class ZTEBuilder
 		return this;
 	}
 
-	public ZTEBuilder setEndTrigger(EndTrigger2 endTrigger)
+	public ZTEBuilder setEndTrigger(EndTrigger endTrigger)
 	{
 		this.endTrigger = endTrigger;
 		return this;
@@ -80,7 +74,7 @@ public class ZTEBuilder
 		return this;
 	}
 
-	public ZTEBuilder setAn(EffektAn an)
+	public ZTEBuilder setAn(NKartentyp an)
 	{
 		this.an = an;
 		return this;
@@ -92,7 +86,7 @@ public class ZTEBuilder
 		return this;
 	}
 
-	public ZTEBuilder setWirkung(ZeitWirkung wirkung)
+	public ZTEBuilder setWirkung(Wirkung wirkung)
 	{
 		this.wirkung = wirkung;
 		return this;
@@ -100,14 +94,14 @@ public class ZTEBuilder
 
 	public ZeitTriggerEffekt createZTE()
 	{
-		return new ZeitTriggerEffekt(text, num, startTrigger, startSeite, bedingungen, endTrigger, dauer,
+		return new ZeitTriggerEffekt(text, num, startTrigger, startTriggerSeite, bedingungen, endTrigger, dauer,
 				betrifftGegner, an, zielWaffe, wirkung);
 	}
 
 	public ZTEBuilder generateText()
 	{
 		StringBuilder sb = new StringBuilder();
-		if(startSeite == TriggerSeite.GEGNER)
+		if(startTriggerSeite == StartTriggerSeite.GEGNER)
 		{
 			sb.append("Wenn angegriffen: ");
 		}
@@ -124,7 +118,7 @@ public class ZTEBuilder
 		}
 		if(betrifftGegner)
 		{
-			if(an == EffektAn.WAFFE)
+			if(an == NKartentyp.WAFFE)
 			{
 				sb.append(switch(zielWaffe)
 				{
@@ -140,7 +134,7 @@ public class ZTEBuilder
 		}
 		else
 		{
-			if(an == EffektAn.WAFFE)
+			if(an == NKartentyp.WAFFE)
 			{
 				sb.append(switch(zielWaffe)
 				{
@@ -149,7 +143,7 @@ public class ZTEBuilder
 					case OK -> "";
 				});
 			}
-			if(an == EffektAn.CHARAKTER && auf == EffektAn.WAFFE)
+			if(an == NKartentyp.CHARAKTER && auf == NKartentyp.WAFFE)
 			{
 				sb.append("Anwender: ");
 			}

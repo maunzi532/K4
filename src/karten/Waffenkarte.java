@@ -11,10 +11,10 @@ public class Waffenkarte implements Karte
 	private final int angriff;
 	private final int geschwindigkeit;
 	private final int klassencode;
-	private final List<Effekt> effekte;
+	private final List<KartenEffekt> effekte;
 
 	public Waffenkarte(String name, int kosten, int angriff, int geschwindigkeit, int klassencode,
-			Effekt... effekte)
+			KartenEffekt... effekte)
 	{
 		this.name = name;
 		this.kosten = kosten;
@@ -70,7 +70,7 @@ public class Waffenkarte implements Karte
 	}
 
 	@Override
-	public List<Effekt> effekte()
+	public List<KartenEffekt> effekte()
 	{
 		return effekte;
 	}

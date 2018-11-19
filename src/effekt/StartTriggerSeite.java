@@ -1,12 +1,12 @@
 package effekt;
 
-public enum TriggerSeite
+public enum StartTriggerSeite
 {
 	EIGENE(true, false),
 	GEGNER(false, true),
 	BEIDE(true, true);
 
-	TriggerSeite(boolean eigeneOK, boolean gegnerOK)
+	StartTriggerSeite(boolean eigeneOK, boolean gegnerOK)
 	{
 		this.eigeneOK = eigeneOK;
 		this.gegnerOK = gegnerOK;

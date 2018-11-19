@@ -12,9 +12,9 @@ public class Charakterkarte implements Karte
 	private final int geschwindigkeit;
 	private final int verteidigung;
 	private final int leben;
-	private final List<Effekt> effekte;
+	private final List<KartenEffekt> effekte;
 
-	public Charakterkarte(String name, int angriff, int waffenwert, int geschwindigkeit, int verteidigung, int leben, Effekt... effekte)
+	public Charakterkarte(String name, int angriff, int waffenwert, int geschwindigkeit, int verteidigung, int leben, KartenEffekt... effekte)
 	{
 		this.name = name;
 		this.angriff = angriff;
@@ -25,7 +25,7 @@ public class Charakterkarte implements Karte
 		this.effekte = Arrays.asList(effekte);
 	}
 
-	public Charakterkarte(String name, int angriff, int waffenwert, int geschwindigkeit, int verteidigung, int leben, List<Effekt> effekte)
+	public Charakterkarte(String name, int angriff, int waffenwert, int geschwindigkeit, int verteidigung, int leben, List<KartenEffekt> effekte)
 	{
 		this.name = name;
 		this.angriff = angriff;
@@ -78,7 +78,7 @@ public class Charakterkarte implements Karte
 	}
 
 	@Override
-	public List<Effekt> effekte()
+	public List<KartenEffekt> effekte()
 	{
 		return effekte;
 	}

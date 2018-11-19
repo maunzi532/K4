@@ -1,6 +1,6 @@
 package effekt;
 
-public enum EndTrigger2
+public enum EndTrigger
 {
 	VERWENDET,
 	ZUG_ENDE,

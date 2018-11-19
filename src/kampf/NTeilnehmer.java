@@ -63,7 +63,7 @@ public class NTeilnehmer
 		anzahlAngriffe = 0;
 	}
 
-	public void triggereEffekte(StartTrigger2 startTrigger, boolean aktionAktiv)
+	public void triggereEffekte(StartTrigger startTrigger, boolean aktionAktiv)
 	{
 		triggereEffekte1(getCharakterKarte().effekte(), startTrigger);
 		if(aktionAktiv)
@@ -86,17 +86,17 @@ public class NTeilnehmer
 		}
 	}
 
-	public void triggereEffekte1(List<Effekt> effekte, StartTrigger2 startTrigger)
+	public void triggereEffekte1(List<KartenEffekt> effekte, StartTrigger startTrigger)
 	{
 		triggereEffekte2(effekte, startTrigger, null, null);
 	}
 
-	public void triggereEffekte1va(List<Effekt> effekte, StartTrigger2 startTrigger, W mit1)
+	public void triggereEffekte1va(List<KartenEffekt> effekte, StartTrigger startTrigger, W mit1)
 	{
 		triggereEffekte2(effekte, startTrigger, null, mit1);
 	}
 
-	public void triggereEffekte2(List<Effekt> effekte, StartTrigger2 startTrigger, NTeilnehmer ang, W mit1)
+	public void triggereEffekte2(List<KartenEffekt> effekte, StartTrigger startTrigger, NTeilnehmer ang, W mit1)
 	{
 		boolean eigene;
 		NTeilnehmer ziel1;
@@ -111,7 +111,7 @@ public class NTeilnehmer
 			eigene = false;
 			ziel1 = ang;
 		}
-		for(Effekt e : effekte)
+		for(KartenEffekt e : effekte)
 		{
 			if(e instanceof TriggerEffekt)
 			{
@@ -125,6 +125,28 @@ public class NTeilnehmer
 				}
 			}
 		}
+	}
+
+	public void beendeEffekte(EndTrigger trigger)
+	{
+		nCharakter.beendeEffekte(trigger);
+		if(trigger == EndTrigger.NACH_ANGRIFF)
+		{
+			nWaffe(mit).beendeEffekte(trigger);
+		}
+		else
+		{
+			if(nHauptwaffe != null)
+				nHauptwaffe.beendeEffekte(trigger);
+			if(nNebenwaffe != null)
+				nNebenwaffe.beendeEffekte(trigger);
+		}
+		nAktion.beendeEffekte(trigger);
+	}
+
+	public void beendeEffekte(W w)
+	{
+		nWaffe(w).beendeEffekte(EndTrigger.VERWENDET);
 	}
 
 	public boolean aktionGeht(Aktionskarte aktionskarte, W mit, NTeilnehmer ziel)
@@ -188,17 +210,17 @@ public class NTeilnehmer
 	public void angriff(int num)
 	{
 		if(num == 0)
-			triggereEffekte(StartTrigger2.EINMAL_VOR, true);
-		triggereEffekte(StartTrigger2.IMMER_VOR, true);
+			triggereEffekte(StartTrigger.EINMAL_VOR, true);
+		triggereEffekte(StartTrigger.IMMER_VOR, true);
 		int normalSchaden = nCharakter.angriff() + nWaffe(mit).angriff() + nAktion.angriff()
 				- ziel.nCharakter.verteidigung() - ziel.nWaffe(ziel.mit).verteidigung() - ziel.nAktion.verteidigung();
 		int mindestschaden = nCharakter.mindestschaden() + nWaffe(mit).mindestschaden() + nAktion.mindestschaden()
 				- ziel.nCharakter.mindestschutz() - ziel.nWaffe(ziel.mit).mindestschutz() - ziel.nAktion.mindestschutz();
 		ziel.leben -= Math.max(Math.max(normalSchaden, mindestschaden), 0);
 		if(num == 0)
-			triggereEffekte(StartTrigger2.EINMAL_NACH, true);
-		triggereEffekte(StartTrigger2.IMMER_NACH, true);
-		//Beende Effekte
+			triggereEffekte(StartTrigger.EINMAL_NACH, true);
+		triggereEffekte(StartTrigger.IMMER_NACH, true);
+		beendeEffekte(EndTrigger.NACH_ANGRIFF);
 	}
 
 	public int getGesAngriff()

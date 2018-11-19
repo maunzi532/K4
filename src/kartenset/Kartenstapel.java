@@ -17,6 +17,14 @@ public class Kartenstapel<T extends Karte>
 		ablage = new ArrayDeque<>();
 	}
 
+	public Kartenstapel(List<T> karten)
+	{
+		this.karten = karten;
+		deck = new LinkedList<>(karten);
+		umlauf = new ArrayList<>();
+		ablage = new ArrayDeque<>();
+	}
+
 	public T erhalteKarte()
 	{
 		if(deck.isEmpty())

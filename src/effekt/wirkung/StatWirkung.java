@@ -1,6 +1,6 @@
 package effekt.wirkung;
 
-public class StatWirkung implements ZeitWirkung
+public class StatWirkung implements Wirkung
 {
 	private static final String[] statnamen = new String[]{"A", "G", "V", "Mindestschaden", "Mindestschutz"};
 

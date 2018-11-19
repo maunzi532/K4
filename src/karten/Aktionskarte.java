@@ -11,9 +11,9 @@ public class Aktionskarte implements Karte
 	private final int angriffMod;
 	private final int geschwindigkeitMod;
 	private final boolean hw;
-	private final List<Effekt> effekte;
+	private final List<KartenEffekt> effekte;
 
-	public Aktionskarte(String name, int magieMod, int angriffMod, int geschwindigkeitMod, boolean hw, Effekt... effekte)
+	public Aktionskarte(String name, int magieMod, int angriffMod, int geschwindigkeitMod, boolean hw, KartenEffekt... effekte)
 	{
 		this.name = name;
 		this.magieMod = magieMod;
@@ -81,7 +81,7 @@ public class Aktionskarte implements Karte
 	}
 
 	@Override
-	public List<Effekt> effekte()
+	public List<KartenEffekt> effekte()
 	{
 		return effekte;
 	}

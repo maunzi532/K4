@@ -1,6 +1,6 @@
 package effekt.wirkung;
 
-public interface ZeitWirkung
+public interface Wirkung
 {
 	int angriff();
 

@@ -67,10 +67,10 @@ public class NKampf
 		for(NTeilnehmer n : alle)
 		{
 			if(n.nHauptwaffe != null)
-				n.triggereEffekte1va(n.getWaffeKarte(W.HW).effekte(), StartTrigger2.VERWENDET, W.HW);
+				n.triggereEffekte1va(n.getWaffeKarte(W.HW).effekte(), StartTrigger.VERWENDET, W.HW);
 			if(n.nNebenwaffe != null)
-				n.triggereEffekte1va(n.getWaffeKarte(W.NW).effekte(), StartTrigger2.VERWENDET, W.NW);
-			n.triggereEffekte(StartTrigger2.ANFANG, false);
+				n.triggereEffekte1va(n.getWaffeKarte(W.NW).effekte(), StartTrigger.VERWENDET, W.NW);
+			n.triggereEffekte(StartTrigger.ANFANG, false);
 		}
 	}
 
@@ -114,7 +114,7 @@ public class NKampf
 	{
 		for(var n : alle)
 		{
-			n.triggereEffekte(StartTrigger2.GES_VOR, true);
+			n.triggereEffekte(StartTrigger.GES_VOR, true);
 		}
 		for(var n : alle)
 		{
@@ -124,7 +124,7 @@ public class NKampf
 		sortiert.sort(Comparator.comparing(NTeilnehmer::getGesAngriff).thenComparing(e -> e.gesVorteil0).thenComparing(e -> e.index).reversed());
 		for(var n : alle)
 		{
-			n.triggereEffekte(StartTrigger2.GES_NACH, true);
+			n.triggereEffekte(StartTrigger.GES_NACH, true);
 		}
 		for(var n : alle)
 		{
@@ -160,7 +160,7 @@ public class NKampf
 		alle.addAll(gegner);
 		for(var n : alle)
 		{
-			//Beende Effekte
+			n.beendeEffekte(EndTrigger.ZUG_ENDE);
 		}
 		return 0;
 		//sende an UI

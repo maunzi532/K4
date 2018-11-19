@@ -46,12 +46,14 @@ public class Waffenwechsel
 			{
 				//Check Null
 				//Effekt Ende, Trigger: Verwendet
+				spieler.beendeEffekte(W.HW);
 				//spieler.getnHauptwaffe()
 			}
 			if(nebenwaffeV != nebenwaffeN)
 			{
 				//Check Null
 				//Effekt Ende, Trigger: Verwendet
+				spieler.beendeEffekte(W.NW);
 				//spieler.getnNebenwaffe()
 			}
 		}
@@ -67,13 +69,13 @@ public class Waffenwechsel
 			{
 				//Effekt Start, Trigger: Verwendet
 				if(spieler.nHauptwaffe != null)
-					spieler.triggereEffekte1va(spieler.getWaffeKarte(W.HW).effekte(), StartTrigger2.VERWENDET, W.HW);
+					spieler.triggereEffekte1va(spieler.getWaffeKarte(W.HW).effekte(), StartTrigger.VERWENDET, W.HW);
 			}
 			if(nebenwaffeN != nebenwaffeV)
 			{
 				//Effekt Start, Trigger: Verwendet
 				if(spieler.nNebenwaffe != null)
-					spieler.triggereEffekte1va(spieler.getWaffeKarte(W.NW).effekte(), StartTrigger2.VERWENDET, W.NW);
+					spieler.triggereEffekte1va(spieler.getWaffeKarte(W.NW).effekte(), StartTrigger.VERWENDET, W.NW);
 			}
 		}
 		return true;

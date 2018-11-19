@@ -1,6 +1,6 @@
 package effekt;
 
-public enum StartTrigger2
+public enum StartTrigger
 {
 	ANFANG(""),
 	VERWENDET(""),
@@ -9,11 +9,12 @@ public enum StartTrigger2
 	EINMAL_VOR("|>"),
 	EINMAL_NACH(">"),
 	IMMER_VOR("|*"),
-	IMMER_NACH("*");
+	IMMER_NACH("*"),
+	ZUGENDE("");
 
 	public String symbol;
 
-	StartTrigger2(String symbol)
+	StartTrigger(String symbol)
 	{
 		this.symbol = symbol;
 	}

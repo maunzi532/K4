@@ -3,16 +3,16 @@ package effekt.bedingung;
 import kampf.*;
 import karten.*;
 
-public class BMehrGes implements Bedingung
+public class BMehrAG implements Bedingung
 {
-	final int min;
+	private final int min;
 
-	public BMehrGes()
+	public BMehrAG()
 	{
 		min = 1;
 	}
 
-	public BMehrGes(int min)
+	public BMehrAG(int min)
 	{
 		this.min = min;
 	}

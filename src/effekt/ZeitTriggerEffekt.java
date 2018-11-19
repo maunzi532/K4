@@ -8,17 +8,17 @@ import karten.*;
 
 public class ZeitTriggerEffekt extends TriggerEffekt
 {
-	private final EndTrigger2 endTrigger;
+	private final EndTrigger endTrigger;
 	private final int dauer;
 	private final boolean betrifftGegner;
-	private final EffektAn an;
+	private final NKartentyp an;
 	private final W zielWaffe;
-	private final ZeitWirkung wirkung;
+	private final Wirkung wirkung;
 
-	public ZeitTriggerEffekt(String text, int num, StartTrigger2 startTrigger,
-			TriggerSeite startSeite, List<Bedingung> bedingungen,
-			EndTrigger2 endTrigger, int dauer, boolean betrifftGegner, EffektAn an,
-			W zielWaffe, ZeitWirkung wirkung)
+	public ZeitTriggerEffekt(String text, int num, StartTrigger startTrigger,
+			StartTriggerSeite startSeite, List<Bedingung> bedingungen,
+			EndTrigger endTrigger, int dauer, boolean betrifftGegner, NKartentyp an,
+			W zielWaffe, Wirkung wirkung)
 	{
 		super(startTrigger.symbol, text, num, startTrigger, startSeite, bedingungen);
 		this.endTrigger = endTrigger;
@@ -29,7 +29,7 @@ public class ZeitTriggerEffekt extends TriggerEffekt
 		this.wirkung = wirkung;
 	}
 
-	public EndTrigger2 getEndTrigger()
+	public EndTrigger getEndTrigger()
 	{
 		return endTrigger;
 	}
@@ -39,7 +39,7 @@ public class ZeitTriggerEffekt extends TriggerEffekt
 		return dauer;
 	}
 
-	public ZeitWirkung getWirkung()
+	public Wirkung getWirkung()
 	{
 		return wirkung;
 	}
@@ -49,7 +49,7 @@ public class ZeitTriggerEffekt extends TriggerEffekt
 		return betrifftGegner;
 	}
 
-	public EffektAn getAn()
+	public NKartentyp getAn()
 	{
 		return an;
 	}
@@ -66,9 +66,9 @@ public class ZeitTriggerEffekt extends TriggerEffekt
 		W zielWaffe1 = zielWaffe == W.OK ? mit : zielWaffe;
 		switch(an)
 		{
-			case CHARAKTER -> betrifft.nCharakter().neuerEffekt(wirkung);
-			case WAFFE -> betrifft.nWaffe(zielWaffe1).neuerEffekt(wirkung);
-			case AKTION -> betrifft.nAktion().neuerEffekt(wirkung);
+			case CHARAKTER -> betrifft.nCharakter().neuerEffekt(new AnEffekt(wirkung, endTrigger, dauer));
+			case WAFFE -> betrifft.nWaffe(zielWaffe1).neuerEffekt(new AnEffekt(wirkung, endTrigger, dauer));
+			case AKTION -> betrifft.nAktion().neuerEffekt(new AnEffekt(wirkung, endTrigger, dauer));
 		}
 	}
 }

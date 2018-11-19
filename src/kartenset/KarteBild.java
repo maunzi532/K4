@@ -38,7 +38,7 @@ public class KarteBild
 			klassenZeile(sb, klassencode);
 			trennzeile(sb);
 		}
-		List<Effekt> effekte = karte.effekte();
+		List<KartenEffekt> effekte = karte.effekte();
 		int effektZeilen = 0;
 		for(int i = 0; i < effekte.size(); i++)
 			effektZeilen += effektTeilen(sb, effekte.get(i));
@@ -107,22 +107,22 @@ public class KarteBild
 		sb.append(" |\n");
 	}
 
-	private int effektTeilen(StringBuilder sb, Effekt effekt)
+	private int effektTeilen(StringBuilder sb, KartenEffekt kartenEffekt)
 	{
-		if(effekt == null)
+		if(kartenEffekt == null)
 			return 0;
 		int zeilen = 1;
-		int l0 = effekt.getTyp() == null ? 0 : effekt.getTyp().length() + 1;
+		int l0 = kartenEffekt.getTyp() == null ? 0 : kartenEffekt.getTyp().length() + 1;
 		int lt = breiteInnen - l0;
-		String text = effekt.getText();
+		String text = kartenEffekt.getText();
 		while(text.length() > lt)
 		{
 			int l1 = text.substring(0, lt + 1).lastIndexOf(" ");
 			sb.append("| ");
 			if(zeilen <= 1)
 			{
-				if(effekt.getTyp() != null)
-					sb.append(effekt.getTyp()).append(' ');
+				if(kartenEffekt.getTyp() != null)
+					sb.append(kartenEffekt.getTyp()).append(' ');
 			}
 			else
 			{
@@ -139,8 +139,8 @@ public class KarteBild
 		sb.append("| ");
 		if(zeilen <= 1)
 		{
-			if(effekt.getTyp() != null)
-				sb.append(effekt.getTyp()).append(' ');
+			if(kartenEffekt.getTyp() != null)
+				sb.append(kartenEffekt.getTyp()).append(' ');
 		}
 		else
 		{

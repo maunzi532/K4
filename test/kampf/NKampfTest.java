@@ -16,11 +16,6 @@ public class NKampfTest
 
 	private KarteBild wugu;
 
-	private Held held;
-	private Waffenkarte heldWaffe;
-	private Charakterkarte gegner;
-	private Waffenkarte gegnerWaffe;
-
 	@Before
 	public void init()
 	{
@@ -34,10 +29,10 @@ public class NKampfTest
 	@Test
 	public void test()
 	{
-		held = new Held(Klasse.G, setV2Klassen, setV2Waffen);
-		heldWaffe = setV2Waffen.gibKarte("Spiegelsplitter");
-		gegner = setV2Gegner.gibKarte("Gegner");
-		gegnerWaffe = setV2Waffen.gibKarte("Großer Stock");
+		Held held = new Held(Klasse.G, setV2Klassen, setV2Waffen);
+		Waffenkarte heldWaffe = setV2Waffen.gibKarte("Spiegelsplitter");
+		Charakterkarte gegner = setV2Gegner.gibKarte("Gegner");
+		Waffenkarte gegnerWaffe = setV2Waffen.gibKarte("Großer Stock");
 
 		NCharakter nc0 = new NCharakter(held.charakterkarte());
 		NWaffe nw0 = new NWaffe(heldWaffe);
@@ -57,7 +52,8 @@ public class NKampfTest
 		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schnellangriff"), W.HW, nt1));
 		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Powerangriff"), W.HW, nt0));
 		nKampf.gegnerAktionskarten();
-		System.out.println(wugu.bilderReihe(List.of(held.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner, gegnerWaffe, nt1.getAktionKarte())));
+		System.out.println(wugu.bilderReihe(List.of(held.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner,
+				gegnerWaffe, nt1.getAktionKarte())));
 		nKampf.magieZahlen();
 		nKampf.zugV();
 		Assert.assertEquals(24, nt0.getLeben());
@@ -73,7 +69,8 @@ public class NKampfTest
 		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schutzangriff"), W.HW, nt1));
 		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Brecher"), W.HW, nt0));
 		nKampf.gegnerAktionskarten();
-		System.out.println(wugu.bilderReihe(List.of(held.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner, gegnerWaffe, nt1.getAktionKarte())));
+		System.out.println(wugu.bilderReihe(List.of(held.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner,
+				gegnerWaffe, nt1.getAktionKarte())));
 		nKampf.magieZahlen();
 		nKampf.zugV();
 		nKampf.angriffe();
