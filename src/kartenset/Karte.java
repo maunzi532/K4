@@ -3,7 +3,7 @@ package kartenset;
 import effekt.*;
 import java.util.*;
 
-public interface Karte
+public interface Karte extends AKarte
 {
 	int alleKlassen = 0b11111111;
 
