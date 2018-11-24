@@ -2,11 +2,16 @@ package kartenset;
 
 import java.util.*;
 
-public class AKartenset
+public class AKartenset<T extends AKarte>
 {
-	public List<AKarte> karten;
+	public List<T> karten;
 
-	public void neueKarte(AKarte karte)
+	public AKartenset()
+	{
+		karten = new ArrayList<>();
+	}
+
+	public void neueKarte(T karte)
 	{
 		karten.add(karte);
 	}

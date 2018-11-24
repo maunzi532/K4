@@ -10,7 +10,7 @@ public class MapFeld
 	{
 		this.karte = karte;
 		this.verkehrt = verkehrt;
-		verwendet = new boolean[4];
+		verwendet = new boolean[karte.getModLimit()];
 	}
 
 	public MapTeil ort(int y, int x)
@@ -20,7 +20,24 @@ public class MapFeld
 
 	public boolean verwendet(int y, int x)
 	{
-		return verwendet[karte.ortM(y, x, verkehrt)];
+		int mod = karte.ortM(y, x, verkehrt);
+		if(mod >= 0)
+			return verwendet[mod];
+		else
+			return false;
+	}
+
+	public void setVerwendet(int y, int x)
+	{
+		int mod = karte.ortM(y, x, verkehrt);
+		if(mod >= 0)
+			verwendet[mod] = true;
+	}
+
+	public MapFeld setVerwendet(int num)
+	{
+		verwendet[num] = true;
+		return this;
 	}
 
 	public boolean begehbar(int y, int x)

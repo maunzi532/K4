@@ -13,11 +13,16 @@ public class Spielfigur
 	private List<KoordinatenNum> bewegungsgraph;
 	private Deque<KoordinatenNum> pfad = new ArrayDeque<>();
 
+	public boolean blockiert()
+	{
+		return ly != y || lx != x;
+	}
+
 	public void erstelleBewegungsgraph()
 	{
 		bewegungsgraph = new ArrayList<>();
 		int i = 0;
-		if(ly != y || lx != x)
+		if(blockiert())
 		{
 			bewegungsgraph.add(new KoordinatenNum(y, x, 0));
 			i++;
@@ -114,5 +119,21 @@ public class Spielfigur
 		}
 		if(pfad.isEmpty())
 			erstelleBewegungsgraph();
+	}
+
+	public KoordinatenNum kannForschen()
+	{
+		if(blockiert())
+			return null;
+		for(int i = 0; i < 4; i++)
+		{
+			int sy = y + richtungenY[i];
+			int sx = x + richtungenX[i];
+			if(map.inMap(sy, sx) && !map.feld(sy, sx))
+			{
+				return new KoordinatenNum(sy, sx, 0);
+			}
+		}
+		return null;
 	}
 }

@@ -19,6 +19,7 @@ public class MapKarte implements AKarte
 
 	private MapTeil[] inhalt;
 	private int[] modifier;
+	private int modLimit;
 	private boolean umdrehbar;
 
 	public MapKarte(String input)
@@ -27,15 +28,51 @@ public class MapKarte implements AKarte
 		if(split[0].isEmpty())
 			umdrehbar = true;
 		inhalt = new MapTeil[yw * xw];
-		modifier = new int[yw * xw];
+		modifier = new int[inhalt.length];
 		for(int iy = 0; iy < yw; iy++)
 		{
 			for(int ix = 0; ix < xw; ix++)
 			{
 				inhalt[iy * xw + ix] = charZuMapTeil.get(split[iy + 1].charAt(ix));
-				modifier[iy * xw + ix] = split[iy + 1 + yw].charAt(ix) - 48;
 			}
 		}
+		if(split.length > yw + 1)
+		{
+			for(int iy = 0; iy < yw; iy++)
+			{
+				for(int ix = 0; ix < xw; ix++)
+				{
+					int mod = split[iy + 1 + yw].charAt(ix) - '0' - 1;
+					modLimit = Math.max(modLimit, mod + 1);
+					modifier[iy * xw + ix] = mod;
+				}
+			}
+		}
+		else
+		{
+			int nmod = 0;
+			for(int i = 0; i < inhalt.length; i++)
+			{
+				if(inhalt[i].hatModifier)
+				{
+					modifier[i] = nmod;
+					nmod++;
+				}
+				else
+					modifier[i] = -1;
+			}
+			modLimit = nmod;
+		}
+	}
+
+	public int getModLimit()
+	{
+		return modLimit;
+	}
+
+	public boolean isUmdrehbar()
+	{
+		return umdrehbar;
 	}
 
 	public MapTeil ort(int y, int x, boolean verkehrt)

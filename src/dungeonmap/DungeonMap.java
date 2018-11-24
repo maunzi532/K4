@@ -1,5 +1,8 @@
 package dungeonmap;
 
+import java.util.*;
+import kartenset.*;
+
 public class DungeonMap
 {
 	public static final int ywF = MapKarte.ym * 2 + 1;
@@ -8,13 +11,16 @@ public class DungeonMap
 	private int yhMap;
 	private int xmMap;
 	private int xwMap;
+	private List<Integer> mittelBossOrte;
 	private MapFeld[][] felder;
+	private InMapEinsetzen inMapEinsetzen;
 
-	public DungeonMap(int yhMap, int xmMap)
+	public DungeonMap(int yhMap, int xmMap, List<Integer> mittelBossOrte)
 	{
 		this.yhMap = yhMap;
 		this.xmMap = xmMap;
 		xwMap = xmMap * 2 + 1;
+		this.mittelBossOrte = mittelBossOrte;
 		felder = new MapFeld[yhMap][xwMap];
 	}
 
@@ -51,6 +57,66 @@ public class DungeonMap
 	public boolean weitergehen(int y, int x)
 	{
 		return felder[y / ywF][x / xwF].weitergehen(y % ywF, x % xwF);
+	}
+
+	public void erstelleMittelWeg(MittelMapKartenset set)
+	{
+		felder[yhMap - 1][xmMap] = new MapFeld(set.start(), false).setVerwendet(0).setVerwendet(1);
+		felder[0][xmMap] = new MapFeld(set.ziel(), false);
+		List<MapKarte> mittelWeg = set.hauptWeg(yhMap - 2);
+		Collections.shuffle(mittelWeg);
+		for(int i = 0; i < yhMap - 2; i++)
+		{
+			MapFeld feld = new MapFeld(mittelWeg.get(i), false);
+			if(!mittelBossOrte.contains(i + 1))
+				feld.setVerwendet(0);
+			felder[yhMap - 2 - i][xmMap] = feld;
+		}
+	}
+
+	public void forsche(KoordinatenNum ort, Kartenstapel<MapKarte> mapStapel)
+	{
+		int yk = ort.y / ywF;
+		int xk = ort.x / xwF;
+		while(true)
+		{
+			MapKarte karte = mapStapel.erhalteKarteNurDeck();
+			if(karte != null)
+			{
+				boolean ok0 = kartePasst(karte, yk, xk, false);
+				boolean ok1 = kartePasst(karte, yk, xk, true);
+				if(!ok0 && !ok1)
+				{
+					mapStapel.ablage(karte);
+				}
+				else if(ok0 && ok1)
+				{
+					inMapEinsetzen = new InMapEinsetzen(this, karte, yk, xk);
+					break;
+				}
+				else if(ok0)
+				{
+					setFeld(yk, xk, new MapFeld(karte, false));
+					break;
+				}
+				else
+				{
+					setFeld(yk, xk, new MapFeld(karte, true));
+					break;
+				}
+			}
+			else
+			{
+
+			}
+		}
+	}
+
+	public boolean kartePasst(MapKarte karte, int yk, int xk, boolean verkehrt)
+	{
+		if(verkehrt && !karte.isUmdrehbar())
+			return false;
+		return true;
 	}
 
 	public String toString()

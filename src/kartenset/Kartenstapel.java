@@ -36,16 +36,31 @@ public class Kartenstapel<T extends AKarte>
 		return k;
 	}
 
+	public T erhalteKarteNurDeck()
+	{
+		if(deck.isEmpty())
+		{
+			return null;
+		}
+		T k = deck.removeFirst();
+		umlauf.add(k);
+		return k;
+	}
+
 	public void ablageInsDeck()
 	{
-		deck.addAll(ablage);
-		Collections.shuffle(deck);
-		ablage.clear();
+		if(!ablage.isEmpty())
+		{
+			deck.addAll(ablage);
+			Collections.shuffle(deck);
+			ablage.clear();
+		}
 	}
 
 	public void ablage(T k)
 	{
-		assert umlauf.remove(k);
+		if(!umlauf.remove(k))
+			throw new RuntimeException();
 		ablage.addLast(k);
 	}
 }
