@@ -18,29 +18,29 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 		neueKarte(new Waffenkarte("Spiegelsplitter", 8, 1, 9, 0b00001100,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET)
 						.setBedingungen(new BHauptwaffe()).setAn(NKartentyp.CHARAKTER).setWirkung(StatWirkung.verteidigung(-2))
-						.setEndTrigger(EndTrigger.VERWENDET).generateText().createZTE(),
+						.setEndTrigger(EndTrigger.VERWENDET).createZTE(),
 				new ZTEBuilder(NKartentyp.WAFFE).setNum(1).setStartTrigger(StartTrigger.IMMER_NACH)
 						.setBedingungen(new BHauptwaffe()).setWirkung(StatWirkung.verteidigung(-1))
-						.setBetrifftGegner(true).setAn(NKartentyp.CHARAKTER).setDauer(3).generateText().createZTE()));
+						.setBetrifftGegner(true).setAn(NKartentyp.CHARAKTER).setDauer(3).createZTE()));
 		neueKarte(new Waffenkarte("Ast", 9, 4, 1, 0b00000001,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH)
-						.setWirkung(StatWirkung.extraangriffe(1)).generateText().createZTE()));
+						.setWirkung(StatWirkung.extraangriffe(1)).createZTE()));
 		neueKarte(new Waffenkarte("Fortges. Waffe"/*"Fortgeschrittene Waffe"*/, 12, 7, 5, Karte.alleKlassen));
 		neueKarte(new Waffenkarte("Fortg. Ausl. stab"/*"Fortgeschrittener Auslassstab"*/, 13, 4, 6, Karte.alleKlassen,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_VOR).setBedingungen(new BMagieAusgeben())
 						.setWirkung(new StatWirkung(2, 2, 2, 0, 2))
-						.generateText().createZTE()));
+						.createZTE()));
 		neueKarte(new Waffenkarte("Giftbogen", 12, 0, 8, 0b01000001,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH)
 						.setBetrifftGegner(true).setAn(NKartentyp.CHARAKTER).setDauer(2)
 						.setWirkung(new StatWirkung(0, -2, -2))
-						.generateText().createZTE()));
+						.createZTE()));
 		neueKarte(new Waffenkarte("Fortg. Mag. Stab" /*"Fortgeschrittener Magischer Stab"*/,
 				15, 6, 6, Karte.alleKlassen,
 				new DTEBuilder().setStartTrigger(StartTrigger.ANFANG)
-						.setDirektWirkung(new MagieWirkung(2, false)).generateText().createDTE(),
+						.setDirektWirkung(new MagieWirkung(2, false)).createDTE(),
 				new ZTEBuilder(NKartentyp.WAFFE).setNum(1).setStartTrigger(StartTrigger.VERWENDET)
-						.setWirkung(StatWirkung.magie(1)).setEndTrigger(EndTrigger.VERWENDET).generateText().createZTE()));
+						.setWirkung(StatWirkung.magie(1)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));
 		/*neueKarte(new Waffenkarte("Abenteuerschwert", 7, 4, 5, 0b10000000));
 		neueKarte(new Waffenkarte("?Bogen", 10, 2, 6, 0b01000000));
 		neueKarte(new Waffenkarte("Geladener Stab", 8, 2, 5, 0b00100000));

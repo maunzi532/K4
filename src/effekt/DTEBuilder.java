@@ -51,6 +51,8 @@ public class DTEBuilder
 
 	public DirektTriggerEffekt createDTE()
 	{
+		if(text == null)
+			generateText();
 		return new DirektTriggerEffekt(text, num, startTrigger, startTriggerSeite, bedingungen, direktWirkung);
 	}
 

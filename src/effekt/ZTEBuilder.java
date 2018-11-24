@@ -94,6 +94,10 @@ public class ZTEBuilder
 
 	public ZeitTriggerEffekt createZTE()
 	{
+		if(text == null)
+		{
+			generateText();
+		}
 		return new ZeitTriggerEffekt(text, num, startTrigger, startTriggerSeite, bedingungen, endTrigger, dauer,
 				betrifftGegner, an, zielWaffe, wirkung);
 	}
