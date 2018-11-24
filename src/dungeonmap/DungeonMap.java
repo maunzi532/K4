@@ -13,7 +13,6 @@ public class DungeonMap
 	private int xwMap;
 	private List<Integer> mittelBossOrte;
 	private MapFeld[][] felder;
-	private InMapEinsetzen inMapEinsetzen;
 
 	public DungeonMap(int yhMap, int xmMap, List<Integer> mittelBossOrte)
 	{
@@ -88,11 +87,6 @@ public class DungeonMap
 				if(!ok0 && !ok1)
 				{
 					mapStapel.ablage(karte);
-				}
-				else if(ok0 && ok1)
-				{
-					inMapEinsetzen = new InMapEinsetzen(this, karte, yk, xk);
-					break;
 				}
 				else if(ok0)
 				{
