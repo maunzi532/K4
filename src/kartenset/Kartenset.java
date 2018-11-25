@@ -1,6 +1,7 @@
 package kartenset;
 
 import java.util.*;
+import java.util.stream.*;
 
 public class Kartenset<T extends Karte>
 {
@@ -32,5 +33,16 @@ public class Kartenset<T extends Karte>
 		karten.values().stream().filter(e -> e.getClass().equals(klasse))
 				.forEach(e -> teilset.neueKarte((U) e));
 		return teilset;
+	}
+
+	public List<T> findeKarten(String suche)
+	{
+		String sucheLow = suche.toLowerCase();
+		return karten.keySet().stream().filter(e -> match(sucheLow, e)).map(karten::get).collect(Collectors.toList());
+	}
+
+	private boolean match(String sucheLow, String test)
+	{
+		return test.toLowerCase().startsWith(sucheLow);
 	}
 }
