@@ -43,7 +43,7 @@ public class NKampf
 	public void nachInitialWaffenwechsel(Waffenwechsel w)
 	{
 		NTeilnehmer spieler0 = spieler.get(w.spielerId);
-		if(w.anwenden(spieler0, false))
+		if(w.anwenden(spieler0))
 			spieler0.gesVorteil0 = -1;
 		else
 			spieler0.gesVorteil0 = 1;
@@ -149,6 +149,10 @@ public class NKampf
 
 	public int beendeZug()
 	{
+		for(var n : alle)
+		{
+			n.triggereEffekte(StartTrigger.ZUGENDE, true);
+		}
 		spieler.removeIf(e -> !e.aktiv());
 		gegner.removeIf(e -> !e.aktiv());
 		if(spieler.isEmpty())
@@ -182,8 +186,9 @@ public class NKampf
 
 	Zug beginnen
 	1 Aktionskarten ziehen
-	2 Aktionskarten auswählen / Waffen wechseln > INPUT
-	3 Gegner ziehen Aktionskarten
+	2 Nicht verwendbare Aktionskarten austauschen
+	3 Aktionskarten auswählen > INPUT
+	4 Gegner ziehen Aktionskarten
 
 	Zug durchführen 1
 	1 Ändere Magie
@@ -206,7 +211,8 @@ public class NKampf
 	4 Angriffsendtrigger
 
 	Zug beenden
-	1 Effekte ticken / beenden
-	2 Aktionskarten ablegen > INPUT
+	1 Zugende Effekte durchführen
+	2 Effekte ticken / beenden
+	3 Aktionskarten ablegen > INPUT
 	 */
 }

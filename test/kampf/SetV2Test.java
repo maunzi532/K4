@@ -40,4 +40,28 @@ public class SetV2Test
 	{
 		System.out.println(wugu.bilderReihe2(alleKarten, 6));
 	}
+
+	@Test
+	public void aktionen()
+	{
+		System.out.println(wugu.bilderReihe2(new ArrayList<>(setV2Aktionen.alleKarten()), 6));
+	}
+
+	@Test
+	public void waffen()
+	{
+		System.out.println(wugu.bilderReihe2(new ArrayList<>(setV2Waffen.alleKarten()), 6));
+	}
+
+	@Test
+	public void klassen()
+	{
+		System.out.println(wugu.bilderReihe2(new ArrayList<>(setV2Klassen.alleKarten()), 6));
+	}
+
+	@Test
+	public void gegner()
+	{
+		System.out.println(wugu.bilderReihe2(new ArrayList<>(setV2Gegner.alleKarten()), 6));
+	}
 }
