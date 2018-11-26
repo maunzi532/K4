@@ -1,6 +1,7 @@
 package kampf;
 
 import effekt.*;
+import effekt.wirkung.*;
 import java.util.*;
 import karten.*;
 
@@ -152,6 +153,8 @@ public class NTeilnehmer
 	public boolean aktionGeht(Aktionskarte aktionskarte, W mit, NTeilnehmer ziel)
 	{
 		NAktion nAktion1 = new NAktion(aktionskarte);
+		if(nWaffe(mit).aktiveEffekte().stream().filter(e -> e.wirkung instanceof WNichtVerwendbar).count() > 0)
+			return false;
 		return nAktion1.magieAenderung() + nCharakter.magieAenderung() + nWaffe(mit).magieAenderung() + magie >= 0;
 	}
 

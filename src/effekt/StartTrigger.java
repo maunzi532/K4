@@ -10,7 +10,7 @@ public enum StartTrigger
 	EINMAL_NACH("> "),
 	IMMER_VOR("|* "),
 	IMMER_NACH("* "),
-	ZUGENDE("N ");
+	ZUGENDE("");
 
 	public String symbol;
 

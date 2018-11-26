@@ -7,21 +7,45 @@ public interface Wirkung
 {
 	default void triggere(NTeilnehmer n, NTeilnehmer ziel, W mit){}
 
-	int angriff();
+	default int angriff()
+	{
+		return 0;
+	}
 
-	int geschwindigkeit();
+	default int geschwindigkeit()
+	{
+		return 0;
+	}
 
-	int verteidigung();
+	default int verteidigung()
+	{
+		return 0;
+	}
 
-	int mindestschaden();
+	default int mindestschaden()
+	{
+		return 0;
+	}
 
-	int mindestschutz();
+	default int mindestschutz()
+	{
+		return 0;
+	}
 
-	int magie();
+	default int magie()
+	{
+		return 0;
+	}
 
-	int extraangriffe();
+	default int extraangriffe()
+	{
+		return 0;
+	}
 
-	int setzeangriffe();
+	default int setzeangriffe()
+	{
+		return -1;
+	}
 
 	String text();
 }

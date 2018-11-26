@@ -12,9 +12,9 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 	public SetV2Waffen()
 	{
 		super();
-
-		neueKarte(new Waffenkarte("Fortges. Hammer", 12, 11, 2, Karte.alleKlassen));
-
+		neueKarte(new Waffenkarte("Fortges. Hammer", 12, 11, 2, Karte.alleKlassen,
+				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.ZUGENDE)
+						.setWirkung(new WNichtVerwendbar()).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Giftbogen", 12, 0, 8, 0b01000001,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH)
 						.setBetrifftGegner(true).setAn(NKartentyp.CHARAKTER).setDauer(2)
@@ -52,9 +52,9 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 						.setBetrifftGegner(true).setAn(NKartentyp.CHARAKTER).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Etwas kleiner Stock", 9, 2, 7, Karte.alleKlassen));
 		neueKarte(new Waffenkarte("Anfängerschwert", 5, 2, 3, Karte.alleKlassen));
-
-		neueKarte(new Waffenkarte("Hammer", 7, 7, 3, 0b11001000));
-
+		neueKarte(new Waffenkarte("Hammer", 7, 7, 3, 0b11001000,
+				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.ZUGENDE)
+						.setWirkung(new WNichtVerwendbar()).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Windstab", 7, 3, 4, 0b00110001,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_VOR).setBetrifftGegner(true)
 						.setAn(NKartentyp.CHARAKTER).setWirkung(StatWirkung.geschwindigkeit(-3)).createZTE()));
@@ -151,5 +151,8 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 		neueKarte(new Waffenkarte("Beschwörungsstab", 8, 4, 3, 0b00000001,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH)
 						.setWirkung(StatWirkung.angriff(2)).setDauer(2).createZTE()));
+		neueKarte(new Waffenkarte("Großhammer", 9, 10, 2, 0b11001000,
+				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.ZUGENDE)
+						.setWirkung(new WNichtVerwendbar()).setDauer(2).createZTE()));
 	}
 }

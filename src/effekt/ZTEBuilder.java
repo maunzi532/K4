@@ -120,6 +120,10 @@ public class ZTEBuilder
 					sb.append(bedingungen.get(i).text()).append(" und ");
 			}
 		}
+		if(startTrigger == StartTrigger.ZUGENDE)
+		{
+			sb.append("Nächster Zug: ");
+		}
 		if(betrifftGegner)
 		{
 			if(an == NKartentyp.WAFFE)
@@ -153,9 +157,14 @@ public class ZTEBuilder
 			}
 		}
 		sb.append(wirkung.text());
-		if(dauer != 1)
+		int dauer1 = dauer;
+		if(startTrigger == StartTrigger.ZUGENDE)
 		{
-			sb.append(" (").append(dauer).append(" Züge)");
+			dauer1--;
+		}
+		if(dauer1 != 1)
+		{
+			sb.append(" (").append(dauer1).append(" Züge)");
 		}
 		text = sb.toString();
 		return this;
