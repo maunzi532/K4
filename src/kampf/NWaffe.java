@@ -1,5 +1,6 @@
 package kampf;
 
+import effekt.*;
 import karten.*;
 
 public class NWaffe extends NKarte
@@ -33,5 +34,18 @@ public class NWaffe extends NKarte
 	public int magieAenderung()
 	{
 		return 0;
+	}
+
+	@Override
+	public int basisWert(Basiswert wert)
+	{
+		return switch(wert)
+		{
+			case ANGRIFF -> karte.getAngriff();
+			case WAFFENWERT -> 0;
+			case GESCHWINDIGKEIT -> karte.getGeschwindigkeit();
+			case VERTEIDIGUNG -> 0;
+			case LEBEN -> 0;
+		};
 	}
 }

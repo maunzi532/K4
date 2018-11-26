@@ -21,6 +21,8 @@ public abstract class NKarte
 
 	public abstract int magieAenderung();
 
+	public abstract int basisWert(Basiswert wert);
+
 	public int angriff()
 	{
 		return basisAngriff() + aktiveEffekte().stream().mapToInt(AnEffekt::angriff).sum();

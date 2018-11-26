@@ -2,9 +2,16 @@ package effekt;
 
 public enum Basiswert
 {
-	ANGRIFF,
-	WAFFENWERT,
-	GESCHWINDIGKEIT,
-	VERTEIDIGUNG,
-	LEBEN;
+	ANGRIFF("A"),
+	WAFFENWERT("W"),
+	GESCHWINDIGKEIT("G"),
+	VERTEIDIGUNG("V"),
+	LEBEN("L");
+
+	Basiswert(String kurz)
+	{
+		this.kurz = kurz;
+	}
+
+	public String kurz;
 }

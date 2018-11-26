@@ -182,7 +182,7 @@ public class NTeilnehmer
 
 	public void berechneGes()
 	{
-		gesAngriff = nCharakter.geschwindigkeit() + nWaffe(mit).geschwindigkeit() + nAktion.geschwindigkeit();
+		gesAngriff = Math.max(nCharakter.geschwindigkeit() + nWaffe(mit).geschwindigkeit() + nAktion.geschwindigkeit(), 0);
 	}
 
 	public void berechneAnzahlAngriffe()
@@ -212,8 +212,8 @@ public class NTeilnehmer
 		if(num == 0)
 			triggereEffekte(StartTrigger.EINMAL_VOR, true);
 		triggereEffekte(StartTrigger.IMMER_VOR, true);
-		int normalSchaden = nCharakter.angriff() + nWaffe(mit).angriff() + nAktion.angriff()
-				- ziel.nCharakter.verteidigung() - ziel.nWaffe(ziel.mit).verteidigung() - ziel.nAktion.verteidigung();
+		int normalSchaden = Math.max(nCharakter.angriff() + nWaffe(mit).angriff() + nAktion.angriff(), 0)
+				- Math.max(ziel.nCharakter.verteidigung() + ziel.nWaffe(ziel.mit).verteidigung() + ziel.nAktion.verteidigung(), 0);
 		int mindestschaden = nCharakter.mindestschaden() + nWaffe(mit).mindestschaden() + nAktion.mindestschaden()
 				- ziel.nCharakter.mindestschutz() - ziel.nWaffe(ziel.mit).mindestschutz() - ziel.nAktion.mindestschutz();
 		ziel.leben -= Math.max(Math.max(normalSchaden, mindestschaden), 0);
@@ -231,6 +231,11 @@ public class NTeilnehmer
 	public int getAnzahlAngriffe()
 	{
 		return anzahlAngriffe;
+	}
+
+	public W getMit()
+	{
+		return mit;
 	}
 
 	public NTeilnehmer getZiel()

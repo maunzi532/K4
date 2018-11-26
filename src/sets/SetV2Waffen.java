@@ -26,7 +26,8 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH).setBedingungen(new BMehrAG(5))
 						.setWirkung(StatWirkung.angriff(4)).createZTE()));
 		neueKarte(new Waffenkarte("Kristall der Macht", 14, 9, 4, 0b00100100,
-				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH).setBedingungen(new BWenigerBasisAngriff())
+				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH)
+						.setBedingungen(new BBasisWertVergleich(Basiswert.ANGRIFF, NKartentyp.CHARAKTER, Vergleich.K))
 						.setWirkung(StatWirkung.angriff(4)).createZTE()));
 		neueKarte(new Waffenkarte("Steinschleuder", 11, 3, 7, 0b01010011,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)
@@ -70,10 +71,11 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 		neueKarte(new Waffenkarte("Wasserorb", 10, 6, 7, 0b00100011,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET)
 						.setWirkung(StatWirkung.magie(-1)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));
-		neueKarte(new Waffenkarte("Minischwert", 9, 2, 6, Karte.alleKlassen,
-				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH).setBedingungen(new BWenigerBasisAngriff())
-						.setWirkung(StatWirkung.angriff(2)).createZTE()));
 
+		neueKarte(new Waffenkarte("Minischwert", 9, 2, 6, Karte.alleKlassen,
+				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH)
+						.setBedingungen(new BBasisWertVergleich(Basiswert.VERTEIDIGUNG, NKartentyp.CHARAKTER, Vergleich.K))
+						.setWirkung(StatWirkung.angriff(2)).createZTE()));
 		neueKarte(new Waffenkarte("Schild", 8, 2, 4, 0b11111001,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET).setBedingungen(new BHauptwaffe())
 						.setAn(NKartentyp.CHARAKTER).setWirkung(StatWirkung.verteidigung(2)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));
@@ -92,7 +94,8 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 						.setAn(NKartentyp.CHARAKTER).setWirkung(StatWirkung.verteidigung(2)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));
 		neueKarte(new Waffenkarte("Großer Stock", 7, 4, 3, 0b11011011));
 		neueKarte(new Waffenkarte("Kristall der Stärke", 7, 5, 1, 0b00100100,
-				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH).setBedingungen(new BWenigerBasisAngriff())
+				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH)
+						.setBedingungen(new BBasisWertVergleich(Basiswert.ANGRIFF, NKartentyp.CHARAKTER, Vergleich.K))
 						.setWirkung(StatWirkung.angriff(3)).createZTE()));
 		neueKarte(new Waffenkarte("Stärkungsbogen", 10, 4, 7, 0b01000000,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH).setBedingungen(new BHauptwaffe())
@@ -116,11 +119,10 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 		neueKarte(new Waffenkarte("Geladener Stab", 8, 2, 5, 0b00100000,
 				new DTEBuilder().setStartTrigger(StartTrigger.ANFANG).setBedingungen(new BHauptwaffe())
 						.setDirektWirkung(new MagieWirkung(2, false)).createDTE()));
-
 		neueKarte(new Waffenkarte("Silberdolch", 14, 3, 9, 0b11110110,
-				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_VOR).setBedingungen(new BWenigerBasisAngriff())
+				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_VOR)
+						.setBedingungen(new BBasisWertVergleich(Basiswert.WAFFENWERT, NKartentyp.CHARAKTER, Vergleich.K))
 						.setWirkung(StatWirkung.geschwindigkeit(5)).createZTE()));
-
 		neueKarte(new Waffenkarte("Fortg. Mag. Stab" /*"Fortgeschrittener Magischer Stab"*/,
 				15, 6, 6, Karte.alleKlassen,
 				new DTEBuilder().setStartTrigger(StartTrigger.ANFANG).setBedingungen(new BHauptwaffe())

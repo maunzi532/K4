@@ -1,5 +1,6 @@
 package kampf;
 
+import effekt.*;
 import karten.*;
 
 public class NCharakter extends NKarte
@@ -39,5 +40,18 @@ public class NCharakter extends NKarte
 	public int mindestschaden()
 	{
 		return super.mindestschaden() + 1;
+	}
+
+	@Override
+	public int basisWert(Basiswert wert)
+	{
+		return switch(wert)
+		{
+			case ANGRIFF -> karte.getAngriff();
+			case WAFFENWERT -> karte.getWaffenwert();
+			case GESCHWINDIGKEIT -> karte.getGeschwindigkeit();
+			case VERTEIDIGUNG -> karte.getVerteidigung();
+			case LEBEN -> karte.getLeben();
+		};
 	}
 }

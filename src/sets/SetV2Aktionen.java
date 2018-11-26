@@ -20,8 +20,10 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 		neueKarte(new Aktionskarte("Ausholen", -3, 0, 0, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.ZUGENDE).setAn(NKartentyp.WAFFE)
 						.setZielWaffe(W.HW).setWirkung(StatWirkung.angriff(6)).setDauer(2).createZTE()));
+		neueKarte(new Aktionskarte("Adrenalin", 0, 1, 0, false,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
+						.setBedingungen(new BLebenIst(Vergleich.KG, 10)).setWirkung(StatWirkung.angriff(3)).createZTE()));
 
-		neueKarte(new Aktionskarte("Adrenalin", 0, 1, 0, false));
 		neueKarte(new Aktionskarte("Magiehaltiger Angriff", 0, 0, -1, false));
 
 		neueKarte(new Aktionskarte("Brecher", -1, 2, -3, true,
@@ -78,9 +80,9 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 		neueKarte(new Aktionskarte("Auslassschlag", -8, 4, 4, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
 						.setWirkung(StatWirkung.verteidigung(4)).createZTE()));
-
-		neueKarte(new Aktionskarte("Wut", 1, 1, -2, false));
-
+		neueKarte(new Aktionskarte("Wut", 1, 1, -2, false,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.EINMAL_VOR)
+						.setBedingungen(new BLebenVergleich(Vergleich.K)).setWirkung(StatWirkung.angriff(3)).createZTE()));
 		neueKarte(new Aktionskarte("Blockschlag", 2, 0, -3, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.EINMAL_NACH)
 						.setWirkung(StatWirkung.verteidigung(3)).createZTE()));
@@ -100,8 +102,11 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 		neueKarte(new Aktionskarte("Magieklatsch", 0, -2, 0, false,
 				new DTEBuilder().setStartTrigger(StartTrigger.IMMER_NACH)
 						.setDirektWirkung(new MagieWirkung(2, false)).createDTE()));
+		neueKarte(new Aktionskarte("Schnellschwung", 1, 0, 0, false,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
+						.setBedingungen(new BBasisWertIst(Basiswert.GESCHWINDIGKEIT, NKartentyp.WAFFE, Vergleich.GG, 5))
+						.setWirkung(StatWirkung.angriff(2)).createZTE()));
 
-		neueKarte(new Aktionskarte("Schnellschwung", 1, 0, 0, false));
 		neueKarte(new Aktionskarte("Tritt", 3, 4, -2, true));
 
 		neueKarte(new Aktionskarte("Aufladung", 1, -8, 0, false,
@@ -116,6 +121,16 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 
 		neueKarte(new Aktionskarte("Ninjaschlag", 1, -2, 0, false));
 		neueKarte(new Aktionskarte("Schneller Laser", 1, -2, 0, false));
-		neueKarte(new Aktionskarte("Geschwindigkeitsbelohnung", 2, -2, 0, false));
+
+		neueKarte(new Aktionskarte("Geschwindigkeitsbelohnung", 2, -2, 0, false,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
+						.setBedingungen(new BBasisWertVergleich(Basiswert.GESCHWINDIGKEIT, NKartentyp.CHARAKTER, Vergleich.G))
+						.setWirkung(StatWirkung.angriff(2)).createZTE(),
+				new ZTEBuilder(NKartentyp.AKTION).setNum(1).setStartTrigger(StartTrigger.GES_NACH)
+						.setBedingungen(new BBasisWertVergleich(Basiswert.GESCHWINDIGKEIT, NKartentyp.WAFFE, Vergleich.G))
+						.setWirkung(StatWirkung.angriff(2)).createZTE(),
+				new ZTEBuilder(NKartentyp.AKTION).setNum(2).setStartTrigger(StartTrigger.GES_NACH)
+						.setBedingungen(new BBasisWertVergleich(Basiswert.GESCHWINDIGKEIT, NKartentyp.AKTION, Vergleich.G))
+						.setWirkung(StatWirkung.angriff(2)).createZTE()));
 	}
 }
