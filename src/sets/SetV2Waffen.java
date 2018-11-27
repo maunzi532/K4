@@ -67,11 +67,10 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 		neueKarte(new Waffenkarte("Wasserkugel", 5, 2, 2, 0b00000010,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifftGegner(true)
 						.setAn(NKartentyp.CHARAKTER).setWirkung(StatWirkung.verteidigung(-2)).setDauer(2).createZTE()));
-
 		neueKarte(new Waffenkarte("Wasserorb", 10, 6, 7, 0b00100011,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET)
-						.setWirkung(StatWirkung.magie(-1)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));
-
+						.setWirkung(StatWirkung.magie(-1)).setEndTrigger(EndTrigger.VERWENDET).createZTE(),
+				new ZMEBuilder(NKartentyp.WAFFE).setNum(1).setMagieKosten(2).setWirkung(StatWirkung.verteidigung(3)).createZME()));
 		neueKarte(new Waffenkarte("Minischwert", 9, 2, 6, Karte.alleKlassen,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH)
 						.setBedingungen(new BBasisWertVergleich(Basiswert.VERTEIDIGUNG, NKartentyp.CHARAKTER, Vergleich.K))
@@ -86,9 +85,9 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET).setBedingungen(new BHauptwaffe())
 						.setWirkung(StatWirkung.angriff(1)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));
 		neueKarte(new Waffenkarte("Eisenschwert", 6, 3, 5, 0b10001000));
-
-		neueKarte(new Waffenkarte("Magische Kugel", 7, 2, 4, 0b00100110));
-
+		neueKarte(new Waffenkarte("Magische Kugel", 7, 2, 4, 0b00100110,
+				new ZMEBuilder(NKartentyp.WAFFE).setMagieKosten(2).setBetrifftGegner(true).setAn(NKartentyp.CHARAKTER)
+						.setWirkung(StatWirkung.verteidigung(-3)).setDauer(2).createZME()));
 		neueKarte(new Waffenkarte("Minischild", 10, 2, 6, Karte.alleKlassen,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET).setBedingungen(new BHauptwaffe())
 						.setAn(NKartentyp.CHARAKTER).setWirkung(StatWirkung.verteidigung(2)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));
@@ -133,9 +132,9 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH).setBedingungen(new BHauptwaffe())
 						.setWirkung(StatWirkung.verteidigung(2)).createZTE()));
 		neueKarte(new Waffenkarte("Kleiner Stock", 9, 1, 8, Karte.alleKlassen));
-
-		neueKarte(new Waffenkarte("Wasserstab", 11, 8, 4, 0b00100010));
-
+		neueKarte(new Waffenkarte("Wasserstab", 11, 8, 4, 0b00100010,
+				new ZMEBuilder(NKartentyp.WAFFE).setMagieKosten(2)
+						.setBedingungen(new BHauptwaffe()).setWirkung(StatWirkung.angriff(3)).createZME()));
 		neueKarte(new Waffenkarte("Magischer Stab", 10, 5, 5, 0b00100100,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET)
 						.setWirkung(StatWirkung.magie(1)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));

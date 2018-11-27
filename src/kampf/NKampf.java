@@ -105,7 +105,10 @@ public class NKampf
 		{
 			n.zahleMagie();
 		}
-		//Erstelle Magieeffektoptionen
+		for(var n : spieler)
+		{
+			//Erstelle Magieeffektoptionen
+		}
 	}
 
 	//Magieeffekte auswahl
