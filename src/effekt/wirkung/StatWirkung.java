@@ -80,42 +80,42 @@ public class StatWirkung implements Wirkung
 		return sb.toString();
 	}
 
-	public int angriff()
+	public int getAngriff(int daten)
 	{
 		return angriff;
 	}
 
-	public int geschwindigkeit()
+	public int getGeschwindigkeit(int daten)
 	{
 		return geschwindigkeit;
 	}
 
-	public int verteidigung()
+	public int getVerteidigung(int daten)
 	{
 		return verteidigung;
 	}
 
-	public int mindestschaden()
+	public int getMindestschaden(int daten)
 	{
 		return mindestschaden;
 	}
 
-	public int mindestschutz()
+	public int getMindestschutz(int daten)
 	{
 		return mindestschutz;
 	}
 
-	public int magie()
+	public int getMagie(int daten)
 	{
 		return magie;
 	}
 
-	public int extraangriffe()
+	public int getExtraangriffe(int daten)
 	{
 		return extraangriffe;
 	}
 
-	public int setzeangriffe()
+	public int getSetzeangriffe(int daten)
 	{
 		return setzeangriffe;
 	}

@@ -1,18 +1,26 @@
 package effekt.wirkung;
 
 import effekt.*;
+import kampf.*;
+import karten.*;
 
 public class AnEffekt
 {
 	public final Wirkung wirkung;
 	public final EndTrigger endTrigger;
 	public int dauer;
+	public int daten;
 
 	public AnEffekt(Wirkung wirkung, EndTrigger endTrigger, int dauer)
 	{
 		this.wirkung = wirkung;
 		this.endTrigger = endTrigger;
 		this.dauer = dauer;
+	}
+
+	public void triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	{
+		daten = wirkung.triggere(n, ziel, mit);
 	}
 
 	public boolean tick(EndTrigger trigger)
@@ -27,37 +35,42 @@ public class AnEffekt
 
 	public int angriff()
 	{
-		return wirkung.angriff();
+		return wirkung.getWert(Wirkungswert.ANGRIFF, daten);
 	}
 
 	public int geschwindigkeit()
 	{
-		return wirkung.geschwindigkeit();
+		return wirkung.getWert(Wirkungswert.GESCHWINDIGKEIT, daten);
 	}
 
 	public int verteidigung()
 	{
-		return wirkung.verteidigung();
+		return wirkung.getWert(Wirkungswert.VERTEIDIGUNG, daten);
 	}
 
 	public int mindestschaden()
 	{
-		return wirkung.mindestschaden();
+		return wirkung.getWert(Wirkungswert.MINDESTSCHADEN, daten);
 	}
 
 	public int mindestschutz()
 	{
-		return wirkung.mindestschutz();
+		return wirkung.getWert(Wirkungswert.MINDESTSCHUTZ, daten);
 	}
 
 	public int extraangriffe()
 	{
-		return wirkung.extraangriffe();
+		return wirkung.getWert(Wirkungswert.EXTRAANGRIFFE, daten);
+	}
+
+	public int magie()
+	{
+		return wirkung.getWert(Wirkungswert.MAGIE, daten);
 	}
 
 	public int setzeangriffe()
 	{
-		return wirkung.setzeangriffe();
+		return wirkung.getSetzeangriffe(daten);
 	}
 
 	public String text()

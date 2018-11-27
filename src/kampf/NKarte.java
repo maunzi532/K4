@@ -3,6 +3,7 @@ package kampf;
 import effekt.*;
 import effekt.wirkung.*;
 import java.util.*;
+import karten.*;
 
 public abstract class NKarte
 {
@@ -64,9 +65,10 @@ public abstract class NKarte
 		return se < 0 ? vorher : se;
 	}
 
-	public void neuerEffekt(AnEffekt anEffekt)
+	public void neuerEffekt(AnEffekt anEffekt, NTeilnehmer n, NTeilnehmer ziel, W mit)
 	{
 		aktiveEffekte.add(anEffekt);
+		anEffekt.triggere(n, ziel, mit);
 	}
 
 	public void beendeEffekte(EndTrigger trigger)

@@ -12,14 +12,14 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 	public SetV2Waffen()
 	{
 		super();
-		neueKarte(new Waffenkarte("Fortges. Hammer", 12, 11, 2, Karte.alleKlassen,
+		neueKarte(new Waffenkarte("Fortgeschrittener Hammer", 12, 11, 2, Karte.alleKlassen,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.ZUGENDE)
 						.setWirkung(new WNichtVerwendbar()).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Giftbogen", 12, 0, 8, 0b01000001,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH)
 						.setBetrifftGegner(true).setAn(NKartentyp.CHARAKTER).setDauer(2)
 						.setWirkung(new StatWirkung(0, -2, -2)).createZTE()));
-		neueKarte(new Waffenkarte("Fortg. Ausl. stab"/*"Fortgeschrittener Auslassstab"*/, 13, 4, 6, Karte.alleKlassen,
+		neueKarte(new Waffenkarte("Fortgeschrittener Auslassstab", 13, 4, 6, Karte.alleKlassen,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_VOR).setBedingungen(new BMagieAusgeben())
 						.setWirkung(new StatWirkung(2, 2, 2, 0, 2)).createZTE()));
 		neueKarte(new Waffenkarte("Luftwaffe", 13, 4, 8, 0b00010100,
@@ -32,7 +32,7 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 		neueKarte(new Waffenkarte("Steinschleuder", 11, 3, 7, 0b01010011,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)
 						.setAn(NKartentyp.CHARAKTER).setWirkung(StatWirkung.angriff(-3)).createZTE()));
-		neueKarte(new Waffenkarte("Fortges. Waffe"/*"Fortgeschrittene Waffe"*/, 12, 7, 5, Karte.alleKlassen));
+		neueKarte(new Waffenkarte("Fortgeschrittene Waffe", 12, 7, 5, Karte.alleKlassen));
 		neueKarte(new Waffenkarte("Stange", 5, 4, 1, Karte.alleKlassen));
 		neueKarte(new Waffenkarte("Speer", 11, 4, 6, 0b11010001,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET).setBedingungen(new BHauptwaffe())
@@ -122,8 +122,7 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_VOR)
 						.setBedingungen(new BBasisWertVergleich(Basiswert.WAFFENWERT, NKartentyp.CHARAKTER, Vergleich.K))
 						.setWirkung(StatWirkung.geschwindigkeit(5)).createZTE()));
-		neueKarte(new Waffenkarte("Fortg. Mag. Stab" /*"Fortgeschrittener Magischer Stab"*/,
-				15, 6, 6, Karte.alleKlassen,
+		neueKarte(new Waffenkarte("Fortgeschrittener Magischer Stab", 15, 6, 6, Karte.alleKlassen,
 				new DTEBuilder().setStartTrigger(StartTrigger.ANFANG).setBedingungen(new BHauptwaffe())
 						.setDirektWirkung(new MagieWirkung(2, false)).createDTE(),
 				new ZTEBuilder(NKartentyp.WAFFE).setNum(1).setStartTrigger(StartTrigger.VERWENDET)

@@ -30,9 +30,9 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.EINMAL_NACH)
 						.setDauer(2).setBetrifftGegner(true).setAn(NKartentyp.WAFFE).setZielWaffe(W.HW)
 						.setWirkung(StatWirkung.angriff(-3)).createZTE()));
-
-		neueKarte(new Aktionskarte("Geladener Angriff", -5, 0, 0, false));
-
+		neueKarte(new Aktionskarte("Geladener Angriff", -5, 0, 0, false,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
+						.setWirkung(new WWaffeAngriff(1)).createZTE()));
 		neueKarte(new Aktionskarte("Verstärkender Angriff", -2, 1, 1, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
 						.setWirkung(StatWirkung.verteidigung(1)).createZTE()));
@@ -106,9 +106,9 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
 						.setBedingungen(new BBasisWertIst(Basiswert.GESCHWINDIGKEIT, NKartentyp.WAFFE, Vergleich.GG, 5))
 						.setWirkung(StatWirkung.angriff(2)).createZTE()));
-
-		neueKarte(new Aktionskarte("Tritt", 3, 4, -2, true));
-
+		neueKarte(new Aktionskarte("Tritt", 3, 4, -2, true,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
+						.setWirkung(new WWaffeAngriff(-1)).createZTE()));
 		neueKarte(new Aktionskarte("Aufladung", 1, -8, 0, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH).setAn(NKartentyp.CHARAKTER)
 						.setWirkung(StatWirkung.angriff(3)).setDauer(3).createZTE()));
@@ -118,10 +118,12 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 		neueKarte(new Aktionskarte("Hinterhalt", 0, 4, -2, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.IMMER_NACH)
 						.setStartTriggerSeite(StartTriggerSeite.GEGNER).setWirkung(StatWirkung.angriff(-2)).createZTE()));
-
-		neueKarte(new Aktionskarte("Ninjaschlag", 1, -2, 0, false));
-		neueKarte(new Aktionskarte("Schneller Laser", 1, -2, 0, false));
-
+		neueKarte(new Aktionskarte("Ninjaschlag", 1, -2, 0, false,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
+						.setWirkung(new WGesVorteilWirkung(Wirkungswert.ANGRIFF, 1, 1, 5)).createZTE()));
+		neueKarte(new Aktionskarte("Schneller Laser", 1, -2, 0, false,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
+						.setWirkung(new WGesVorteilWirkung(Wirkungswert.MINDESTSCHADEN, 1, 3, 3)).createZTE()));
 		neueKarte(new Aktionskarte("Geschwindigkeitsbelohnung", 2, -2, 0, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
 						.setBedingungen(new BBasisWertVergleich(Basiswert.GESCHWINDIGKEIT, NKartentyp.CHARAKTER, Vergleich.G))

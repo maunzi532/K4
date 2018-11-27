@@ -31,7 +31,7 @@ public class NKampfTest
 	{
 		Held held = new Held(Klasse.G, setV2Klassen, setV2Waffen);
 		Waffenkarte heldWaffe = setV2Waffen.gibKarte("Spiegelsplitter");
-		Charakterkarte gegner = setV2Gegner.gibKarte("Gegner");
+		Charakterkarte gegner = setV2Gegner.gibKarte("TGegner");
 		Waffenkarte gegnerWaffe = setV2Waffen.gibKarte("Großer Stock");
 
 		NCharakter nc0 = new NCharakter(held.charakterkarte());
