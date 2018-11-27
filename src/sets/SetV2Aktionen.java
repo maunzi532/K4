@@ -23,9 +23,9 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 		neueKarte(new Aktionskarte("Adrenalin", 0, 1, 0, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
 						.setBedingungen(new BLebenIst(Vergleich.KG, 10)).setWirkung(StatWirkung.angriff(3)).createZTE()));
-
-		neueKarte(new Aktionskarte("Magiehaltiger Angriff", 0, 0, -1, false));
-
+		neueKarte(new Aktionskarte("Magiehaltiger Angriff", 0, 0, -1, false, true,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
+						.setWirkung(new WMagiehaltig(Wirkungswert.ANGRIFF)).createZTE()));
 		neueKarte(new Aktionskarte("Brecher", -1, 2, -3, true,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.EINMAL_NACH)
 						.setDauer(2).setBetrifftGegner(true).setAn(NKartentyp.WAFFE).setZielWaffe(W.HW)
@@ -51,9 +51,9 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
 						.setWirkung(StatWirkung.verteidigung(-3)).createZTE()));
 		neueKarte(new Aktionskarte("Hauptwaffe", 3, 0, 0, true));
-
-		neueKarte(new Aktionskarte("Konter", 1, -2, 0, false));
-
+		neueKarte(new Aktionskarte("Konter", 1, -2, 0, false,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.IMMER_VOR).setBedingungen(new BWurdeAngegriffen())
+						.setWirkung(StatWirkung.angriff(4)).setEndTrigger(EndTrigger.NACH_ANGRIFF).createZTE()));
 		neueKarte(new Aktionskarte("Dunkler Angriff", 3, -1, 0, true,
 				new DTEBuilder().setStartTrigger(StartTrigger.EINMAL_NACH)
 						.setDirektWirkung(new MagieWirkung(-2, true)).createDTE()));
@@ -90,9 +90,9 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.EINMAL_NACH)
 						.setWirkung(StatWirkung.verteidigung(2)).createZTE()));
 		neueKarte(new Aktionskarte("Standardangriff", 2, 0, 0, false));
-
-		neueKarte(new Aktionskarte("Kombination", 2, 2, -4, false));
-
+		neueKarte(new Aktionskarte("Kombination", 2, 2, -4, false,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.IMMER_VOR).setBedingungen(new BZielVonTeamAngegriffen())
+						.setWirkung(StatWirkung.angriff(4)).setEndTrigger(EndTrigger.NACH_ANGRIFF).createZTE()));
 		neueKarte(new Aktionskarte("Eisschlag", -1, 0, 0, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifftGegner(true)
 						.setAn(NKartentyp.CHARAKTER).setWirkung(StatWirkung.geschwindigkeit(-2)).setDauer(3).createZTE()));
@@ -112,9 +112,9 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 		neueKarte(new Aktionskarte("Aufladung", 1, -8, 0, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH).setAn(NKartentyp.CHARAKTER)
 						.setWirkung(StatWirkung.angriff(3)).setDauer(3).createZTE()));
-
-		neueKarte(new Aktionskarte("Illusion", 0, -4, 1, true));
-
+		neueKarte(new Aktionskarte("Illusion", 0, -4, 1, true,
+				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
+						.setWirkung(StatWirkung.verteidigung(3)).setEndTrigger(EndTrigger.NACH_ANGEGRIFFEN).createZTE()));
 		neueKarte(new Aktionskarte("Hinterhalt", 0, 4, -2, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.IMMER_NACH)
 						.setStartTriggerSeite(StartTriggerSeite.GEGNER).setWirkung(StatWirkung.angriff(-2)).createZTE()));

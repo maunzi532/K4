@@ -11,6 +11,7 @@ public class Aktionskarte implements Karte
 	private final int angriffMod;
 	private final int geschwindigkeitMod;
 	private final boolean hw;
+	private final boolean ladeMitMagie;
 	private final List<KartenEffekt> effekte;
 
 	public Aktionskarte(String name, int magieMod, int angriffMod, int geschwindigkeitMod, boolean hw, KartenEffekt... effekte)
@@ -20,6 +21,18 @@ public class Aktionskarte implements Karte
 		this.angriffMod = angriffMod;
 		this.geschwindigkeitMod = geschwindigkeitMod;
 		this.hw = hw;
+		ladeMitMagie = false;
+		this.effekte = Arrays.asList(effekte);
+	}
+
+	public Aktionskarte(String name, int magieMod, int angriffMod, int geschwindigkeitMod, boolean hw, boolean ladeMitMagie, KartenEffekt... effekte)
+	{
+		this.name = name;
+		this.magieMod = magieMod;
+		this.angriffMod = angriffMod;
+		this.geschwindigkeitMod = geschwindigkeitMod;
+		this.hw = hw;
+		this.ladeMitMagie = ladeMitMagie;
 		this.effekte = Arrays.asList(effekte);
 	}
 
@@ -49,6 +62,11 @@ public class Aktionskarte implements Karte
 		return hw;
 	}
 
+	public boolean isLadeMitMagie()
+	{
+		return ladeMitMagie;
+	}
+
 	@Override
 	public List<String> werte()
 	{
@@ -56,6 +74,13 @@ public class Aktionskarte implements Karte
 		addWert(werte, "M", magieMod);
 		addWert(werte, "A", angriffMod);
 		addWert(werte, "G", geschwindigkeitMod);
+		if(ladeMitMagie)
+		{
+			while(werte.size() < 6)
+				werte.add("");
+			werte.add("LM");
+			werte.add("");
+		}
 		if(hw)
 		{
 			while(werte.size() < 8)

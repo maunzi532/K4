@@ -167,6 +167,7 @@ public class NKampf
 		alle.addAll(gegner);
 		for(var n : alle)
 		{
+			n.beendeEffekte(EndTrigger.NACH_ANGEGRIFFEN);
 			n.beendeEffekte(EndTrigger.ZUG_ENDE);
 		}
 		return 0;

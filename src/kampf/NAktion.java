@@ -51,6 +51,6 @@ public class NAktion extends NKarte
 
 	public boolean ladeMitMagie()
 	{
-		return false;
+		return karte.isLadeMitMagie();
 	}
 }

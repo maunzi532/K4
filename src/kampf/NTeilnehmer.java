@@ -39,6 +39,7 @@ public class NTeilnehmer
 	private boolean gibtMagieAus;
 	private int gesAngriff;
 	private int anzahlAngriffe;
+	private List<NTeilnehmer> angegriffenVon;
 
 	public NTeilnehmer(int id, Klasse klasse, NCharakter nCharakter,
 			NWaffe nHauptwaffe, NWaffe nNebenwaffe, List<Waffenkarte> verwendbarW, int leben)
@@ -51,6 +52,7 @@ public class NTeilnehmer
 		this.verwendbarW = verwendbarW;
 		this.leben = leben;
 		verwendetW = new ArrayList<>();
+		angegriffenVon = new ArrayList<>();
 	}
 
 	public void beginneZug()
@@ -62,6 +64,7 @@ public class NTeilnehmer
 		gibtMagieAus = false;
 		gesAngriff = 0;
 		anzahlAngriffe = 0;
+		angegriffenVon.clear();
 	}
 
 	public void triggereEffekte(StartTrigger startTrigger, boolean aktionAktiv)
@@ -224,6 +227,13 @@ public class NTeilnehmer
 			triggereEffekte(StartTrigger.EINMAL_NACH, true);
 		triggereEffekte(StartTrigger.IMMER_NACH, true);
 		beendeEffekte(EndTrigger.NACH_ANGRIFF);
+		ziel.beendeEffekte(EndTrigger.NACH_ANGEGRIFFEN);
+		ziel.angegriffenVon.add(this);
+	}
+
+	public int getGeladeneMagie()
+	{
+		return geladeneMagie;
 	}
 
 	public int getGesAngriff()
@@ -234,6 +244,11 @@ public class NTeilnehmer
 	public int getAnzahlAngriffe()
 	{
 		return anzahlAngriffe;
+	}
+
+	public List<NTeilnehmer> getAngegriffenVon()
+	{
+		return angegriffenVon;
 	}
 
 	public W getMit()

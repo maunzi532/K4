@@ -157,14 +157,21 @@ public class ZTEBuilder
 			}
 		}
 		sb.append(wirkung.text());
-		int dauer1 = dauer;
-		if(startTrigger == StartTrigger.ZUGENDE)
+		if(endTrigger == EndTrigger.ZUG_ENDE)
 		{
-			dauer1--;
+			int dauer1 = dauer;
+			if(startTrigger == StartTrigger.ZUGENDE)
+			{
+				dauer1--;
+			}
+			if(dauer1 != 1)
+			{
+				sb.append(" (").append(dauer1).append(" Züge)");
+			}
 		}
-		if(dauer1 != 1)
+		if(endTrigger == EndTrigger.NACH_ANGEGRIFFEN)
 		{
-			sb.append(" (").append(dauer1).append(" Züge)");
+			sb.append(", endet nachdem Anwender angegriffen wurde");
 		}
 		text = sb.toString();
 		return this;
