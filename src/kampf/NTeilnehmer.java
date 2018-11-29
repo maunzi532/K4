@@ -17,8 +17,6 @@ public class NTeilnehmer
 	//Waffen
 	public NWaffe nHauptwaffe;
 	public NWaffe nNebenwaffe;
-	private List<Waffenkarte> verwendbarW;
-	public List<Waffenkarte> verwendetW;
 
 	//Reihenfolge
 	public int gesVorteil0;
@@ -42,16 +40,14 @@ public class NTeilnehmer
 	private List<NTeilnehmer> angegriffenVon;
 
 	public NTeilnehmer(int id, Klasse klasse, NCharakter nCharakter,
-			NWaffe nHauptwaffe, NWaffe nNebenwaffe, List<Waffenkarte> verwendbarW, int leben)
+			NWaffe nHauptwaffe, NWaffe nNebenwaffe, int leben)
 	{
 		this.id = id;
 		this.klasse = klasse;
 		this.nCharakter = nCharakter;
 		this.nHauptwaffe = nHauptwaffe;
 		this.nNebenwaffe = nNebenwaffe;
-		this.verwendbarW = verwendbarW;
 		this.leben = leben;
-		verwendetW = new ArrayList<>();
 		angegriffenVon = new ArrayList<>();
 	}
 
@@ -284,11 +280,6 @@ public class NTeilnehmer
 	public int getId()
 	{
 		return id;
-	}
-
-	public List<Waffenkarte> getVerwendbarW()
-	{
-		return verwendbarW;
 	}
 
 	public NCharakter nCharakter()

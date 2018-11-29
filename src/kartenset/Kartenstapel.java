@@ -47,6 +47,15 @@ public class Kartenstapel<T extends AKarte>
 		return k;
 	}
 
+	public T entnehmeKarte(String name)
+	{
+		T k1 = deck.stream().filter(k -> k instanceof Karte && ((Karte) k).getName().equals(name)).findFirst()
+				.orElseThrow(() -> new IllegalArgumentException(name));
+		deck.remove(k1);
+		umlauf.add(k1);
+		return k1;
+	}
+
 	public void ablageInsDeck()
 	{
 		if(!ablage.isEmpty())

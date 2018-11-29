@@ -35,7 +35,7 @@ public class NKampf
 		alle = new ArrayList<>();
 		alle.addAll(spieler);
 		alle.addAll(gegner);
-		List<Waffenwechsel> wL = spieler.stream().map(e -> new Waffenwechsel(this, e.getId(), e.getVerwendbarW(),
+		List<Waffenwechsel> wL = spieler.stream().map(e -> new Waffenwechsel(this, e.getId(), new ArrayList<>(),
 				e.getWaffeKarte(W.HW), e.getWaffeKarte(W.NW))).collect(Collectors.toList());
 		//sende an UI
 	}
@@ -57,13 +57,6 @@ public class NKampf
 
 	public void anfangstrigger()
 	{
-		for(NTeilnehmer n : spieler)
-		{
-			if(n.nHauptwaffe != null && !n.verwendetW.contains(n.getWaffeKarte(W.HW)))
-				n.verwendetW.add(n.getWaffeKarte(W.HW));
-			if(n.nNebenwaffe != null && !n.verwendetW.contains(n.getWaffeKarte(W.NW)))
-				n.verwendetW.add(n.getWaffeKarte(W.NW));
-		}
 		for(NTeilnehmer n : alle)
 		{
 			if(n.nHauptwaffe != null)
