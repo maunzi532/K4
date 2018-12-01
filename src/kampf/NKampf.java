@@ -58,7 +58,11 @@ public class NKampf
 			if(n.nHauptwaffe != null)
 				n.triggereEffekte1va(n.getWaffeKarte(W.HW).effekte(), StartTrigger.VERWENDET, W.HW);
 			if(n.nNebenwaffe != null)
+			{
+				System.out.println(n.nNebenwaffe);
+				System.out.println(n.getWaffeKarte(W.NW));
 				n.triggereEffekte1va(n.getWaffeKarte(W.NW).effekte(), StartTrigger.VERWENDET, W.NW);
+			}
 			n.triggereEffekte(StartTrigger.ANFANG, false);
 		}
 	}

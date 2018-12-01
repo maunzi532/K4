@@ -31,7 +31,7 @@ public class NKampfTest
 	{
 		KlasseMitLevels held = new KlasseMitLevels(Klasse.G, setV2Klassen);
 		Waffenkarte heldWaffe = setV2Waffen.gibKarte("Spiegelsplitter");
-		Charakterkarte gegner = setV2Gegner.gibKarte("TGegner");
+		Charakterkarte gegner = new Charakterkarte("TGegner", 8, 7, 6, 6, 10);
 		Waffenkarte gegnerWaffe = setV2Waffen.gibKarte("Großer Stock");
 
 		NTeilnehmer nt0 = new NTeilnehmer(0, held.charakterkarte(), heldWaffe,

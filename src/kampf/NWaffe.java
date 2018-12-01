@@ -7,7 +7,14 @@ public class NWaffe extends NKarte
 {
 	public Waffenkarte karte;
 
-	public NWaffe(Waffenkarte karte)
+	public static NWaffe von(Waffenkarte karte)
+	{
+		if(karte == null)
+			return null;
+		return new NWaffe(karte);
+	}
+
+	private NWaffe(Waffenkarte karte)
 	{
 		this.karte = karte;
 	}

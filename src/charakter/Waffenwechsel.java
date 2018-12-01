@@ -76,8 +76,8 @@ public class Waffenwechsel
 			spieler.gesVorteil0 = 1;
 			return false;
 		}
-		spieler.nHauptwaffe = new NWaffe(hauptwaffeN.karte);
-		spieler.nNebenwaffe = new NWaffe(nebenwaffeN.karte);
+		spieler.nHauptwaffe = NWaffe.von(hauptwaffeN.karte);
+		spieler.nNebenwaffe = NWaffe.von(nebenwaffeN.karte);
 		spieler.gesVorteil0 = -1;
 		return true;
 	}

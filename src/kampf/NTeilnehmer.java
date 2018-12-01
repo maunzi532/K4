@@ -47,8 +47,8 @@ public class NTeilnehmer
 	{
 		this.spielerNummer = spielerNummer;
 		nCharakter = new NCharakter(charakterkarte);
-		nHauptwaffe = new NWaffe(hauptwafffe);
-		nNebenwaffe = new NWaffe(nebenwaffe);
+		nHauptwaffe = NWaffe.von(hauptwafffe);
+		nNebenwaffe = NWaffe.von(nebenwaffe);
 		magie = 0;
 		this.leben = leben;
 		angegriffenVon = new ArrayList<>();
