@@ -9,9 +9,8 @@ public class NTeilnehmer
 {
 	private static final int[] multiAngriffLimits = new int[]{5, 15, 30};
 
-	//Identifikation / Charakter
-	private int id;
-	private Klasse klasse;
+	public final int spielerNummer;
+	//Charakter
 	private NCharakter nCharakter;
 
 	//Waffen
@@ -39,14 +38,18 @@ public class NTeilnehmer
 	private int anzahlAngriffe;
 	private List<NTeilnehmer> angegriffenVon;
 
-	public NTeilnehmer(int id, Klasse klasse, NCharakter nCharakter,
-			NWaffe nHauptwaffe, NWaffe nNebenwaffe, int leben)
+	public NTeilnehmer(int spielerNummer, Charakterkarte charakterkarte, Waffenkarte hauptwafffe, Waffenkarte nebenwaffe)
 	{
-		this.id = id;
-		this.klasse = klasse;
-		this.nCharakter = nCharakter;
-		this.nHauptwaffe = nHauptwaffe;
-		this.nNebenwaffe = nNebenwaffe;
+		this(spielerNummer, charakterkarte, hauptwafffe, nebenwaffe, charakterkarte.getLeben() * 3);
+	}
+
+	public NTeilnehmer(int spielerNummer, Charakterkarte charakterkarte, Waffenkarte hauptwafffe, Waffenkarte nebenwaffe, int leben)
+	{
+		this.spielerNummer = spielerNummer;
+		nCharakter = new NCharakter(charakterkarte);
+		nHauptwaffe = new NWaffe(hauptwafffe);
+		nNebenwaffe = new NWaffe(nebenwaffe);
+		magie = 0;
 		this.leben = leben;
 		angegriffenVon = new ArrayList<>();
 	}
@@ -275,11 +278,6 @@ public class NTeilnehmer
 	public int getLeben()
 	{
 		return leben;
-	}
-
-	public int getId()
-	{
-		return id;
 	}
 
 	public NCharakter nCharakter()

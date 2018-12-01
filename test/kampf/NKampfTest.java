@@ -34,13 +34,10 @@ public class NKampfTest
 		Charakterkarte gegner = setV2Gegner.gibKarte("TGegner");
 		Waffenkarte gegnerWaffe = setV2Waffen.gibKarte("Großer Stock");
 
-		NCharakter nc0 = new NCharakter(held.charakterkarte());
-		NWaffe nw0 = new NWaffe(heldWaffe);
-		NCharakter nc1 = new NCharakter(gegner);
-		NWaffe nw1 = new NWaffe(gegnerWaffe);
-
-		NTeilnehmer nt0 = new NTeilnehmer(0, null, nc0, nw0, null, held.charakterkarte().getLeben() * 3);
-		NTeilnehmer nt1 = new NTeilnehmer(0, null, nc1, nw1, null, gegner.getLeben() * 3);
+		NTeilnehmer nt0 = new NTeilnehmer(0, held.charakterkarte(), heldWaffe,
+				null, held.charakterkarte().getLeben() * 3);
+		NTeilnehmer nt1 = new NTeilnehmer(-1, gegner, gegnerWaffe,
+				null, gegner.getLeben() * 3);
 
 		NKampf nKampf = new NKampf(List.of(nt0), List.of(nt1));
 		nKampf.start();

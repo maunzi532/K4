@@ -1,10 +1,12 @@
 package charakter;
 
+import kampf.*;
 import karten.*;
 import kartenset.*;
 
 public class HeldMap
 {
+	public final int spielerNummer;
 	public KlasseMitLevels held;
 	public Charakterkarte charakter;
 	public WaffeMap hauptwaffe;
@@ -12,8 +14,9 @@ public class HeldMap
 	public int leben;
 	public int exp;
 
-	public HeldMap(Klasse k, Kartenset<Charakterkarte> klassenkarten, Kartenstapel<Waffenkarte> waffen)
+	public HeldMap(int spielerNummer, Klasse k, Kartenset<Charakterkarte> klassenkarten, Kartenstapel<Waffenkarte> waffen)
 	{
+		this.spielerNummer = spielerNummer;
 		held = new KlasseMitLevels(k, klassenkarten);
 		charakter = held.charakterkarte();
 		hauptwaffe = new WaffeMap(waffen.entnehmeKarte(switch(k)
@@ -30,5 +33,15 @@ public class HeldMap
 		nebenwaffe = null;
 		leben = charakter.getLeben() * 3;
 		exp = 0;
+	}
+
+	public NTeilnehmer erstelleNTeilnehmer()
+	{
+		return new NTeilnehmer(spielerNummer, charakter, hauptwaffe.karte, nebenwaffe.karte, leben);
+	}
+
+	public Waffenwechsel erstelleWaffenwechsel(TeamItems teamItems)
+	{
+		return new Waffenwechsel(spielerNummer, teamItems, hauptwaffe, nebenwaffe);
 	}
 }

@@ -2,7 +2,6 @@ package kampf;
 
 import effekt.*;
 import java.util.*;
-import java.util.stream.*;
 import karten.*;
 
 public class NKampf
@@ -35,19 +34,19 @@ public class NKampf
 		alle = new ArrayList<>();
 		alle.addAll(spieler);
 		alle.addAll(gegner);
-		List<Waffenwechsel> wL = spieler.stream().map(e -> new Waffenwechsel(this, e.getId(), new ArrayList<>(),
-				e.getWaffeKarte(W.HW), e.getWaffeKarte(W.NW))).collect(Collectors.toList());
+		/*List<Waffenwechsel> wL = spieler.stream().map(e -> new Waffenwechsel(this, e.getId(), new ArrayList<>(),
+				e.getWaffeKarte(W.HW), e.getWaffeKarte(W.NW))).collect(Collectors.toList());*/
 		//sende an UI
 	}
 
-	public void nachInitialWaffenwechsel(Waffenwechsel w)
+	/*public void nachInitialWaffenwechsel(Waffenwechsel w)
 	{
 		NTeilnehmer spieler0 = spieler.get(w.spielerId);
 		if(w.anwenden(spieler0))
 			spieler0.gesVorteil0 = -1;
 		else
 			spieler0.gesVorteil0 = 1;
-	}
+	}*/
 
 	public void nachInitialWaffenwechsel()
 	{

@@ -2,21 +2,74 @@ package kampf;
 
 import charakter.*;
 import java.util.*;
+import java.util.stream.*;
 import karten.*;
 import kartenset.*;
 
 public class NKampf2
 {
 	public List<HeldMap> spieler;
+	public int gegnerExpMin, gegnerExpMax;
+	public List<Charakterkarte> bossgegner;
 	public List<Gegner> gegner;
-	public Kartenstapel<Waffenkarte> waffen;
-	public Kartenstapel<Aktionskarte> aktionen;
+	public List<Waffenkarte> gegnerWaffen;
 	public NKampf nKampf;
-	public KarteBild wugu;
+	public TeamItems teamItems;
+	public Kartenstapel<Aktionskarte> aktionenStapel;
+	public Kartenstapel<Charakterkarte> gegnerStapel;
+	public Kartenstapel<Waffenkarte> waffenStapel;
 
-	public NKampf2()
+	public NKampf2(List<HeldMap> spieler, List<Charakterkarte> bossgegner)
 	{
-		wugu = new KarteBild(17, 7, 5, 10);
+		this.spieler = spieler;
+		this.bossgegner = bossgegner;
+	}
+
+	public NKampf2(HeldMap spieler0, int gegnerExpMin, int gegnerExpMax)
+	{
+		spieler = List.of(spieler0);
+		this.gegnerExpMin = gegnerExpMin;
+		this.gegnerExpMax = gegnerExpMax;
+	}
+
+	public void ermittleGegner()
+	{
+		if(bossgegner != null)
+		{
+			gegner = bossgegner.stream().map(Gegner::new).collect(Collectors.toList());
+		}
+		else
+		{
+			//ermittle Gegner
+		}
+		//ermittle Waffen für Gegner
+	}
+
+	public void erstelle()
+	{
+		List<NTeilnehmer> nts = spieler.stream().map(HeldMap::erstelleNTeilnehmer).collect(Collectors.toList());
+		List<NTeilnehmer> ntg = new ArrayList<>();
+		for(int i = 0; i < gegner.size(); i++)
+		{
+			ntg.add(new NTeilnehmer(-1, gegner.get(i).charakterkarte(), gegnerWaffen.get(i), null));
+		}
+		nKampf = new NKampf(nts, ntg);
+	}
+
+	public void k0()
+	{
+		nKampf.start();
+	}
+
+	public void k1()
+	{
+		nKampf.anfangstrigger();
+		z0();
+	}
+
+	public void z0()
+	{
+		nKampf.beginneZug();
 	}
 
 	public void los()
