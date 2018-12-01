@@ -1,5 +1,6 @@
 package kampf;
 
+import charakter.*;
 import effekt.*;
 import java.util.*;
 import karten.*;
@@ -39,14 +40,10 @@ public class NKampf
 		//sende an UI
 	}
 
-	/*public void nachInitialWaffenwechsel(Waffenwechsel w)
+	public void wendeWaffenwechselAn(Waffenwechsel w, int i)
 	{
-		NTeilnehmer spieler0 = spieler.get(w.spielerId);
-		if(w.anwenden(spieler0))
-			spieler0.gesVorteil0 = -1;
-		else
-			spieler0.gesVorteil0 = 1;
-	}*/
+		w.anwenden(spieler0.get(i));
+	}
 
 	public void nachInitialWaffenwechsel()
 	{

@@ -1,8 +1,8 @@
-package kampf;
+package charakter;
 
-import charakter.*;
 import java.util.*;
 import java.util.stream.*;
+import kampf.*;
 import karten.*;
 import kartenset.*;
 
@@ -14,6 +14,9 @@ public class NKampf2
 	public List<Gegner> gegner;
 	public List<Waffenkarte> gegnerWaffen;
 	public NKampf nKampf;
+	public List<Waffenwechsel> waffenwechsel;
+	public List<Aktionskarte> aktionskarten;
+	public List<AktionAuswahl> aktionAuswahl;
 	public TeamItems teamItems;
 	public Kartenstapel<Aktionskarte> aktionenStapel;
 	public Kartenstapel<Charakterkarte> gegnerStapel;
@@ -59,17 +62,37 @@ public class NKampf2
 	public void k0()
 	{
 		nKampf.start();
+		waffenwechsel = spieler.stream().map(e -> e.erstelleWaffenwechsel(teamItems)).collect(Collectors.toList());
 	}
 
 	public void k1()
 	{
+		for(int i = 0; i < waffenwechsel.size(); i++)
+		{
+			waffenwechsel.get(i).anwenden(spieler.get(i));
+			nKampf.wendeWaffenwechselAn(waffenwechsel.get(i), i);
+		}
 		nKampf.anfangstrigger();
+		aktionskarten = new ArrayList<>();
 		z0();
 	}
 
 	public void z0()
 	{
 		nKampf.beginneZug();
+		while(aktionskarten.size() < 3 + spieler.size())
+		{
+			Aktionskarte k = aktionenStapel.erhalteKarte();
+			if(k == null)
+				break;
+			aktionskarten.add(k);
+		}
+		//Erstelle Aktion Auswahl
+	}
+
+	public void z1()
+	{
+
 	}
 
 	public void los()

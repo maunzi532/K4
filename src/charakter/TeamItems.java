@@ -12,4 +12,16 @@ public class TeamItems
 		expTrankVorrat = new ArrayList<>();
 		waffenVorrat = new ArrayList<>();
 	}
+
+	public void lagereWaffe(WaffeMap waffe)
+	{
+		waffenVorrat.add(waffe);
+	}
+
+	public WaffeMap entnehmeWaffe(int num)
+	{
+		if(num < 0 || num >= waffenVorrat.size())
+			return null;
+		return waffenVorrat.remove(num);
+	}
 }

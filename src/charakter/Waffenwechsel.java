@@ -21,6 +21,43 @@ public class Waffenwechsel
 		nebenwaffeN = nebenwaffeV;
 	}
 
+	public void tausche()
+	{
+		WaffeMap w = hauptwaffeN;
+		hauptwaffeN = nebenwaffeN;
+		nebenwaffeN = w;
+	}
+
+	public void alsHauptwaffe(int num)
+	{
+		lagereHauptwaffe();
+		hauptwaffeN = teamItems.entnehmeWaffe(num);
+	}
+
+	public void lagereHauptwaffe()
+	{
+		if(hauptwaffeN != null)
+		{
+			teamItems.lagereWaffe(hauptwaffeN);
+			hauptwaffeN = null;
+		}
+	}
+
+	public void alsNebenwaffe(int num)
+	{
+		lagereNebenwaffe();
+		nebenwaffeN = teamItems.entnehmeWaffe(num);
+	}
+
+	public void lagereNebenwaffe()
+	{
+		if(nebenwaffeN != null)
+		{
+			teamItems.lagereWaffe(nebenwaffeN);
+			nebenwaffeN = null;
+		}
+	}
+
 	public boolean anwenden(HeldMap spieler)
 	{
 		if(hauptwaffeN == hauptwaffeV && nebenwaffeN == nebenwaffeV)
