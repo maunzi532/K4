@@ -13,6 +13,16 @@ public class Spielfigur
 	private List<KoordinatenNum> bewegungsgraph;
 	private Deque<KoordinatenNum> pfad = new ArrayDeque<>();
 
+	public Spielfigur(DungeonMap map, int y, int x)
+	{
+		this.map = map;
+		this.y = y;
+		this.x = x;
+		ly = y;
+		lx = x;
+		erstelleBewegungsgraph();
+	}
+
 	public boolean blockiert()
 	{
 		return ly != y || lx != x;

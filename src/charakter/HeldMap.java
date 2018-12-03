@@ -1,5 +1,6 @@
 package charakter;
 
+import dungeonmap.*;
 import kampf.*;
 import karten.*;
 import kartenset.*;
@@ -13,6 +14,7 @@ public class HeldMap
 	public WaffeMap nebenwaffe;
 	public int leben;
 	public int exp;
+	public Spielfigur spielfigur;
 
 	public HeldMap(int spielerNummer, Klasse k, Kartenset<Charakterkarte> klassenkarten, Kartenstapel<Waffenkarte> waffen)
 	{

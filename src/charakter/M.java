@@ -29,4 +29,26 @@ public class M
 		dungeonMap = new DungeonMap(e.yhMap, e.xmMap, e.mittelBossOrte);
 		dungeonMap.erstelleMittelWeg(mittelMapSet);
 	}
+
+	public void klassenAuswahl()
+	{
+		spieler = new ArrayList<>();
+		Scanner sca = new Scanner(System.in);
+		List<Klasse> klassen = new ArrayList<>(Arrays.asList(Klasse.values()));
+		for(int i = 0; i < e.anzahlSpieler; i++)
+		{
+			Optional<Klasse> kl = Optional.empty();
+			while(kl.isEmpty())
+			{
+				System.out.println(klassen);
+				System.out.println("Wähle Klasse durch ersten Buchstaben");
+				String input = sca.nextLine();
+				kl = klassen.stream().filter(e -> e.name().equalsIgnoreCase(input)).findFirst();
+			}
+			klassen.remove(kl.get());
+			var h = new HeldMap(i, kl.get(), klassenSet, waffenStapel);
+			h.spielfigur = dungeonMap.erstelleSpielfigur();
+			spieler.add(h);
+		}
+	}
 }

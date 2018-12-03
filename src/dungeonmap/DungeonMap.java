@@ -73,6 +73,11 @@ public class DungeonMap
 		}
 	}
 
+	public Spielfigur erstelleSpielfigur()
+	{
+		return new Spielfigur(this, yhMap * ywF - 1, xmMap * xwF + MapKarte.xm);
+	}
+
 	public void forsche(KoordinatenNum ort, Kartenstapel<MapKarte> mapStapel)
 	{
 		int yk = ort.y / ywF;
