@@ -54,6 +54,6 @@ public class MapFeld
 
 	public boolean weitergehen(int y, int x)
 	{
-		return ort(y, x).begehbar == 1;
+		return ort(y, x).begehbar == 1 || verwendet(y, x);
 	}
 }

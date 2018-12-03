@@ -2,7 +2,7 @@ package dungeonmap;
 
 public enum MapTeil
 {
-	NICHTS(false, 0, '▉', 'X'),
+	NICHTS(false, 0, '▉', '▉'),
 	WEG(false, 1, ' ', ' '),
 	GEGNER(true, 2, 'G', 'g'),
 	TRANK(true, 1, 'T', 't'),

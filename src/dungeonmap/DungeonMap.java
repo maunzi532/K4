@@ -73,9 +73,9 @@ public class DungeonMap
 		}
 	}
 
-	public Spielfigur erstelleSpielfigur()
+	public Spielfigur erstelleSpielfigur(int spielerNummer)
 	{
-		return new Spielfigur(this, yhMap * ywF - 1, xmMap * xwF + MapKarte.xm);
+		return new Spielfigur(spielerNummer, this, yhMap * ywF - 1, xmMap * xwF + MapKarte.xm);
 	}
 
 	public void forsche(KoordinatenNum ort, Kartenstapel<MapKarte> mapStapel)
@@ -145,5 +145,15 @@ public class DungeonMap
 			}
 		}
 		return sb.toString();
+	}
+
+	public int getYhMap()
+	{
+		return yhMap;
+	}
+
+	public int getXwMap()
+	{
+		return xwMap;
 	}
 }
