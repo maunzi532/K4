@@ -61,7 +61,7 @@ public class DTEBuilder
 		StringBuilder sb = new StringBuilder();
 		if(startTriggerSeite == StartTriggerSeite.GEGNER)
 		{
-			sb.append("Wenn angegriffen: ");
+			sb.append("Wenn_angegriffen: ");
 		}
 		if(!bedingungen.isEmpty())
 		{

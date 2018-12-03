@@ -2,7 +2,7 @@ package effekt.wirkung;
 
 public class StatWirkung implements Wirkung
 {
-	private static final String[] statnamen = new String[]{"A", "G", "V", "Mindestschaden", "Mindestschutz"};
+	//private static final String[] statnamen = new String[]{"A_", "G_", "V_", "Mindestschaden ", "Mindestschutz "};
 
 	private final String text;
 	private final int angriff;
@@ -51,7 +51,7 @@ public class StatWirkung implements Wirkung
 		}
 		if(extraangriffe != 0)
 		{
-			return extraangriffe + " Extraangriff" + (extraangriffe == 1 ? "" : "e");
+			return extraangriffe + "_Extraangriff" + (extraangriffe == 1 ? "" : "e");
 		}
 		if(magie != 0)
 		{
@@ -60,19 +60,21 @@ public class StatWirkung implements Wirkung
 		StringBuilder sb = new StringBuilder();
 		boolean k = false;
 		int[] werte = werte();
-		for(int i = 0; i < statnamen.length; i++)
+		Wirkungswert[] wt = Wirkungswert.values();
+		for(int i = 0; i < werte.length; i++)
 		{
 			if(werte[i] != 0)
 			{
 				if(k)
 					sb.append(", ");
+
 				if(werte[i] > 0)
 				{
-					sb.append(statnamen[i]).append(" +").append(werte[i]);
+					sb.append(wt[i].text).append("+").append(werte[i]);
 				}
 				else
 				{
-					sb.append(statnamen[i]).append(" ").append(werte[i]);
+					sb.append(wt[i].text).append(werte[i]);
 				}
 				k = true;
 			}

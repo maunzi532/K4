@@ -29,15 +29,7 @@ public class BLebenVergleich implements Bedingung
 	public String text()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("Leben ");
-		switch(vergleich)
-		{
-			case K -> sb.append("<");
-			case KG -> sb.append("<=");
-			case G -> sb.append(">");
-			case GG -> sb.append(">=");
-		}
-		sb.append(" Leben (Ziel)");
+		sb.append("Leben ").append(vergleich.text).append(" Leben_(Ziel)");
 		return sb.toString();
 	}
 }

@@ -109,15 +109,15 @@ public class ZMEBuilder
 					sb.append(bedingungen.get(i).text()).append(" und ");
 			}
 		}
-		sb.append("Zahle ").append(magieKosten).append(" Magie für: ");
+		sb.append("Zahle_").append(magieKosten).append("_Magie_für: ");
 		if(betrifftGegner)
 		{
 			if(an == NKartentyp.WAFFE)
 			{
 				sb.append(switch(zielWaffe)
 				{
-					case HW -> "Ziel HW: ";
-					case NW -> "Ziel NW: ";
+					case HW -> "Ziel_HW: ";
+					case NW -> "Ziel_NW: ";
 					case OK -> "Verwendete Waffe (Ziel): ";
 				});
 			}
@@ -145,7 +145,7 @@ public class ZMEBuilder
 		sb.append(wirkung.text());
 		if(dauer != 1)
 		{
-			sb.append(" (").append(dauer).append(" Züge)");
+			sb.append(" (").append(dauer).append("_Züge)");
 		}
 		text = sb.toString();
 		return this;

@@ -31,6 +31,6 @@ public class WMagiehaltig implements Wirkung
 	@Override
 	public String text()
 	{
-		return wirktAuf.text + " ist um gezahlte Magie erhöht";
+		return wirktAuf.text + "ist um gezahlte Magie erhöht";
 	}
 }

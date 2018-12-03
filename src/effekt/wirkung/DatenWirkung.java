@@ -42,18 +42,18 @@ public abstract class DatenWirkung implements Wirkung
 	public String text()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(wirktAuf.text).append(multiplikator >= 0 ? " + " : " - ");
+		sb.append(wirktAuf.text).append(multiplikator >= 0 ? "+_" : "-_");
 		if(Math.abs(multiplikator) > 1 || divisor > 1)
 			sb.append("(");
 		sb.append(nameDaten());
 		if(Math.abs(multiplikator) > 1)
-			sb.append(" * ").append(Math.abs(multiplikator));
+			sb.append(" *_").append(Math.abs(multiplikator));
 		if(divisor > 1)
-			sb.append(" / ").append(divisor);
+			sb.append(" /_").append(divisor);
 		if(Math.abs(multiplikator) > 1 || divisor > 1)
 			sb.append(")");
 		if(max / multiplikator > 0)
-			sb.append(" (max. ").append(max).append(")");
+			sb.append(" (max._").append(max).append(")");
 		return sb.toString();
 	}
 }

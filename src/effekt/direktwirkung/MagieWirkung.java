@@ -33,11 +33,11 @@ public class MagieWirkung implements DirektWirkung
 		StringBuilder sb = new StringBuilder();
 		if(gegner)
 		{
-			sb.append("Ziel Magie ");
+			sb.append("Ziel Magie_");
 		}
 		else
 		{
-			sb.append("Magie ");
+			sb.append("Magie_");
 		}
 		if(magie > 0)
 		{
@@ -45,7 +45,7 @@ public class MagieWirkung implements DirektWirkung
 		}
 		else
 		{
-			sb.append(magie).append(" (min. 0)");
+			sb.append(magie).append(" (min._0)");
 		}
 		return sb.toString();
 	}

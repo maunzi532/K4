@@ -107,7 +107,7 @@ public class ZTEBuilder
 		StringBuilder sb = new StringBuilder();
 		if(startTriggerSeite == StartTriggerSeite.GEGNER)
 		{
-			sb.append("Wenn angegriffen: ");
+			sb.append("Wenn_angegriffen: ");
 		}
 		if(!bedingungen.isEmpty())
 		{
@@ -122,7 +122,7 @@ public class ZTEBuilder
 		}
 		if(startTrigger == StartTrigger.ZUGENDE)
 		{
-			sb.append("Nächster Zug: ");
+			sb.append("Nächster_Zug: ");
 		}
 		if(betrifftGegner)
 		{
@@ -130,8 +130,8 @@ public class ZTEBuilder
 			{
 				sb.append(switch(zielWaffe)
 				{
-					case HW -> "Ziel HW: ";
-					case NW -> "Ziel NW: ";
+					case HW -> "Ziel_HW: ";
+					case NW -> "Ziel_NW: ";
 					case OK -> "Verwendete Waffe (Ziel): ";
 				});
 			}
@@ -166,7 +166,7 @@ public class ZTEBuilder
 			}
 			if(dauer1 != 1)
 			{
-				sb.append(" (").append(dauer1).append(" Züge)");
+				sb.append(" (").append(dauer1).append("_Züge)");
 			}
 		}
 		if(endTrigger == EndTrigger.NACH_ANGEGRIFFEN)

@@ -3,16 +3,16 @@ package effekt.bedingung;
 import kampf.*;
 import karten.*;
 
-public class BMehrAG implements Bedingung
+public class BGesVorteil implements Bedingung
 {
 	private final int min;
 
-	public BMehrAG()
+	public BGesVorteil()
 	{
 		min = 1;
 	}
 
-	public BMehrAG(int min)
+	public BGesVorteil(int min)
 	{
 		this.min = min;
 	}
@@ -27,8 +27,8 @@ public class BMehrAG implements Bedingung
 	public String text()
 	{
 		if(min == 1)
-			return "Ges > Ges (Ziel)";
+			return "Ges > Ges_(Ziel)";
 		else
-			return "Ges >= Ges (Ziel) + " + min;
+			return "Ges ≥ Ges_(Ziel) +_" + min;
 	}
 }

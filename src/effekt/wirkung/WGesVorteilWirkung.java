@@ -20,6 +20,6 @@ public class WGesVorteilWirkung extends DatenWirkung
 	@Override
 	public String nameDaten()
 	{
-		return "Ges. Vorteil";
+		return "Ges._Vorteil";
 	}
 }

@@ -76,7 +76,7 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 		neueKarte(new Aktionskarte("Zertrümmerer", 1, 4, -4, true));
 		neueKarte(new Aktionskarte("Hieb", 1, 0, 0, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
-						.setBedingungen(new BMehrAG()).setWirkung(StatWirkung.angriff(2)).createZTE()));
+						.setBedingungen(new BGesVorteil()).setWirkung(StatWirkung.angriff(2)).createZTE()));
 		neueKarte(new Aktionskarte("Auslassschlag", -8, 4, 4, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
 						.setWirkung(StatWirkung.verteidigung(4)).createZTE()));
@@ -98,7 +98,7 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 						.setAn(NKartentyp.CHARAKTER).setWirkung(StatWirkung.geschwindigkeit(-2)).setDauer(3).createZTE()));
 		neueKarte(new Aktionskarte("Schnellschlag", -3, -2, 3, false,
 				new ZTEBuilder(NKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
-						.setBedingungen(new BMehrAG()).setWirkung(StatWirkung.extraangriffe(1)).createZTE()));
+						.setBedingungen(new BGesVorteil()).setWirkung(StatWirkung.extraangriffe(1)).createZTE()));
 		neueKarte(new Aktionskarte("Magieklatsch", 0, -2, 0, false,
 				new DTEBuilder().setStartTrigger(StartTrigger.IMMER_NACH)
 						.setDirektWirkung(new MagieWirkung(2, false)).createDTE()));

@@ -2,13 +2,13 @@ package effekt.wirkung;
 
 public enum Wirkungswert
 {
-	ANGRIFF("A"),
-	GESCHWINDIGKEIT("G"),
-	VERTEIDIGUNG("V"),
-	MINDESTSCHADEN("Mindestschaden"),
-	MINDESTSCHUTZ("Mindestschutz"),
+	ANGRIFF("A_"),
+	GESCHWINDIGKEIT("G_"),
+	VERTEIDIGUNG("V_"),
+	MINDESTSCHADEN("Mindestschaden "),
+	MINDESTSCHUTZ("Mindestschutz "),
 	EXTRAANGRIFFE("Extraangriff"),
-	MAGIE("Magie für Angriffe");
+	MAGIE("Magie für Angriffe ");
 
 	Wirkungswert(String text)
 	{

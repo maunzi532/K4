@@ -39,20 +39,12 @@ public class BBasisWertVergleich implements Bedingung
 	public String text()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(wert.kurz).append(" (Basis");
+		sb.append(wert.kurz).append("_(Basis");
 		if(von == NKartentyp.WAFFE)
-			sb.append(", Waffe");
+			sb.append(",_Waffe");
 		else if(von == NKartentyp.AKTION)
-			sb.append(", Aktion");
-		sb.append(") ");
-		switch(vergleich)
-		{
-			case K -> sb.append("<");
-			case KG -> sb.append("<=");
-			case G -> sb.append(">");
-			case GG -> sb.append(">=");
-		}
-		sb.append(" ").append(wert.kurz).append(" (Ziel)");
+			sb.append(",_Aktion");
+		sb.append(") ").append(vergleich.text).append(" ").append(wert.kurz).append("_(Ziel)");
 		return sb.toString();
 	}
 }

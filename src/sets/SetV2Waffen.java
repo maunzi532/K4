@@ -23,7 +23,7 @@ public class SetV2Waffen extends Kartenset<Waffenkarte>
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_VOR).setBedingungen(new BMagieAusgeben())
 						.setWirkung(new StatWirkung(2, 2, 2, 0, 2)).createZTE()));
 		neueKarte(new Waffenkarte("Luftwaffe", 13, 4, 8, 0b00010100,
-				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH).setBedingungen(new BMehrAG(5))
+				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH).setBedingungen(new BGesVorteil(5))
 						.setWirkung(StatWirkung.angriff(4)).createZTE()));
 		neueKarte(new Waffenkarte("Kristall der Macht", 14, 9, 4, 0b00100100,
 				new ZTEBuilder(NKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH)

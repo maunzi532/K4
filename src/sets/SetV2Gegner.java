@@ -93,6 +93,6 @@ public class SetV2Gegner extends Kartenset<Charakterkarte>
 						.setWirkung(StatWirkung.angriff(3)).createZTE()));
 		neueKarte(new Charakterkarte("Ninja", 6, 8, 8, 5, 6, 22,
 				new ZTEBuilder(NKartentyp.CHARAKTER).setStartTrigger(StartTrigger.EINMAL_VOR)
-						.setBedingungen(new BMehrAG()).setWirkung(StatWirkung.angriff(2)).createZTE()));
+						.setBedingungen(new BGesVorteil()).setWirkung(StatWirkung.angriff(2)).createZTE()));
 	}
 }

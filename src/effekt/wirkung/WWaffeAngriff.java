@@ -27,7 +27,7 @@ public class WWaffeAngriff implements Wirkung
 	@Override
 	public String text()
 	{
-		StringBuilder sb = new StringBuilder("Angriff ist um A (Basis, Waffe) ");
+		StringBuilder sb = new StringBuilder("Angriff ist um A_(Basis,_Waffe) ");
 		if(multiplikator > 0)
 			sb.append("erhöht");
 		if(multiplikator < 0)

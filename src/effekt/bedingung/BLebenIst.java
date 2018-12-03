@@ -31,15 +31,7 @@ public class BLebenIst implements Bedingung
 	public String text()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("Leben ");
-		switch(vergleich)
-		{
-			case K -> sb.append("<");
-			case KG -> sb.append("<=");
-			case G -> sb.append(">");
-			case GG -> sb.append(">=");
-		}
-		sb.append(" ").append(zu);
+		sb.append("Leben ").append(vergleich.text).append(" ").append(zu);
 		return sb.toString();
 	}
 }

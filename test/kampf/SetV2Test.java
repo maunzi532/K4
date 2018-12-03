@@ -12,7 +12,7 @@ public class SetV2Test
 	private SetV2Klassen setV2Klassen;
 	private SetV2Gegner setV2Gegner;
 	private List<Karte> alleKarten;
-	private KarteBild wugu;
+	private KarteBild2 wugu2;
 
 	@Before
 	public void init()
@@ -26,42 +26,42 @@ public class SetV2Test
 		alleKarten.addAll(setV2Waffen.alleKarten());
 		alleKarten.addAll(setV2Klassen.alleKarten());
 		alleKarten.addAll(setV2Gegner.alleKarten());
-		wugu = new KarteBild(17, 7, 5, 10);
+		wugu2 = new KarteBild2();
 	}
 
 	@Test
 	public void alle()
 	{
-		System.out.println(wugu.bilderReihe(alleKarten));
+		System.out.println(wugu2.bilderReihe(alleKarten));
 	}
 
 	@Test
 	public void bilderReihe2()
 	{
-		System.out.println(wugu.bilderReihe2(alleKarten, 6));
+		System.out.println(wugu2.bilderReihe2(alleKarten, 6));
 	}
 
 	@Test
 	public void aktionen()
 	{
-		System.out.println(wugu.bilderReihe2(new ArrayList<>(setV2Aktionen.alleKarten()), 6));
+		System.out.println(wugu2.bilderReihe2(new ArrayList<>(setV2Aktionen.alleKarten()), 6));
 	}
 
 	@Test
 	public void waffen()
 	{
-		System.out.println(wugu.bilderReihe2(new ArrayList<>(setV2Waffen.alleKarten()), 6));
+		System.out.println(wugu2.bilderReihe2(new ArrayList<>(setV2Waffen.alleKarten()), 6));
 	}
 
 	@Test
 	public void klassen()
 	{
-		System.out.println(wugu.bilderReihe2(new ArrayList<>(setV2Klassen.alleKarten()), 6));
+		System.out.println(wugu2.bilderReihe2(new ArrayList<>(setV2Klassen.alleKarten()), 6));
 	}
 
 	@Test
 	public void gegner()
 	{
-		System.out.println(wugu.bilderReihe2(new ArrayList<>(setV2Gegner.alleKarten()), 6));
+		System.out.println(wugu2.bilderReihe2(new ArrayList<>(setV2Gegner.alleKarten()), 6));
 	}
 }
