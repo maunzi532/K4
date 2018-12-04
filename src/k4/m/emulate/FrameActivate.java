@@ -8,13 +8,13 @@ import javax.swing.*;
 public class FrameActivate
 {
 	private JFrame frame;
+	private JImagePanel panel;
 	private BufferedImage screen;
 	private Graphics2D gd;
 
 	public FrameActivate(int xs, int ys, FrameInput tasten, FrameFormatter format)
 	{
 		frame = new JFrame();
-		frame.setLayout(null);
 		screen = new BufferedImage(format.xchar * xs,
 				format.ychar * ys, BufferedImage.TYPE_INT_RGB);
 		gd = screen.createGraphics();
@@ -29,6 +29,16 @@ public class FrameActivate
 				tasten.escape();
 			}
 		});
+		frame.setBackground(Color.BLACK);
+		JOptionPane op = new JOptionPane();
+		op.setBackground(Color.BLACK);
+		frame.add(op);
+		op.removeAll();
+		panel = new JImagePanel(screen);
+		panel.setPreferredSize(new Dimension(screen.getWidth(), screen.getHeight()));
+		op.add(panel);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 
@@ -41,12 +51,15 @@ public class FrameActivate
 
 	public void imageToFrame()
 	{
-		frame.getGraphics().drawImage(screen, 0, 0, null);
+		frame.repaint();
+		//frame.getGraphics().drawImage(screen, 0, 0, null);
 	}
 
 	public void imageToFrame(BufferedImage image)
 	{
-		frame.getGraphics().drawImage(image, 0, 0, null);
+		gd.drawImage(image, 0, 0, null);
+		frame.repaint();
+		//frame.getGraphics().drawImage(image, 0, 0, null);
 	}
 
 	public void end()
