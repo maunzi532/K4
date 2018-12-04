@@ -2,7 +2,6 @@ package k4.m.emulate;
 
 import java.awt.*;
 import java.awt.image.*;
-import java.io.*;
 import k4.m.*;
 
 public class FrameDevice implements CDevice
@@ -22,13 +21,13 @@ public class FrameDevice implements CDevice
 	}
 
 	@Override
-	public Dimension startDimension() throws IOException, InterruptedException
+	public Dimension startDimension()
 	{
 		return new Dimension(xs, ys);
 	}
 
 	@Override
-	public int getInput() throws IOException
+	public int getInput()
 	{
 		return tasten.firstKey();
 	}
@@ -37,17 +36,17 @@ public class FrameDevice implements CDevice
 	public void toScreen(int[][] chars2, boolean subpixels)
 	{
 		format.format(frameActivate.reset(), chars2, subpixels);
-		frameActivate.imageToFrame();
+		frameActivate.updateFrame();
 	}
 
 	@Override
 	public void toScreen(BufferedImage image)
 	{
-		frameActivate.imageToFrame(image);
+		frameActivate.updateFrame(image);
 	}
 
 	@Override
-	public void end() throws IOException, InterruptedException
+	public void end()
 	{
 		frameActivate.end();
 	}

@@ -30,13 +30,9 @@ public class FrameActivate
 			}
 		});
 		frame.setBackground(Color.BLACK);
-		JOptionPane op = new JOptionPane();
-		op.setBackground(Color.BLACK);
-		frame.add(op);
-		op.removeAll();
 		panel = new JImagePanel(screen);
 		panel.setPreferredSize(new Dimension(screen.getWidth(), screen.getHeight()));
-		op.add(panel);
+		frame.add(panel);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -49,17 +45,15 @@ public class FrameActivate
 		return gd;
 	}
 
-	public void imageToFrame()
+	public void updateFrame()
 	{
 		frame.repaint();
-		//frame.getGraphics().drawImage(screen, 0, 0, null);
 	}
 
-	public void imageToFrame(BufferedImage image)
+	public void updateFrame(BufferedImage image)
 	{
 		gd.drawImage(image, 0, 0, null);
 		frame.repaint();
-		//frame.getGraphics().drawImage(image, 0, 0, null);
 	}
 
 	public void end()
