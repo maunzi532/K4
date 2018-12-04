@@ -82,4 +82,25 @@ public class MapBild
 		}
 		return sb.toString();
 	}
+
+	public String[] erstelleTextBild1(List<Spielfigur> spielfiguren, int ak)
+	{
+		char[][][][] arr = erstelleBild(spielfiguren, ak);
+		int ys = DungeonMap.ywF * map.getYhMap();
+		int xs = DungeonMap.xwF * map.getXwMap();
+		String[] re = new String[ys * yc];
+		for(int iy = 0; iy < ys; iy++)
+		{
+			for(int ky = 0; ky < yc; ky++)
+			{
+				StringBuilder sb = new StringBuilder();
+				for(int ix = 0; ix < xs; ix++)
+				{
+					sb.append(arr[iy][ix][ky]);
+				}
+				re[iy * yc + ky] = sb.toString();
+			}
+		}
+		return re;
+	}
 }

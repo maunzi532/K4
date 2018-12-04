@@ -5,7 +5,7 @@ import java.util.*;
 import k5.karten.*;
 import k5.kartenset.*;
 
-public class M
+public class Hauptklasse
 {
 	public Einstellungen e;
 	public Kartenstapel<MapKarte> mapStapel;
@@ -18,7 +18,7 @@ public class M
 	public List<Spielfigur> figuren;
 	public int spielerAktuell;
 
-	public M(Einstellungen e, MittelMapKartenset mittelMapSet, AKartenset<MapKarte> mapSet,
+	public Hauptklasse(Einstellungen e, MittelMapKartenset mittelMapSet, AKartenset<MapKarte> mapSet,
 			Kartenset<Charakterkarte> klassenSet, Kartenset<Charakterkarte> gegnerSet,
 			Kartenset<Waffenkarte> waffenSet, Kartenset<Aktionskarte> aktionenSet)
 	{
