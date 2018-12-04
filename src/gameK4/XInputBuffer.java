@@ -1,4 +1,4 @@
-package k4.game;
+package gameK4;
 
 import java.util.*;
 

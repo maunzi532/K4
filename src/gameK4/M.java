@@ -1,14 +1,13 @@
-package k4.m;
+package gameK4;
 
-import java.io.*;
+import k4.m.*;
 import k4.m.emulate.*;
 import k4.m.terminal.*;
 import k4.util.*;
-import k4.game.*;
 
 public class M
 {
-	public static void main(String[] args) throws IOException, InterruptedException
+	public static void main(String[] args)
 	{
 		Lader7.inJarCheck();
 		CDevice device = null;

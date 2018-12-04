@@ -1,10 +1,9 @@
-package k4.game;
+package gameK4;
 
 import java.util.*;
 import k4.m.*;
 import k4.plane.*;
 import k4.sprites.*;
-import k4.util.*;
 
 public class A implements Game
 {
@@ -42,8 +41,8 @@ public class A implements Game
 		/*boolean[][] col = D2Compare.colorCollisions(character.sprite, floor);
 		//System.out.println(arghargh(col));
 		argharghD(col);*/
-		boolean[][] col = D2Compare.colorCollisions(floor.plane, character.sprite.plane);
-		argharghD(col);
+		//boolean[][] col = D2Compare.colorCollisions(floor.plane, character.sprite.plane);
+		//argharghD(col);
 		character.update(input);
 		yscroll = screen.height - (character.sprite.yLEdge() + character.sprite.yHEdge()) / 2;
 		xscroll = screen.width - character.getX();

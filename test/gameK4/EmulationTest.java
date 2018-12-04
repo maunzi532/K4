@@ -1,9 +1,9 @@
-package k4.m;
+package gameK4;
 
-import k4.game.*;
+import k4.m.*;
 import k4.m.emulate.*;
-import org.junit.*;
 import k4.util.*;
+import org.junit.*;
 
 public class EmulationTest
 {

@@ -1,4 +1,4 @@
-package k4.game;
+package gameK4;
 
 import k4.plane.*;
 import k4.sprites.*;
