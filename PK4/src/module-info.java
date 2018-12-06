@@ -1,0 +1,4 @@
+module pkv
+{
+	requires kv;
+}
