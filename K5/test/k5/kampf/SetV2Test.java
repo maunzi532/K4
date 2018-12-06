@@ -38,7 +38,7 @@ public class SetV2Test
 	@Test
 	public void bilderReihe2()
 	{
-		System.out.println(wugu2.bilderReihe2(alleKarten, 6));
+		System.out.println(wugu2.bilderReihe2(alleKarten, 5));
 	}
 
 	@Test

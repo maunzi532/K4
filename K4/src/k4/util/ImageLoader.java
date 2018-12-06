@@ -23,13 +23,16 @@ public class ImageLoader
 
 	public BufferedImage getImage(DrawSetting n)
 	{
-		Object object = images.get(n.ordinal());
+		int num = n.ordinal();
+		if(num >= images.size())
+			num = 1;
+		Object object = images.get(num);
 		if(object instanceof BufferedImage)
 			return (BufferedImage) object;
 		if(object instanceof String)
 		{
 			BufferedImage image = Lader7.imageResource((String) object);
-			images.set(n.ordinal(), image);
+			images.set(num, image);
 			return image;
 		}
 		throw new RuntimeException();
