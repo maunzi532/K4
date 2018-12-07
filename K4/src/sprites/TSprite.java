@@ -2,9 +2,15 @@ package sprites;
 
 import plane.*;
 
-public class TSprite extends Sprite
+public class TSprite extends Sprite<TextPlane>
 {
 	public TextPlane plane;
+
+	public TSprite(int ysp, int xsp, int z, TextPlane plane)
+	{
+		super(ysp, xsp, z);
+		this.plane = plane;
+	}
 
 	public TSprite(int y, int x, int ysp, int xsp, int z, TextPlane plane)
 	{
@@ -39,7 +45,7 @@ public class TSprite extends Sprite
 	}
 
 	@Override
-	public Plane getPlane()
+	public TextPlane getPlane()
 	{
 		return plane;
 	}

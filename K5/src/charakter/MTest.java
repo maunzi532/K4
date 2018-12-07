@@ -12,7 +12,7 @@ public class MTest
 		//m.klassenAuswahl();
 		hauptklasse.klassenAuswahl("K", "B");
 		MapBild mapBild = new MapBild(hauptklasse.dungeonMap);
-		System.out.println(mapBild.erstelleTextBild(hauptklasse.figuren, 0));
+		System.out.println(mapBild.erstelleTextBild());
 		hauptklasse.zielAngeben(mapBild);
 	}
 }

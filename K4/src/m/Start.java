@@ -15,8 +15,6 @@ public class Start
 			boolean drawModeStart = device.getFormatter() != null;
 			drawMode = drawMode && drawModeStart;
 			Dimension xy = device.startDimension();
-			System.out.println("xy.height = " + xy.height);
-			System.out.println("xy.width = " + xy.width);
 			PlaneRenderer planeRenderer = new PlaneRenderer(xy.height, xy.width, 0x0);
 			game.init(planeRenderer);
 			label68: while(true)

@@ -1,11 +1,9 @@
 package dungeonmap;
 
-import java.util.*;
-
 public class MapBild
 {
-	private static final int yc = 3;
-	private static final int xc = 5;
+	public static final int yc = 3;
+	public static final int xc = 5;
 
 	private DungeonMap map;
 
@@ -14,16 +12,11 @@ public class MapBild
 		this.map = map;
 	}
 
-	public char[][][][] erstelleBild(List<Spielfigur> spielfiguren, int ak)
+	public char[][][][] erstelleBild()
 	{
 		int ys = DungeonMap.ywF * map.getYhMap();
 		int xs = DungeonMap.xwF * map.getXwMap();
 		char[][][][] arr = new char[ys][xs][yc][xc];
-		for(var sf : spielfiguren)
-		{
-			arr[sf.getY()][sf.getX()][0][0] = 1;
-		}
-		arr[spielfiguren.get(ak).getY()][spielfiguren.get(ak).getX()][0][0] = 2;
 		for(int iy = 0; iy < ys; iy++)
 		{
 			for(int ix = 0; ix < xs; ix++)
@@ -32,19 +25,11 @@ public class MapBild
 				{
 					MapTeil teil = map.ort(iy, ix);
 					boolean verwendet = map.verwendet(iy, ix);
-					int sfh = arr[iy][ix][0][0];
 					for(int ky = 0; ky < yc; ky++)
 					{
 						for(int kx = 0; kx < xc; kx++)
 						{
-							if(sfh > 0)
-							{
-								arr[iy][ix][ky][kx] = (char)(sfh + '0');
-							}
-							else
-							{
-								arr[iy][ix][ky][kx] = verwendet ? teil.zeichen1 : teil.zeichen0;
-							}
+							arr[iy][ix][ky][kx] = verwendet ? teil.zeichen1 : teil.zeichen0;
 						}
 					}
 				}
@@ -63,9 +48,9 @@ public class MapBild
 		return arr;
 	}
 
-	public String erstelleTextBild(List<Spielfigur> spielfiguren, int ak)
+	public String erstelleTextBild()
 	{
-		char[][][][] arr = erstelleBild(spielfiguren, ak);
+		char[][][][] arr = erstelleBild();
 		int ys = DungeonMap.ywF * map.getYhMap();
 		int xs = DungeonMap.xwF * map.getXwMap();
 		StringBuilder sb = new StringBuilder();
@@ -83,9 +68,9 @@ public class MapBild
 		return sb.toString();
 	}
 
-	public String[] erstelleTextBild1(List<Spielfigur> spielfiguren, int ak)
+	public String[] erstelleTextBild1()
 	{
-		char[][][][] arr = erstelleBild(spielfiguren, ak);
+		char[][][][] arr = erstelleBild();
 		int ys = DungeonMap.ywF * map.getYhMap();
 		int xs = DungeonMap.xwF * map.getXwMap();
 		String[] re = new String[ys * yc];

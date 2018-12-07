@@ -27,6 +27,12 @@ public class A extends SpriteGame
 	}
 
 	@Override
+	public void tick()
+	{
+
+	}
+
+	@Override
 	public void handleInput(int input)
 	{
 		/*boolean[][] col = D2Compare.colorCollisions(character.sprite, floor);

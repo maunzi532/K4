@@ -26,8 +26,11 @@ public abstract class SpriteGame implements Game
 	@Override
 	public void fillLists(List<Plane> planes, List<PlaneFrame> frames)
 	{
+		tick();
 		spriteList.updatePositions(yscroll, xscroll);
 		planes.addAll(spriteList.planes());
 		frames.addAll(spriteList.planeFrames());
 	}
+
+	public abstract void tick();
 }

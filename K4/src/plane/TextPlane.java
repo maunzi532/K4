@@ -17,10 +17,13 @@ public class TextPlane implements Plane
 
 	public TextPlane(int fg, int bg, String... text)
 	{
+		update(fg, bg, text);
+	}
+
+	public void update(int fg, int bg, String... text)
+	{
 		ysize = text.length;
-		System.out.println("ysize = " + ysize);
 		xsize = Arrays.stream(text).mapToInt(String::length).max().orElse(0);
-		System.out.println("xsize = " + xsize);
 		data = new int[ysize][xsize];
 		for(int iy = 0; iy < ysize; iy++)
 			for(int ix = 0; ix < xsize; ix++)

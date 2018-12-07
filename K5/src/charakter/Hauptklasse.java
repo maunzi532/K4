@@ -77,7 +77,7 @@ public class Hauptklasse
 			int x = sca.nextInt();
 			ok = figuren.get(spielerAktuell).geheZu(y, x);
 		}
-		System.out.println(mapBild.erstelleTextBild(figuren, spielerAktuell));
+		System.out.println(mapBild.erstelleTextBild());
 		while(figuren.get(spielerAktuell).nochBewegen())
 		{
 			try
@@ -88,7 +88,7 @@ public class Hauptklasse
 				throw new RuntimeException(e1);
 			}
 			gehe();
-			System.out.println(mapBild.erstelleTextBild(figuren, spielerAktuell));
+			System.out.println(mapBild.erstelleTextBild());
 		}
 	}
 

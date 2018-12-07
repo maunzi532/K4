@@ -2,9 +2,15 @@ package sprites;
 
 import plane.*;
 
-public class XSprite extends Sprite
+public class XSprite extends Sprite<SubPixelPlane>
 {
 	public SubPixelPlane plane;
+
+	public XSprite(int ysp, int xsp, int z, SubPixelPlane plane)
+	{
+		super(ysp, xsp, z);
+		this.plane = plane;
+	}
 
 	public XSprite(int y, int x, int ysp, int xsp, int z, SubPixelPlane plane)
 	{
@@ -39,7 +45,7 @@ public class XSprite extends Sprite
 	}
 
 	@Override
-	public Plane getPlane()
+	public SubPixelPlane getPlane()
 	{
 		return plane;
 	}
