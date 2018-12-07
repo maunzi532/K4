@@ -20,6 +20,16 @@ public class KarteBild2
 		hoeheEffekte = 12;
 	}
 
+	public int hoehe()
+	{
+		return hoeheWerte + hoeheEffekte + 5;
+	}
+
+	public int breite()
+	{
+		return breiteInnen + 4;
+	}
+
 	public String karteBild(Karte karte)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -174,6 +184,11 @@ public class KarteBild2
 	private void entEffektText(StringBuilder sb, String text)
 	{
 		sb.append(text.replace('_', ' '));
+	}
+
+	public String[] karteBildA(Karte karte)
+	{
+		return karteBild(karte).split("\n");
 	}
 
 	public String bilderReihe(List<Karte> karten)

@@ -8,11 +8,13 @@ import util.*;
 
 public class FrameFormatter
 {
-	private static List<Integer> fuseChars = Arrays.asList(
+	private static final String fontName = "Ubuntu Mono";
+
+	private static final List<Integer> fuseChars = Arrays.asList(
 			0x0020, 0x2597, 0x2596, 0x2584, 0x259d, 0x2590, 0x259e, 0x259f,
 			0x2598, 0x259a, 0x258c, 0x2599, 0x2580, 0x259c, 0x259b, 0x2588);
 
-	private static List<Integer> halfChars = Arrays.asList(
+	private static final List<Integer> halfChars = Arrays.asList(
 			0x0020, 0x2591, 0x2592, 0x2593, 0x2588);
 
 	public int ychar;
@@ -27,8 +29,8 @@ public class FrameFormatter
 		this.xchar = xchar;
 		int[] colors0 = colorSet > 0 ? TerminalColors.termColors1 : TerminalColors.termColors0;
 		colors = Arrays.stream(colors0).mapToObj(Color::new).collect(Collectors.toList());
-		fN = new Font("Monospace", Font.PLAIN, ychar * 2 / 3);
-		fB = new Font("Monospace", Font.BOLD, ychar * 2 / 3);
+		fN = new Font(fontName, Font.PLAIN, ychar);
+		fB = new Font(fontName, Font.BOLD, ychar);
 	}
 
 	public void format(Graphics2D gd, int[][] chars2, boolean subpixels)
@@ -78,12 +80,11 @@ public class FrameFormatter
 						if((index & 0b0010) > 0)
 							gd.fillRect(xchar * ix, ychar * iy + ychar / 2, xchar / 2, ychar - ychar / 2);
 						if((index & 0b0001) > 0)
-							gd.fillRect(
-									xchar * ix + xchar / 2, ychar * iy + ychar / 2, xchar - xchar / 2, ychar - ychar / 2);
+							gd.fillRect(xchar * ix + xchar / 2, ychar * iy + ychar / 2, xchar - xchar / 2, ychar - ychar / 2);
 					}
 					else
 					{
-						gd.drawString(String.valueOf((char) c3), xchar * ix, ychar * iy + ychar * 2 / 3);
+						gd.drawString(String.valueOf((char) c3), xchar * ix, ychar * iy + ychar);
 					}
 				}
 				else
@@ -96,7 +97,7 @@ public class FrameFormatter
 					}
 					else if(index < 0)
 					{
-						gd.drawString(String.valueOf((char) c3), xchar * ix, ychar * iy + ychar * 2 / 3);
+						gd.drawString(String.valueOf((char) c3), xchar * ix, ychar * iy + ychar);
 					}
 				}
 

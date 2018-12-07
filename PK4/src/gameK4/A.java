@@ -1,24 +1,17 @@
 package gameK4;
 
-import java.util.*;
-import m.*;
 import plane.*;
 import sprites.*;
 
-public class A implements Game
+public class A extends SpriteGame
 {
-	private PlaneRenderer screen;
-	private SpriteList spriteList;
 	private XSprite floor;
 	private XChar character;
-	private int yscroll;
-	private int xscroll;
 
 	@Override
 	public void init(PlaneRenderer screen)
 	{
-		this.screen = screen;
-		spriteList = new SpriteList(new PlaneFrame(3, 0, screen.height, screen.width));
+		super.init(screen);
 		//spriteList.addSprite(new XSprite(0, 0, 0, 0, 0, new SubPixelPlane().init("N1_I", "N1")));
 		floor = new XSprite(-100, -100, 0, 0, 0, new SubPixelPlane().init("BodenT0"));
 		spriteList.addSprite(floor);
@@ -28,11 +21,9 @@ public class A implements Game
 	}
 
 	@Override
-	public void fillLists(List<Plane> planes, List<PlaneFrame> frames)
+	public PlaneFrame defaultFrame()
 	{
-		spriteList.updatePositions(yscroll, xscroll);
-		planes.addAll(spriteList.planes());
-		frames.addAll(spriteList.planeFrames());
+		return new PlaneFrame(3, 0, screen.height, screen.width);
 	}
 
 	@Override

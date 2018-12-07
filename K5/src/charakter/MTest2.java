@@ -1,40 +1,44 @@
 package charakter;
 
-import java.util.*;
-import m.*;
-import plane.*;
 import dungeonmap.*;
+import kartenset.*;
+import plane.*;
 import sets.*;
+import sprites.*;
 
-public class MTest2 implements Game
+public class MTest2 extends SpriteGame
 {
 	private Hauptklasse hauptklasse;
 	private MapBild mapBild;
-	private PlaneFrame planeFrame;
 
 	@Override
 	public void init(PlaneRenderer screen)
 	{
-		planeFrame = new PlaneFrame(0, 0, screen.height, screen.width);
+		super.init(screen);
 		hauptklasse = new Hauptklasse(new Einstellungen(), new SetV2MittelMapKarten(), new SetV2MapKarten(),
 				new SetV2Klassen(), new SetV2Gegner(), new SetV2Waffen(), new SetV2Aktionen());
+
 		//m.klassenAuswahl();
 		hauptklasse.klassenAuswahl("K", "B");
 		mapBild = new MapBild(hauptklasse.dungeonMap);
 		//System.out.println(mapBild.erstelleTextBild(hauptklasse.figuren, 0));
 		//hauptklasse.zielAngeben(mapBild);
-	}
-
-	@Override
-	public void fillLists(List<Plane> planes, List<PlaneFrame> frames)
-	{
-		planes.add(new TextPlane(0, 7, mapBild.erstelleTextBild1(hauptklasse.figuren, 0)));
-		frames.add(planeFrame);
+		spriteList.addSprite(new TSprite(0, 0, 0, 0, 0,
+				new TextPlane(0xf, 0x0, mapBild.erstelleTextBild1(hauptklasse.figuren, 0))));
+		spriteList.addSprite(new KarteSprite(screen.height + 4, screen.width + 4, 1,
+				new KarteBild2(), hauptklasse.klassenSet.gibKarte("Krieger")));
 	}
 
 	@Override
 	public void handleInput(int input)
 	{
-
+		if(input == 'w')
+			yscroll += 2;
+		else if(input == 's')
+			yscroll -= 2;
+		else if(input == 'a')
+			xscroll += 2;
+		else if(input == 'd')
+			xscroll -= 2;
 	}
 }

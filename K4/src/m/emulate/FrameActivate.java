@@ -18,6 +18,7 @@ public class FrameActivate
 		screen = new BufferedImage(format.xchar * xs,
 				format.ychar * ys, BufferedImage.TYPE_INT_RGB);
 		gd = screen.createGraphics();
+		gd.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		frame.setSize(screen.getWidth(), screen.getHeight());
 		tasten.einbau(frame);
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

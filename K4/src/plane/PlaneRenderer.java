@@ -32,6 +32,8 @@ public class PlaneRenderer
 			PlaneFrame frame = frames != null ? frames.get(n) : null;
 			if(frame == null)
 				frame = standardFrame;
+			/*System.out.println("YS " + Math.max(frame.startY, plane.getYShift()));
+			System.out.println("XS " + Math.max(frame.startX, plane.getXShift()));*/
 			for(int iy = Math.max(frame.startY, plane.getYShift()); iy < Math.min(frame.endY, plane.getYShift() + plane.getYSize()); iy++)
 				for(int ix = Math.max(frame.startX, plane.getXShift()); ix < Math.min(frame.endX, plane.getXShift() + plane.getXSize()); ix++)
 					chars2[iy][ix] = mergeData(chars2[iy][ix], plane.codec(iy, ix));

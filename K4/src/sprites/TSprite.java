@@ -29,7 +29,7 @@ public class TSprite extends Sprite
 
 	public int xHEdge()
 	{
-		return x + plane.getXSize() * 2 - ysp;
+		return x + plane.getXSize() * 2 - xsp;
 	}
 
 	public void updatePosition(int yScroll, int xScroll)

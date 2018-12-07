@@ -54,7 +54,7 @@ public class MapBild
 					{
 						for(int kx = 0; kx < xc; kx++)
 						{
-							arr[iy][ix][ky][kx] = '▉';
+							arr[iy][ix][ky][kx] = '\u2588';
 						}
 					}
 				}
