@@ -29,10 +29,10 @@ public class MTest2 extends SpriteGame
 		mapBild = new MapBild(hauptklasse.dungeonMap);
 		//System.out.println(mapBild.erstelleTextBild(hauptklasse.figuren, 0));
 		//hauptklasse.zielAngeben(mapBild);
-		mapSprite = new TSprite(0, 0, 0, 0, 0, new TextPlane(0x7, 0x0, mapBild.erstelleTextBild1()));
-		spriteLists.get(0).addSprite(mapSprite);
 		spriteLists.get(1).addSprite(new KarteSprite(screen.height, screen.width, 3,
 				new KarteBild2(), hauptklasse.klassenSet.gibKarte("Krieger")));
+		mapSprite = new TSprite(0, 0, 0, 0, 0, new TextPlane(0x7, 0x0, mapBild.erstelleTextBild1()));
+		spriteLists.get(0).addSprite(mapSprite);
 		cursorSprite = new TSprite(0, 0, 2, new TextPlane(0x6, 0x5, "11111", "11111", "11111"));
 		spriteLists.get(0).addSprite(cursorSprite);
 		spielfiguren = new ArrayList<>();
@@ -43,6 +43,7 @@ public class MTest2 extends SpriteGame
 			spielfiguren.add(sprite);
 			spriteLists.get(0).addSprite(sprite);
 		}
+		spriteLists.get(0).visible = true;
 		cursorY = hauptklasse.spielfigurAktuell().getY();
 		cursorX = hauptklasse.spielfigurAktuell().getX();
 	}

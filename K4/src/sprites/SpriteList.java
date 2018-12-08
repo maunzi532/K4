@@ -10,6 +10,7 @@ public class SpriteList
 	public PlaneFrame planeFrame;
 	public int yScroll;
 	public int xScroll;
+	public boolean visible;
 
 	public SpriteList(PlaneFrame planeFrame)
 	{

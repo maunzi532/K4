@@ -32,4 +32,8 @@ public class M_K5
 		}
 		Start.start(device, subpixels, false, DrawSetting.T, new MTest2());
 	}
+
+	//TODO: Karten Anschlüsse ermitteln
+	//TODO: KarteBild3
+	//TODO: Lobby
 }

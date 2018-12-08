@@ -12,7 +12,7 @@ public class DungeonMapTest
 	@Before
 	public void before()
 	{
-		dungeonMap = new DungeonMap(5, 3, List.of(2));
+		dungeonMap = new DungeonMap(5, 3, 1, List.of(2));
 		mittelMapKarten = new SetV2MittelMapKarten();
 	}
 

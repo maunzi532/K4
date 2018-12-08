@@ -30,7 +30,7 @@ public class Hauptklasse
 		aktionenStapel = new Kartenstapel<>(gegnerSet);
 		spieler = new ArrayList<>();
 		figuren = new ArrayList<>();
-		dungeonMap = new DungeonMap(e.yhMap, e.xmMap, e.mittelBossOrte);
+		dungeonMap = new DungeonMap(e.yhMap, e.xmMap, e.immerWegW, e.mittelBossOrte);
 		dungeonMap.erstelleMittelWeg(mittelMapSet);
 	}
 

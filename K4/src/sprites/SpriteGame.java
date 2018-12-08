@@ -31,9 +31,12 @@ public abstract class SpriteGame implements Game
 		tick();
 		for(var spriteList : spriteLists)
 		{
-			spriteList.updatePositions();
-			planes.addAll(spriteList.planes());
-			frames.addAll(spriteList.planeFrames());
+			if(spriteList.visible)
+			{
+				spriteList.updatePositions();
+				planes.addAll(spriteList.planes());
+				frames.addAll(spriteList.planeFrames());
+			}
 		}
 	}
 

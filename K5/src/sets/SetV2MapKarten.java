@@ -39,17 +39,17 @@ public class SetV2MapKarten extends AKartenset<MapKarte>
 		//7 LR/Unten
 		neueKarte(new MapKarte("N\nXXXXX\nXXXXX\n     \nXX XX\nXX XX"));
 		neueKarte(new MapKarte("N\nXXXXX\nXXXXX\n  G  \nXX XX\nXX XX"));
-		neueKarte(new MapKarte("N\nXXXXX\nXXXXX\nG    \nXX XX\nXX XX"));
-		neueKarte(new MapKarte("N\nXXXXX\nXXXXX\n    G\nXX XX\nXX XX"));
-		neueKarte(new MapKarte("N\nXXXXX\nXXXXX\n     \nXX XX\nXXGXX"));
+		neueKarte(new MapKarte("N\nXXXXX\nXXXXX\n G   \nXX XX\nXX XX"));
+		neueKarte(new MapKarte("N\nXXXXX\nXXXXX\n   G \nXX XX\nXX XX"));
+		neueKarte(new MapKarte("N\nXXXXX\nXXXXX\n     \nXXGXX\nXX XX"));
 		neueKarte(new MapKarte("N\nXXXXX\nXXXXX\n  H  \nXX XX\nXX XX"));
 		neueKarte(new MapKarte("N\nXXXXX\nXXXXX\n     \nXX|XX\nXXTXX"));
 		//7 Oben/LR
 		neueKarte(new MapKarte("N\nXX XX\nXX XX\n     \nXXXXX\nXXXXX"));
 		neueKarte(new MapKarte("N\nXX XX\nXX XX\n  G  \nXXXXX\nXXXXX"));
-		neueKarte(new MapKarte("N\nXX XX\nXX XX\nG    \nXXXXX\nXXXXX"));
-		neueKarte(new MapKarte("N\nXX XX\nXX XX\n    G\nXXXXX\nXXXXX"));
-		neueKarte(new MapKarte("N\nXXGXX\nXX XX\n     \nXXXXX\nXXXXX"));
+		neueKarte(new MapKarte("N\nXX XX\nXX XX\n G   \nXXXXX\nXXXXX"));
+		neueKarte(new MapKarte("N\nXX XX\nXX XX\n   G \nXXXXX\nXXXXX"));
+		neueKarte(new MapKarte("N\nXX XX\nXXGXX\n     \nXXXXX\nXXXXX"));
 		neueKarte(new MapKarte("N\nXX XX\nXX XX\n  H  \nXXXXX\nXXXXX"));
 		neueKarte(new MapKarte("N\nXXTXX\nXX|XX\n     \nXXXXX\nXXXXX"));
 		//6 Alle Seiten

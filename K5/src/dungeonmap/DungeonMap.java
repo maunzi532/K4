@@ -11,13 +11,15 @@ public class DungeonMap
 	private int yhMap;
 	private int xmMap;
 	private int xwMap;
+	private int immerWegW;
 	private List<Integer> mittelBossOrte;
 	private MapFeld[][] felder;
 
-	public DungeonMap(int yhMap, int xmMap, List<Integer> mittelBossOrte)
+	public DungeonMap(int yhMap, int xmMap, int immerWegW, List<Integer> mittelBossOrte)
 	{
 		this.yhMap = yhMap;
 		this.xmMap = xmMap;
+		this.immerWegW = immerWegW;
 		xwMap = xmMap * 2 + 1;
 		this.mittelBossOrte = mittelBossOrte;
 		felder = new MapFeld[yhMap][xwMap];
@@ -33,9 +35,19 @@ public class DungeonMap
 		return y >= 0 && x >= 0 && y < yhMap * ywF && x < xwMap * xwF;
 	}
 
+	public boolean inMapK(int yk, int xk)
+	{
+		return yk >= 0 && xk >= 0 && yk < yhMap && xk < xwMap;
+	}
+
 	public boolean feld(int y, int x)
 	{
 		return felder[y / ywF][x / xwF] != null;
+	}
+
+	public boolean feldK(int yk, int xk)
+	{
+		return felder[yk][xk] != null;
 	}
 
 	public MapTeil ort(int y, int x)
@@ -54,6 +66,26 @@ public class DungeonMap
 			return felder[y / ywF][x / xwF].begehbar(y % ywF, x % xwF);
 		else
 			return Begehbar.NEIN;
+	}
+
+	public int anschlussAussen(int yk, int xk, MapRichtung seite)
+	{
+		int yk1 = yk + seite.y;
+		int xk1 = xk + seite.x;
+		int re = 0;
+		if(inMapK(yk1, xk1) && feldK(yk1, xk1))
+		{
+			re = felder[yk1][xk1].anschluss(MapRichtung.values()[(seite.r + 2) % 4]);
+		}
+		if(re == 0 && xk >= xmMap - immerWegW && xk <= xmMap + immerWegW)
+		{
+			int xk2 = xk - seite.x;
+			if(inMapK(yk1, xk2) && feldK(yk1, xk2) && felder[yk1][xk2].anschluss(seite) == 1)
+			{
+				re = 1;
+			}
+		}
+		return re;
 	}
 
 	public void erstelleMittelWeg(MittelMapKartenset set)
@@ -104,7 +136,7 @@ public class DungeonMap
 			}
 			else
 			{
-
+				throw new RuntimeException();
 			}
 		}
 	}
@@ -113,6 +145,11 @@ public class DungeonMap
 	{
 		if(verkehrt && !karte.isUmdrehbar())
 			return false;
+		for(MapRichtung seite : MapRichtung.values())
+		{
+			if(karte.anschluss(seite, verkehrt) + anschlussAussen(yk, xk, seite) == 0)
+				return false;
+		}
 		return true;
 	}
 

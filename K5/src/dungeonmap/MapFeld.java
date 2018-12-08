@@ -47,4 +47,9 @@ public class MapFeld
 		else
 			return ort(y, x).begehbar0;
 	}
+
+	public int anschluss(MapRichtung seite)
+	{
+		return karte.anschluss(seite, verkehrt);
+	}
 }

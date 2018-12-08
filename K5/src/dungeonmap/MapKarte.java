@@ -99,8 +99,8 @@ public class MapKarte implements AKarte
 		}
 	}
 
-	public boolean weg(MapRichtung seite, boolean verkehrt)
+	public int anschluss(MapRichtung seite, boolean verkehrt)
 	{
-		return ort(seite.y * ym, seite.x * xm, verkehrt) != MapTeil.NICHTS;
+		return ort(ym + seite.y * ym, xm + seite.x * xm, verkehrt) == MapTeil.NICHTS ? -1 : 1;
 	}
 }

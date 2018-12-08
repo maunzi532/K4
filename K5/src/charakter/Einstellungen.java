@@ -7,6 +7,7 @@ public class Einstellungen
 	public int anzahlSpieler;
 	public int yhMap;
 	public int xmMap;
+	public int immerWegW;
 	public List<Integer> mittelBossOrte;
 	public List<String> bossgegnerKarten;
 	public int traenkeProSpieler;
@@ -21,6 +22,7 @@ public class Einstellungen
 		anzahlSpieler = 2;
 		yhMap = 5;
 		xmMap = 3;
+		immerWegW = 1;
 		mittelBossOrte = List.of(2);
 		bossgegnerKarten = List.of("Mittelgegner", "Fortschreitender Gegner");
 		traenkeProSpieler = 2;

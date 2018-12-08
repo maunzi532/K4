@@ -2,10 +2,10 @@ package dungeonmap;
 
 public enum MapRichtung
 {
-	VORNE(0, 0, 1),
-	RECHTS(1, 1, 2),
-	HINTEN(2, 2, 1),
-	LINKS(3, 1, 0);
+	VORNE(0, -1, 0),
+	RECHTS(1, 0, 1),
+	HINTEN(2, 1, 0),
+	LINKS(3, 0, -1);
 
 	MapRichtung(int r, int y, int x)
 	{
