@@ -43,11 +43,11 @@ public class Spielfigur
 		for(; i < bewegungsgraph.size(); i++)
 		{
 			KoordinatenNum ak = bewegungsgraph.get(i);
-			if(map.weitergehen(ak.y, ak.x))
+			if(map.begehbar(ak.y, ak.x) == Begehbar.GEHT)
 			{
 				for(int r = 0; r < 4; r++)
 				{
-					if(map.begehbar(ak.y + richtungenY[r], ak.x + richtungenX[r]))
+					if(map.begehbar(ak.y + richtungenY[r], ak.x + richtungenX[r]) != Begehbar.NEIN)
 					{
 						KoordinatenNum neu = new KoordinatenNum(ak.y + richtungenY[r], ak.x + richtungenX[r], ak.s + 1);
 						int vorIndex = bewegungsgraph.indexOf(neu);
@@ -124,7 +124,7 @@ public class Spielfigur
 		lx = x;
 		y = ak.y;
 		x = ak.x;
-		if(map.ort(y, x).begehbar != 1)
+		if(map.begehbar(y, x) == Begehbar.GEHT)
 		{
 			ly = y;
 			lx = x;
@@ -133,9 +133,9 @@ public class Spielfigur
 			erstelleBewegungsgraph();
 	}
 
-	public boolean nochBewegen()
+	public boolean bereit()
 	{
-		return !pfad.isEmpty();
+		return pfad.isEmpty();
 	}
 
 	public KoordinatenNum kannForschen()

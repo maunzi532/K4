@@ -29,20 +29,20 @@ public class A extends SpriteGame
 	@Override
 	public void tick()
 	{
-
-	}
-
-	@Override
-	public void handleInput(int input)
-	{
 		/*boolean[][] col = D2Compare.colorCollisions(character.sprite, floor);
 		//System.out.println(arghargh(col));
 		argharghD(col);*/
 		//boolean[][] col = D2Compare.colorCollisions(floor.plane, character.sprite.plane);
 		//argharghD(col);
-		character.update(input);
+		character.update();
 		yscroll = screen.height - (character.sprite.yLEdge() + character.sprite.yHEdge()) / 2;
 		xscroll = screen.width - character.getX();
+	}
+
+	@Override
+	public void handleInput(int input)
+	{
+		character.setInput(input);
 	}
 
 	private static void argharghD(boolean[][] argh)

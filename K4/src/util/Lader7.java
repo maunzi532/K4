@@ -41,7 +41,7 @@ public class Lader7
 	{
 		try
 		{
-			return new String(Files.readAllBytes(jarLocation.toPath().resolve(location)), StandardCharsets.UTF_8);
+			return Files.readString(jarLocation.toPath().resolve(location));
 		}
 		catch(IOException | NullPointerException e)
 		{
@@ -53,7 +53,7 @@ public class Lader7
 	{
 		try
 		{
-			Files.write(jarLocation.toPath().resolve(location), text.getBytes(StandardCharsets.UTF_8));
+			Files.writeString(jarLocation.toPath().resolve(location), text);
 		}catch(IOException e)
 		{
 			e.printStackTrace();

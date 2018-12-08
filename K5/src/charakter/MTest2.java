@@ -14,6 +14,7 @@ public class MTest2 extends SpriteGame
 	private int cursorY;
 	private int cursorX;
 	private Sprite cursorSprite;
+	private TSprite mapSprite;
 	private List<Sprite> spielfiguren;
 
 	@Override
@@ -28,8 +29,8 @@ public class MTest2 extends SpriteGame
 		mapBild = new MapBild(hauptklasse.dungeonMap);
 		//System.out.println(mapBild.erstelleTextBild(hauptklasse.figuren, 0));
 		//hauptklasse.zielAngeben(mapBild);
-		spriteList.addSprite(new TSprite(0, 0, 0, 0, 0,
-				new TextPlane(0x7, 0x0, mapBild.erstelleTextBild1())));
+		mapSprite = new TSprite(0, 0, 0, 0, 0, new TextPlane(0x7, 0x0, mapBild.erstelleTextBild1()));
+		spriteList.addSprite(mapSprite);
 		spriteList.addSprite(new KarteSprite(screen.height + 4, screen.width + 4, 3,
 				new KarteBild2(), hauptklasse.klassenSet.gibKarte("Krieger")));
 		cursorSprite = new TSprite(0, 0, 2, new TextPlane(0x6, 0x5, "11111", "11111", "11111"));
@@ -42,6 +43,13 @@ public class MTest2 extends SpriteGame
 			spielfiguren.add(sprite);
 			spriteList.addSprite(sprite);
 		}
+		cursorY = hauptklasse.spielfigurAktuell().getY();
+		cursorX = hauptklasse.spielfigurAktuell().getX();
+	}
+
+	public Sprite spriteAktuell()
+	{
+		return spielfiguren.get(hauptklasse.spielerAktuell);
 	}
 
 	@Override
@@ -71,6 +79,19 @@ public class MTest2 extends SpriteGame
 		else if(input == 'd')
 			cursorX += 1;
 		else if(input == ' ')
-			hauptklasse.figuren.get(hauptklasse.spielerAktuell).geheZu(cursorY, cursorX);
+			hauptklasse.spielfigurAktuell().geheZu(cursorY, cursorX);
+		else if(input == 'f')
+		{
+			if(hauptklasse.spielfigurAktuell().bereit())
+			{
+				KoordinatenNum k = hauptklasse.spielfigurAktuell().kannForschen();
+				if(k != null)
+				{
+					hauptklasse.dungeonMap.forsche(k, hauptklasse.mapStapel);
+					hauptklasse.figuren.forEach(Spielfigur::erstelleBewegungsgraph);
+					mapSprite.getPlane().update(0x7, 0x0, mapBild.erstelleTextBild1());
+				}
+			}
+		}
 	}
 }

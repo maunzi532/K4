@@ -8,6 +8,7 @@ public class XChar
 	public static final int LAG = 8;
 	public static final int MAX = 3;
 
+	private int input;
 	private XInputBuffer inputBuffer;
 	public XSprite sprite;
 	public int direction;
@@ -22,7 +23,12 @@ public class XChar
 		direction = 1;
 	}
 
-	public void update(int input)
+	public void setInput(int input)
+	{
+		this.input = input;
+	}
+
+	public void update()
 	{
 		inputBuffer.addInput(input);
 		do
@@ -32,6 +38,7 @@ public class XChar
 				break;
 			inputBuffer.newLag(handleInput(inputC));
 		}while(inputBuffer.zeroLag());
+		input = -1;
 		sprite.x += direction * walkingSpeed * 4;
 		sprite.y -= ySpeed;
 		if(ySpeed > -1)

@@ -40,20 +40,11 @@ public class MapFeld
 		return this;
 	}
 
-	public boolean begehbar(int y, int x)
+	public Begehbar begehbar(int y, int x)
 	{
-		int b = ort(y, x).begehbar;
-		return switch(b)
-		{
-			case 0 -> false;
-			case 1 -> true;
-			case 2 -> verwendet(y, x);
-			default -> false;
-		};
-	}
-
-	public boolean weitergehen(int y, int x)
-	{
-		return ort(y, x).begehbar == 1 || verwendet(y, x);
+		if(verwendet(y, x))
+			return ort(y, x).begehbar1;
+		else
+			return ort(y, x).begehbar0;
 	}
 }

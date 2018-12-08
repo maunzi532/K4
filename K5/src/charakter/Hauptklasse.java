@@ -34,6 +34,16 @@ public class Hauptklasse
 		dungeonMap.erstelleMittelWeg(mittelMapSet);
 	}
 
+	public HeldMap heldMapAktuell()
+	{
+		return spieler.get(spielerAktuell);
+	}
+
+	public Spielfigur spielfigurAktuell()
+	{
+		return figuren.get(spielerAktuell);
+	}
+
 	public void klassenAuswahl()
 	{
 		Scanner sca = new Scanner(System.in);
@@ -62,33 +72,6 @@ public class Hauptklasse
 			int i1 = i;
 			spieler.add(new HeldMap(i, klassen.stream().filter(e1 -> e1.name().equalsIgnoreCase(kl0[i1])).findFirst().orElseThrow(), klassenSet, waffenStapel));
 			figuren.add(dungeonMap.erstelleSpielfigur(i));
-		}
-	}
-
-	public void zielAngeben(MapBild mapBild)
-	{
-		Scanner sca = new Scanner(System.in);
-		boolean ok = false;
-		while(!ok)
-		{
-			System.out.println("Zielkoordinaten y, x (Aktuell y=" + figuren.get(spielerAktuell).getY()
-					+ " x=" + figuren.get(spielerAktuell).getX() + ")");
-			int y = sca.nextInt();
-			int x = sca.nextInt();
-			ok = figuren.get(spielerAktuell).geheZu(y, x);
-		}
-		System.out.println(mapBild.erstelleTextBild());
-		while(figuren.get(spielerAktuell).nochBewegen())
-		{
-			try
-			{
-				Thread.sleep(100);
-			}catch(InterruptedException e1)
-			{
-				throw new RuntimeException(e1);
-			}
-			gehe();
-			System.out.println(mapBild.erstelleTextBild());
 		}
 	}
 

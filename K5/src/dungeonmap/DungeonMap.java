@@ -48,14 +48,12 @@ public class DungeonMap
 		return felder[y / ywF][x / xwF].verwendet(y % ywF, x % xwF);
 	}
 
-	public boolean begehbar(int y, int x)
+	public Begehbar begehbar(int y, int x)
 	{
-		return inMap(y, x) && feld(y, x) && felder[y / ywF][x / xwF].begehbar(y % ywF, x % xwF);
-	}
-
-	public boolean weitergehen(int y, int x)
-	{
-		return felder[y / ywF][x / xwF].weitergehen(y % ywF, x % xwF);
+		if(inMap(y, x) && feld(y, x))
+			return felder[y / ywF][x / xwF].begehbar(y % ywF, x % xwF);
+		else
+			return Begehbar.NEIN;
 	}
 
 	public void erstelleMittelWeg(MittelMapKartenset set)

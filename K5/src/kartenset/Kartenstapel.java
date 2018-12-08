@@ -13,6 +13,7 @@ public class Kartenstapel<T extends AKarte>
 	{
 		karten = set.alleKarten();
 		deck = new LinkedList<>(karten);
+		Collections.shuffle(deck);
 		umlauf = new ArrayList<>();
 		ablage = new ArrayDeque<>();
 	}
@@ -21,6 +22,7 @@ public class Kartenstapel<T extends AKarte>
 	{
 		this.karten = karten;
 		deck = new LinkedList<>(karten);
+		Collections.shuffle(deck);
 		umlauf = new ArrayList<>();
 		ablage = new ArrayDeque<>();
 	}
