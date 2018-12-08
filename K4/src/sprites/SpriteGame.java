@@ -7,18 +7,20 @@ import plane.*;
 public abstract class SpriteGame implements Game
 {
 	protected PlaneRenderer screen;
-	protected SpriteList spriteList;
-	protected int yscroll;
-	protected int xscroll;
+	protected List<SpriteList> spriteLists;
 
 	@Override
 	public void init(PlaneRenderer screen)
 	{
 		this.screen = screen;
-		spriteList = new SpriteList(defaultFrame());
+		spriteLists = new ArrayList<>();
+		for(int i = 0; i < spriteListCount(); i++)
+			spriteLists.add(new SpriteList(defaultFrame(i)));
 	}
 
-	public PlaneFrame defaultFrame()
+	protected abstract int spriteListCount();
+
+	protected PlaneFrame defaultFrame(int i)
 	{
 		return new PlaneFrame(0, 0, screen.height, screen.width);
 	}
@@ -27,9 +29,12 @@ public abstract class SpriteGame implements Game
 	public void fillLists(List<Plane> planes, List<PlaneFrame> frames)
 	{
 		tick();
-		spriteList.updatePositions(yscroll, xscroll);
-		planes.addAll(spriteList.planes());
-		frames.addAll(spriteList.planeFrames());
+		for(var spriteList : spriteLists)
+		{
+			spriteList.updatePositions();
+			planes.addAll(spriteList.planes());
+			frames.addAll(spriteList.planeFrames());
+		}
 	}
 
 	public abstract void tick();

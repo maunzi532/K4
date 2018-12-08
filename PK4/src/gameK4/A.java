@@ -5,6 +5,7 @@ import sprites.*;
 
 public class A extends SpriteGame
 {
+	private SpriteList spriteList;
 	private XSprite floor;
 	private XChar character;
 
@@ -12,6 +13,7 @@ public class A extends SpriteGame
 	public void init(PlaneRenderer screen)
 	{
 		super.init(screen);
+		spriteList = spriteLists.get(0);
 		//spriteList.addSprite(new XSprite(0, 0, 0, 0, 0, new SubPixelPlane().init("N1_I", "N1")));
 		floor = new XSprite(-100, -100, 0, 0, 0, new SubPixelPlane().init("BodenT0"));
 		spriteList.addSprite(floor);
@@ -21,7 +23,13 @@ public class A extends SpriteGame
 	}
 
 	@Override
-	public PlaneFrame defaultFrame()
+	protected int spriteListCount()
+	{
+		return 1;
+	}
+
+	@Override
+	public PlaneFrame defaultFrame(int i)
 	{
 		return new PlaneFrame(3, 0, screen.height, screen.width);
 	}
@@ -35,8 +43,8 @@ public class A extends SpriteGame
 		//boolean[][] col = D2Compare.colorCollisions(floor.plane, character.sprite.plane);
 		//argharghD(col);
 		character.update();
-		yscroll = screen.height - (character.sprite.yLEdge() + character.sprite.yHEdge()) / 2;
-		xscroll = screen.width - character.getX();
+		spriteList.yScroll = screen.height - (character.sprite.yLEdge() + character.sprite.yHEdge()) / 2;
+		spriteList.xScroll = screen.width - character.getX();
 	}
 
 	@Override

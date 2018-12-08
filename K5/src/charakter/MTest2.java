@@ -30,21 +30,27 @@ public class MTest2 extends SpriteGame
 		//System.out.println(mapBild.erstelleTextBild(hauptklasse.figuren, 0));
 		//hauptklasse.zielAngeben(mapBild);
 		mapSprite = new TSprite(0, 0, 0, 0, 0, new TextPlane(0x7, 0x0, mapBild.erstelleTextBild1()));
-		spriteList.addSprite(mapSprite);
-		spriteList.addSprite(new KarteSprite(screen.height + 4, screen.width + 4, 3,
+		spriteLists.get(0).addSprite(mapSprite);
+		spriteLists.get(1).addSprite(new KarteSprite(screen.height, screen.width, 3,
 				new KarteBild2(), hauptklasse.klassenSet.gibKarte("Krieger")));
 		cursorSprite = new TSprite(0, 0, 2, new TextPlane(0x6, 0x5, "11111", "11111", "11111"));
-		spriteList.addSprite(cursorSprite);
+		spriteLists.get(0).addSprite(cursorSprite);
 		spielfiguren = new ArrayList<>();
 		List<Spielfigur> figuren = hauptklasse.figuren;
 		for(int i = 0; i < figuren.size(); i++)
 		{
 			Sprite sprite = new TSprite(0, 0, 1, new TextPlane(0x6, 0x0, "11111", "11111", "11111"));
 			spielfiguren.add(sprite);
-			spriteList.addSprite(sprite);
+			spriteLists.get(0).addSprite(sprite);
 		}
 		cursorY = hauptklasse.spielfigurAktuell().getY();
 		cursorX = hauptklasse.spielfigurAktuell().getX();
+	}
+
+	@Override
+	protected int spriteListCount()
+	{
+		return 2;
 	}
 
 	public Sprite spriteAktuell()
@@ -63,8 +69,8 @@ public class MTest2 extends SpriteGame
 		}
 		cursorSprite.y = cursorY * MapBild.yc * 2;
 		cursorSprite.x = cursorX * MapBild.xc * 2;
-		yscroll = screen.height - cursorSprite.y;
-		xscroll = screen.width - cursorSprite.x;
+		spriteLists.get(0).yScroll = (screen.height - cursorSprite.y - MapBild.yc) / 2 * 2;
+		spriteLists.get(0).xScroll = (screen.width - cursorSprite.x - MapBild.xc) / 2 * 2;
 	}
 
 	@Override

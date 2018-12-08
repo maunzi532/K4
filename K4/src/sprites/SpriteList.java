@@ -8,6 +8,8 @@ public class SpriteList
 {
 	private List<Sprite> sprites = new ArrayList<>();
 	public PlaneFrame planeFrame;
+	public int yScroll;
+	public int xScroll;
 
 	public SpriteList(PlaneFrame planeFrame)
 	{
@@ -34,7 +36,7 @@ public class SpriteList
 		sprites.clear();
 	}
 
-	public void updatePositions(int yScroll, int xScroll)
+	public void updatePositions()
 	{
 		for(Sprite sprite : sprites)
 			sprite.updatePosition(yScroll, xScroll);
