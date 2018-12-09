@@ -68,27 +68,36 @@ public class Aktionskarte implements Karte
 	}
 
 	@Override
-	public List<String> werte()
+	public List<String> werteLO()
 	{
 		List<String> werte = new ArrayList<>();
 		addWert(werte, "M", magieMod);
 		addWert(werte, "A", angriffMod);
 		addWert(werte, "G", geschwindigkeitMod);
+		return werte;
+	}
+
+	@Override
+	public List<String> werteLU()
+	{
+		List<String> werte = new ArrayList<>();
 		if(ladeMitMagie)
 		{
-			while(werte.size() < 6)
-				werte.add("");
 			werte.add("LM");
 			werte.add("");
 		}
 		if(hw)
 		{
-			while(werte.size() < 8)
-				werte.add("");
 			werte.add("HW");
 			werte.add("");
 		}
 		return werte;
+	}
+
+	@Override
+	public List<String> werteR()
+	{
+		return null;
 	}
 
 	private static void addWert(List<String> werte, String name, int wert)

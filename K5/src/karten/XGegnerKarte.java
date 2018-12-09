@@ -1,6 +1,8 @@
 package karten;
 
 import effekt.*;
+import java.util.*;
+import java.util.stream.*;
 
 public class XGegnerKarte extends Charakterkarte
 {
@@ -43,6 +45,22 @@ public class XGegnerKarte extends Charakterkarte
 	{
 		xWerte[4] = true;
 		return this;
+	}
+
+	@Override
+	public List<String> werteLO()
+	{
+		return Arrays.asList("A", angriff + (xWerte[0] ? "+X" : ""),
+				"W", waffenwert + (xWerte[1] ? "+X" : ""),
+				"G", geschwindigkeit + (xWerte[2] ? "+X" : ""),
+				"V", verteidigung + (xWerte[3] ? "+X" : ""),
+				"L", leben + (xWerte[4] ? "+X" : ""));
+	}
+
+	@Override
+	public List<String> werteR()
+	{
+		return Arrays.stream(xExp).mapToObj(String::valueOf).collect(Collectors.toList());
 	}
 
 	@Override

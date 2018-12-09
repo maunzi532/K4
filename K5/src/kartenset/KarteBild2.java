@@ -38,7 +38,7 @@ public class KarteBild2
 		//"▪▫▬▭▮▯▰▱▲△▴▵▶▷▸▹►▻▼▽▾▿◀◁◂◃◄◅◆◇◈◉◊○◌◍◎●◐◑◒◓◔◕◖◗◘◙◚◛◜◝◞◟◠◡◢◣◤◥◦◧◨◩◪◫◬◭◮◯◰◱◲◳◴◵◶◷◸◹◺◻◼◽◾◿☀☁☂☃☄★☆☇☈☉☊☋☌☍☎☏☐☑☒☓☔☕"
 		textZeile(sb, karte.getName());
 		leereZeileM(sb, '╟', '─', '┬', '╢');
-		List<String> werte = karte.werte();
+		List<String> werte = karte.werteLO();
 		for(int i = 0; i * 2 + 1 < werte.size(); i++)
 			geteilteZeile(sb, werte.get(i * 2), werte.get(i * 2 + 1));
 		for(int i = werte.size() / 2; i < hoeheWerte; i++)

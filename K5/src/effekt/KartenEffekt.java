@@ -6,13 +6,6 @@ public class KartenEffekt
 	private final String text;
 	private final int num;
 
-	public KartenEffekt(String text, int num)
-	{
-		typ = null;
-		this.text = text;
-		this.num = num;
-	}
-
 	public KartenEffekt(String typ, String text, int num)
 	{
 		this.typ = typ;

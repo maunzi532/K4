@@ -56,11 +56,23 @@ public class Waffenkarte implements Karte
 	}
 
 	@Override
-	public List<String> werte()
+	public List<String> werteLO()
 	{
 		return Arrays.asList("K", String.valueOf(kosten),
 				"A", String.valueOf(angriff),
 				"G", String.valueOf(geschwindigkeit));
+	}
+
+	@Override
+	public List<String> werteLU()
+	{
+		return null;
+	}
+
+	@Override
+	public List<String> werteR()
+	{
+		return null;
 	}
 
 	@Override

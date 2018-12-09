@@ -64,4 +64,12 @@ public class SetV2Test
 	{
 		System.out.println(wugu2.bilderReihe2(new ArrayList<>(setV2Gegner.alleKarten()), 6));
 	}
+
+	@Test
+	public void alleKB3()
+	{
+		KarteBild3 kb3 = new KarteBild3();
+		alleKarten.forEach(k -> System.out.println(Arrays.stream(kb3.karteBild(k))
+				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow()));
+	}
 }

@@ -9,7 +9,11 @@ public interface Karte extends AKarte
 
 	String getName();
 
-	List<String> werte();
+	List<String> werteLO();
+
+	List<String> werteLU();
+
+	List<String> werteR();
 
 	default int klassencode()
 	{

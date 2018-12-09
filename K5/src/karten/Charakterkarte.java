@@ -6,14 +6,14 @@ import kartenset.*;
 
 public class Charakterkarte implements Karte
 {
-	private final String name;
-	private final int angriff;
-	private final int waffenwert;
-	private final int geschwindigkeit;
-	private final int verteidigung;
-	private final int leben;
-	private final int exp;
-	private final List<KartenEffekt> effekte;
+	protected final String name;
+	protected final int angriff;
+	protected final int waffenwert;
+	protected final int geschwindigkeit;
+	protected final int verteidigung;
+	protected final int leben;
+	protected final int exp;
+	protected final List<KartenEffekt> effekte;
 
 	public Charakterkarte(String name, int angriff, int waffenwert, int geschwindigkeit, int verteidigung, int leben, KartenEffekt... effekte)
 	{
@@ -100,13 +100,27 @@ public class Charakterkarte implements Karte
 	}
 
 	@Override
-	public List<String> werte()
+	public List<String> werteLO()
 	{
 		return Arrays.asList("A", String.valueOf(angriff),
 				"W", String.valueOf(waffenwert),
 				"G", String.valueOf(geschwindigkeit),
 				"V", String.valueOf(verteidigung),
 				"L", String.valueOf(leben));
+	}
+
+	@Override
+	public List<String> werteLU()
+	{
+		return null;
+	}
+
+	@Override
+	public List<String> werteR()
+	{
+		if(exp > 0)
+			return List.of(String.valueOf(exp));
+		return null;
 	}
 
 	@Override
