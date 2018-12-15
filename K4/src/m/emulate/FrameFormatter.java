@@ -4,9 +4,10 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.stream.*;
+import m.*;
 import util.*;
 
-public class FrameFormatter
+public class FrameFormatter implements CFormatter
 {
 	private static final String fontName = "Ubuntu Mono";
 
@@ -136,6 +137,18 @@ public class FrameFormatter
 				}
 				gd.drawString(String.valueOf((char) (c2 & 65535)), xchar * (xsh + ix), ychar * (ysh + iy) + ychar * 2 / 3);
 			}
+	}
+
+	@Override
+	public int ychar()
+	{
+		return ychar;
+	}
+
+	@Override
+	public int xchar()
+	{
+		return xchar;
 	}
 
 	public List<Color> getColors()

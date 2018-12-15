@@ -3,7 +3,6 @@ package m;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
-import m.emulate.*;
 
 public interface CDevice
 {
@@ -17,5 +16,5 @@ public interface CDevice
 
 	void end() throws IOException, InterruptedException;
 
-	FrameFormatter getFormatter();
+	CFormatter getFormatter();
 }

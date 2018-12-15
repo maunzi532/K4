@@ -14,6 +14,7 @@ public class A extends SpriteGame
 	{
 		super.init(screen);
 		spriteList = spriteLists.get(0);
+		spriteList.visible = true;
 		//spriteList.addSprite(new XSprite(0, 0, 0, 0, 0, new SubPixelPlane().init("N1_I", "N1")));
 		floor = new XSprite(-100, -100, 0, 0, 0, new SubPixelPlane().init("BodenT0"));
 		spriteList.addSprite(floor);

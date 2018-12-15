@@ -2,7 +2,7 @@ package plane;
 
 import java.awt.*;
 import java.util.*;
-import m.emulate.*;
+import m.*;
 import util.*;
 
 public class TextPlane implements Plane
@@ -74,7 +74,7 @@ public class TextPlane implements Plane
 	}
 
 	@Override
-	public void draw(Graphics2D gd, FrameFormatter format, DrawSetting drawSetting)
+	public void draw(Graphics2D gd, CFormatter format, DrawSetting drawSetting)
 	{
 		format.emulateFormat(gd, ysh, xsh, ysize, xsize, data);
 	}

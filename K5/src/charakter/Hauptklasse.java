@@ -14,8 +14,7 @@ public class Hauptklasse
 	public Kartenstapel<Waffenkarte> waffenStapel;
 	public Kartenstapel<Aktionskarte> aktionenStapel;
 	public DungeonMap dungeonMap;
-	public List<HeldMap> spieler;
-	public List<Spielfigur> figuren;
+	public List<HeldSpieler> spieler;
 	public int spielerAktuell;
 
 	public Hauptklasse(Einstellungen e, MittelMapKartenset mittelMapSet, AKartenset<MapKarte> mapSet,
@@ -29,19 +28,13 @@ public class Hauptklasse
 		waffenStapel = new Kartenstapel<>(waffenSet);
 		aktionenStapel = new Kartenstapel<>(gegnerSet);
 		spieler = new ArrayList<>();
-		figuren = new ArrayList<>();
 		dungeonMap = new DungeonMap(e.yhMap, e.xmMap, e.immerWegW, e.mittelBossOrte);
 		dungeonMap.erstelleMittelWeg(mittelMapSet);
 	}
 
-	public HeldMap heldMapAktuell()
+	public HeldSpieler heldSpielerAktuell()
 	{
 		return spieler.get(spielerAktuell);
-	}
-
-	public Spielfigur spielfigurAktuell()
-	{
-		return figuren.get(spielerAktuell);
 	}
 
 	public void klassenAuswahl()
@@ -59,8 +52,7 @@ public class Hauptklasse
 				kl = klassen.stream().filter(e -> e.name().equalsIgnoreCase(input)).findFirst();
 			}
 			klassen.remove(kl.get());
-			spieler.add(new HeldMap(i, kl.get(), klassenSet, waffenStapel));
-			figuren.add(dungeonMap.erstelleSpielfigur(i));
+			spieler.add(new HeldSpieler(new HeldMap(i, kl.get(), klassenSet, waffenStapel), dungeonMap));
 		}
 	}
 
@@ -70,16 +62,17 @@ public class Hauptklasse
 		for(int i = 0; i < e.anzahlSpieler; i++)
 		{
 			int i1 = i;
-			spieler.add(new HeldMap(i, klassen.stream().filter(e1 -> e1.name().equalsIgnoreCase(kl0[i1])).findFirst().orElseThrow(), klassenSet, waffenStapel));
-			figuren.add(dungeonMap.erstelleSpielfigur(i));
+			spieler.add(new HeldSpieler(new HeldMap(i, klassen.stream()
+					.filter(e1 -> e1.name().equalsIgnoreCase(kl0[i1])).findFirst().orElseThrow(),
+					klassenSet, waffenStapel), dungeonMap));
 		}
 	}
 
 	public void gehe()
 	{
-		for(Spielfigur sf : figuren)
+		for(HeldSpieler spieler : spieler)
 		{
-			sf.bewege();
+			spieler.spielfigur.bewege();
 		}
 	}
 }

@@ -3,7 +3,7 @@ package plane;
 import java.awt.*;
 import java.awt.image.*;
 import java.util.*;
-import m.emulate.*;
+import m.*;
 import util.*;
 
 public class SubPixelPlane implements Plane
@@ -208,11 +208,11 @@ public class SubPixelPlane implements Plane
 	}
 
 	@Override
-	public void draw(Graphics2D gd, FrameFormatter format, DrawSetting drawSetting)
+	public void draw(Graphics2D gd, CFormatter format, DrawSetting drawSetting)
 	{
 		BufferedImage image0 = loader.getImage(drawSetting);
-		gd.drawImage(image0, subXShift * format.xchar / 2, subYShift * format.ychar / 2,
-				(subXShift + subXSize) * format.xchar / 2, (subYShift + subYSize) * format.ychar / 2,
+		gd.drawImage(image0, subXShift * format.xchar() / 2, subYShift * format.ychar() / 2,
+				(subXShift + subXSize) * format.xchar() / 2, (subYShift + subYSize) * format.ychar() / 2,
 				flippedX ? image0.getWidth() : 0, flippedY ? image0.getHeight() : 0,
 				flippedX ? 0 : image0.getWidth(), flippedY ? 0 : image0.getHeight(), null);
 	}
