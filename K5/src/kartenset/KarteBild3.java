@@ -2,6 +2,7 @@ package kartenset;
 
 import effekt.*;
 import java.util.*;
+import java.util.stream.*;
 import karten.*;
 
 public class KarteBild3
@@ -22,6 +23,16 @@ public class KarteBild3
 		this.laengen = laengen;
 		this.rahmen = rahmen;
 		this.ersetzen = ersetzen;
+	}
+
+	public int hoehe()
+	{
+		return laengen.karteH;
+	}
+
+	public int breite()
+	{
+		return laengen.karteW;
 	}
 
 	public char[][] karteBild(Karte karte)
@@ -205,5 +216,27 @@ public class KarteBild3
 				}
 			}
 		}
+	}
+
+	public char[][] zeile(List<char[][]> list)
+	{
+		char[][] re = new char[laengen.karteH][list.size() * laengen.karteW];
+		for(int iy = 0; iy < laengen.karteH; iy++)
+		{
+			for(int ix = 0; ix < list.size(); ix++)
+			{
+				System.arraycopy(list.get(ix)[iy], 0, re[iy], ix * laengen.karteW, laengen.karteW);
+			}
+		}
+		return re;
+	}
+
+	public String inZeilen(List<Karte> karten, int zeilenlaenge)
+	{
+		Collection<List<Integer>> a = IntStream
+				.range(0, karten.size()).boxed().collect(Collectors.groupingBy(e -> e / zeilenlaenge)).values();
+		return a.stream().map(e -> e.stream().map(k -> karteBild(karten.get(k))).collect(Collectors.toList()))
+				.map(this::zeile).map(e -> Arrays.stream(e).map(String::new).reduce((s, s2) -> s + '\n' + s2).orElseThrow())
+				.reduce((s, s2) -> s + "\n\n" + s2).orElse("");
 	}
 }

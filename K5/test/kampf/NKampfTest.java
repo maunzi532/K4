@@ -13,8 +13,7 @@ public class NKampfTest
 	private SetV2Waffen setV2Waffen;
 	private SetV2Klassen setV2Klassen;
 	private SetV2Gegner setV2Gegner;
-
-	private KarteBild wugu;
+	private KarteBild3 karteBild3;
 
 	@Before
 	public void init()
@@ -23,7 +22,7 @@ public class NKampfTest
 		setV2Waffen = new SetV2Waffen();
 		setV2Klassen = new SetV2Klassen();
 		setV2Gegner = new SetV2Gegner();
-		wugu = new KarteBild(17, 7, 5, 10);
+		karteBild3 = new KarteBild3();
 	}
 
 	@Test
@@ -47,8 +46,8 @@ public class NKampfTest
 		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schnellangriff"), W.HW, nt1));
 		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Powerangriff"), W.HW, nt0));
 		nKampf.gegnerAktionskarten();
-		System.out.println(wugu.bilderReihe(List.of(held.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner,
-				gegnerWaffe, nt1.getAktionKarte())));
+		System.out.println(karteBild3.inZeilen(List.of(held.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner,
+				gegnerWaffe, nt1.getAktionKarte()), 7));
 		nKampf.magieZahlen();
 		nKampf.zugV();
 		Assert.assertEquals(24, nt0.getLeben());
@@ -64,8 +63,8 @@ public class NKampfTest
 		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schutzangriff"), W.HW, nt1));
 		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Brecher"), W.HW, nt0));
 		nKampf.gegnerAktionskarten();
-		System.out.println(wugu.bilderReihe(List.of(held.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner,
-				gegnerWaffe, nt1.getAktionKarte())));
+		System.out.println(karteBild3.inZeilen(List.of(held.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner,
+				gegnerWaffe, nt1.getAktionKarte()), 7));
 		nKampf.magieZahlen();
 		nKampf.zugV();
 		nKampf.angriffe();
@@ -73,6 +72,6 @@ public class NKampfTest
 		Assert.assertEquals(2, nt0.getMagie());
 		Assert.assertEquals(0, nt1.getMagie());
 		Assert.assertEquals(8, nt0.getLeben());
-		Assert.assertEquals(21, nt1.getLeben());
+		Assert.assertEquals(19, nt1.getLeben());
 	}
 }

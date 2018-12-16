@@ -28,8 +28,8 @@ public class Einstellungen
 		traenkeProSpieler = 2;
 		trankExp = List.of(10, 40);
 		waffenkistenWerte = List.of(6, 7, 8, 9, 10);
-		gegnerZeilenWerte = List.of(5, 10, 20, 40, 70, 100);
-		gegnerWertStart = 2;
-		gegnerWertWeiter = 2;
+		gegnerZeilenWerte = List.of(0, 10, 20, 40, 70, 100);
+		gegnerWertStart = 10;
+		gegnerWertWeiter = 1;
 	}
 }

@@ -1,6 +1,7 @@
 package kartenset;
 
 import java.util.*;
+import java.util.stream.*;
 import sets.*;
 
 public class SetTest
@@ -9,7 +10,7 @@ public class SetTest
 	private SetV2Waffen waffen;
 	private SetV2Gegner gegner;
 	private SetV2Klassen klassen;
-	private KarteBild karteBild;
+	private KarteBild3 karteBild3;
 
 	public void init()
 	{
@@ -17,7 +18,7 @@ public class SetTest
 		waffen = new SetV2Waffen();
 		gegner = new SetV2Gegner();
 		klassen = new SetV2Klassen();
-		karteBild = new KarteBild(17, 7, 5, 10);
+		karteBild3 = new KarteBild3();
 	}
 
 	public static void main(String[] args)
@@ -55,6 +56,10 @@ public class SetTest
 		alle.addAll(ergebnisW);
 		alle.addAll(ergebnisG);
 		alle.addAll(ergebnisK);
-		System.out.println(setTest.karteBild.bilderReihe2(alle, 6));
+		Collection<List<Integer>> a = IntStream
+				.range(0, alle.size()).boxed().collect(Collectors.groupingBy(e -> e / 6)).values();
+		System.out.println(a.stream().map(e -> e.stream().map(k -> setTest.karteBild3.karteBild(alle.get(k))).collect(Collectors.toList()))
+				.map(setTest.karteBild3::zeile).map(e -> Arrays.stream(e).map(String::new).reduce((s, s2) -> s + '\n' + s2).orElseThrow())
+				.reduce((s, s2) -> s + "\n\n" + s2).orElse(""));
 	}
 }

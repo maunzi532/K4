@@ -41,12 +41,12 @@ public class BBasisWertIst implements Bedingung
 	public String text()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(wert.kurz).append("_(Basis");
+		sb.append(wert.kurz);
 		if(von == NKartentyp.WAFFE)
-			sb.append(",_Waffe");
+			sb.append("_(Waffe)");
 		else if(von == NKartentyp.AKTION)
-			sb.append(",_Aktion");
-		sb.append(") ").append(vergleich.text).append(" ").append(zu);
+			sb.append("_(Aktion)");
+		sb.append(" ").append(vergleich.text).append(" ").append(zu);
 		return sb.toString();
 	}
 }

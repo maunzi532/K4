@@ -7,7 +7,8 @@ import karten.*;
 
 public class NTeilnehmer
 {
-	private static final int[] multiAngriffLimits = new int[]{5, 15, 30};
+	//private static final int[] multiAngriffLimits = new int[]{5, 15, 30};
+	private static final int gesVorteilBonusLimit = 5;
 
 	public final int spielerNummer;
 	//Charakter
@@ -34,7 +35,8 @@ public class NTeilnehmer
 	//Werte für diesen Zug
 	private int geladeneMagie;
 	private boolean gibtMagieAus;
-	private int gesAngriff;
+	private int gesAktion;
+	private int gesBonusAngriff;
 	private int anzahlAngriffe;
 	private List<NTeilnehmer> angegriffenVon;
 
@@ -61,7 +63,8 @@ public class NTeilnehmer
 		ziel = null;
 		geladeneMagie = 0;
 		gibtMagieAus = false;
-		gesAngriff = 0;
+		gesAktion = 0;
+		gesBonusAngriff = 0;
 		anzahlAngriffe = 0;
 		angegriffenVon.clear();
 	}
@@ -187,7 +190,12 @@ public class NTeilnehmer
 
 	public void berechneGes()
 	{
-		gesAngriff = Math.max(nCharakter.geschwindigkeit() + nWaffe(mit).geschwindigkeit() + nAktion.geschwindigkeit(), 0);
+		gesAktion = Math.max(nCharakter.geschwindigkeit() + nWaffe(mit).geschwindigkeit() + nAktion.geschwindigkeit(), 0);
+	}
+
+	public int gesVorteil()
+	{
+		return gesAktion - ziel.gesAktion;
 	}
 
 	public void berechneAnzahlAngriffe()
@@ -198,12 +206,19 @@ public class NTeilnehmer
 			return;
 		}
 		anzahlAngriffe = 1;
-		for(int i = 0; i < multiAngriffLimits.length; i++)
+		for(int i = 0; gesVorteil() >= i * 5; i++)
 		{
-			if(gesAngriff - ziel.gesAngriff < multiAngriffLimits[i])
+			if(i % 2 == 0)
+				gesBonusAngriff++;
+			else
+				anzahlAngriffe++;
+		}
+		/*for(int i = 0; i < multiAngriffLimits.length; i++)
+		{
+			if(gesAktion - ziel.gesAktion < multiAngriffLimits[i])
 				break;
 			anzahlAngriffe++;
-		}
+		}*/
 		anzahlAngriffe += nCharakter.extraangriffe() + nWaffe(mit).extraangriffe() + nAktion.extraangriffe();
 		if(anzahlAngriffe < 1)
 			anzahlAngriffe = 1;
@@ -217,7 +232,7 @@ public class NTeilnehmer
 		if(num == 0)
 			triggereEffekte(StartTrigger.EINMAL_VOR, true);
 		triggereEffekte(StartTrigger.IMMER_VOR, true);
-		int normalSchaden = Math.max(nCharakter.angriff() + nWaffe(mit).angriff() + nAktion.angriff(), 0)
+		int normalSchaden = Math.max(nCharakter.angriff() + nWaffe(mit).angriff() + nAktion.angriff() + gesBonusAngriff, 0)
 				- Math.max(ziel.nCharakter.verteidigung() + ziel.nWaffe(ziel.mit).verteidigung() + ziel.nAktion.verteidigung(), 0);
 		int mindestschaden = nCharakter.mindestschaden() + nWaffe(mit).mindestschaden() + nAktion.mindestschaden()
 				- ziel.nCharakter.mindestschutz() - ziel.nWaffe(ziel.mit).mindestschutz() - ziel.nAktion.mindestschutz();
@@ -235,9 +250,9 @@ public class NTeilnehmer
 		return geladeneMagie;
 	}
 
-	public int getGesAngriff()
+	public int getGesAktion()
 	{
-		return gesAngriff;
+		return gesAktion;
 	}
 
 	public int getAnzahlAngriffe()

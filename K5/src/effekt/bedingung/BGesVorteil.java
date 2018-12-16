@@ -20,7 +20,7 @@ public class BGesVorteil implements Bedingung
 	@Override
 	public boolean ok(NTeilnehmer n, NTeilnehmer ziel, W mit)
 	{
-		return n.getGesAngriff() - ziel.getGesAngriff() >= min;
+		return n.getGesAktion() - ziel.getGesAktion() >= min;
 	}
 
 	@Override

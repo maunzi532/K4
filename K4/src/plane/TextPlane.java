@@ -20,6 +20,11 @@ public class TextPlane implements Plane
 		update(fg, bg, text);
 	}
 
+	public TextPlane(int fg, int bg, char[][] text)
+	{
+		update(fg, bg, text);
+	}
+
 	public void update(int fg, int bg, String... text)
 	{
 		ysize = text.length;
@@ -29,6 +34,18 @@ public class TextPlane implements Plane
 			for(int ix = 0; ix < xsize; ix++)
 			{
 				data[iy][ix] = ix < text[iy].length() ? ((int) text[iy].charAt(ix)) | fg << 16 | bg << 24 : INVISIBLECONV;
+			}
+	}
+
+	public void update(int fg, int bg, char[][] text)
+	{
+		ysize = text.length;
+		xsize = Arrays.stream(text).mapToInt(e -> e.length).max().orElse(0);
+		data = new int[ysize][xsize];
+		for(int iy = 0; iy < ysize; iy++)
+			for(int ix = 0; ix < xsize; ix++)
+			{
+				data[iy][ix] = ix < text[iy].length ? ((int) text[iy][ix]) | fg << 16 | bg << 24 : INVISIBLECONV;
 			}
 	}
 

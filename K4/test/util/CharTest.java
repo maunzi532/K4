@@ -7,7 +7,7 @@ public class CharTest
 	@Test
 	public void wugu()
 	{
-		CharTest.charTest("a7", "2500", "2700");
+		CharTest.charTest("a7", "2700", "3000");
 	}
 
 	public static void charTest(String c1, String start, String end)

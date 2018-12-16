@@ -1,5 +1,6 @@
 package kampf;
 
+import effekt.*;
 import java.util.*;
 import kartenset.*;
 import org.junit.*;
@@ -12,7 +13,7 @@ public class SetV2Test
 	private SetV2Klassen setV2Klassen;
 	private SetV2Gegner setV2Gegner;
 	private List<Karte> alleKarten;
-	private KarteBild2 wugu2;
+	private KarteBild3 karteBild3;
 
 	@Before
 	public void init()
@@ -26,50 +27,53 @@ public class SetV2Test
 		alleKarten.addAll(setV2Waffen.alleKarten());
 		alleKarten.addAll(setV2Klassen.alleKarten());
 		alleKarten.addAll(setV2Gegner.alleKarten());
-		wugu2 = new KarteBild2();
+		karteBild3 = new KarteBild3();
 	}
 
 	@Test
 	public void alle()
 	{
-		System.out.println(wugu2.bilderReihe(alleKarten));
-	}
-
-	@Test
-	public void bilderReihe2()
-	{
-		System.out.println(wugu2.bilderReihe2(alleKarten, 5));
+		System.out.println(karteBild3.inZeilen(alleKarten, 7));
 	}
 
 	@Test
 	public void aktionen()
 	{
-		System.out.println(wugu2.bilderReihe2(new ArrayList<>(setV2Aktionen.alleKarten()), 6));
+		System.out.println(karteBild3.inZeilen(new ArrayList<>(setV2Aktionen.alleKarten()), 7));
 	}
 
 	@Test
 	public void waffen()
 	{
-		System.out.println(wugu2.bilderReihe2(new ArrayList<>(setV2Waffen.alleKarten()), 6));
+		System.out.println(karteBild3.inZeilen(new ArrayList<>(setV2Waffen.alleKarten()), 7));
 	}
 
 	@Test
 	public void klassen()
 	{
-		System.out.println(wugu2.bilderReihe2(new ArrayList<>(setV2Klassen.alleKarten()), 6));
+		System.out.println(karteBild3.inZeilen(new ArrayList<>(setV2Klassen.alleKarten()), 7));
 	}
 
 	@Test
 	public void gegner()
 	{
-		System.out.println(wugu2.bilderReihe2(new ArrayList<>(setV2Gegner.alleKarten()), 6));
+		System.out.println(karteBild3.inZeilen(new ArrayList<>(setV2Gegner.alleKarten()), 7));
 	}
 
 	@Test
-	public void alleKB3()
+	public void karteBild3Test()
 	{
-		KarteBild3 kb3 = new KarteBild3();
-		alleKarten.forEach(k -> System.out.println(Arrays.stream(kb3.karteBild(k))
-				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow()));
+		System.out.println(Arrays.stream(karteBild3.karteBild("Wugu",
+				null, null, null, null, null))
+				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
+		System.out.println(Arrays.stream(karteBild3.karteBild("Fortgeschrittener Eisstab", 0b11010100,
+				List.of("A", "10", "B", "2"), List.of("C", "-4", "D", "4"), null, null))
+				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
+		System.out.println(Arrays.stream(karteBild3.karteBild("Fortgeschrittener Magischer Stab", 0b11111111,
+				List.of("A", "10", "Blablah", "2"), List.of("C", "-4", "D", "12868884"), List.of("12000"),
+				List.of(new KartenEffekt("# ", "Wugu Wuguwugu A_+_1 V_-_1", 0))))
+				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
+		System.out.println(Arrays.stream(karteBild3.karteBild(new SetV2Gegner().gibKarte("Koba")))
+				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
 	}
 }

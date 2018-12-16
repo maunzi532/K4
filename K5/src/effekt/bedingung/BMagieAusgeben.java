@@ -14,6 +14,6 @@ public class BMagieAusgeben implements Bedingung
 	@Override
 	public String text()
 	{
-		return "Magie ausgegeben wird";
+		return "Magie durch Aktion ausgegeben wird";
 	}
 }

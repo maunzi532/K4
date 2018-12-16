@@ -113,7 +113,7 @@ public class NKampf
 			n.berechneGes();
 		}
 		sortiert = new ArrayList<>(alle);
-		sortiert.sort(Comparator.comparing(NTeilnehmer::getGesAngriff).thenComparing(e -> e.gesVorteil0).thenComparing(e -> e.index).reversed());
+		sortiert.sort(Comparator.comparing(NTeilnehmer::getGesAktion).thenComparing(e -> e.gesVorteil0).thenComparing(e -> e.index).reversed());
 		for(var n : alle)
 		{
 			n.triggereEffekte(StartTrigger.GES_NACH, true);

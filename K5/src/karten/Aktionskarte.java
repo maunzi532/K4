@@ -71,7 +71,15 @@ public class Aktionskarte implements Karte
 	public List<String> werteLO()
 	{
 		List<String> werte = new ArrayList<>();
-		addWert(werte, "M", magieMod);
+		if(ladeMitMagie)
+		{
+			werte.add("M");
+			werte.add("-> 0");
+		}
+		else
+		{
+			addWert(werte, "M", magieMod);
+		}
 		addWert(werte, "A", angriffMod);
 		addWert(werte, "G", geschwindigkeitMod);
 		return werte;
@@ -81,11 +89,6 @@ public class Aktionskarte implements Karte
 	public List<String> werteLU()
 	{
 		List<String> werte = new ArrayList<>();
-		if(ladeMitMagie)
-		{
-			werte.add("LM");
-			werte.add("");
-		}
 		if(hw)
 		{
 			werte.add("HW");

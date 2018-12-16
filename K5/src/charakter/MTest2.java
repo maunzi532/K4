@@ -2,6 +2,7 @@ package charakter;
 
 import dungeonmap.*;
 import java.util.*;
+import kartenset.*;
 import plane.*;
 import sets.*;
 import sprites.*;
@@ -27,8 +28,8 @@ public class MTest2 extends SpriteGame
 		mapBild = new MapBild(hauptklasse.dungeonMap);
 		//System.out.println(mapBild.erstelleTextBild(hauptklasse.figuren, 0));
 		//hauptklasse.zielAngeben(mapBild);
-		/*spriteLists.get(1).addSprite(new KarteSprite(screen.height, screen.width, 3,
-				new KarteBild2(), hauptklasse.klassenSet.gibKarte("Krieger")));*/
+		spriteLists.get(0).addSprite(new KarteSprite(screen.height, screen.width, 3,
+				new KarteBild3(), hauptklasse.klassenSet.gibKarte("Krieger")));
 		mapSprite = new TSprite(0, 0, 0, 0, 0, new TextPlane(0x7, 0x0, mapBild.erstelleTextBild1()));
 		spriteLists.get(0).addSprite(mapSprite);
 		cursorSprite = new TSprite(0, 0, 2, new TextPlane(0x6, 0x5, "11111", "11111", "11111"));
