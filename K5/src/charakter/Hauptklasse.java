@@ -4,6 +4,8 @@ import dungeonmap.*;
 import java.util.*;
 import karten.*;
 import kartenset.*;
+import plane.*;
+import sprites.*;
 
 public class Hauptklasse
 {
@@ -16,6 +18,9 @@ public class Hauptklasse
 	public DungeonMap dungeonMap;
 	public List<HeldSpieler> spieler;
 	public int spielerAktuell;
+	private SpriteList spriteListMap;
+	private MapBild mapBild;
+	private TSprite mapSprite;
 
 	public Hauptklasse(Einstellungen e, MittelMapKartenset mittelMapSet, AKartenset<MapKarte> mapSet,
 			Kartenset<Charakterkarte> klassenSet, Kartenset<Charakterkarte> gegnerSet,
@@ -32,31 +37,23 @@ public class Hauptklasse
 		dungeonMap.erstelleMittelWeg(mittelMapSet);
 	}
 
+	public void initSpriteList(PlaneRenderer screen, SpriteList spriteListMap)
+	{
+		this.spriteListMap = spriteListMap;
+		mapBild = new MapBild(dungeonMap);
+		spriteListMap.addSprite(new KarteSprite(screen.height, screen.width, 3,
+				new KarteBild3(), klassenSet.gibKarte("Krieger")));
+		mapSprite = new TSprite(0, 0, 0, 0, 0, new TextPlane(0x7, 0x0, mapBild.erstelleTextBild1()));
+		spriteListMap.addSprite(mapSprite);
+		spriteListMap.visible = true;
+	}
+
 	public HeldSpieler heldSpielerAktuell()
 	{
 		return spieler.get(spielerAktuell);
 	}
 
-	public void klassenAuswahl()
-	{
-		Scanner sca = new Scanner(System.in);
-		List<Klasse> klassen = new ArrayList<>(Arrays.asList(Klasse.values()));
-		for(int i = 0; i < e.anzahlSpieler; i++)
-		{
-			Optional<Klasse> kl = Optional.empty();
-			while(kl.isEmpty())
-			{
-				System.out.println(klassen);
-				System.out.println("Wähle Klasse durch ersten Buchstaben");
-				String input = sca.nextLine();
-				kl = klassen.stream().filter(e -> e.name().equalsIgnoreCase(input)).findFirst();
-			}
-			klassen.remove(kl.get());
-			spieler.add(new HeldSpieler(new HeldMap(i, kl.get(), klassenSet, waffenStapel), dungeonMap));
-		}
-	}
-
-	public void klassenAuswahl(String... kl0)
+	public void klassenAuswahl(List<SpriteList> spriteLists, String... kl0)
 	{
 		List<Klasse> klassen = new ArrayList<>(Arrays.asList(Klasse.values()));
 		for(int i = 0; i < e.anzahlSpieler; i++)
@@ -64,15 +61,35 @@ public class Hauptklasse
 			int i1 = i;
 			spieler.add(new HeldSpieler(new HeldMap(i, klassen.stream()
 					.filter(e1 -> e1.name().equalsIgnoreCase(kl0[i1])).findFirst().orElseThrow(),
-					klassenSet, waffenStapel), dungeonMap));
+					klassenSet, waffenStapel), dungeonMap, this, spriteLists.get(i + 1), spriteListMap));
 		}
 	}
 
-	public void gehe()
+	public void tick(PlaneRenderer screen)
 	{
-		for(HeldSpieler spieler : spieler)
+		for(var heldSpieler : spieler)
 		{
-			spieler.spielfigur.bewege();
+			heldSpieler.tick(screen);
 		}
+		spriteListMap.yScroll = (screen.height - heldSpielerAktuell().cursor.cursorSprite.y - MapBild.yc) / 2 * 2;
+		spriteListMap.xScroll = (screen.width - heldSpielerAktuell().cursor.cursorSprite.x - MapBild.xc) / 2 * 2;
+	}
+
+	public void handleInput(int input)
+	{
+		if(input == 'q')
+		{
+			spielerAktuell++;
+			if(spielerAktuell >= spieler.size())
+				spielerAktuell = 0;
+		}
+		else
+			heldSpielerAktuell().handleInput(input);
+	}
+
+	public void mapUpdate()
+	{
+		spieler.forEach(e -> e.spielfigur.erstelleBewegungsgraph());
+		mapSprite.getPlane().update(0x7, 0x0, mapBild.erstelleTextBild1());
 	}
 }
