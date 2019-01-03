@@ -18,6 +18,11 @@ public class MapFeld
 		return karte.ort(y, x, verkehrt);
 	}
 
+	public int ortM(int y, int x)
+	{
+		return karte.ortM(y, x, verkehrt);
+	}
+
 	public boolean verwendet(int y, int x)
 	{
 		int mod = karte.ortM(y, x, verkehrt);

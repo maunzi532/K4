@@ -20,6 +20,16 @@ public class NKampf
 		this.gegner0 = gegner0;
 	}
 
+	public List<NTeilnehmer> getAlleSpieler()
+	{
+		return spieler0;
+	}
+
+	public List<NTeilnehmer> getAlleGegner()
+	{
+		return gegner0;
+	}
+
 	public void start()
 	{
 		spieler = new ArrayList<>(spieler0);

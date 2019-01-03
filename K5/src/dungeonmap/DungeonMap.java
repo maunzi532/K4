@@ -30,14 +30,19 @@ public class DungeonMap
 		felder[yk][xk] = feld;
 	}
 
-	public boolean inMap(int y, int x)
+	public MapFeld getFeld(int yk, int xk)
 	{
-		return y >= 0 && x >= 0 && y < yhMap * ywF && x < xwMap * xwF;
+		return felder[yk][xk];
 	}
 
 	public boolean inMapK(int yk, int xk)
 	{
 		return yk >= 0 && xk >= 0 && yk < yhMap && xk < xwMap;
+	}
+
+	public boolean inMap(int y, int x)
+	{
+		return y >= 0 && x >= 0 && y < yhMap * ywF && x < xwMap * xwF;
 	}
 
 	public boolean feld(int y, int x)

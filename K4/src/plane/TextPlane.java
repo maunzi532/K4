@@ -15,6 +15,11 @@ public class TextPlane implements Plane
 	private int xsize;
 	private int[][] data;
 
+	public TextPlane()
+	{
+		data = new int[0][0];
+	}
+
 	public TextPlane(int fg, int bg, String... text)
 	{
 		update(fg, bg, text);

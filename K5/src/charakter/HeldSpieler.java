@@ -64,5 +64,62 @@ public class HeldSpieler
 				}
 			}
 		}
+		else if(input == 'e')
+		{
+			if(spielfigur.bereit())
+			{
+				aufFeld(map.ort(spielfigur.getY(), spielfigur.getX()),
+						map.verwendet(spielfigur.getY(), spielfigur.getX()));
+			}
+		}
+	}
+
+	public void aufFeld(MapTeil typ, boolean verwendet)
+	{
+		switch(typ)
+		{
+			case GEGNER ->
+			{
+
+			}
+			case TRANK ->
+			{
+				if(!verwendet)
+				{
+
+				}
+			}
+			case WAFFENKISTE ->
+			{
+				if(!verwendet)
+				{
+
+				}
+			}
+			case HAENDLER ->
+			{
+				//setze verwendet
+			}
+			case WAND ->
+			{
+
+			}
+			case MITTELBOSSGEGNER ->
+			{
+
+			}
+			case BOSSGEGNER ->
+			{
+
+			}
+			case START ->
+			{
+
+			}
+			case ZIEL ->
+			{
+
+			}
+		}
 	}
 }

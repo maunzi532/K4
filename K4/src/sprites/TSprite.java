@@ -18,6 +18,18 @@ public class TSprite extends Sprite<TextPlane>
 		this.plane = plane;
 	}
 
+	public TSprite(TextPlane plane, int z)
+	{
+		super(plane.getYSize(), plane.getXSize(), z);
+		this.plane = plane;
+	}
+
+	public TSprite(TextPlane plane, int y, int x, int z)
+	{
+		super(y, x, plane.getYSize(), plane.getXSize(), z);
+		this.plane = plane;
+	}
+
 	public int yLEdge()
 	{
 		return y - ysp;
