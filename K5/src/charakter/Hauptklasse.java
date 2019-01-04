@@ -61,7 +61,7 @@ public class Hauptklasse
 			int i1 = i;
 			spieler.add(new HeldSpieler(new HeldMap(i, klassen.stream()
 					.filter(e1 -> e1.name().equalsIgnoreCase(kl0[i1])).findFirst().orElseThrow(),
-					klassenSet, waffenStapel), dungeonMap, this, spriteLists.get(i + 1), spriteListMap));
+					klassenSet, waffenStapel), dungeonMap, this, spriteLists.get(i), spriteListMap));
 		}
 	}
 

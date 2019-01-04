@@ -11,6 +11,7 @@ public class Spielfigur
 	private DungeonMap map;
 	private int y, x;
 	private int ly, lx;
+	private boolean inBewegung;
 	private List<KoordinatenNum> bewegungsgraph;
 	private Deque<KoordinatenNum> pfad = new ArrayDeque<>();
 
@@ -101,6 +102,7 @@ public class Spielfigur
 				}
 			}
 		}
+		inBewegung = true;
 		return true;
 	}
 
@@ -133,9 +135,14 @@ public class Spielfigur
 			erstelleBewegungsgraph();
 	}
 
-	public boolean bereit()
+	public boolean bewegungFertig()
 	{
-		return pfad.isEmpty();
+		if(inBewegung && pfad.isEmpty())
+		{
+			inBewegung = false;
+			return true;
+		}
+		return false;
 	}
 
 	public KoordinatenNum kannForschen()

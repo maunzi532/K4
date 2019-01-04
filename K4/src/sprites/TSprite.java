@@ -20,13 +20,13 @@ public class TSprite extends Sprite<TextPlane>
 
 	public TSprite(TextPlane plane, int z)
 	{
-		super(plane.getYSize(), plane.getXSize(), z);
+		super(0, 0, z);
 		this.plane = plane;
 	}
 
 	public TSprite(TextPlane plane, int y, int x, int z)
 	{
-		super(y, x, plane.getYSize(), plane.getXSize(), z);
+		super(y, x, 0, 0, z);
 		this.plane = plane;
 	}
 
