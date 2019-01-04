@@ -5,10 +5,10 @@ import kartenset.*;
 import plane.*;
 import sprites.*;
 
-public class FeldLobby
+public class FeldLobby implements Zeichner3
 {
 	private static final int rwy = 10;
-	private static final int rwx = 30;
+	private static final int rwx = 40;
 
 	private DungeonMap map;
 	private int yk, xk;
@@ -17,9 +17,10 @@ public class FeldLobby
 	private MapTeil typ;
 	private boolean verwendet;
 	private TSprite sprite;
-	private Rahmen3 rahmen;
+	private Rahmen3 rahmen2;
+	private Rahmen3 rahmen1;
 
-	public FeldLobby(DungeonMap map, int y, int x, Rahmen3 rahmen, SpriteList spriteList)
+	public FeldLobby(DungeonMap map, int y, int x, SpriteList spriteList)
 	{
 		this.map = map;
 		yk = y / MapKarte.yw;
@@ -31,7 +32,8 @@ public class FeldLobby
 		verwendet = map.verwendet(y, x);
 		sprite = new TSprite(new TextPlane(0x7, 0x0, "Wugu", "Wugu"), 3);
 		spriteList.addSprite(sprite);
-		this.rahmen = rahmen;
+		rahmen2 = new Rahmen3(2);
+		rahmen1 = new Rahmen3(1);
 		updateSprite();
 	}
 
@@ -61,40 +63,31 @@ public class FeldLobby
 		return false;
 	}
 
+	@Override
+	public int yw()
+	{
+		return rwy;
+	}
+
+	@Override
+	public int xw()
+	{
+		return rwx;
+	}
+
 	public void updateSprite()
 	{
-		char[][] bild = new char[rwy][rwx];
-		rahmen(bild);
-		char[] fName = typ.name().toCharArray();
+		char[][] bild = erstellen();
+		rahmen(bild, rahmen2, 2);
+		char[] fName = verwendet ? typ.titel1.toCharArray() : typ.titel0.toCharArray();
 		System.arraycopy(fName, 0, bild[1], 2, fName.length);
+		rahmenInnen(bild, rahmen1, rwy - 4, rwy - 1, 3, rwx / 2 - 2);
+		textEinpassen(bild, verwendet ? typ.ok1 : typ.ok0, rwy - 3, 3, rwx / 2 - 2);
+		rahmenInnen(bild, rahmen2, rwy - 4, rwy - 1, rwx / 2 + 2, rwx - 3);
+		textEinpassen(bild, "Zurück", rwy - 3, rwx / 2 + 2, rwx - 3);
 		sprite.plane.update(0x7, 0x0, bild);
 		sprite.ysp = rwy;
 		sprite.xsp = rwx;
-	}
-
-	private void rahmen(char[][] bild)
-	{
-		for(int iy = 0; iy < rwy; iy++)
-		{
-			int iyc;
-			if(iy == 0)
-				iyc = 0;
-			else if(iy >= rwy - 1)
-				iyc = 2;
-			else
-				iyc = 1;
-			for(int ix = 0; ix < rwx; ix++)
-			{
-				int ixc;
-				if(ix == 0)
-					ixc = 0;
-				else if(ix >= rwx - 1)
-					ixc = 2;
-				else
-					ixc = 1;
-				bild[iy][ix] = rahmen.c[iyc][ixc];
-			}
-		}
 	}
 
 	public TSprite getSprite()

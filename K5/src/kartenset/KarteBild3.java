@@ -5,23 +5,26 @@ import java.util.*;
 import java.util.stream.*;
 import karten.*;
 
-public class KarteBild3
+public class KarteBild3 implements Zeichner3
 {
 	private final Laengen3 laengen;
-	private final Rahmen3 rahmen;
+	private final Rahmen3 rahmen2;
+	private final Rahmen3 rahmen1;
 	private final Ersetzen3 ersetzen;
 
 	public KarteBild3()
 	{
 		laengen = new Laengen3();
-		rahmen = new Rahmen3();
+		rahmen2 = new Rahmen3(2);
+		rahmen1 = new Rahmen3(1);
 		ersetzen = new Ersetzen3();
 	}
 
-	public KarteBild3(Laengen3 laengen, Rahmen3 rahmen, Ersetzen3 ersetzen)
+	public KarteBild3(Laengen3 laengen, Rahmen3 rahmen2, Rahmen3 rahmen1, Ersetzen3 ersetzen)
 	{
 		this.laengen = laengen;
-		this.rahmen = rahmen;
+		this.rahmen2 = rahmen2;
+		this.rahmen1 = rahmen1;
 		this.ersetzen = ersetzen;
 	}
 
@@ -35,6 +38,18 @@ public class KarteBild3
 		return laengen.karteW;
 	}
 
+	@Override
+	public int yw()
+	{
+		return laengen.karteH;
+	}
+
+	@Override
+	public int xw()
+	{
+		return laengen.karteW;
+	}
+
 	public char[][] karteBild(Karte karte)
 	{
 		return karteBild(karte.getName(), karte.klassencode() == -1 ? null : karte.klassencode(),
@@ -43,7 +58,7 @@ public class KarteBild3
 
 	public char[][] karteBild(String name, Integer klassencode, List<String> werteLO, List<String> werteLU, List<String> werteR, List<KartenEffekt> effekte)
 	{
-		char[][] bild = new char[laengen.karteH][laengen.karteW];
+		char[][] bild = erstellen();
 		rahmen(bild, klassencode != null);
 		kartenname(bild, name);
 		werte(bild, werteLO, werteLU, werteR);
@@ -54,47 +69,11 @@ public class KarteBild3
 
 	private void rahmen(char[][] bild, boolean klassencode)
 	{
-		for(int iy = 0; iy < laengen.karteH; iy++)
-		{
-			int iyc;
-			int dyc = 3;
-			if(iy == 0)
-				iyc = 0;
-			else if(iy >= laengen.karteH - 1)
-				iyc = 2;
-			else if(iy == 2)
-			{
-				iyc = 3;
-				dyc = 0;
-			}
-			else if(iy > 2 && iy < 3 + laengen.werteH)
-			{
-				iyc = 1;
-				dyc = 1;
-			}
-			else if(iy == 3 + laengen.werteH)
-			{
-				iyc = 3;
-				dyc = 2;
-			}
-			else if(iy == 5 + laengen.werteH && klassencode)
-				iyc = 3;
-			else
-				iyc = 1;
-			for(int ix = 0; ix < laengen.karteW; ix++)
-			{
-				int ixc;
-				if(ix == 0)
-					ixc = 0;
-				else if(ix >= laengen.karteW - 1)
-					ixc = 2;
-				else if(dyc != 3 && ix == 3 + laengen.werteW)
-					ixc = 3;
-				else
-					ixc = 1;
-				bild[iy][ix] = rahmen.c[ixc == 3 ? dyc : iyc][ixc];
-			}
-		}
+		if(klassencode)
+			rahmen(bild, rahmen2, 2, 3 + laengen.werteH, 5 + laengen.werteH);
+		else
+			rahmen(bild, rahmen2, 2, 3 + laengen.werteH);
+		linieInnen(bild, rahmen1, 2, 3 + laengen.werteH, 3 + laengen.werteW);
 	}
 
 	private void werte(char[][] bild, List<String> werteLO, List<String> werteLU, List<String> werteR)

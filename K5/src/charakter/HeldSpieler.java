@@ -140,6 +140,6 @@ public class HeldSpieler
 
 	public void erstelleFeldLobby()
 	{
-		feldLobby = new FeldLobby(map, spielfigur.getY(), spielfigur.getX(), new Rahmen3(), spriteList);
+		feldLobby = new FeldLobby(map, spielfigur.getY(), spielfigur.getX(), spriteList);
 	}
 }
