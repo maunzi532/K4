@@ -26,7 +26,6 @@ public class HeldSpieler
 		this.spriteList = spriteList;
 		spielerNummer = heldMap.spielerNummer;
 		spielfigur = map.erstelleSpielfigur(spielerNummer);
-		spriteList.visible = true;
 		cursor = new MapCursor(spielfigur.getY(), spielfigur.getX());
 		spriteListMap.addSprite(cursor.cursorSprite);
 		mapSprite = new TSprite(0, 0, 1, new TextPlane(0x6, 0x0, "11111", "11111", "11111"));
@@ -67,8 +66,22 @@ public class HeldSpieler
 		{
 			if(input == ' ')
 			{
+				if(feldLobby.auswahl == 1)
+				{
+					//alle spieler nehmen, starten
+				}
 				feldLobby.entfernen(spriteList);
 				feldLobby = null;
+			}
+			else if(input == 'a')
+			{
+				feldLobby.auswahl = 1;
+				feldLobby.updateSprite();
+			}
+			else if(input == 'd')
+			{
+				feldLobby.auswahl = 0;
+				feldLobby.updateSprite();
 			}
 		}
 		else
@@ -140,6 +153,6 @@ public class HeldSpieler
 
 	public void erstelleFeldLobby()
 	{
-		feldLobby = new FeldLobby(map, spielfigur.getY(), spielfigur.getX(), spriteList);
+		new FeldLobby(map, spielfigur.getY(), spielfigur.getX(), spriteList, this);
 	}
 }

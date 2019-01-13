@@ -5,7 +5,6 @@ import sprites.*;
 
 public class A extends SpriteGame
 {
-	private SpriteList spriteList;
 	private XSprite floor;
 	private XChar character;
 
@@ -13,8 +12,6 @@ public class A extends SpriteGame
 	public void init(PlaneRenderer screen)
 	{
 		super.init(screen);
-		spriteList = spriteLists.get(0);
-		spriteList.visible = true;
 		//spriteList.addSprite(new XSprite(0, 0, 0, 0, 0, new SubPixelPlane().init("N1_I", "N1")));
 		floor = new XSprite(-100, -100, 0, 0, 0, new SubPixelPlane().init("BodenT0"));
 		spriteList.addSprite(floor);
@@ -30,7 +27,7 @@ public class A extends SpriteGame
 	}
 
 	@Override
-	public PlaneFrame defaultFrame(int i)
+	public PlaneFrame defaultFrame()
 	{
 		return new PlaneFrame(3, 0, screen.height, screen.width);
 	}

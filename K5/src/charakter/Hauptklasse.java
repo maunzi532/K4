@@ -45,7 +45,6 @@ public class Hauptklasse
 				new KarteBild3(), klassenSet.gibKarte("Krieger")));
 		mapSprite = new TSprite(0, 0, 0, 0, 0, new TextPlane(0x7, 0x0, mapBild.erstelleTextBild1()));
 		spriteListMap.addSprite(mapSprite);
-		spriteListMap.visible = true;
 	}
 
 	public HeldSpieler heldSpielerAktuell()
@@ -53,7 +52,7 @@ public class Hauptklasse
 		return spieler.get(spielerAktuell);
 	}
 
-	public void klassenAuswahl(List<SpriteList> spriteLists, String... kl0)
+	public void klassenAuswahl(SpriteList hauptSpriteList, String... kl0)
 	{
 		List<Klasse> klassen = new ArrayList<>(Arrays.asList(Klasse.values()));
 		for(int i = 0; i < e.anzahlSpieler; i++)
@@ -61,7 +60,7 @@ public class Hauptklasse
 			int i1 = i;
 			spieler.add(new HeldSpieler(new HeldMap(i, klassen.stream()
 					.filter(e1 -> e1.name().equalsIgnoreCase(kl0[i1])).findFirst().orElseThrow(),
-					klassenSet, waffenStapel), dungeonMap, this, spriteLists.get(i), spriteListMap));
+					klassenSet, waffenStapel), dungeonMap, this, new SpriteList(hauptSpriteList, 1), spriteListMap));
 		}
 	}
 

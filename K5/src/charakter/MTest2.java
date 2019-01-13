@@ -14,9 +14,9 @@ public class MTest2 extends SpriteGame
 		super.init(screen);
 		hauptklasse = new Hauptklasse(new Einstellungen(), new SetV2MittelMapKarten(), new SetV2MapKarten(),
 				new SetV2Klassen(), new SetV2Gegner(), new SetV2Waffen(), new SetV2Aktionen());
-		hauptklasse.initSpriteList(screen, spriteLists.get(2));
+		hauptklasse.initSpriteList(screen, new SpriteList(spriteList, 0));
 		//m.klassenAuswahl();
-		hauptklasse.klassenAuswahl(spriteLists, "K", "B");
+		hauptklasse.klassenAuswahl(spriteList, "K", "B");
 	}
 
 	@Override

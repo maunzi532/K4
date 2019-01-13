@@ -1,6 +1,7 @@
 package charakter;
 
 import dungeonmap.*;
+import java.util.*;
 import kartenset.*;
 import plane.*;
 import sprites.*;
@@ -19,8 +20,10 @@ public class FeldLobby implements Zeichner3
 	private TSprite sprite;
 	private Rahmen3 rahmen2;
 	private Rahmen3 rahmen1;
+	public int auswahl;
+	private List<HeldSpieler> beigetreten;
 
-	public FeldLobby(DungeonMap map, int y, int x, SpriteList spriteList)
+	public FeldLobby(DungeonMap map, int y, int x, SpriteList spriteList, HeldSpieler spieler)
 	{
 		this.map = map;
 		yk = y / MapKarte.yw;
@@ -30,11 +33,19 @@ public class FeldLobby implements Zeichner3
 		modifier = map.getFeld(yk, xk).ortM(yt, xt);
 		typ = map.ort(y, x);
 		verwendet = map.verwendet(y, x);
+		beigetreten = new ArrayList<>();
+		beitreten(spieler);
 		sprite = new TSprite(new TextPlane(0x7, 0x0, "Wugu", "Wugu"), 3);
 		spriteList.addSprite(sprite);
 		rahmen2 = new Rahmen3(2);
 		rahmen1 = new Rahmen3(1);
 		updateSprite();
+	}
+
+	public void beitreten(HeldSpieler spieler)
+	{
+		beigetreten.add(spieler);
+		spieler.feldLobby = this;
 	}
 
 	public void entfernen(SpriteList spriteList)
@@ -81,9 +92,9 @@ public class FeldLobby implements Zeichner3
 		rahmen(bild, rahmen2, 2);
 		char[] fName = verwendet ? typ.titel1.toCharArray() : typ.titel0.toCharArray();
 		System.arraycopy(fName, 0, bild[1], 2, fName.length);
-		rahmenInnen(bild, rahmen1, rwy - 4, rwy - 1, 3, rwx / 2 - 2);
+		rahmenInnen(bild, auswahl == 1 ? rahmen2 : rahmen1, rwy - 4, rwy - 1, 3, rwx / 2 - 2);
 		textEinpassen(bild, verwendet ? typ.ok1 : typ.ok0, rwy - 3, 3, rwx / 2 - 2);
-		rahmenInnen(bild, rahmen2, rwy - 4, rwy - 1, rwx / 2 + 2, rwx - 3);
+		rahmenInnen(bild, auswahl == 0 ? rahmen2 : rahmen1, rwy - 4, rwy - 1, rwx / 2 + 2, rwx - 3);
 		textEinpassen(bild, "Zurück", rwy - 3, rwx / 2 + 2, rwx - 3);
 		sprite.plane.update(0x7, 0x0, bild);
 		sprite.ysp = rwy;
