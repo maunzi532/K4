@@ -23,7 +23,7 @@ public class FeldLobby implements Zeichner3
 	public int auswahl;
 	private List<HeldSpieler> beigetreten;
 
-	public FeldLobby(DungeonMap map, int y, int x, SpriteList spriteList, HeldSpieler spieler)
+	public FeldLobby(DungeonMap map, int y, int x)
 	{
 		this.map = map;
 		yk = y / MapKarte.yw;
@@ -34,9 +34,7 @@ public class FeldLobby implements Zeichner3
 		typ = map.ort(y, x);
 		verwendet = map.verwendet(y, x);
 		beigetreten = new ArrayList<>();
-		beitreten(spieler);
 		sprite = new TSprite(new TextPlane(0x7, 0x0, "Wugu", "Wugu"), 3);
-		spriteList.addSprite(sprite);
 		rahmen2 = new Rahmen3(2);
 		rahmen1 = new Rahmen3(1);
 		updateSprite();
@@ -46,6 +44,7 @@ public class FeldLobby implements Zeichner3
 	{
 		beigetreten.add(spieler);
 		spieler.feldLobby = this;
+		spieler.spriteList.addSprite(sprite);
 	}
 
 	public void entfernen(SpriteList spriteList)

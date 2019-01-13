@@ -1,7 +1,6 @@
 package charakter;
 
 import dungeonmap.*;
-import kartenset.*;
 import plane.*;
 import sprites.*;
 
@@ -105,40 +104,42 @@ public class HeldSpieler
 		{
 			case GEGNER ->
 			{
-				erstelleFeldLobby();
+				feldLobbyBeitreten();
 			}
 			case TRANK ->
 			{
 				if(!verwendet)
 				{
-					erstelleFeldLobby();
+					feldLobbyBeitreten();
 				}
 			}
 			case WAFFENKISTE ->
 			{
 				if(!verwendet)
 				{
-					erstelleFeldLobby();
+					feldLobbyBeitreten();
 				}
 			}
 			case HAENDLER ->
 			{
-				//setze verwendet
-
+				if(!verwendet)
+				{
+					//setze verwendet
+				}
 				//nur jeweils einmal
-				erstelleFeldLobby();
+				feldLobbyBeitreten();
 			}
 			case WAND ->
 			{
-				erstelleFeldLobby();
+				feldLobbyBeitreten();
 			}
 			case MITTELBOSSGEGNER ->
 			{
-				erstelleFeldLobby();
+				feldLobbyBeitreten();
 			}
 			case BOSSGEGNER ->
 			{
-				erstelleFeldLobby();
+				feldLobbyBeitreten();
 			}
 			case START ->
 			{
@@ -151,8 +152,19 @@ public class HeldSpieler
 		}
 	}
 
-	public void erstelleFeldLobby()
+	public void feldLobbyBeitreten()
 	{
-		new FeldLobby(map, spielfigur.getY(), spielfigur.getX(), spriteList, this);
+		for(HeldSpieler spieler : hauptklasse.spieler)
+		{
+			if(spieler.feldLobby != null)
+			{
+				if(spieler.feldLobby.istEnthalten(spielfigur.getY(), spielfigur.getX()))
+				{
+					spieler.feldLobby.beitreten(this);
+					return;
+				}
+			}
+		}
+		new FeldLobby(map, spielfigur.getY(), spielfigur.getX()).beitreten(this);
 	}
 }

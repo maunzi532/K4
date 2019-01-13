@@ -26,6 +26,14 @@ public class SpriteList
 		auf.addSpriteList(this);
 	}
 
+	public SpriteList(SpriteList auf, int z, boolean visible)
+	{
+		this.planeFrame = auf.planeFrame;
+		this.z = z;
+		this.visible = visible;
+		auf.addSpriteList(this);
+	}
+
 	public void addSpriteList(SpriteList spriteList)
 	{
 		int k = spriteLists.size();

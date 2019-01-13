@@ -60,8 +60,9 @@ public class Hauptklasse
 			int i1 = i;
 			spieler.add(new HeldSpieler(new HeldMap(i, klassen.stream()
 					.filter(e1 -> e1.name().equalsIgnoreCase(kl0[i1])).findFirst().orElseThrow(),
-					klassenSet, waffenStapel), dungeonMap, this, new SpriteList(hauptSpriteList, 1), spriteListMap));
+					klassenSet, waffenStapel), dungeonMap, this, new SpriteList(hauptSpriteList, 1, false), spriteListMap));
 		}
+		heldSpielerAktuell().spriteList.visible = true;
 	}
 
 	public void tick(PlaneRenderer screen)
@@ -78,9 +79,11 @@ public class Hauptklasse
 	{
 		if(input == 'q')
 		{
+			heldSpielerAktuell().spriteList.visible = false;
 			spielerAktuell++;
 			if(spielerAktuell >= spieler.size())
 				spielerAktuell = 0;
+			heldSpielerAktuell().spriteList.visible = true;
 		}
 		else
 			heldSpielerAktuell().handleInput(input);
