@@ -1,6 +1,7 @@
 package charakter;
 
 import dungeonmap.*;
+import java.util.stream.*;
 import plane.*;
 import sprites.*;
 
@@ -67,7 +68,8 @@ public class HeldSpieler
 			{
 				if(feldLobby.auswahl == 1)
 				{
-					//alle spieler nehmen, starten
+					feldLobby.starten(this, hauptklasse.spieler.stream()
+							.filter(e -> e.feldLobby == feldLobby).collect(Collectors.toList()));
 				}
 				feldLobby.entfernen(spriteList);
 				feldLobby = null;

@@ -104,4 +104,12 @@ public class FeldLobby implements Zeichner3
 	{
 		return sprite;
 	}
+
+	public void starten(HeldSpieler starter, List<HeldSpieler> teilnehmer)
+	{
+		switch(typ)
+		{
+
+		}
+	}
 }

@@ -42,10 +42,8 @@ public class NAktion extends NKarte
 		return switch(wert)
 		{
 			case ANGRIFF -> karte.getAngriffMod();
-			case WAFFENWERT -> 0;
 			case GESCHWINDIGKEIT -> karte.getGeschwindigkeitMod();
-			case VERTEIDIGUNG -> 0;
-			case LEBEN -> 0;
+			case WAFFENWERT, VERTEIDIGUNG, LEBEN -> 0;
 		};
 	}
 

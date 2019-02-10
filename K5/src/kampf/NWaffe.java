@@ -49,10 +49,8 @@ public class NWaffe extends NKarte
 		return switch(wert)
 		{
 			case ANGRIFF -> karte.getAngriff();
-			case WAFFENWERT -> 0;
 			case GESCHWINDIGKEIT -> karte.getGeschwindigkeit();
-			case VERTEIDIGUNG -> 0;
-			case LEBEN -> 0;
+			case WAFFENWERT, VERTEIDIGUNG, LEBEN -> 0;
 		};
 	}
 }
