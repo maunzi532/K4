@@ -20,12 +20,6 @@ public class MTest2 extends SpriteGame
 	}
 
 	@Override
-	protected int spriteListCount()
-	{
-		return 3;
-	}
-
-	@Override
 	public void tick()
 	{
 		hauptklasse.tick(screen);

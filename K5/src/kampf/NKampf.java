@@ -1,6 +1,5 @@
 package kampf;
 
-import charakter.*;
 import effekt.*;
 import java.util.*;
 import karten.*;
@@ -48,11 +47,6 @@ public class NKampf
 		/*List<Waffenwechsel> wL = spieler.stream().map(e -> new Waffenwechsel(this, e.getId(), new ArrayList<>(),
 				e.getWaffeKarte(W.HW), e.getWaffeKarte(W.NW))).collect(Collectors.toList());*/
 		//sende an UI
-	}
-
-	public void wendeWaffenwechselAn(Waffenwechsel w, int i)
-	{
-		w.anwenden(spieler0.get(i));
 	}
 
 	public void nachInitialWaffenwechsel()

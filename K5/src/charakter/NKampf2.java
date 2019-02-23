@@ -70,7 +70,7 @@ public class NKampf2
 		for(int i = 0; i < waffenwechsel.size(); i++)
 		{
 			waffenwechsel.get(i).anwenden(spieler.get(i));
-			nKampf.wendeWaffenwechselAn(waffenwechsel.get(i), i);
+			waffenwechsel.get(i).anwenden(nKampf.getAlleSpieler().get(i));
 		}
 		nKampf.anfangstrigger();
 		aktionskarten = new ArrayList<>();
@@ -97,18 +97,18 @@ public class NKampf2
 
 	public void los()
 	{
-		/*Held held = new Held(Klasse.G, setV2Klassen, setV2Waffen);
+		/*Held klasseChar = new Held(Klasse.G, setV2Klassen, setV2Waffen);
 		Waffenkarte heldWaffe = setV2Waffen.gibKarte("Spiegelsplitter");
 		Charakterkarte gegner = setV2Gegner.gibKarte("TGegner");
 		Waffenkarte gegnerWaffe = setV2Waffen.gibKarte("Großer Stock");
 
-		NCharakter nc0 = new NCharakter(held.charakterkarte());
+		NCharakter nc0 = new NCharakter(klasseChar.charakterkarte());
 		NWaffe nw0 = new NWaffe(heldWaffe);
 		NCharakter nc1 = new NCharakter(gegner);
 		NWaffe nw1 = new NWaffe(gegnerWaffe);
 
 		NTeilnehmer nt0 = new NTeilnehmer(0, null, nc0, nw0, null,
-				List.of(heldWaffe), held.charakterkarte().getLeben() * 3);
+				List.of(heldWaffe), klasseChar.charakterkarte().getLeben() * 3);
 		NTeilnehmer nt1 = new NTeilnehmer(0, null, nc1, nw1, null,
 				List.of(gegnerWaffe), gegner.getLeben() * 3);
 
@@ -120,7 +120,7 @@ public class NKampf2
 		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schnellangriff"), W.HW, nt1));
 		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Powerangriff"), W.HW, nt0));
 		nKampf.gegnerAktionskarten();
-		System.out.println(wugu.bilderReihe(List.of(held.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner,
+		System.out.println(wugu.bilderReihe(List.of(klasseChar.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner,
 				gegnerWaffe, nt1.getAktionKarte())));
 		nKampf.magieZahlen();
 		nKampf.zugV();
@@ -131,7 +131,7 @@ public class NKampf2
 		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schutzangriff"), W.HW, nt1));
 		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Brecher"), W.HW, nt0));
 		nKampf.gegnerAktionskarten();
-		System.out.println(wugu.bilderReihe(List.of(held.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner,
+		System.out.println(wugu.bilderReihe(List.of(klasseChar.charakterkarte(), heldWaffe, nt0.getAktionKarte(), gegner,
 				gegnerWaffe, nt1.getAktionKarte())));
 		nKampf.magieZahlen();
 		nKampf.zugV();

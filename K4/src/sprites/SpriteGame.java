@@ -16,8 +16,6 @@ public abstract class SpriteGame implements Game
 		spriteList = new SpriteList(defaultFrame(), 0);
 	}
 
-	protected abstract int spriteListCount();
-
 	protected PlaneFrame defaultFrame()
 	{
 		return new PlaneFrame(0, 0, screen.height, screen.width);

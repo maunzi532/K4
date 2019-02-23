@@ -109,7 +109,27 @@ public class FeldLobby implements Zeichner3
 	{
 		switch(typ)
 		{
-
+			case GEGNER -> {}//NKampf2
+			case TRANK ->
+					{
+						starter.heldMap.trank(0);
+						map.setVerwendet(starter.spielfigur.getY(), starter.spielfigur.getX());
+						starter.hauptklasse.mapUpdate();
+					}
+			case WAFFENKISTE -> {}
+			case HAENDLER ->
+					{
+						KarteSpriteList ksl = new KarteSpriteList(starter.spriteList.planeFrame,
+								List.of(starter.hauptklasse.waffenStapel.erhalteKarte()), new KarteBild3());
+						ksl.spriteList.yScroll = 60;
+						ksl.spriteList.xScroll = 60;
+						teilnehmer.forEach(e -> e.spriteList.addSpriteList(ksl.spriteList));
+					}
+			case WAND -> {}
+			case MITTELBOSSGEGNER -> {}
+			case BOSSGEGNER -> {}
+			case ZIEL -> {}
+			default -> throw new RuntimeException();
 		}
 	}
 }

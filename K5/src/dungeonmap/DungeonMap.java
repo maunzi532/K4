@@ -65,6 +65,11 @@ public class DungeonMap
 		return felder[y / ywF][x / xwF].verwendet(y % ywF, x % xwF);
 	}
 
+	public void setVerwendet(int y, int x)
+	{
+		felder[y / ywF][x / xwF].setVerwendet(y % ywF, x % xwF);
+	}
+
 	public Begehbar begehbar(int y, int x)
 	{
 		if(inMap(y, x) && feld(y, x))

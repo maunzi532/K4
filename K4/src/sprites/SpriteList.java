@@ -34,6 +34,12 @@ public class SpriteList
 		auf.addSpriteList(this);
 	}
 
+	public void centerMid(PlaneFrame center)
+	{
+		yScroll = (center.startY + center.endY) / 4 * 2;
+		xScroll = (center.startX + center.endX) / 4 * 2;
+	}
+
 	public void addSpriteList(SpriteList spriteList)
 	{
 		int k = spriteLists.size();
@@ -66,11 +72,23 @@ public class SpriteList
 
 	public void updatePositions()
 	{
+		updatePositions(0, 0);
+	}
+
+	private void updatePositions(int ys, int xs)
+	{
 		if(visible)
 		{
-			spriteLists.forEach(SpriteList::updatePositions);
+			int ys2 = ys + yScroll;
+			int xs2 = xs + xScroll;
+			for(SpriteList spriteList : spriteLists)
+			{
+				spriteList.updatePositions(ys2, xs2);
+			}
 			for(Sprite sprite : sprites)
-				sprite.updatePosition(yScroll, xScroll);
+			{
+				sprite.updatePosition(ys2, xs2);
+			}
 		}
 	}
 
@@ -80,7 +98,10 @@ public class SpriteList
 			return Collections.EMPTY_LIST;
 		List<Plane> re = new ArrayList<>();
 		spriteLists.forEach(e -> re.addAll(e.planes()));
-		sprites.stream().map(Sprite::getPlane).forEach(e -> re.add(e));
+		for(Sprite sprite : sprites)
+		{
+			re.add(sprite.getPlane());
+		}
 		return re;
 	}
 

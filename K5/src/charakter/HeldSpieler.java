@@ -104,58 +104,31 @@ public class HeldSpieler
 	{
 		switch(typ)
 		{
-			case GEGNER ->
-			{
-				feldLobbyBeitreten();
-			}
-			case TRANK ->
-			{
-				if(!verwendet)
-				{
-					feldLobbyBeitreten();
-				}
-			}
-			case WAFFENKISTE ->
-			{
-				if(!verwendet)
-				{
-					feldLobbyBeitreten();
-				}
-			}
+			case WEG, START -> {}
+			case GEGNER -> feldLobbyBeitreten(false);
+			case TRANK, WAFFENKISTE, WAND, MITTELBOSSGEGNER, BOSSGEGNER -> feldLobbyBeitreten(verwendet);
 			case HAENDLER ->
 			{
 				if(!verwendet)
 				{
-					//setze verwendet
+					hauptklasse.aktiveHaendler++;
+					map.setVerwendet(spielfigur.getY(), spielfigur.getX());
+					hauptklasse.mapUpdate();
 				}
-				//nur jeweils einmal
-				feldLobbyBeitreten();
+				if(hauptklasse.haendlerAktiv)
+				{
+					feldLobbyBeitreten(false);
+				}
 			}
-			case WAND ->
-			{
-				feldLobbyBeitreten();
-			}
-			case MITTELBOSSGEGNER ->
-			{
-				feldLobbyBeitreten();
-			}
-			case BOSSGEGNER ->
-			{
-				feldLobbyBeitreten();
-			}
-			case START ->
-			{
-				System.out.println("W");
-			}
-			case ZIEL ->
-			{
-				System.out.println("Ziel");
-			}
+			case ZIEL -> System.out.println("Ziel");
+			default -> throw new RuntimeException();
 		}
 	}
 
-	public void feldLobbyBeitreten()
+	public void feldLobbyBeitreten(boolean dochNicht)
 	{
+		if(dochNicht)
+			return;
 		for(HeldSpieler spieler : hauptklasse.spieler)
 		{
 			if(spieler.feldLobby != null)

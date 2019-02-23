@@ -7,18 +7,19 @@ import kartenset.*;
 public class HeldMap
 {
 	public final int spielerNummer;
-	public KlasseMitLevels held;
+	public KlasseMitLevels klasseChar;
 	public Charakterkarte charakter;
 	public WaffeMap hauptwaffe;
 	public WaffeMap nebenwaffe;
+	public TrankStatus trankStatus;
 	public int leben;
 	public int exp;
 
 	public HeldMap(int spielerNummer, Klasse k, Kartenset<Charakterkarte> klassenkarten, Kartenstapel<Waffenkarte> waffen)
 	{
 		this.spielerNummer = spielerNummer;
-		held = new KlasseMitLevels(k, klassenkarten);
-		charakter = held.charakterkarte();
+		klasseChar = new KlasseMitLevels(k, klassenkarten);
+		charakter = klasseChar.charakterkarte();
 		hauptwaffe = new WaffeMap(waffen.entnehmeKarte(switch(k)
 		{
 			case K -> "Abenteuerschwert";
@@ -43,5 +44,10 @@ public class HeldMap
 	public Waffenwechsel erstelleWaffenwechsel(TeamItems teamItems)
 	{
 		return new Waffenwechsel(spielerNummer, teamItems, hauptwaffe, nebenwaffe);
+	}
+
+	public void trank(int exp)
+	{
+
 	}
 }

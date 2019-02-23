@@ -21,12 +21,6 @@ public class A extends SpriteGame
 	}
 
 	@Override
-	protected int spriteListCount()
-	{
-		return 1;
-	}
-
-	@Override
 	public PlaneFrame defaultFrame()
 	{
 		return new PlaneFrame(3, 0, screen.height, screen.width);

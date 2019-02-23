@@ -21,6 +21,8 @@ public class Hauptklasse
 	private SpriteList spriteListMap;
 	private MapBild mapBild;
 	private TSprite mapSprite;
+	public boolean haendlerAktiv;
+	public int aktiveHaendler;
 
 	public Hauptklasse(Einstellungen e, MittelMapKartenset mittelMapSet, AKartenset<MapKarte> mapSet,
 			Kartenset<Charakterkarte> klassenSet, Kartenset<Charakterkarte> gegnerSet,
@@ -31,7 +33,7 @@ public class Hauptklasse
 		mapStapel = new Kartenstapel<>(mapSet.karten);
 		gegnerStapel = new Kartenstapel<>(gegnerSet);
 		waffenStapel = new Kartenstapel<>(waffenSet);
-		aktionenStapel = new Kartenstapel<>(gegnerSet);
+		aktionenStapel = new Kartenstapel<>(aktionenSet);
 		spieler = new ArrayList<>();
 		dungeonMap = new DungeonMap(e.yhMap, e.xmMap, e.immerWegW, e.mittelBossOrte);
 		dungeonMap.erstelleMittelWeg(mittelMapSet);
@@ -47,11 +49,6 @@ public class Hauptklasse
 		spriteListMap.addSprite(mapSprite);
 	}
 
-	public HeldSpieler heldSpielerAktuell()
-	{
-		return spieler.get(spielerAktuell);
-	}
-
 	public void klassenAuswahl(SpriteList hauptSpriteList, String... kl0)
 	{
 		List<Klasse> klassen = new ArrayList<>(Arrays.asList(Klasse.values()));
@@ -63,11 +60,18 @@ public class Hauptklasse
 					klassenSet, waffenStapel), dungeonMap, this, new SpriteList(hauptSpriteList, 1, false), spriteListMap));
 		}
 		heldSpielerAktuell().spriteList.visible = true;
+		haendlerAktiv = true;
+		aktiveHaendler = 1;
+	}
+
+	public HeldSpieler heldSpielerAktuell()
+	{
+		return spieler.get(spielerAktuell);
 	}
 
 	public void tick(PlaneRenderer screen)
 	{
-		for(var heldSpieler : spieler)
+		for(HeldSpieler heldSpieler : spieler)
 		{
 			heldSpieler.tick(screen);
 		}
