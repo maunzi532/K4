@@ -1,4 +1,4 @@
-package charakter;
+package main;
 
 public interface WUGU
 {

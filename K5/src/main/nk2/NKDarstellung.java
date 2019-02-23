@@ -1,5 +1,6 @@
-package charakter;
+package main.nk2;
 
+import main.nk2.*;
 import java.util.*;
 import kampf.*;
 import kartenset.*;

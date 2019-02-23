@@ -1,5 +1,6 @@
-package kartenset;
+package karteAnsicht;
 
+import kartenset.*;
 import plane.*;
 import sprites.*;
 

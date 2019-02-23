@@ -1,10 +1,10 @@
-package charakter;
+package main;
 
 import plane.*;
 import sets.*;
 import sprites.*;
 
-public class MTest2 extends SpriteGame
+public class KdEGame extends SpriteGame
 {
 	private Hauptklasse hauptklasse;
 

@@ -1,4 +1,4 @@
-package charakter;
+package main;
 
 import java.util.*;
 

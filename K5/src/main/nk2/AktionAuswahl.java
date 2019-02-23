@@ -1,4 +1,4 @@
-package charakter;
+package main.nk2;
 
 public class AktionAuswahl
 {

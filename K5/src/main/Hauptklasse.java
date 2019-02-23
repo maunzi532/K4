@@ -1,5 +1,7 @@
-package charakter;
+package main;
 
+import karteAnsicht.*;
+import logik.*;
 import dungeonmap.*;
 import java.util.*;
 import karten.*;
@@ -21,6 +23,7 @@ public class Hauptklasse
 	private SpriteList spriteListMap;
 	private MapBild mapBild;
 	private TSprite mapSprite;
+	public TeamItems teamItems;
 	public boolean haendlerAktiv;
 	public int aktiveHaendler;
 
@@ -37,6 +40,8 @@ public class Hauptklasse
 		spieler = new ArrayList<>();
 		dungeonMap = new DungeonMap(e.yhMap, e.xmMap, e.immerWegW, e.mittelBossOrte);
 		dungeonMap.erstelleMittelWeg(mittelMapSet);
+		teamItems = new TeamItems();
+		teamItems.erhalteTraenke(e.anzahlSpieler * e.traenkeProSpieler, e.trankExp.get(0));
 	}
 
 	public void initSpriteList(PlaneRenderer screen, SpriteList spriteListMap)
@@ -57,7 +62,7 @@ public class Hauptklasse
 			int i1 = i;
 			spieler.add(new HeldSpieler(new HeldMap(i, klassen.stream()
 					.filter(e1 -> e1.name().equalsIgnoreCase(kl0[i1])).findFirst().orElseThrow(),
-					klassenSet, waffenStapel), dungeonMap, this, new SpriteList(hauptSpriteList, 1, false), spriteListMap));
+					klassenSet, waffenStapel), this, new SpriteList(hauptSpriteList, 1, false), spriteListMap));
 		}
 		heldSpielerAktuell().spriteList.visible = true;
 		haendlerAktiv = true;

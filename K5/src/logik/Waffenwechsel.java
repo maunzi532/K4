@@ -1,4 +1,4 @@
-package charakter;
+package logik;
 
 import kampf.*;
 

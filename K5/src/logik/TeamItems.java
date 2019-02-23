@@ -1,4 +1,4 @@
-package charakter;
+package logik;
 
 import java.util.*;
 
@@ -11,6 +11,14 @@ public class TeamItems
 	{
 		expTrankVorrat = new ArrayList<>();
 		waffenVorrat = new ArrayList<>();
+	}
+
+	public void erhalteTraenke(int anzahl, int exp)
+	{
+		for(int i = 0; i < anzahl; i++)
+		{
+			expTrankVorrat.add(new ExpTrank(exp));
+		}
 	}
 
 	public void lagereWaffe(WaffeMap waffe)

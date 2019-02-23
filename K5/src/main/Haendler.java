@@ -1,24 +1,25 @@
-package charakter;
+package main;
 
+import karteAnsicht.*;
+import logik.*;
 import java.util.*;
 import karten.*;
-import kartenset.*;
 import plane.*;
 import sprites.*;
 
 public class Haendler implements WUGU
 {
+	private Hauptklasse hk;
 	private SpriteList spriteList;
-	private Kartenstapel<Waffenkarte> waffenStapel;
 	private TeamItems teamItems;
 	private List<Waffenkarte> angebot;
 	private KarteSpriteList unten;
 	private KarteSpriteList oben;
 
-	public Haendler(PlaneFrame planeFrame, Kartenstapel<Waffenkarte> waffenStapel,
+	public Haendler(Hauptklasse hk, PlaneFrame planeFrame,
 			List<HeldSpieler> teilnehmer, TeamItems teamItems)
 	{
-		this.waffenStapel = waffenStapel;
+		this.hk = hk;
 		this.teamItems = teamItems;
 		spriteList = new SpriteList(planeFrame, 2);
 		spriteList.centerMid(planeFrame);

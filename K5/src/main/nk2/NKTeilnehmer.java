@@ -1,8 +1,9 @@
-package charakter;
+package main.nk2;
 
 import kampf.*;
 import karten.*;
 import kartenset.*;
+import karteAnsicht.*;
 import sprites.*;
 
 public class NKTeilnehmer

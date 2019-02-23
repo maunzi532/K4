@@ -1,5 +1,7 @@
-package charakter;
+package main;
 
+import karteAnsicht.*;
+import logik.*;
 import dungeonmap.*;
 import java.util.stream.*;
 import plane.*;
@@ -13,19 +15,17 @@ public class HeldSpieler
 	public Sprite mapSprite;
 	public HeldMap heldMap;
 	public MapCursor cursor;
-	public DungeonMap map;
 	public FeldLobby feldLobby;
-	public Hauptklasse hauptklasse;
+	public Hauptklasse hk;
 
-	public HeldSpieler(HeldMap heldMap, DungeonMap map, Hauptklasse hauptklasse,
+	public HeldSpieler(HeldMap heldMap, Hauptklasse hk,
 			SpriteList spriteList, SpriteList spriteListMap)
 	{
 		this.heldMap = heldMap;
-		this.map = map;
-		this.hauptklasse = hauptklasse;
+		this.hk = hk;
 		this.spriteList = spriteList;
 		spielerNummer = heldMap.spielerNummer;
-		spielfigur = map.erstelleSpielfigur(spielerNummer);
+		spielfigur = hk.dungeonMap.erstelleSpielfigur(spielerNummer);
 		cursor = new MapCursor(spielfigur.getY(), spielfigur.getX());
 		spriteListMap.addSprite(cursor.cursorSprite);
 		mapSprite = new TSprite(0, 0, 1, new TextPlane(0x6, 0x0, "11111", "11111", "11111"));
@@ -40,13 +40,13 @@ public class HeldSpieler
 			KoordinatenNum k = spielfigur.kannForschen();
 			if(k != null)
 			{
-				map.forsche(k, hauptklasse.mapStapel);
-				hauptklasse.mapUpdate();
+				hk.dungeonMap.forsche(k, hk.mapStapel);
+				hk.mapUpdate();
 			}
 			else
 			{
-				aufFeld(map.ort(spielfigur.getY(), spielfigur.getX()),
-						map.verwendet(spielfigur.getY(), spielfigur.getX()));
+				aufFeld(hk.dungeonMap.ort(spielfigur.getY(), spielfigur.getX()),
+						hk.dungeonMap.verwendet(spielfigur.getY(), spielfigur.getX()));
 			}
 		}
 		mapSprite.y = spielfigur.getY() * MapBild.yc * 2;
@@ -68,7 +68,7 @@ public class HeldSpieler
 			{
 				if(feldLobby.auswahl == 1)
 				{
-					feldLobby.starten(this, hauptklasse.spieler.stream()
+					feldLobby.starten(this, hk.spieler.stream()
 							.filter(e -> e.feldLobby == feldLobby).collect(Collectors.toList()));
 				}
 				feldLobby.entfernen(spriteList);
@@ -111,11 +111,11 @@ public class HeldSpieler
 			{
 				if(!verwendet)
 				{
-					hauptklasse.aktiveHaendler++;
-					map.setVerwendet(spielfigur.getY(), spielfigur.getX());
-					hauptklasse.mapUpdate();
+					hk.aktiveHaendler++;
+					hk.dungeonMap.setVerwendet(spielfigur.getY(), spielfigur.getX());
+					hk.mapUpdate();
 				}
-				if(hauptklasse.haendlerAktiv)
+				if(hk.haendlerAktiv)
 				{
 					feldLobbyBeitreten(false);
 				}
@@ -129,7 +129,7 @@ public class HeldSpieler
 	{
 		if(dochNicht)
 			return;
-		for(HeldSpieler spieler : hauptklasse.spieler)
+		for(HeldSpieler spieler : hk.spieler)
 		{
 			if(spieler.feldLobby != null)
 			{
@@ -140,6 +140,6 @@ public class HeldSpieler
 				}
 			}
 		}
-		new FeldLobby(map, spielfigur.getY(), spielfigur.getX()).beitreten(this);
+		new FeldLobby(hk, spielfigur.getY(), spielfigur.getX()).beitreten(this);
 	}
 }

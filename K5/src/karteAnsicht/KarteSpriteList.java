@@ -1,4 +1,4 @@
-package charakter;
+package karteAnsicht;
 
 import java.util.*;
 import kartenset.*;

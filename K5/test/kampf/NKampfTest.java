@@ -1,6 +1,6 @@
 package kampf;
 
-import charakter.*;
+import logik.*;
 import java.util.*;
 import karten.*;
 import kartenset.*;

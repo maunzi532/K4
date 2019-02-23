@@ -1,5 +1,6 @@
-package charakter;
+package main.nk2;
 
+import logik.*;
 import java.util.*;
 import java.util.stream.*;
 import kampf.*;

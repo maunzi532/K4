@@ -1,4 +1,4 @@
-package charakter;
+package main;
 
 import m.*;
 import m.emulate.*;
@@ -30,10 +30,6 @@ public class M_K5
 		{
 			device = new TerminalDevice();
 		}
-		Start.start(device, subpixels, false, DrawSetting.T, new MTest2());
+		Start.start(device, subpixels, false, DrawSetting.T, new KdEGame());
 	}
-
-	//TODO: Karten Anschlüsse ermitteln
-	//TODO: KarteBild3
-	//TODO: Lobby
 }

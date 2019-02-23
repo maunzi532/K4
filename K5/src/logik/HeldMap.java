@@ -1,4 +1,4 @@
-package charakter;
+package logik;
 
 import kampf.*;
 import karten.*;
@@ -11,7 +11,7 @@ public class HeldMap
 	public Charakterkarte charakter;
 	public WaffeMap hauptwaffe;
 	public WaffeMap nebenwaffe;
-	public TrankStatus trankStatus;
+	public HeldStatus trankStatus;
 	public int leben;
 	public int exp;
 
