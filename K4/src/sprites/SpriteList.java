@@ -50,6 +50,11 @@ public class SpriteList
 		spriteLists.add(k, spriteList);
 	}
 
+	public void removeSpriteList(SpriteList spriteList)
+	{
+		spriteLists.remove(spriteList);
+	}
+
 	public void addSprite(Sprite sprite)
 	{
 		int k = sprites.size();

@@ -16,6 +16,7 @@ public class HeldSpieler
 	public HeldMap heldMap;
 	public MapCursor cursor;
 	public FeldLobby feldLobby;
+	public XFenster xFenster;
 	public Hauptklasse hk;
 
 	public HeldSpieler(HeldMap heldMap, Hauptklasse hk,
@@ -62,7 +63,11 @@ public class HeldSpieler
 
 	public void handleInput(int input)
 	{
-		if(feldLobby != null)
+		if(xFenster != null)
+		{
+			xFenster.handleInput(input);
+		}
+		else if(feldLobby != null)
 		{
 			if(input == ' ')
 			{
@@ -141,5 +146,21 @@ public class HeldSpieler
 			}
 		}
 		new FeldLobby(hk, spielfigur.getY(), spielfigur.getX()).beitreten(this);
+	}
+
+	public void removexFenster()
+	{
+		if(xFenster != null)
+		{
+			spriteList.removeSpriteList(xFenster.getSpriteList());
+			xFenster = null;
+		}
+	}
+
+	public void setxFenster(XFenster xFenster)
+	{
+		removexFenster();
+		this.xFenster = xFenster;
+		spriteList.addSpriteList(xFenster.getSpriteList());
 	}
 }

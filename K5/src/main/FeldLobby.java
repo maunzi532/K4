@@ -1,6 +1,5 @@
 package main;
 
-import karteAnsicht.*;
 import dungeonmap.*;
 import java.util.*;
 import kartenset.*;
@@ -120,11 +119,13 @@ public class FeldLobby implements Zeichner3
 			case WAFFENKISTE -> {}
 			case HAENDLER ->
 					{
-						KarteSpriteList ksl = new KarteSpriteList(starter.spriteList.planeFrame,
+						Haendler haendler = new Haendler(hk, starter.spriteList.planeFrame, teilnehmer);
+						teilnehmer.forEach(e -> e.setxFenster(haendler));
+						/*KarteSpriteList ksl = new KarteSpriteList(starter.spriteList.planeFrame,
 								List.of(hk.waffenStapel.erhalteKarte()), new KarteBild3());
 						ksl.spriteList.yScroll = 60;
 						ksl.spriteList.xScroll = 60;
-						teilnehmer.forEach(e -> e.spriteList.addSpriteList(ksl.spriteList));
+						teilnehmer.forEach(e -> e.spriteList.addSpriteList(ksl.spriteList));*/
 					}
 			case WAND -> {}
 			case MITTELBOSSGEGNER -> {}

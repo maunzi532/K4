@@ -7,7 +7,7 @@ import karten.*;
 import plane.*;
 import sprites.*;
 
-public class Haendler implements WUGU
+public class Haendler implements XFenster
 {
 	private Hauptklasse hk;
 	private SpriteList spriteList;
@@ -17,12 +17,30 @@ public class Haendler implements WUGU
 	private KarteSpriteList oben;
 
 	public Haendler(Hauptklasse hk, PlaneFrame planeFrame,
-			List<HeldSpieler> teilnehmer, TeamItems teamItems)
+			List<HeldSpieler> teilnehmer)
 	{
 		this.hk = hk;
-		this.teamItems = teamItems;
+		teamItems = hk.teamItems;
 		spriteList = new SpriteList(planeFrame, 2);
 		spriteList.centerMid(planeFrame);
+
+	}
+
+	@Override
+	public void handleInput(int input)
+	{
+
+	}
+
+	@Override
+	public SpriteList getSpriteList()
+	{
+		return spriteList;
+	}
+
+	@Override
+	public void update()
+	{
 
 	}
 }
