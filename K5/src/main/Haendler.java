@@ -1,6 +1,8 @@
 package main;
 
+import java.util.stream.*;
 import karteAnsicht.*;
+import kartenset.*;
 import logik.*;
 import java.util.*;
 import karten.*;
@@ -23,7 +25,9 @@ public class Haendler implements XFenster
 		teamItems = hk.teamItems;
 		spriteList = new SpriteList(planeFrame, 2);
 		spriteList.centerMid(planeFrame);
-
+		unten = new KarteSpriteList(spriteList.planeFrame, teamItems.waffenVorrat.stream()
+				.map(e -> e.karte).collect(Collectors.toList()), new KarteBild3());
+		spriteList.addSpriteList(unten.spriteList);
 	}
 
 	@Override

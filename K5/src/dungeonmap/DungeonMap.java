@@ -124,9 +124,10 @@ public class DungeonMap
 		int xk = ort.x / xwF;
 		while(true)
 		{
-			MapKarte karte = mapStapel.erhalteKarteNurDeck();
-			if(karte != null)
+			Optional<MapKarte> karte0 = mapStapel.erhalteKarteNurDeck();
+			if(karte0.isPresent())
 			{
+				MapKarte karte = karte0.get();
 				boolean ok0 = kartePasst(karte, yk, xk, false);
 				boolean ok1 = kartePasst(karte, yk, xk, true);
 				if(!ok0 && !ok1)

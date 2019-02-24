@@ -11,6 +11,19 @@ public class KarteSpriteList
 	public KarteBild3 kb;
 	public List<KarteSprite> karteSprites;
 
+	public KarteSpriteList(SpriteList v, List<Karte> karten, KarteBild3 kb)
+	{
+		this.kb = kb;
+		spriteList = new SpriteList(v, 2);
+		karteSprites = new ArrayList<>();
+		for(int i = 0; i < karten.size(); i++)
+		{
+			KarteSprite karteSprite = new KarteSprite(zielY(i), zielX(i), 0, kb, karten.get(i));
+			karteSprites.add(karteSprite);
+			spriteList.addSprite(karteSprite);
+		}
+	}
+
 	public KarteSpriteList(PlaneFrame frame, List<Karte> karten, KarteBild3 kb)
 	{
 		this.kb = kb;

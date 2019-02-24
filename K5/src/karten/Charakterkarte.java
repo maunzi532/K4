@@ -99,6 +99,11 @@ public class Charakterkarte implements Karte
 		return exp;
 	}
 
+	public int inBereich(int min, int max)
+	{
+		return exp >= min && exp <= max ? 0 : -1;
+	}
+
 	@Override
 	public List<String> werteLO()
 	{

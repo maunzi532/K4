@@ -1,6 +1,7 @@
 package kartenset;
 
 import java.util.*;
+import java.util.function.*;
 
 public class Kartenstapel<T extends AKarte>
 {
@@ -38,15 +39,15 @@ public class Kartenstapel<T extends AKarte>
 		return k;
 	}
 
-	public T erhalteKarteNurDeck()
+	public Optional<T> erhalteKarteNurDeck()
 	{
 		if(deck.isEmpty())
 		{
-			return null;
+			return Optional.empty();
 		}
 		T k = deck.removeFirst();
 		umlauf.add(k);
-		return k;
+		return Optional.of(k);
 	}
 
 	public T entnehmeKarte(String name)
@@ -73,5 +74,26 @@ public class Kartenstapel<T extends AKarte>
 		if(!umlauf.remove(k))
 			throw new RuntimeException();
 		ablage.addLast(k);
+	}
+
+	public Optional<T> durchsucheAlle(Predicate<T> check)
+	{
+		ablageInsDeck();
+		while(!deck.isEmpty())
+		{
+			T k = deck.removeFirst();
+			umlauf.add(k);
+			if(check.test(k))
+			{
+				ablageInsDeck();
+				return Optional.of(k);
+			}
+			else
+			{
+				ablage(k);
+			}
+		}
+		ablageInsDeck();
+		return Optional.empty();
 	}
 }

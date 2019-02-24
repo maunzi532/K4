@@ -3,6 +3,7 @@ package main;
 import dungeonmap.*;
 import java.util.*;
 import kartenset.*;
+import main.nk2.*;
 import plane.*;
 import sprites.*;
 
@@ -109,7 +110,13 @@ public class FeldLobby implements Zeichner3
 	{
 		switch(typ)
 		{
-			case GEGNER -> {}//NKampf2
+			case GEGNER ->
+					{
+						NKampf2 nk2 = new NKampf2(hk, starter.heldMap, 10, 20);
+						nk2.initSpriteList(starter.spriteList);
+						starter.setxFenster(nk2);
+						nk2.ermittleGegner();
+					}
 			case TRANK ->
 					{
 						starter.heldMap.trank(0);

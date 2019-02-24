@@ -1,13 +1,14 @@
 package main.nk2;
 
-import logik.*;
 import java.util.*;
 import java.util.stream.*;
 import kampf.*;
 import karten.*;
-import kartenset.*;
+import logik.*;
+import main.*;
+import sprites.*;
 
-public class NKampf2
+public class NKampf2 implements XFenster
 {
 	public List<HeldMap> spieler;
 	public int gegnerExpMin, gegnerExpMax;
@@ -18,22 +19,29 @@ public class NKampf2
 	public List<Waffenwechsel> waffenwechsel;
 	public List<Aktionskarte> aktionskarten;
 	public List<AktionAuswahl> aktionAuswahl;
-	public TeamItems teamItems;
-	public Kartenstapel<Aktionskarte> aktionenStapel;
-	public Kartenstapel<Charakterkarte> gegnerStapel;
-	public Kartenstapel<Waffenkarte> waffenStapel;
+	public Hauptklasse hk;
+	public SpriteList spriteList;
+	public NKDarstellung nkd;
 
-	public NKampf2(List<HeldMap> spieler, List<Charakterkarte> bossgegner)
+	public NKampf2(Hauptklasse hk, List<HeldMap> spieler, List<Charakterkarte> bossgegner)
 	{
+		this.hk = hk;
 		this.spieler = spieler;
 		this.bossgegner = bossgegner;
 	}
 
-	public NKampf2(HeldMap spieler0, int gegnerExpMin, int gegnerExpMax)
+	public NKampf2(Hauptklasse hk, HeldMap spieler0, int gegnerExpMin, int gegnerExpMax)
 	{
+		this.hk = hk;
 		spieler = List.of(spieler0);
 		this.gegnerExpMin = gegnerExpMin;
 		this.gegnerExpMax = gegnerExpMax;
+	}
+
+	public void initSpriteList(SpriteList sl0)
+	{
+		spriteList = new SpriteList(sl0.planeFrame, 2);
+		nkd = new NKDarstellung(spriteList, this);
 	}
 
 	public void ermittleGegner()
@@ -45,8 +53,40 @@ public class NKampf2
 		else
 		{
 			//ermittle Gegner
+			gegner = new ArrayList<>();
+			Optional<Charakterkarte> k0 = hk.gegnerStapel.durchsucheAlle(e -> e.inBereich(gegnerExpMin, gegnerExpMax) >= 0);
+			if(k0.isPresent())
+			{
+				Charakterkarte k1 = k0.get();
+				if(k1 instanceof XGegnerKarte)
+				{
+					gegner.add(new Gegner((XGegnerKarte) k1, k1.inBereich(gegnerExpMin, gegnerExpMax)));
+				}
+				else
+				{
+					gegner.add(new Gegner(k1));
+				}
+			}
+			else
+			{
+				throw new RuntimeException("Mehrere Gegner noch nicht implementiert");
+			}
 		}
 		//ermittle Waffen für Gegner
+		gegnerWaffen = new ArrayList<>();
+		for(Gegner gegner1 : gegner)
+		{
+			int waffenwert = gegner1.charakterkarte().getWaffenwert();
+			Optional<Waffenkarte> k0 = hk.waffenStapel.durchsucheAlle(e -> e.isGegnerOK() && (e.getKosten() == waffenwert || e.getKosten() == waffenwert - 1));
+			if(k0.isPresent())
+			{
+				gegnerWaffen.add(k0.get());
+			}
+			else
+			{
+				throw new RuntimeException("Gegner hat keine Waffe");
+			}
+		}
 	}
 
 	public void erstelle()
@@ -63,7 +103,7 @@ public class NKampf2
 	public void k0()
 	{
 		nKampf.start();
-		waffenwechsel = spieler.stream().map(e -> e.erstelleWaffenwechsel(teamItems)).collect(Collectors.toList());
+		waffenwechsel = spieler.stream().map(e -> e.erstelleWaffenwechsel(hk.teamItems)).collect(Collectors.toList());
 	}
 
 	public void k1()
@@ -83,7 +123,7 @@ public class NKampf2
 		nKampf.beginneZug();
 		while(aktionskarten.size() < 3 + spieler.size())
 		{
-			Aktionskarte k = aktionenStapel.erhalteKarte();
+			Aktionskarte k = hk.aktionenStapel.erhalteKarte();
 			if(k == null)
 				break;
 			aktionskarten.add(k);
@@ -138,5 +178,23 @@ public class NKampf2
 		nKampf.zugV();
 		nKampf.angriffe();
 		nKampf.beendeZug();*/
+	}
+
+	@Override
+	public void handleInput(int input)
+	{
+
+	}
+
+	@Override
+	public SpriteList getSpriteList()
+	{
+		return spriteList;
+	}
+
+	@Override
+	public void update()
+	{
+
 	}
 }

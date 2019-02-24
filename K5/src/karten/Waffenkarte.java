@@ -11,16 +11,18 @@ public class Waffenkarte implements Karte
 	private final int angriff;
 	private final int geschwindigkeit;
 	private final int klassencode;
+	private final boolean gegnerOK;
 	private final List<KartenEffekt> effekte;
 
 	public Waffenkarte(String name, int kosten, int angriff, int geschwindigkeit, int klassencode,
-			KartenEffekt... effekte)
+			boolean gegnerOK, KartenEffekt... effekte)
 	{
 		this.name = name;
 		this.kosten = kosten;
 		this.angriff = angriff;
 		this.geschwindigkeit = geschwindigkeit;
 		this.klassencode = klassencode;
+		this.gegnerOK = gegnerOK;
 		this.effekte = Arrays.asList(effekte);
 	}
 
@@ -53,6 +55,11 @@ public class Waffenkarte implements Karte
 	public int getGeschwindigkeit()
 	{
 		return geschwindigkeit;
+	}
+
+	public boolean isGegnerOK()
+	{
+		return gegnerOK;
 	}
 
 	@Override

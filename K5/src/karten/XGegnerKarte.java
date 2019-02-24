@@ -48,6 +48,17 @@ public class XGegnerKarte extends Charakterkarte
 	}
 
 	@Override
+	public int inBereich(int min, int max)
+	{
+		for(int i = 0; i < xExp.length; i++)
+		{
+			if(xExp[i] >= min && xExp[i] <= max)
+				return i;
+		}
+		return -1;
+	}
+
+	@Override
 	public List<String> werteLO()
 	{
 		return Arrays.asList("A", angriff + (xWerte[0] ? "+X" : ""),
