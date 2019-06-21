@@ -1,7 +1,6 @@
 package effekt.wirkung;
 
 import effekt.*;
-import kampf.*;
 
 public abstract class DatenWirkung implements Wirkung
 {
@@ -19,7 +18,7 @@ public abstract class DatenWirkung implements Wirkung
 	}
 
 	@Override
-	public abstract int triggere(NTeilnehmer n, NTeilnehmer ziel, W mit);
+	public abstract int triggere(NTI n, NTI ziel, W mit);
 
 	@Override
 	public int getWert(Wirkungswert wert, int daten)

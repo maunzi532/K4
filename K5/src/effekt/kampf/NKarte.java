@@ -1,4 +1,4 @@
-package kampf;
+package effekt.kampf;
 
 import effekt.*;
 import effekt.wirkung.*;
@@ -13,49 +13,43 @@ public abstract class NKarte
 		aktiveEffekte = new ArrayList<>();
 	}
 
-	public abstract int basisAngriff();
-
-	public abstract int basisGes();
-
-	public abstract int basisVert();
-
 	public abstract int magieAenderung();
 
 	public abstract int basisWert(Basiswert wert);
 
 	public int angriff()
 	{
-		return basisAngriff() + aktiveEffekte().stream().mapToInt(AnEffekt::angriff).sum();
+		return basisWert(Basiswert.ANGRIFF) + aktiveEffekte.stream().mapToInt(AnEffekt::angriff).sum();
 	}
 
 	public int geschwindigkeit()
 	{
-		return basisGes() + aktiveEffekte().stream().mapToInt(AnEffekt::geschwindigkeit).sum();
+		return basisWert(Basiswert.GESCHWINDIGKEIT) + aktiveEffekte.stream().mapToInt(AnEffekt::geschwindigkeit).sum();
 	}
 
 	public int verteidigung()
 	{
-		return basisVert() + aktiveEffekte().stream().mapToInt(AnEffekt::verteidigung).sum();
+		return basisWert(Basiswert.VERTEIDIGUNG) + aktiveEffekte.stream().mapToInt(AnEffekt::verteidigung).sum();
 	}
 
 	public int mindestschaden()
 	{
-		return aktiveEffekte().stream().mapToInt(AnEffekt::mindestschaden).sum();
+		return aktiveEffekte.stream().mapToInt(AnEffekt::mindestschaden).sum();
 	}
 
 	public int mindestschutz()
 	{
-		return aktiveEffekte().stream().mapToInt(AnEffekt::mindestschutz).sum();
+		return aktiveEffekte.stream().mapToInt(AnEffekt::mindestschutz).sum();
 	}
 
 	public int extraangriffe()
 	{
-		return aktiveEffekte().stream().mapToInt(AnEffekt::extraangriffe).sum();
+		return aktiveEffekte.stream().mapToInt(AnEffekt::extraangriffe).sum();
 	}
 
 	public int setzeangriffe()
 	{
-		return aktiveEffekte().stream().mapToInt(AnEffekt::setzeangriffe).max().orElse(-1);
+		return aktiveEffekte.stream().mapToInt(AnEffekt::setzeangriffe).max().orElse(-1);
 	}
 
 	public int setzeangriffe(int vorher)
@@ -64,7 +58,7 @@ public abstract class NKarte
 		return se < 0 ? vorher : se;
 	}
 
-	public void neuerEffekt(AnEffekt anEffekt, NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public void neuerEffekt(AnEffekt anEffekt, NTI n, NTI ziel, W mit)
 	{
 		aktiveEffekte.add(anEffekt);
 		anEffekt.triggere(n, ziel, mit);

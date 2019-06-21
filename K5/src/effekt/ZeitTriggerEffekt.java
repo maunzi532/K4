@@ -3,7 +3,6 @@ package effekt;
 import effekt.bedingung.*;
 import effekt.wirkung.*;
 import java.util.*;
-import kampf.*;
 
 public class ZeitTriggerEffekt extends TriggerEffekt
 {
@@ -29,9 +28,9 @@ public class ZeitTriggerEffekt extends TriggerEffekt
 	}
 
 	@Override
-	public void triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public void triggere(NTI n, NTI ziel, W mit)
 	{
-		NTeilnehmer betrifft = betrifftGegner ? ziel : n;
+		NTI betrifft = betrifftGegner ? ziel : n;
 		W zielWaffe1 = zielWaffe == W.OK ? mit : zielWaffe;
 		switch(an)
 		{

@@ -1,7 +1,6 @@
 package effekt.wirkung;
 
 import effekt.*;
-import kampf.*;
 
 public class WAktuelleMagieWirkung extends DatenWirkung
 {
@@ -11,7 +10,7 @@ public class WAktuelleMagieWirkung extends DatenWirkung
 	}
 
 	@Override
-	public int triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public int triggere(NTI n, NTI ziel, W mit)
 	{
 		return n.getMagie();
 	}

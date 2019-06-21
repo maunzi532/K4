@@ -1,5 +1,6 @@
 package logik;
 
+import effekt.kampf.*;
 import kampf.*;
 
 public class Waffenwechsel

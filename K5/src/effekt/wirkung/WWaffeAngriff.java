@@ -1,7 +1,6 @@
 package effekt.wirkung;
 
 import effekt.*;
-import kampf.*;
 
 public class WWaffeAngriff implements Wirkung
 {
@@ -13,9 +12,9 @@ public class WWaffeAngriff implements Wirkung
 	}
 
 	@Override
-	public int triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public int triggere(NTI n, NTI ziel, W mit)
 	{
-		return n.nWaffe(mit).basisAngriff();
+		return n.nWaffe(mit).basisWert(Basiswert.ANGRIFF);
 	}
 
 	@Override

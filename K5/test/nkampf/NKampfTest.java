@@ -1,10 +1,11 @@
-package kampf;
+package nkampf;
 
 import effekt.*;
-import kartebild.*;
-import logik.*;
 import java.util.*;
+import kampf.*;
+import kartebild.*;
 import karten.*;
+import logik.*;
 import org.junit.*;
 import sets.*;
 

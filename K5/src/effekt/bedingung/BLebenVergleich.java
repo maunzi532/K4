@@ -1,7 +1,6 @@
 package effekt.bedingung;
 
 import effekt.*;
-import kampf.*;
 
 public class BLebenVergleich implements Bedingung
 {
@@ -13,7 +12,7 @@ public class BLebenVergleich implements Bedingung
 	}
 
 	@Override
-	public boolean ok(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public boolean ok(NTI n, NTI ziel, W mit)
 	{
 		int diff = n.getLeben() - ziel.getLeben();
 		return switch(vergleich)

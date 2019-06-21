@@ -1,7 +1,6 @@
 package effekt.direktwirkung;
 
 import effekt.*;
-import kampf.*;
 
 public class MagieWirkung implements DirektWirkung
 {
@@ -15,7 +14,7 @@ public class MagieWirkung implements DirektWirkung
 	}
 
 	@Override
-	public void triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public void triggere(NTI n, NTI ziel, W mit)
 	{
 		if(gegner)
 		{

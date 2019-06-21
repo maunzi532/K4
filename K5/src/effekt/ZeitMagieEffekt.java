@@ -3,7 +3,6 @@ package effekt;
 import effekt.bedingung.*;
 import effekt.wirkung.*;
 import java.util.*;
-import kampf.*;
 
 public class ZeitMagieEffekt extends MagieEffekt
 {
@@ -28,10 +27,10 @@ public class ZeitMagieEffekt extends MagieEffekt
 	}
 
 	@Override
-	public void aktiviere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public void aktiviere(NTI n, NTI ziel, W mit)
 	{
 		super.aktiviere(n, ziel, mit);
-		NTeilnehmer betrifft = betrifftGegner ? ziel : n;
+		NTI betrifft = betrifftGegner ? ziel : n;
 		W zielWaffe1 = zielWaffe == W.OK ? mit : zielWaffe;
 		switch(an)
 		{

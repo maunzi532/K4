@@ -3,7 +3,6 @@ package effekt;
 import effekt.bedingung.*;
 import effekt.direktwirkung.*;
 import java.util.*;
-import kampf.*;
 
 public class DirektTriggerEffekt extends TriggerEffekt
 {
@@ -18,7 +17,7 @@ public class DirektTriggerEffekt extends TriggerEffekt
 	}
 
 	@Override
-	public void triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public void triggere(NTI n, NTI ziel, W mit)
 	{
 		direktWirkung.triggere(n, ziel, mit);
 	}

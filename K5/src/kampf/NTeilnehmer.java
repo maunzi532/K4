@@ -2,11 +2,12 @@ package kampf;
 
 import basiskarte.*;
 import effekt.*;
+import effekt.kampf.*;
 import effekt.wirkung.*;
 import java.util.*;
 import karten.*;
 
-public class NTeilnehmer
+public class NTeilnehmer implements NTI
 {
 	//private static final int[] multiAngriffLimits = new int[]{5, 15, 30};
 	private static final int gesVorteilBonusLimit = 5;

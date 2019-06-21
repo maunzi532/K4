@@ -1,4 +1,4 @@
-package kampf;
+package effekt.kampf;
 
 import effekt.*;
 import karten.*;
@@ -17,24 +17,6 @@ public class NWaffe extends NKarte
 	private NWaffe(Waffenkarte karte)
 	{
 		this.karte = karte;
-	}
-
-	@Override
-	public int basisAngriff()
-	{
-		return karte.getAngriff();
-	}
-
-	@Override
-	public int basisGes()
-	{
-		return karte.getGeschwindigkeit();
-	}
-
-	@Override
-	public int basisVert()
-	{
-		return 0;
 	}
 
 	@Override

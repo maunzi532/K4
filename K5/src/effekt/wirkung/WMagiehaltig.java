@@ -1,7 +1,6 @@
 package effekt.wirkung;
 
 import effekt.*;
-import kampf.*;
 
 public class WMagiehaltig implements Wirkung
 {
@@ -13,7 +12,7 @@ public class WMagiehaltig implements Wirkung
 	}
 
 	@Override
-	public int triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public int triggere(NTI n, NTI ziel, W mit)
 	{
 		return n.getGeladeneMagie();
 	}

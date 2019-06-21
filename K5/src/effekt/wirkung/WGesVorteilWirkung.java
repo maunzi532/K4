@@ -1,7 +1,6 @@
 package effekt.wirkung;
 
 import effekt.*;
-import kampf.*;
 
 public class WGesVorteilWirkung extends DatenWirkung
 {
@@ -11,7 +10,7 @@ public class WGesVorteilWirkung extends DatenWirkung
 	}
 
 	@Override
-	public int triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public int triggere(NTI n, NTI ziel, W mit)
 	{
 		int gesVorteil = n.getGesAktion() - ziel.getGesAktion();
 		return Math.max(gesVorteil, 0);

@@ -1,7 +1,6 @@
 package effekt.wirkung;
 
 import effekt.*;
-import kampf.*;
 
 public class AnEffekt
 {
@@ -17,7 +16,7 @@ public class AnEffekt
 		this.dauer = dauer;
 	}
 
-	public void triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public void triggere(NTI n, NTI ziel, W mit)
 	{
 		daten = wirkung.triggere(n, ziel, mit);
 	}

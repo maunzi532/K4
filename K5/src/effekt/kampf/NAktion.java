@@ -1,4 +1,4 @@
-package kampf;
+package effekt.kampf;
 
 import effekt.*;
 import karten.*;
@@ -10,24 +10,6 @@ public class NAktion extends NKarte
 	public NAktion(Aktionskarte karte)
 	{
 		this.karte = karte;
-	}
-
-	@Override
-	public int basisAngriff()
-	{
-		return karte.getAngriffMod();
-	}
-
-	@Override
-	public int basisGes()
-	{
-		return karte.getGeschwindigkeitMod();
-	}
-
-	@Override
-	public int basisVert()
-	{
-		return 0;
 	}
 
 	@Override

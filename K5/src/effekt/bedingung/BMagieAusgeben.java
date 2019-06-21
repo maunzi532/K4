@@ -1,12 +1,11 @@
 package effekt.bedingung;
 
 import effekt.*;
-import kampf.*;
 
 public class BMagieAusgeben implements Bedingung
 {
 	@Override
-	public boolean ok(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public boolean ok(NTI n, NTI ziel, W mit)
 	{
 		return n.isGibtMagieAus();
 	}

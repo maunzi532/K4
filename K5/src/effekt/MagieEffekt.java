@@ -3,7 +3,6 @@ package effekt;
 import basiskarte.*;
 import effekt.bedingung.*;
 import java.util.*;
-import kampf.*;
 
 public abstract class MagieEffekt extends KartenEffekt
 {
@@ -17,12 +16,12 @@ public abstract class MagieEffekt extends KartenEffekt
 		this.bedingungen = bedingungen;
 	}
 
-	public boolean kannAktivieren(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public boolean kannAktivieren(NTI n, NTI ziel, W mit)
 	{
 		return n.getMagie() >= magieKosten && bedingungen.stream().allMatch(e -> e.ok(n, ziel, mit));
 	}
 
-	public void aktiviere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	public void aktiviere(NTI n, NTI ziel, W mit)
 	{
 		n.setMagie(n.getMagie() - magieKosten);
 	}

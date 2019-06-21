@@ -1,4 +1,4 @@
-package kampf;
+package effekt.kampf;
 
 import effekt.*;
 import karten.*;
@@ -10,24 +10,6 @@ public class NCharakter extends NKarte
 	public NCharakter(Charakterkarte karte)
 	{
 		this.karte = karte;
-	}
-
-	@Override
-	public int basisAngriff()
-	{
-		return karte.getAngriff();
-	}
-
-	@Override
-	public int basisGes()
-	{
-		return karte.getGeschwindigkeit();
-	}
-
-	@Override
-	public int basisVert()
-	{
-		return karte.getVerteidigung();
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package effekt;
 import basiskarte.*;
 import effekt.bedingung.*;
 import java.util.*;
-import kampf.*;
 
 public abstract class TriggerEffekt extends KartenEffekt
 {
@@ -35,5 +34,5 @@ public abstract class TriggerEffekt extends KartenEffekt
 		return bedingungen;
 	}
 
-	public abstract void triggere(NTeilnehmer n, NTeilnehmer ziel, W mit);
+	public abstract void triggere(NTI n, NTI ziel, W mit);
 }

@@ -1,11 +1,10 @@
 package effekt.bedingung;
 
 import effekt.*;
-import kampf.*;
 
 public interface Bedingung
 {
-	boolean ok(NTeilnehmer n, NTeilnehmer ziel, W mit);
+	boolean ok(NTI n, NTI ziel, W mit);
 
 	String text();
 }

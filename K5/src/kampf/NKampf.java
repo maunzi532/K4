@@ -2,6 +2,7 @@ package kampf;
 
 import effekt.*;
 import java.util.*;
+import kampf.*;
 import karten.*;
 
 public class NKampf

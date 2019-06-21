@@ -10,17 +10,7 @@ public class KlasseMitLevels extends UpgradeCharakter
 	public KlasseMitLevels(Klasse klasse, Kartenset<Charakterkarte> klassenkarten)
 	{
 		this.klasse = klasse;
-		/*charakter = klassenkarten.gibKarte(switch(klasse)
-		{
-			case K -> "Krieger";
-			case B -> "Bogenschütze";
-			case M -> "Magier";
-			case V -> "Vogelmensch";
-			case R -> "Roboter";
-			case G -> "Geist";
-			case W -> "Wasserwesen";
-			case P -> "Pflanzenbeschw.";
-		});*/
+		charakter = klassenkarten.gibKarte(klasse.klassenName());
 		werteUpgrades = new int[5];
 	}
 

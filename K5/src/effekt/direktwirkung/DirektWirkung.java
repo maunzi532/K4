@@ -1,11 +1,10 @@
 package effekt.direktwirkung;
 
 import effekt.*;
-import kampf.*;
 
 public interface DirektWirkung
 {
-	void triggere(NTeilnehmer n, NTeilnehmer ziel, W mit);
+	void triggere(NTI n, NTI ziel, W mit);
 
 	String text();
 }

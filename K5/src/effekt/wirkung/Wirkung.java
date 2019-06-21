@@ -1,11 +1,11 @@
 package effekt.wirkung;
 
 import effekt.*;
-import kampf.*;
+import effekt.wirkung.*;
 
 public interface Wirkung
 {
-	default int triggere(NTeilnehmer n, NTeilnehmer ziel, W mit)
+	default int triggere(NTI n, NTI ziel, W mit)
 	{
 		return 0;
 	}
