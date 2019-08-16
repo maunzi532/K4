@@ -7,7 +7,6 @@ public class Spielfigur
 	private static final int[] richtungenY = new int[]{-1, 0, 1, 0};
 	private static final int[] richtungenX = new int[]{0, 1, 0, -1};
 
-	public final int spielerNummer;
 	private DungeonMap map;
 	private int y, x;
 	private int ly, lx;
@@ -15,9 +14,8 @@ public class Spielfigur
 	private List<KoordinatenNum> bewegungsgraph;
 	private Deque<KoordinatenNum> pfad = new ArrayDeque<>();
 
-	public Spielfigur(int spielerNummer, DungeonMap map, int y, int x)
+	public Spielfigur(DungeonMap map, int y, int x)
 	{
-		this.spielerNummer = spielerNummer;
 		this.map = map;
 		this.y = y;
 		this.x = x;
@@ -132,17 +130,15 @@ public class Spielfigur
 			lx = x;
 		}
 		if(pfad.isEmpty())
+		{
+			inBewegung = false;
 			erstelleBewegungsgraph();
+		}
 	}
 
 	public boolean bewegungFertig()
 	{
-		if(inBewegung && pfad.isEmpty())
-		{
-			inBewegung = false;
-			return true;
-		}
-		return false;
+		return !inBewegung;
 	}
 
 	public KoordinatenNum kannForschen()

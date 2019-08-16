@@ -4,5 +4,6 @@ public enum HeldStatus
 {
 	NORMAL,
 	TRANK,
-	BESIEGT
+	BESIEGT,
+	MAXIMAL
 }

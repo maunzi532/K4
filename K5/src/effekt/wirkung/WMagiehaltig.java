@@ -5,10 +5,12 @@ import effekt.*;
 public class WMagiehaltig implements Wirkung
 {
 	private final Wirkungswert wirktAuf;
+	private final int max;
 
-	public WMagiehaltig(Wirkungswert wirktAuf)
+	public WMagiehaltig(Wirkungswert wirktAuf, int max)
 	{
 		this.wirktAuf = wirktAuf;
+		this.max = max;
 	}
 
 	@Override
@@ -22,7 +24,7 @@ public class WMagiehaltig implements Wirkung
 	{
 		if(wert == wirktAuf)
 		{
-			return daten;
+			return Math.min(daten, max);
 		}
 		return 0;
 	}
@@ -30,6 +32,6 @@ public class WMagiehaltig implements Wirkung
 	@Override
 	public String text()
 	{
-		return wirktAuf.text + "ist um gezahlte Magie erhöht";
+		return wirktAuf.text + "ist um gezahlte Magie erhöht (max. " + max + ")";
 	}
 }

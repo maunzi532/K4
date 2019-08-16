@@ -1,32 +1,36 @@
 package dungeonmap;
 
-import java.util.*;
+import kartenset.*;
+import main.*;
 import mapsets.*;
 import org.junit.*;
 
 public class DungeonMapTest
 {
+	private Einstellungen e;
 	private DungeonMap dungeonMap;
 	private SetV2MittelMapKarten mittelMapKarten;
 
 	@Before
 	public void before()
 	{
-		dungeonMap = new DungeonMap(5, 3, 1, List.of(2));
+		e = new Einstellungen();
+		dungeonMap = new DungeonMap(e.laengeHauptWeg, e.maxSeitwaerts, e.sicherSeitwaertsMin, e.mittelBossOrte);
 		mittelMapKarten = new SetV2MittelMapKarten();
 	}
 
 	@Test
 	public void test()
 	{
-		for(int i = 7; i < 35; i++)
+		int mapBreite = e.maxSeitwaerts * 2 + 1;
+		for(int i = 0; i < e.laengeHauptWeg * mapBreite; i++)
 		{
-			dungeonMap.setFeld(i / 7, i % 7,
+			dungeonMap.setFeld(i / mapBreite, i % mapBreite,
 					new MapFeld(new MapKarte("\nXX XX\nXX XX\n     \nXX XX\nXX XX\n00000\n00000\n00000\n00000\n00000"), false));
 		}
-		dungeonMap.setFeld(4, 3,
+		dungeonMap.setFeld(e.laengeHauptWeg - 1, e.maxSeitwaerts,
 				new MapFeld(new MapKarte("\nXX XX\nXX XX\n     \nXG HX\nXXSXX\n00000\n00000\n00000\n00000\n00000"), false));
-		dungeonMap.setFeld(0, 3,
+		dungeonMap.setFeld(0, e.maxSeitwaerts,
 				new MapFeld(new MapKarte("\nXXZXX\nX   X\nXBBBX\nX   X\nXX XX\n00000\n00000\n00000\n00000\n00000"), false));
 		System.out.println(dungeonMap.toString());
 	}
@@ -36,5 +40,21 @@ public class DungeonMapTest
 	{
 		dungeonMap.erstelleMittelWeg(mittelMapKarten);
 		System.out.println(dungeonMap.toString());
+	}
+
+	@Test
+	public void forschenTest()
+	{
+		Kartenstapel<MapKarte> mapStapel = new Kartenstapel<>(new SetV2MapKarten().karten);
+		dungeonMap.erstelleMittelWeg(mittelMapKarten);
+		Spielfigur spielfigur = dungeonMap.erstelleSpielfigur();
+		spielfigur.geheZu(spielfigur.getY() - MapKarte.ym, spielfigur.getX() - MapKarte.xm);
+		while(!spielfigur.bewegungFertig())
+		{
+			spielfigur.bewege();
+		}
+		KoordinatenNum kn = spielfigur.kannForschen();
+		dungeonMap.forsche(kn, mapStapel);
+		System.out.println(dungeonMap);
 	}
 }

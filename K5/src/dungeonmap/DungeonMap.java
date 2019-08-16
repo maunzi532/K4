@@ -40,6 +40,11 @@ public class DungeonMap
 		return yk >= 0 && xk >= 0 && yk < yhMap && xk < xwMap;
 	}
 
+	public boolean feldK(int yk, int xk)
+	{
+		return felder[yk][xk] != null;
+	}
+
 	public boolean inMap(int y, int x)
 	{
 		return y >= 0 && x >= 0 && y < yhMap * ywF && x < xwMap * xwF;
@@ -48,11 +53,6 @@ public class DungeonMap
 	public boolean feld(int y, int x)
 	{
 		return felder[y / ywF][x / xwF] != null;
-	}
-
-	public boolean feldK(int yk, int xk)
-	{
-		return felder[yk][xk] != null;
 	}
 
 	public MapTeil ort(int y, int x)
@@ -78,26 +78,6 @@ public class DungeonMap
 			return Begehbar.NEIN;
 	}
 
-	public int anschlussAussen(int yk, int xk, MapRichtung seite)
-	{
-		int yk1 = yk + seite.y;
-		int xk1 = xk + seite.x;
-		int re = 0;
-		if(inMapK(yk1, xk1) && feldK(yk1, xk1))
-		{
-			re = felder[yk1][xk1].anschluss(MapRichtung.values()[(seite.r + 2) % 4]);
-		}
-		if(re == 0 && xk >= xmMap - immerWegW && xk <= xmMap + immerWegW)
-		{
-			int xk2 = xk - seite.x;
-			if(inMapK(yk1, xk2) && feldK(yk1, xk2) && felder[yk1][xk2].anschluss(seite) == 1)
-			{
-				re = 1;
-			}
-		}
-		return re;
-	}
-
 	public void erstelleMittelWeg(MittelMapKartenset set)
 	{
 		felder[yhMap - 1][xmMap] = new MapFeld(set.start(), false).setVerwendet(0).setVerwendet(1);
@@ -113,9 +93,9 @@ public class DungeonMap
 		}
 	}
 
-	public Spielfigur erstelleSpielfigur(int spielerNummer)
+	public Spielfigur erstelleSpielfigur()
 	{
-		return new Spielfigur(spielerNummer, this, yhMap * ywF - 1, xmMap * xwF + MapKarte.xm);
+		return new Spielfigur(this, yhMap * ywF - 1, xmMap * xwF + MapKarte.xm);
 	}
 
 	public void forsche(KoordinatenNum ort, Kartenstapel<MapKarte> mapStapel)
@@ -162,6 +142,26 @@ public class DungeonMap
 				return false;
 		}
 		return true;
+	}
+
+	public int anschlussAussen(int yk, int xk, MapRichtung seite)
+	{
+		int yk1 = yk + seite.y;
+		int xk1 = xk + seite.x;
+		int re = 0;
+		if(inMapK(yk1, xk1) && feldK(yk1, xk1))
+		{
+			re = felder[yk1][xk1].anschluss(MapRichtung.values()[(seite.r + 2) % 4]);
+		}
+		if(re == 0 && xk >= xmMap - immerWegW && xk <= xmMap + immerWegW)
+		{
+			int xk2 = xk - seite.x;
+			if(inMapK(yk1, xk2) && feldK(yk1, xk2) && felder[yk1][xk2].anschluss(seite) == 1)
+			{
+				re = 1;
+			}
+		}
+		return re;
 	}
 
 	public String toString()

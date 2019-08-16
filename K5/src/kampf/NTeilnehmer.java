@@ -6,13 +6,11 @@ import effekt.kampf.*;
 import effekt.wirkung.*;
 import java.util.*;
 import karten.*;
+import main.*;
 
 public class NTeilnehmer implements NTI
 {
-	//private static final int[] multiAngriffLimits = new int[]{5, 15, 30};
-	private static final int gesVorteilBonusLimit = 5;
-
-	public final int spielerNummer;
+	private Einstellungen e;
 	//Charakter
 	private NCharakter nCharakter;
 
@@ -39,17 +37,18 @@ public class NTeilnehmer implements NTI
 	private boolean gibtMagieAus;
 	private int gesAktion;
 	private int gesBonusAngriff;
+	private int gesBonusMindestschaden;
 	private int anzahlAngriffe;
 	private List<NTeilnehmer> angegriffenVon;
 
-	public NTeilnehmer(int spielerNummer, Charakterkarte charakterkarte, Waffenkarte hauptwafffe, Waffenkarte nebenwaffe)
+	public NTeilnehmer(Einstellungen e, Charakterkarte charakterkarte, Waffenkarte hauptwafffe, Waffenkarte nebenwaffe)
 	{
-		this(spielerNummer, charakterkarte, hauptwafffe, nebenwaffe, charakterkarte.getLeben() * 3);
+		this(e, charakterkarte, hauptwafffe, nebenwaffe, charakterkarte.getLeben() * e.lebenMultiplikator);
 	}
 
-	public NTeilnehmer(int spielerNummer, Charakterkarte charakterkarte, Waffenkarte hauptwafffe, Waffenkarte nebenwaffe, int leben)
+	public NTeilnehmer(Einstellungen e, Charakterkarte charakterkarte, Waffenkarte hauptwafffe, Waffenkarte nebenwaffe, int leben)
 	{
-		this.spielerNummer = spielerNummer;
+		this.e = e;
 		nCharakter = new NCharakter(charakterkarte);
 		nHauptwaffe = NWaffe.von(hauptwafffe);
 		nNebenwaffe = NWaffe.von(nebenwaffe);
@@ -67,7 +66,8 @@ public class NTeilnehmer implements NTI
 		gibtMagieAus = false;
 		gesAktion = 0;
 		gesBonusAngriff = 0;
-		anzahlAngriffe = 0;
+		gesBonusMindestschaden = 1;
+		anzahlAngriffe = 1;
 		angegriffenVon.clear();
 	}
 
@@ -157,19 +157,22 @@ public class NTeilnehmer implements NTI
 		nWaffe(w).beendeEffekte(EndTrigger.VERWENDET);
 	}
 
+	public void waffenTauschen()
+	{
+		NWaffe z = nHauptwaffe;
+		nHauptwaffe = nNebenwaffe;
+		nNebenwaffe = z;
+		gesVorteil0 = -1;
+	}
+
 	public boolean aktionGeht(Aktionskarte aktionskarte, W mit, NTeilnehmer ziel)
 	{
+		if(!aktiv())
+			return false;
 		NAktion nAktion1 = new NAktion(aktionskarte);
 		if(nWaffe(mit).aktiveEffekte().stream().anyMatch(e -> e.wirkung instanceof WNichtVerwendbar))
 			return false;
 		return nAktion1.magieAenderung() + nCharakter.magieAenderung() + nWaffe(mit).magieAenderung() + magie >= 0;
-	}
-
-	public boolean gibtMagieAus(NAktion nAktion1, W mit, NTeilnehmer ziel)
-	{
-		if(nAktion1.magieAenderung() + nCharakter.magieAenderung() + nWaffe(mit).magieAenderung() < 0)
-			return true;
-		return nAktion1.ladeMitMagie() && magie > 0;
 	}
 
 	public void setzeAktion(Aktionskarte aktionskarte, W mit, NTeilnehmer ziel)
@@ -178,6 +181,13 @@ public class NTeilnehmer implements NTI
 		this.mit = mit;
 		this.ziel = ziel;
 		gibtMagieAus = gibtMagieAus(nAktion, mit, ziel);
+	}
+
+	public boolean gibtMagieAus(NAktion nAktion1, W mit, NTeilnehmer ziel)
+	{
+		if(nAktion1.magieAenderung() + nCharakter.magieAenderung() + nWaffe(mit).magieAenderung() < 0)
+			return true;
+		return nAktion1.ladeMitMagie() && magie > 0;
 	}
 
 	public void zahleMagie()
@@ -208,19 +218,16 @@ public class NTeilnehmer implements NTI
 			return;
 		}
 		anzahlAngriffe = 1;
-		for(int i = 0; gesVorteil() >= i * 5; i++)
+		for(int i = 0; gesVorteil() >= i * e.gesBonusAbstand; i++)
 		{
 			if(i % 2 == 0)
+			{
 				gesBonusAngriff++;
+				gesBonusMindestschaden++;
+			}
 			else
 				anzahlAngriffe++;
 		}
-		/*for(int i = 0; i < multiAngriffLimits.length; i++)
-		{
-			if(gesAktion - ziel.gesAktion < multiAngriffLimits[i])
-				break;
-			anzahlAngriffe++;
-		}*/
 		anzahlAngriffe += nCharakter.extraangriffe() + nWaffe(mit).extraangriffe() + nAktion.extraangriffe();
 		if(anzahlAngriffe < 1)
 			anzahlAngriffe = 1;
@@ -236,7 +243,7 @@ public class NTeilnehmer implements NTI
 		triggereEffekte(StartTrigger.IMMER_VOR, true);
 		int normalSchaden = Math.max(nCharakter.angriff() + nWaffe(mit).angriff() + nAktion.angriff() + gesBonusAngriff, 0)
 				- Math.max(ziel.nCharakter.verteidigung() + ziel.nWaffe(ziel.mit).verteidigung() + ziel.nAktion.verteidigung(), 0);
-		int mindestschaden = nCharakter.mindestschaden() + nWaffe(mit).mindestschaden() + nAktion.mindestschaden()
+		int mindestschaden = nCharakter.mindestschaden() + nWaffe(mit).mindestschaden() + nAktion.mindestschaden() + gesBonusMindestschaden
 				- ziel.nCharakter.mindestschutz() - ziel.nWaffe(ziel.mit).mindestschutz() - ziel.nAktion.mindestschutz();
 		ziel.leben -= Math.max(Math.max(normalSchaden, mindestschaden), 0);
 		if(num == 0)

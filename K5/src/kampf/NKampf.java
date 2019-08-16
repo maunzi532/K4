@@ -2,7 +2,6 @@ package kampf;
 
 import effekt.*;
 import java.util.*;
-import kampf.*;
 import karten.*;
 
 public class NKampf
@@ -45,15 +44,9 @@ public class NKampf
 		alle = new ArrayList<>();
 		alle.addAll(spieler);
 		alle.addAll(gegner);
-		/*List<Waffenwechsel> wL = spieler.stream().map(e -> new Waffenwechsel(this, e.getId(), new ArrayList<>(),
-				e.getWaffeKarte(W.HW), e.getWaffeKarte(W.NW))).collect(Collectors.toList());*/
-		//sende an UI
-	}
-
-	public void nachInitialWaffenwechsel()
-	{
 		for(NTeilnehmer n : spieler)
 			n.gesVorteil0 = 1;
+		//Waffen tauschen möglich
 	}
 
 	public void anfangstrigger()
@@ -70,12 +63,11 @@ public class NKampf
 
 	public void beginneZug()
 	{
-		for(var n : alle)
+		for(NTeilnehmer n : alle)
 		{
 			n.beginneZug();
 		}
 		//Ziehe Aktionskarten
-		//sende an UI
 	}
 
 	public boolean aktionskarte(NTeilnehmer n, Aktionskarte aktionskarte, W mit, NTeilnehmer ziel)
@@ -90,40 +82,40 @@ public class NKampf
 
 	public void gegnerAktionskarten()
 	{
-		//Gegner ziehen Aktionskarten
+		//TODO Gegner ziehen Aktionskarten
 	}
 
 	public void magieZahlen()
 	{
-		for(var n : alle)
+		for(NTeilnehmer n : alle)
 		{
 			n.zahleMagie();
 		}
-		for(var n : spieler)
+		for(NTeilnehmer n : spieler)
 		{
-			//Erstelle Magieeffektoptionen
+			//TODO Erstelle Magieeffektoptionen
 		}
 	}
 
-	//Magieeffekte auswahl
+	//TODO Magieeffekte auswahl
 
 	public void zugV()
 	{
-		for(var n : alle)
+		for(NTeilnehmer n : alle)
 		{
 			n.triggereEffekte(StartTrigger.GES_VOR, true);
 		}
-		for(var n : alle)
+		for(NTeilnehmer n : alle)
 		{
 			n.berechneGes();
 		}
 		sortiert = new ArrayList<>(alle);
 		sortiert.sort(Comparator.comparing(NTeilnehmer::getGesAktion).thenComparing(e -> e.gesVorteil0).thenComparing(e -> e.index).reversed());
-		for(var n : alle)
+		for(NTeilnehmer n : alle)
 		{
 			n.triggereEffekte(StartTrigger.GES_NACH, true);
 		}
-		for(var n : alle)
+		for(NTeilnehmer n : alle)
 		{
 			n.berechneAnzahlAngriffe();
 		}
@@ -134,7 +126,7 @@ public class NKampf
 		int maxAngriffe = sortiert.stream().mapToInt(NTeilnehmer::getAnzahlAngriffe).max().orElse(0);
 		for(int a = 0; a < maxAngriffe; a++)
 		{
-			for(var n : sortiert)
+			for(NTeilnehmer n : sortiert)
 			{
 				if(n.getAnzahlAngriffe() > a && n.aktiv() && n.getZiel().aktiv())
 				{
@@ -146,7 +138,7 @@ public class NKampf
 
 	public int beendeZug()
 	{
-		for(var n : alle)
+		for(NTeilnehmer n : alle)
 		{
 			n.triggereEffekte(StartTrigger.ZUGENDE, true);
 		}
@@ -159,13 +151,12 @@ public class NKampf
 		alle = new ArrayList<>();
 		alle.addAll(spieler);
 		alle.addAll(gegner);
-		for(var n : alle)
+		for(NTeilnehmer n : alle)
 		{
 			n.beendeEffekte(EndTrigger.NACH_ANGEGRIFFEN);
 			n.beendeEffekte(EndTrigger.ZUG_ENDE);
 		}
 		return 0;
-		//sende an UI
 	}
 
 	/*

@@ -25,7 +25,7 @@ public class SetV2Aktionen extends Kartenset<Aktionskarte>
 						.setBedingungen(new BLebenIst(Vergleich.KG, 10)).setWirkung(StatWirkung.angriff(3)).createZTE()));
 		neueKarte(new Aktionskarte("Magiehaltiger Angriff", 0, 0, -1, false, true,
 				new ZTEBuilder(Kartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
-						.setWirkung(new WMagiehaltig(Wirkungswert.ANGRIFF)).createZTE()));
+						.setWirkung(new WMagiehaltig(Wirkungswert.ANGRIFF, 8)).createZTE()));
 		neueKarte(new Aktionskarte("Brecher", -1, 2, -3, true,
 				new ZTEBuilder(Kartentyp.AKTION).setStartTrigger(StartTrigger.EINMAL_NACH)
 						.setDauer(2).setBetrifftGegner(true).setAn(Kartentyp.WAFFE).setZielWaffe(W.HW)

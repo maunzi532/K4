@@ -19,12 +19,6 @@ public class NCharakter extends NKarte
 	}
 
 	@Override
-	public int mindestschaden()
-	{
-		return super.mindestschaden() + 1;
-	}
-
-	@Override
 	public int basisWert(Basiswert wert)
 	{
 		return switch(wert)
