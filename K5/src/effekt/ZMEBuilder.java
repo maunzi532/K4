@@ -88,13 +88,13 @@ public class ZMEBuilder
 	{
 		if(text == null)
 		{
-			generateText();
+			generiereText();
 		}
 		return new ZeitMagieEffekt(text, num, magieKosten, bedingungen, endTrigger, dauer,
 				betrifftGegner, an, zielWaffe, wirkung);
 	}
 
-	public ZMEBuilder generateText()
+	public ZMEBuilder generiereText()
 	{
 		StringBuilder sb = new StringBuilder();
 		if(!bedingungen.isEmpty())

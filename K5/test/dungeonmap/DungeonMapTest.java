@@ -15,7 +15,7 @@ public class DungeonMapTest
 	public void before()
 	{
 		e = new Einstellungen();
-		dungeonMap = new DungeonMap(e.laengeHauptWeg, e.maxSeitwaerts, e.sicherSeitwaertsMin, e.mittelBossOrte);
+		dungeonMap = new DungeonMap(e);
 		mittelMapKarten = new SetV2MittelMapKarten();
 	}
 

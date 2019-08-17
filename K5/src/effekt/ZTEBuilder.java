@@ -95,13 +95,13 @@ public class ZTEBuilder
 	{
 		if(text == null)
 		{
-			generateText();
+			generiereText();
 		}
 		return new ZeitTriggerEffekt(text, num, startTrigger, startTriggerSeite, bedingungen, endTrigger, dauer,
 				betrifftGegner, an, zielWaffe, wirkung);
 	}
 
-	public ZTEBuilder generateText()
+	public ZTEBuilder generiereText()
 	{
 		StringBuilder sb = new StringBuilder();
 		if(startTriggerSeite == StartTriggerSeite.GEGNER)

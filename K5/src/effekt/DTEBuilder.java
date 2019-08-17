@@ -52,11 +52,11 @@ public class DTEBuilder
 	public DirektTriggerEffekt createDTE()
 	{
 		if(text == null)
-			generateText();
+			generiereText();
 		return new DirektTriggerEffekt(text, num, startTrigger, startTriggerSeite, bedingungen, direktWirkung);
 	}
 
-	public DTEBuilder generateText()
+	public DTEBuilder generiereText()
 	{
 		StringBuilder sb = new StringBuilder();
 		if(startTriggerSeite == StartTriggerSeite.GEGNER)

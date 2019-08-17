@@ -3,20 +3,26 @@ package kampf;
 import effekt.*;
 import java.util.*;
 import karten.*;
+import kartenset.*;
+import main.*;
 
 public class NKampf
 {
+	private Einstellungen e;
 	private List<NTeilnehmer> spieler0;
 	private List<NTeilnehmer> gegner0;
 	private List<NTeilnehmer> spieler;
 	private List<NTeilnehmer> gegner;
 	private List<NTeilnehmer> alle;
 	private List<NTeilnehmer> sortiert;
+	private List<Aktionskarte> aktionenOptionen;
 
-	public NKampf(List<NTeilnehmer> spieler0, List<NTeilnehmer> gegner0)
+	public NKampf(Einstellungen e, List<NTeilnehmer> spieler0, List<NTeilnehmer> gegner0)
 	{
+		this.e = e;
 		this.spieler0 = spieler0;
 		this.gegner0 = gegner0;
+		aktionenOptionen = new ArrayList<>();
 	}
 
 	public List<NTeilnehmer> getAlleSpieler()
@@ -61,13 +67,58 @@ public class NKampf
 		}
 	}
 
-	public void beginneZug()
+	public void beginneZug(Kartenstapel<Aktionskarte> aktionsKartenstapel)
 	{
 		for(NTeilnehmer n : alle)
 		{
 			n.beginneZug();
 		}
-		//Ziehe Aktionskarten
+		if(aktionsKartenstapel != null)
+		{
+			int anzahlVersuche = aktionsKartenstapel.effektiveDeckKartenAnzahl();
+			for(int i = 0; i < anzahlVersuche; i++)
+			{
+				while(aktionenOptionen.size() < e.basisAktionenOptionen + e.extraAktionenOptionenProSpieler * spieler0.size())
+				{
+					aktionenOptionen.add(aktionsKartenstapel.erhalteKarte().orElseThrow());
+				}
+				if(aktionskartenOK())
+					break;
+				else
+					kartenZurueck(aktionsKartenstapel);
+			}
+		}
+	}
+
+	public void kartenZurueck(Kartenstapel<Aktionskarte> aktionsKartenstapel)
+	{
+		aktionenOptionen.forEach(aktionsKartenstapel::ablage);
+		aktionenOptionen.clear();
+	}
+
+	public boolean aktionskartenOK()
+	{
+		return aktionskartenOKR(new ArrayList<>(), 0);
+	}
+
+	private boolean aktionskartenOKR(List<Integer> verwendetNum, int spielerNum)
+	{
+		if(spielerNum >= spieler.size())
+			return true;
+		boolean ok = false;
+		NTeilnehmer n = spieler.get(spielerNum);
+		for(int i = 0; i < aktionenOptionen.size(); i++)
+		{
+			if(!verwendetNum.contains(i) && n.aktionGehtIrgendwie(aktionenOptionen.get(i), gegner))
+			{
+				verwendetNum.add(i);
+				boolean re = aktionskartenOKR(verwendetNum, spielerNum + 1);
+				verwendetNum.remove(verwendetNum.size() - 1);
+				if(re)
+					ok = true;
+			}
+		}
+		return ok;
 	}
 
 	public boolean aktionskarte(NTeilnehmer n, Aktionskarte aktionskarte, W mit, NTeilnehmer ziel)
@@ -80,9 +131,25 @@ public class NKampf
 		return false;
 	}
 
-	public void gegnerAktionskarten()
+	public void gegnerAktionskarten(Kartenstapel<Aktionskarte> aktionsKartenstapel, Random r)
 	{
-		//TODO Gegner ziehen Aktionskarten
+		label68: for(NTeilnehmer n : gegner)
+		{
+			boolean ausgeben = n.getMagie() >= 5;
+			NTeilnehmer ziel = spieler.get(r.nextInt(spieler.size()));
+			int kartenzahl = aktionsKartenstapel.effektiveDeckKartenAnzahl();
+			for(int i = 0; i < kartenzahl; i++)
+			{
+				Aktionskarte aktionskarte = aktionsKartenstapel.erhalteKarte().orElseThrow();
+				if(n.aktionGeht(aktionskarte, W.HW, ziel) &&
+						(!ausgeben || aktionskarte.getMagieMod() < 0 || aktionskarte.isLadeMitMagie()))
+				{
+					n.setzeAktion(aktionskarte, W.HW, ziel);
+					continue label68;
+				}
+			}
+			throw new RuntimeException("Keine passende Aktion für Gegner gefunden");
+		}
 	}
 
 	public void magieZahlen()
@@ -93,14 +160,21 @@ public class NKampf
 		}
 		for(NTeilnehmer n : spieler)
 		{
-			//TODO Erstelle Magieeffektoptionen
+			n.erstelleMagieEffektOptionen();
 		}
 	}
 
-	//TODO Magieeffekte auswahl
+	public boolean magieEffektOptionenOK()
+	{
+		return alle.stream().allMatch(NTeilnehmer::magieEffektOptionenOK);
+	}
 
 	public void zugV()
 	{
+		for(NTeilnehmer n : alle)
+		{
+			n.aktiviereMagieEffekte();
+		}
 		for(NTeilnehmer n : alle)
 		{
 			n.triggereEffekte(StartTrigger.GES_VOR, true);
@@ -136,11 +210,19 @@ public class NKampf
 		}
 	}
 
-	public int beendeZug()
+	public int beendeZug(Kartenstapel<Aktionskarte> aktionsKartenstapel)
 	{
 		for(NTeilnehmer n : alle)
 		{
 			n.triggereEffekte(StartTrigger.ZUGENDE, true);
+		}
+		if(aktionsKartenstapel != null)
+		{
+			for(NTeilnehmer n : alle)
+			{
+				if(n.getAktionKarte() != null)
+					aktionsKartenstapel.ablage(n.getAktionKarte());
+			}
 		}
 		spieler.removeIf(e -> !e.aktiv());
 		gegner.removeIf(e -> !e.aktiv());
@@ -165,13 +247,13 @@ public class NKampf
 	2 VerwendetW aktualisieren (Wenn Spieler)
 	3 Effekte mit Verwendungstrigger / Anfangstrigger
 
-	Waffen wechseln
-	1 Entferne NWaffe Objekte
-	2 Beende HW Effekte
-	3 Neue NWaffe Objekte hinzu
-	Nach Anfang
-	4 VerwendetW aktualisieren (Wenn Spieler)
-	5 Effekte mit Verwendungstrigger
+	//Waffen wechseln
+	//1 Entferne NWaffe Objekte
+	//2 Beende HW Effekte
+	//3 Neue NWaffe Objekte hinzu
+	//Nach Anfang
+	//4 VerwendetW aktualisieren (Wenn Spieler)
+	//5 Effekte mit Verwendungstrigger
 
 	Zug beginnen
 	1 Aktionskarten ziehen

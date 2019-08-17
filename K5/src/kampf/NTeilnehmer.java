@@ -5,6 +5,7 @@ import effekt.*;
 import effekt.kampf.*;
 import effekt.wirkung.*;
 import java.util.*;
+import java.util.stream.*;
 import karten.*;
 import main.*;
 
@@ -35,6 +36,7 @@ public class NTeilnehmer implements NTI
 	//Werte für diesen Zug
 	private int geladeneMagie;
 	private boolean gibtMagieAus;
+	public List<MagieEffektOption> magieEffektOptionen;
 	private int gesAktion;
 	private int gesBonusAngriff;
 	private int gesBonusMindestschaden;
@@ -54,6 +56,7 @@ public class NTeilnehmer implements NTI
 		nNebenwaffe = NWaffe.von(nebenwaffe);
 		magie = 0;
 		this.leben = leben;
+		magieEffektOptionen = new ArrayList<>();
 		angegriffenVon = new ArrayList<>();
 	}
 
@@ -64,6 +67,7 @@ public class NTeilnehmer implements NTI
 		ziel = null;
 		geladeneMagie = 0;
 		gibtMagieAus = false;
+		magieEffektOptionen.clear();
 		gesAktion = 0;
 		gesBonusAngriff = 0;
 		gesBonusMindestschaden = 1;
@@ -135,6 +139,11 @@ public class NTeilnehmer implements NTI
 		}
 	}
 
+	public void aktiviereMagieEffekte()
+	{
+		magieEffektOptionen.stream().filter(e -> e.benutzen).forEach(e -> e.magieEffekt.aktiviere(this, ziel, mit));
+	}
+
 	public void beendeEffekte(EndTrigger trigger)
 	{
 		nCharakter.beendeEffekte(trigger);
@@ -167,7 +176,7 @@ public class NTeilnehmer implements NTI
 
 	public boolean aktionGeht(Aktionskarte aktionskarte, W mit, NTeilnehmer ziel)
 	{
-		if(!aktiv())
+		if(!aktiv() || nWaffe(mit) == null)
 			return false;
 		NAktion nAktion1 = new NAktion(aktionskarte);
 		if(nWaffe(mit).aktiveEffekte().stream().anyMatch(e -> e.wirkung instanceof WNichtVerwendbar))
@@ -181,6 +190,16 @@ public class NTeilnehmer implements NTI
 		this.mit = mit;
 		this.ziel = ziel;
 		gibtMagieAus = gibtMagieAus(nAktion, mit, ziel);
+	}
+
+	public boolean aktionGehtIrgendwie(Aktionskarte aktionskarte, List<NTeilnehmer> ziele)
+	{
+		for(NTeilnehmer ziel : ziele)
+		{
+			if(aktionGeht(aktionskarte, W.HW, ziel) || aktionGeht(aktionskarte, W.NW, ziel))
+				return true;
+		}
+		return false;
 	}
 
 	public boolean gibtMagieAus(NAktion nAktion1, W mit, NTeilnehmer ziel)
@@ -198,6 +217,17 @@ public class NTeilnehmer implements NTI
 			geladeneMagie = magie;
 			magie = 0;
 		}
+	}
+
+	public void erstelleMagieEffektOptionen()
+	{
+		magieEffektOptionen.addAll(nWaffe(mit).karte.effekte().stream().filter(e -> e instanceof MagieEffekt).map(e -> (MagieEffekt) e)
+				.filter(e -> e.kannAktivieren(this, ziel, mit)).map(e -> new MagieEffektOption(nWaffe(mit), e)).collect(Collectors.toList()));
+	}
+
+	public boolean magieEffektOptionenOK()
+	{
+		return magieEffektOptionen.stream().filter(e -> e.benutzen).mapToInt(e -> e.magieEffekt.magieKosten).sum() <= magie;
 	}
 
 	public void berechneGes()

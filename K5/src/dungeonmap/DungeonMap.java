@@ -2,6 +2,7 @@ package dungeonmap;
 
 import java.util.*;
 import kartenset.*;
+import main.*;
 
 public class DungeonMap
 {
@@ -15,13 +16,13 @@ public class DungeonMap
 	private List<Integer> mittelBossOrte;
 	private MapFeld[][] felder;
 
-	public DungeonMap(int yhMap, int xmMap, int immerWegW, List<Integer> mittelBossOrte)
+	public DungeonMap(Einstellungen e)
 	{
-		this.yhMap = yhMap;
-		this.xmMap = xmMap;
-		this.immerWegW = immerWegW;
+		yhMap = e.laengeHauptWeg;
+		xmMap = e.maxSeitwaerts;
 		xwMap = xmMap * 2 + 1;
-		this.mittelBossOrte = mittelBossOrte;
+		immerWegW = e.sicherSeitwaertsMin;
+		mittelBossOrte = e.mittelBossOrte;
 		felder = new MapFeld[yhMap][xwMap];
 	}
 

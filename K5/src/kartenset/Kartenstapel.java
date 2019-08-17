@@ -40,6 +40,11 @@ public class Kartenstapel<T extends AKarte>
 		return Optional.ofNullable(k);
 	}
 
+	public int effektiveDeckKartenAnzahl()
+	{
+		return deck.size() + ablage.size();
+	}
+
 	public Optional<T> erhalteKarteNurDeck()
 	{
 		if(deck.isEmpty())
