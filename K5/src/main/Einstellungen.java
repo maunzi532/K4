@@ -23,7 +23,7 @@ public class Einstellungen
 	public int gegnerExpAbfolgeMultiplikator;
 	public int gegnerExpStart;
 	public int gegnerExpWeiter;
-	public int gegnerAnzahlVersuche;
+	public int gegnerAnzahlZiehenVersuche;
 	public int gegnerWaffenwertMin;
 	public int gegnerWaffenwertMax;
 	public int basisAktionenOptionen;
@@ -52,7 +52,7 @@ public class Einstellungen
 		gegnerExpAbfolgeMultiplikator = 10;
 		gegnerExpStart = 0; //10
 		gegnerExpWeiter = 1; //10, 15, 20, 35, 50, 75, 100, ...
-		gegnerAnzahlVersuche = 3;
+		gegnerAnzahlZiehenVersuche = 3;
 		gegnerWaffenwertMin = -1;
 		gegnerWaffenwertMax = 0;
 		basisAktionenOptionen = 3;

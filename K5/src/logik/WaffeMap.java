@@ -8,7 +8,7 @@ public class WaffeMap
 
 	public final Waffenkarte karte;
 	public final int maxBenutzungen;
-	public final int benutzungen;
+	public int benutzungen;
 
 	public WaffeMap(Waffenkarte karte, boolean initial)
 	{
@@ -20,19 +20,5 @@ public class WaffeMap
 		else
 			maxBenutzungen = 2;
 		benutzungen = maxBenutzungen;
-	}
-
-	public WaffeMap(WaffeMap vorher)
-	{
-		karte = vorher.karte;
-		maxBenutzungen = vorher.maxBenutzungen;
-		benutzungen = vorher.benutzungen - 1;
-	}
-
-	public WaffeMap()
-	{
-		karte = null;
-		maxBenutzungen = 0;
-		benutzungen = 0;
 	}
 }

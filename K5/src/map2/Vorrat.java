@@ -1,6 +1,7 @@
 package map2;
 
 import dungeonmap.*;
+import effekt.*;
 import java.util.*;
 import java.util.stream.*;
 import kampf.*;
@@ -21,6 +22,9 @@ public class Vorrat
 	public int bossgegnerBesiegt;
 	public int waendeBeworfen;
 	public int anzahlHaendler;
+	public boolean haendlerBereit;
+	public List<WaffeMap> haendlerAngebot;
+	public List<Integer> beiHaendler;
 
 	public Vorrat(Einstellungen e)
 	{
@@ -34,15 +38,18 @@ public class Vorrat
 		bossgegnerBesiegt = 0;
 		waendeBeworfen = 0;
 		anzahlHaendler = 0;
+		haendlerBereit = true;
+		beiHaendler = new ArrayList<>();
 		for(int i = 0; i < e.anzahlSpieler; i++)
 		{
 			spielfiguren.add(map.erstelleSpielfigur());
+			helden.add(null);
 		}
 	}
 
-	public void erstelleHeld(Held2 h1)
+	public void erstelleHeld(Held2 h1, int num)
 	{
-		helden.add(h1);
+		helden.set(num, h1);
 		if(h1.hauptwaffe != null)
 			waffen.add(h1.hauptwaffe);
 		if(h1.nebenwaffe != null)
@@ -65,7 +72,7 @@ public class Vorrat
 
 	public List<Gegner> zieheGegner(int minExp, int maxExp, int startAnzahl, Kartenstapel<Charakterkarte> gegnerKartenstapel, Random r)
 	{
-		for(int anzahl = startAnzahl; anzahl < startAnzahl + e.gegnerAnzahlVersuche; anzahl++)
+		for(int anzahl = startAnzahl; anzahl < startAnzahl + e.gegnerAnzahlZiehenVersuche; anzahl++)
 		{
 			List<Charakterkarte> gegner1 = zieheGegnerAnzahl(minExp, maxExp, anzahl, gegnerKartenstapel);
 			if(gegner1 != null)
@@ -120,11 +127,7 @@ public class Vorrat
 				int maxExpA1 = maxExpA;
 				List<Integer> moeglich = IntStream.range(0, gx.xExp.length)
 						.filter(f -> maxExpK1 + gx.xExp[f] >= minExpA1 && minExpK1 + gx.xExp[f] <= maxExpA1).boxed().collect(Collectors.toList());
-				int x;
-				if(moeglich.size() > 1)
-					x = moeglich.get(r.nextInt(moeglich.size()));
-				else
-					x = moeglich.get(0);
+				int x = moeglich.get(moeglich.size() > 1 ? r.nextInt(moeglich.size()) : 0);
 				minExpA -= g.getExp(x);
 				maxExpA -= g.getExp(x);
 				gegner.add(new Gegner(gx, x));
@@ -157,5 +160,75 @@ public class Vorrat
 	private boolean gegnerOK(Waffenkarte karte, int waffenwert)
 	{
 		return karte.getKosten() >= waffenwert + e.gegnerWaffenwertMin && karte.getKosten() <= waffenwert + e.gegnerWaffenwertMax;
+	}
+
+	public boolean haendlerBetreten(int num)
+	{
+		if(beiHaendler.contains(num))
+			return false;
+		if(!haendlerBereit && beiHaendler.isEmpty())
+			return false;
+		if(beiHaendler.isEmpty())
+			haendlerBereit = false;
+		beiHaendler.add(num);
+		return true;
+	}
+
+	public void haendlerBeenden(int num, Kartenstapel<Waffenkarte> waffenKartenstapel)
+	{
+		beiHaendler.remove((Integer) num);
+		if(beiHaendler.isEmpty())
+		{
+			haendlerAngebot.forEach(k -> waffenKartenstapel.ablage(k.karte));
+			haendlerAngebot.clear();
+		}
+	}
+
+	public void haendlerAngebot(Kartenstapel<Waffenkarte> waffenKartenstapel)
+	{
+		int min = beiHaendler.stream().mapToInt(f -> helden.get(f).upgradeHeld.charakterkarte().getWaffenwert()).min().orElseThrow() + e.gegnerWaffenwertMin;
+		int max = beiHaendler.stream().mapToInt(f -> helden.get(f).upgradeHeld.charakterkarte().getWaffenwert()).max().orElseThrow() + e.gegnerWaffenwertMax;
+		int anzahl = e.basisHaendlerAuswahl + e.extraHaendlerAuswahlProHaendler * anzahlHaendler;
+		for(int i = 0; i < anzahl; i++)
+		{
+			waffenKartenstapel.durchsucheAlle(f -> f.getKosten() >= min && f.getKosten() <= max);
+		}
+	}
+
+	public void waffeAblegen(int numH, W w)
+	{
+		if(w == W.HW)
+			helden.get(numH).hauptwaffe = null;
+		if(w == W.NW)
+			helden.get(numH).nebenwaffe = null;
+	}
+
+	public void waffeAusruesten(int numH, W w, int numW)
+	{
+		if(w == W.HW)
+			helden.get(numH).hauptwaffe = waffen.get(numW);
+		if(w == W.NW)
+			helden.get(numH).nebenwaffe = waffen.get(numW);
+	}
+
+	public void waffenTauschen(int numH)
+	{
+		helden.get(numH).tauscheWaffen();
+	}
+
+	public List<Integer> unverwendeteWaffen()
+	{
+		return IntStream.range(0, waffen.size()).filter(this::unverwendet).boxed().collect(Collectors.toList());
+	}
+
+	public boolean unverwendet(int numW)
+	{
+		WaffeMap w1 = waffen.get(numW);
+		for(Held2 h : helden)
+		{
+			if(h.hauptwaffe == w1 || h.nebenwaffe == w1)
+				return false;
+		}
+		return true;
 	}
 }

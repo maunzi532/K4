@@ -38,13 +38,13 @@ public class Held2
 
 	public static Held2 lesen(String input, Kartenset<Charakterkarte> charakterkarten, Einstellungen einstellungen)
 	{
-		return null;
+		return null; //TODO
 	}
 
 	public static Held2 initial(Klasse klasse, Kartenstapel<Waffenkarte> waffenkartenstapel,
 			Kartenset<Charakterkarte> charakterkarten, Einstellungen einstellungen)
 	{
-		return new Held2(klasse, new WaffeMap(waffenkartenstapel.entnehmeKarte(klasse.startwaffe()), true), new WaffeMap(),
+		return new Held2(klasse, new WaffeMap(waffenkartenstapel.entnehmeKarte(klasse.startwaffe()), true), null,
 				new int[5], 0, charakterkarten, einstellungen);
 	}
 
@@ -94,11 +94,11 @@ public class Held2
 		}
 		if(hauptwaffe != null)
 		{
-			hauptwaffe = new WaffeMap(hauptwaffe);
+			hauptwaffe.benutzungen--;
 		}
 		if(nebenwaffe != null)
 		{
-			nebenwaffe = new WaffeMap(nebenwaffe);
+			nebenwaffe.benutzungen--;
 		}
 	}
 }
