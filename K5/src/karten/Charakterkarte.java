@@ -98,6 +98,16 @@ public class Charakterkarte implements Karte
 		return exp;
 	}
 
+	public int minExp()
+	{
+		return exp;
+	}
+
+	public int maxExp()
+	{
+		return exp;
+	}
+
 	public int inBereich(int min, int max)
 	{
 		return exp >= min && exp <= max ? 0 : -1;

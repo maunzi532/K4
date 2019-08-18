@@ -15,13 +15,16 @@ public class NKampf
 	private List<NTeilnehmer> gegner;
 	private List<NTeilnehmer> alle;
 	private List<NTeilnehmer> sortiert;
+	private Kartenstapel<Aktionskarte> aktionsKartenstapel;
 	private List<Aktionskarte> aktionenOptionen;
 
-	public NKampf(Einstellungen e, List<NTeilnehmer> spieler0, List<NTeilnehmer> gegner0)
+	public NKampf(Einstellungen e, List<NTeilnehmer> spieler0, List<NTeilnehmer> gegner0,
+			Kartenstapel<Aktionskarte> aktionsKartenstapel)
 	{
 		this.e = e;
 		this.spieler0 = spieler0;
 		this.gegner0 = gegner0;
+		this.aktionsKartenstapel = aktionsKartenstapel;
 		aktionenOptionen = new ArrayList<>();
 	}
 
@@ -67,7 +70,7 @@ public class NKampf
 		}
 	}
 
-	public void beginneZug(Kartenstapel<Aktionskarte> aktionsKartenstapel)
+	public void beginneZug()
 	{
 		for(NTeilnehmer n : alle)
 		{
@@ -85,14 +88,15 @@ public class NKampf
 				if(aktionskartenOK())
 					break;
 				else
-					kartenZurueck(aktionsKartenstapel);
+					kartenZurueck();
 			}
 		}
 	}
 
-	public void kartenZurueck(Kartenstapel<Aktionskarte> aktionsKartenstapel)
+	public void kartenZurueck()
 	{
-		aktionenOptionen.forEach(aktionsKartenstapel::ablage);
+		if(aktionsKartenstapel != null)
+			aktionenOptionen.forEach(aktionsKartenstapel::ablage);
 		aktionenOptionen.clear();
 	}
 
@@ -126,29 +130,20 @@ public class NKampf
 		if(n.aktionGeht(aktionskarte, mit, ziel))
 		{
 			n.setzeAktion(aktionskarte, mit, ziel);
+			aktionenOptionen.remove(aktionskarte);
 			return true;
 		}
 		return false;
 	}
 
-	public void gegnerAktionskarten(Kartenstapel<Aktionskarte> aktionsKartenstapel, Random r)
+	public void gegnerAktionskarten(Random r)
 	{
-		label68: for(NTeilnehmer n : gegner)
+		for(NTeilnehmer n : gegner)
 		{
 			boolean ausgeben = n.getMagie() >= 5;
 			NTeilnehmer ziel = spieler.get(r.nextInt(spieler.size()));
-			int kartenzahl = aktionsKartenstapel.effektiveDeckKartenAnzahl();
-			for(int i = 0; i < kartenzahl; i++)
-			{
-				Aktionskarte aktionskarte = aktionsKartenstapel.erhalteKarte().orElseThrow();
-				if(n.aktionGeht(aktionskarte, W.HW, ziel) &&
-						(!ausgeben || aktionskarte.getMagieMod() < 0 || aktionskarte.isLadeMitMagie()))
-				{
-					n.setzeAktion(aktionskarte, W.HW, ziel);
-					continue label68;
-				}
-			}
-			throw new RuntimeException("Keine passende Aktion für Gegner gefunden");
+			n.setzeAktion(aktionsKartenstapel.durchsucheAlle(aktionskarte -> n.aktionGeht(aktionskarte, W.HW, ziel) &&
+					(!ausgeben || aktionskarte.getMagieMod() < 0 || aktionskarte.isLadeMitMagie())).orElseThrow(), W.HW, ziel);
 		}
 	}
 
@@ -210,7 +205,7 @@ public class NKampf
 		}
 	}
 
-	public int beendeZug(Kartenstapel<Aktionskarte> aktionsKartenstapel)
+	public int beendeZug()
 	{
 		for(NTeilnehmer n : alle)
 		{
@@ -227,9 +222,15 @@ public class NKampf
 		spieler.removeIf(e -> !e.aktiv());
 		gegner.removeIf(e -> !e.aktiv());
 		if(spieler.isEmpty())
+		{
+			kartenZurueck();
 			return -1;
+		}
 		if(gegner.isEmpty())
+		{
+			kartenZurueck();
 			return 1;
+		}
 		alle = new ArrayList<>();
 		alle.addAll(spieler);
 		alle.addAll(gegner);
@@ -239,6 +240,13 @@ public class NKampf
 			n.beendeEffekte(EndTrigger.ZUG_ENDE);
 		}
 		return 0;
+	}
+
+	public void aktionskarteAblegen(Aktionskarte aktionskarte)
+	{
+		if(aktionsKartenstapel != null)
+			aktionsKartenstapel.ablage(aktionskarte);
+		aktionenOptionen.remove(aktionskarte);
 	}
 
 	/*

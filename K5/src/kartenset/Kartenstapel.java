@@ -84,22 +84,19 @@ public class Kartenstapel<T extends AKarte>
 
 	public Optional<T> durchsucheAlle(Predicate<T> check)
 	{
-		ablageInsDeck();
-		while(!deck.isEmpty())
+		int anzahl = effektiveDeckKartenAnzahl();
+		for(int i = 0; i < anzahl; i++)
 		{
-			T k = deck.removeFirst();
-			umlauf.add(k);
-			if(check.test(k))
+			T karte = erhalteKarte().orElseThrow();
+			if(check.test(karte))
 			{
-				ablageInsDeck();
-				return Optional.of(k);
+				return Optional.of(karte);
 			}
 			else
 			{
-				ablage(k);
+				ablage(karte);
 			}
 		}
-		ablageInsDeck();
 		return Optional.empty();
 	}
 }

@@ -79,4 +79,16 @@ public class XGegnerKarte extends Charakterkarte
 	{
 		return xExp[x];
 	}
+
+	@Override
+	public int minExp()
+	{
+		return xExp[0];
+	}
+
+	@Override
+	public int maxExp()
+	{
+		return xExp[xExp.length - 1];
+	}
 }
