@@ -3,6 +3,7 @@ package effektkarten.sets;
 import effektkarten.ansichtkarte.*;
 import java.util.*;
 import java.util.stream.*;
+import stapelkarten.*;
 
 public class Kartenset<T extends EffektKarte>
 {
@@ -11,6 +12,11 @@ public class Kartenset<T extends EffektKarte>
 	public Kartenset(Map<String, T> karten)
 	{
 		this.karten = karten;
+	}
+
+	public Kartenstapel<T> kartenstapel()
+	{
+		return new Kartenstapel<>(karten.values());
 	}
 
 	public T gibKarte(String name)

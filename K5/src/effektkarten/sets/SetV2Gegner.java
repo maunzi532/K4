@@ -10,7 +10,6 @@ public class SetV2Gegner extends KartensetBuilder<Gegner>
 {
 	public SetV2Gegner()
 	{
-		super();
 		neueKarte(new StandardGegner("Giftpilz", 9, 11, 7, 8, 12, 142,
 				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)
 						.setWirkung(StatWirkung.verteidigung(-2)).setDauer(2).createZTE()));

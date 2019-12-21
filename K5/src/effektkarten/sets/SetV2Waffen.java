@@ -12,7 +12,6 @@ public class SetV2Waffen extends KartensetBuilder<Waffenkarte>
 
 	public SetV2Waffen()
 	{
-		super();
 		neueKarte(new Waffenkarte("Fortgeschrittener Hammer", 12, 11, 2, ALLE,
 				false, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.ZUGENDE)
 						.setWirkung(new WNichtVerwendbar()).setDauer(2).createZTE()));

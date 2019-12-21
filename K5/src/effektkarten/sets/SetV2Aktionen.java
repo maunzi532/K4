@@ -10,7 +10,6 @@ public class SetV2Aktionen extends KartensetBuilder<Aktionskarte>
 {
 	public SetV2Aktionen()
 	{
-		super();
 		neueKarte(new Aktionskarte("Zeitlupe", -4, 0, 6, false));
 		neueKarte(new Aktionskarte("Disruptorangriff", -3, -2, 4, true,
 				new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)

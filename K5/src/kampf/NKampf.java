@@ -4,7 +4,7 @@ import effektkarten.effekte.eigenschaften.*;
 import java.util.*;
 import effektkarten.karten.*;
 import main.*;
-import map2.*;
+import stapelkarten.*;
 
 public class NKampf
 {

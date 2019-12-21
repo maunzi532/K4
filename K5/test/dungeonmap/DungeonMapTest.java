@@ -1,22 +1,22 @@
 package dungeonmap;
 
 import main.*;
-import map2.*;
 import mapsets.*;
 import org.junit.*;
+import stapelkarten.*;
 
 public class DungeonMapTest
 {
 	private Einstellungen e;
 	private DungeonMap dungeonMap;
-	private SetV2MittelMapKarten mittelMapKarten;
+	private MittelMapKartenset mittelMapKartenset;
 
 	@Before
 	public void before()
 	{
 		e = new Einstellungen();
 		dungeonMap = new DungeonMap(e);
-		mittelMapKarten = new SetV2MittelMapKarten();
+		mittelMapKartenset = new MittelMapKartenset(new SetV2MittelMapKarten().fertig());
 	}
 
 	@Test
@@ -38,15 +38,15 @@ public class DungeonMapTest
 	@Test
 	public void mittelMapTest()
 	{
-		dungeonMap.erstelleMittelWeg(mittelMapKarten);
+		dungeonMap.erstelleMittelWeg(mittelMapKartenset);
 		System.out.println(dungeonMap.toString());
 	}
 
 	@Test
 	public void forschenTest()
 	{
-		Kartenstapel<MapKarte> mapStapel = new Kartenstapel<>(new SetV2MapKarten().karten);
-		dungeonMap.erstelleMittelWeg(mittelMapKarten);
+		Kartenstapel<MapKarte> mapStapel = new Kartenstapel<>(new SetV2MapKarten().fertig());
+		dungeonMap.erstelleMittelWeg(mittelMapKartenset);
 		Spielfigur spielfigur = dungeonMap.erstelleSpielfigur();
 		spielfigur.geheZu(spielfigur.getY() - MapKarte.ym, spielfigur.getX() - MapKarte.xm);
 		while(!spielfigur.bewegungFertig())

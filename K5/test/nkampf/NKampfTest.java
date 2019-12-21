@@ -1,14 +1,13 @@
 package nkampf;
 
 import effektkarten.effekte.eigenschaften.*;
-import java.util.*;
-import kampf.*;
 import effektkarten.kartebild.*;
 import effektkarten.karten.*;
-import main.*;
-import map2.*;
-import org.junit.*;
 import effektkarten.sets.*;
+import java.util.*;
+import kampf.*;
+import main.*;
+import org.junit.*;
 
 public class NKampfTest
 {
@@ -40,7 +39,7 @@ public class NKampfTest
 		NTeilnehmer nt0 = new NTeilnehmer(e, held, heldWaffe, null);
 		NTeilnehmer nt1 = new NTeilnehmer(e, gegner, gegnerWaffe, null);
 
-		NKampf nKampf = new NKampf(e, List.of(nt0), List.of(nt1), new Kartenstapel<>(aktionen));
+		NKampf nKampf = new NKampf(e, List.of(nt0), List.of(nt1), aktionen.kartenstapel());
 		nKampf.start();
 		nKampf.anfangstrigger();
 		nKampf.beginneZug();

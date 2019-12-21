@@ -4,32 +4,32 @@ import java.util.*;
 
 public class Einstellungen
 {
-	public int anzahlSpieler;
-	public int laengeHauptWeg;
-	public int maxSeitwaerts;
-	public int sicherSeitwaertsMin;
-	public List<Integer> mittelBossOrte;
-	public List<String> bossgegnerKartennamen;
-	public int traenkeProSpieler;
-	public List<Integer> trankExp;
-	public List<Integer> waffenkistenWerte;
-	public int wandKosten;
-	public int basisHaendlerAuswahl;
-	public int extraHaendlerAuswahlProHaendler;
-	public int haendlerNiedrigstesAngebot;
-	public int haendlerHoechstesAngebot;
-	public List<Integer> gegnerZeilenExpBonus;
-	public List<Integer> gegnerExpAbfolge;
-	public int gegnerExpAbfolgeMultiplikator;
-	public int gegnerExpStart;
-	public int gegnerExpWeiter;
-	public int gegnerAnzahlZiehenVersuche;
-	public int gegnerWaffenwertMin;
-	public int gegnerWaffenwertMax;
-	public int basisAktionenOptionen;
-	public int extraAktionenOptionenProSpieler;
-	public int lebenMultiplikator;
-	public int gesBonusAbstand;
+	public final int anzahlSpieler;
+	public final int laengeHauptWeg;
+	public final int maxSeitwaerts;
+	public final int sicherSeitwaertsMin;
+	public final List<Integer> mittelBossOrte;
+	public final List<String> bossgegnerKartennamen;
+	public final int traenkeProSpieler;
+	public final List<Integer> trankExp;
+	public final List<Integer> waffenkistenWerte;
+	public final int wandKosten;
+	public final int basisHaendlerAuswahl;
+	public final int extraHaendlerAuswahlProHaendler;
+	public final int haendlerNiedrigstesAngebot;
+	public final int haendlerHoechstesAngebot;
+	public final List<Integer> gegnerZeilenExpBonus;
+	public final List<Integer> gegnerExpAbfolge;
+	public final int gegnerExpAbfolgeMultiplikator;
+	public final int gegnerExpStart;
+	public final int gegnerExpWeiter;
+	public final int gegnerAnzahlZiehenVersuche;
+	public final int gegnerWaffenwertMin;
+	public final int gegnerWaffenwertMax;
+	public final int basisAktionenOptionen;
+	public final int extraAktionenOptionenProSpieler;
+	public final int lebenMultiplikator;
+	public final int gesBonusAbstand;
 
 	public Einstellungen()
 	{

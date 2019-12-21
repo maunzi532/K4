@@ -6,7 +6,6 @@ public class SetV2Klassen extends KartensetBuilder<Charakterkarte>
 {
 	public SetV2Klassen()
 	{
-		super();
 		neueKarte(new Charakterkarte("Krieger", 10, 7, 6, 9, 6));
 		neueKarte(new Charakterkarte("Bogenschütze", 7, 10, 8, 6, 7));
 		neueKarte(new Charakterkarte("Magier", 7, 8, 7, 6, 10));

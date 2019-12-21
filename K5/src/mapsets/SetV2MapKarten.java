@@ -1,13 +1,11 @@
 package mapsets;
 
 import dungeonmap.*;
-import stapelkarten.*;
 
-public class SetV2MapKarten extends AKartenset<MapKarte>
+public class SetV2MapKarten extends KartenlisteBuilder<MapKarte>
 {
 	public SetV2MapKarten()
 	{
-		super();
 		//2 Oben/Unten
 		neueKarte(new MapKarte("N\nXX XX\nXXTXX\nXX|XX\nXXWXX\nXX XX"));
 		neueKarte(new MapKarte("N\nXX XX\nXXWXX\nXX|XX\nXXTXX\nXX XX"));

@@ -8,6 +8,7 @@ import kampf.*;
 import effektkarten.karten.*;
 import logik.*;
 import main.*;
+import stapelkarten.*;
 
 public class Vorrat
 {

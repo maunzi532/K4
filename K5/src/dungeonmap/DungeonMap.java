@@ -2,7 +2,7 @@ package dungeonmap;
 
 import java.util.*;
 import main.*;
-import map2.*;
+import stapelkarten.*;
 
 public class DungeonMap
 {

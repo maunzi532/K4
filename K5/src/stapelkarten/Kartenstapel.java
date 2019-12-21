@@ -1,11 +1,7 @@
-package map2;
+package stapelkarten;
 
-import effektkarten.ansichtkarte.*;
 import java.util.*;
 import java.util.function.*;
-import effektkarten.sets.*;
-import java.util.stream.*;
-import stapelkarten.*;
 
 public class Kartenstapel<T extends StapelKarte>
 {
@@ -14,18 +10,9 @@ public class Kartenstapel<T extends StapelKarte>
 	public List<T> umlauf;
 	public Deque<T> ablage;
 
-	public Kartenstapel(Kartenset<?> set)
+	public Kartenstapel(Collection<T> karten)
 	{
-		karten = set.alleKarten().stream().map(e -> (T) e).collect(Collectors.toList());
-		deck = new LinkedList<>(karten);
-		Collections.shuffle(deck);
-		umlauf = new ArrayList<>();
-		ablage = new ArrayDeque<>();
-	}
-
-	public Kartenstapel(List<T> karten)
-	{
-		this.karten = karten;
+		this.karten = new ArrayList<>(karten);
 		deck = new LinkedList<>(karten);
 		Collections.shuffle(deck);
 		umlauf = new ArrayList<>();
@@ -59,10 +46,9 @@ public class Kartenstapel<T extends StapelKarte>
 		return Optional.of(k);
 	}
 
-	public T entnehmeKarte(String name)
+	public T entnehmeKarte(Predicate<T> check)
 	{
-		T k1 = deck.stream().filter(k -> k instanceof EffektKarte && ((EffektKarte) k).name().equals(name)).findFirst()
-				.orElseThrow(() -> new IllegalArgumentException(name));
+		T k1 = deck.stream().filter(check).findFirst().orElseThrow();
 		deck.remove(k1);
 		umlauf.add(k1);
 		return k1;
