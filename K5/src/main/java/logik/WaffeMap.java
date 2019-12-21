@@ -1,8 +1,10 @@
 package logik;
 
+import effektkarten.ansichtkarte.*;
 import effektkarten.karten.*;
+import java.util.*;
 
-public class WaffeMap
+public class WaffeMap implements EffektKarte
 {
 	private static final int ALLE_KLASSEN = 0b11111111;
 
@@ -20,5 +22,35 @@ public class WaffeMap
 		else
 			maxBenutzungen = 2;
 		benutzungen = maxBenutzungen;
+	}
+
+	@Override
+	public String name()
+	{
+		return karte.name;
+	}
+
+	@Override
+	public List<String> werteLO()
+	{
+		return karte.werteLO();
+	}
+
+	@Override
+	public List<String> werteLU()
+	{
+		return List.of("H", benutzungen + "/" + maxBenutzungen);
+	}
+
+	@Override
+	public List<String> werteR()
+	{
+		return karte.werteR();
+	}
+
+	@Override
+	public List<KartenEffekt> effekte()
+	{
+		return karte.effekte;
 	}
 }

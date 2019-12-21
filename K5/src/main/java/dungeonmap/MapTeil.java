@@ -22,6 +22,10 @@ public enum MapTeil
 		this.zeichen1 = zeichen1;
 		this.begehbar0 = begehbar0;
 		this.begehbar1 = begehbar1;
+		titel0 = null;
+		titel1 = null;
+		ok0 = null;
+		ok1 = null;
 	}
 
 	MapTeil(boolean hatModifier, char zeichen0, char zeichen1, Begehbar begehbar0, Begehbar begehbar1,
@@ -38,13 +42,13 @@ public enum MapTeil
 		this.ok1 = ok1;
 	}
 
-	public boolean hatModifier;
-	public char zeichen0;
-	public char zeichen1;
-	public Begehbar begehbar0;
-	public Begehbar begehbar1;
-	public String titel0;
-	public String titel1;
-	public String ok0;
-	public String ok1;
+	public final boolean hatModifier;
+	public final char zeichen0;
+	public final char zeichen1;
+	public final Begehbar begehbar0;
+	public final Begehbar begehbar1;
+	public final String titel0;
+	public final String titel1;
+	public final String ok0;
+	public final String ok1;
 }

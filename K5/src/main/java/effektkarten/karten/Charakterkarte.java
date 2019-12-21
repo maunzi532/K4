@@ -96,7 +96,7 @@ public class Charakterkarte implements EffektKarte
 	@Override
 	public List<String> werteLO()
 	{
-		return Arrays.asList("A", String.valueOf(angriff),
+		return List.of("A", String.valueOf(angriff),
 				"W", String.valueOf(waffenwert),
 				"G", String.valueOf(geschwindigkeit),
 				"V", String.valueOf(verteidigung),

@@ -32,7 +32,7 @@ public class Held2
 		this.nebenwaffe = nebenwaffe;
 		this.upgrades = upgrades;
 		this.exp = exp;
-		leben = (charakterkarte.getLeben() + upgrades[4]) * e.lebenMultiplikator;
+		leben = maxLeben();
 		trankStatus = HeldStatus.MAXIMAL;
 		gegnerExpLevel = 0;
 	}
@@ -47,6 +47,11 @@ public class Held2
 	{
 		return new Held2(klasse, new WaffeMap(waffenkartenstapel.entnehmeKarte(e -> e.name().equals(klasse.startwaffe())), true), null,
 				new int[5], 0, charakterkarten, einstellungen);
+	}
+
+	public int maxLeben()
+	{
+		return (charakterkarte.getLeben() + upgrades[4]) * e.lebenMultiplikator;
 	}
 
 	public boolean kampfbereit()
@@ -85,7 +90,7 @@ public class Held2
 		{
 			trankStatus = HeldStatus.BESIEGT;
 		}
-		else if(leben >= (charakterkarte.getLeben() + upgrades[4]) * e.lebenMultiplikator)
+		else if(leben >= maxLeben())
 		{
 			trankStatus = HeldStatus.MAXIMAL;
 		}
@@ -100,6 +105,30 @@ public class Held2
 		if(nebenwaffe != null)
 		{
 			nebenwaffe.benutzungen--;
+		}
+	}
+
+	public void verwendeTrank(int trankExp)
+	{
+		exp += trankExp;
+		switch(trankStatus)
+		{
+			case BESIEGT, NORMAL ->
+					{
+						leben += maxLeben() / 2;
+						if(leben >= maxLeben())
+						{
+							leben = maxLeben();
+							trankStatus = HeldStatus.MAXIMAL;
+						}
+						else
+							trankStatus = HeldStatus.TRANK;
+					}
+			case TRANK ->
+					{
+						leben = maxLeben();
+						trankStatus = HeldStatus.MAXIMAL;
+					}
 		}
 	}
 }

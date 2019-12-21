@@ -14,6 +14,6 @@ public enum MapRichtung
 		this.x = x;
 	}
 
-	public int r;
-	public int y, x;
+	public final int r;
+	public final int y, x;
 }

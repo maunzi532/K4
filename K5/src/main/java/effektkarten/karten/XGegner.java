@@ -62,7 +62,7 @@ public class XGegner implements Gegner
 	@Override
 	public List<String> werteLO()
 	{
-		return Arrays.asList("A", basiskarte.angriff + (xWerte[0] ? "+X" : ""),
+		return List.of("A", basiskarte.angriff + (xWerte[0] ? "+X" : ""),
 			"W", basiskarte.waffenwert + (xWerte[1] ? "+X" : ""),
 			"G", basiskarte.geschwindigkeit + (xWerte[2] ? "+X" : ""),
 			"V", basiskarte.verteidigung + (xWerte[3] ? "+X" : ""),

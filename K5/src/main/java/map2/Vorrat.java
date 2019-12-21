@@ -70,7 +70,7 @@ public class Vorrat
 		}
 	}
 
-	public List<Charakterkarte> zieheGegner(int minExp, int maxExp, int startAnzahl, Kartenstapel<Gegner> gegnerKartenstapel, Random r)
+	public List<AktiverGegner> zieheGegner(int minExp, int maxExp, int startAnzahl, Kartenstapel<Gegner> gegnerKartenstapel, Random r)
 	{
 		for(int anzahl = startAnzahl; anzahl < startAnzahl + e.gegnerAnzahlZiehenVersuche; anzahl++)
 		{
@@ -107,9 +107,9 @@ public class Vorrat
 		return gegner1;
 	}
 
-	public List<Charakterkarte> xWerteBestimmen(List<Gegner> gegner1, int minExp, int maxExp, Random r)
+	public List<AktiverGegner> xWerteBestimmen(List<Gegner> gegner1, int minExp, int maxExp, Random r)
 	{
-		List<Charakterkarte> gegner = new ArrayList<>();
+		List<AktiverGegner> gegner = new ArrayList<>();
 		int minExpA = minExp;
 		int maxExpA = maxExp;
 		int minExpK = gegner1.stream().mapToInt(Gegner::minExp).sum();
@@ -130,7 +130,7 @@ public class Vorrat
 				int x = moeglich.get(moeglich.size() > 1 ? r.nextInt(moeglich.size()) : 0);
 				minExpA -= gx.xExp[x];
 				maxExpA -= gx.xExp[x];
-				gegner.add(gx.erstelleCharakterkarte(x));
+				gegner.add(new AktiverGegner(gx, gx.erstelleCharakterkarte(x)));
 			}
 			else if(g instanceof StandardGegner)
 			{
@@ -139,7 +139,7 @@ public class Vorrat
 				maxExpA -= gs.exp;
 				minExpK -= gs.exp;
 				maxExpK -= gs.exp;
-				gegner.add(gs.charakterkarte);
+				gegner.add(new AktiverGegner(gs, gs.charakterkarte));
 			}
 		}
 		return gegner;

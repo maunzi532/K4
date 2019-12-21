@@ -64,7 +64,7 @@ public class Waffenkarte implements EffektKarte
 	@Override
 	public List<String> werteLO()
 	{
-		return Arrays.asList("K", String.valueOf(kosten),
+		return List.of("K", String.valueOf(kosten),
 				"A", String.valueOf(angriff),
 				"G", String.valueOf(geschwindigkeit));
 	}

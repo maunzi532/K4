@@ -30,31 +30,36 @@ public class SetV2Test
 		karteBild3 = new KarteBild3();
 	}
 
-	@Test
+	/*@Test
+	@Ignore*/
 	public void alle()
 	{
 		System.out.println(karteBild3.inZeilen(alleKarten, 7));
 	}
 
-	@Test
+	/*@Test
+	@Ignore*/
 	public void aktionen()
 	{
 		System.out.println(karteBild3.inZeilen(new ArrayList<>(aktionen.alleKarten()), 7));
 	}
 
-	@Test
+	/*@Test
+	@Ignore*/
 	public void waffen()
 	{
 		System.out.println(karteBild3.inZeilen(new ArrayList<>(waffen.alleKarten()), 7));
 	}
 
-	@Test
+	/*@Test
+	@Ignore*/
 	public void klassen()
 	{
 		System.out.println(karteBild3.inZeilen(new ArrayList<>(klassen.alleKarten()), 7));
 	}
 
-	@Test
+	/*@Test
+	@Ignore*/
 	public void gegner()
 	{
 		System.out.println(karteBild3.inZeilen(new ArrayList<>(gegner.alleKarten()), 7));
