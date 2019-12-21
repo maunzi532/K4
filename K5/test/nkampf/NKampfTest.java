@@ -12,19 +12,19 @@ import effektkarten.sets.*;
 
 public class NKampfTest
 {
-	private SetV2Aktionen setV2Aktionen;
-	private SetV2Waffen setV2Waffen;
-	private SetV2Klassen setV2Klassen;
-	private SetV2Gegner setV2Gegner;
+	private Kartenset<Aktionskarte> aktionen;
+	private Kartenset<Waffenkarte> waffen;
+	private Kartenset<Gegner> gegner;
+	private Kartenset<Charakterkarte> klassen;
 	private KarteBild3 karteBild3;
 
 	@Before
 	public void init()
 	{
-		setV2Aktionen = new SetV2Aktionen();
-		setV2Waffen = new SetV2Waffen();
-		setV2Klassen = new SetV2Klassen();
-		setV2Gegner = new SetV2Gegner();
+		aktionen = new SetV2Aktionen().fertig();
+		waffen = new SetV2Waffen().fertig();
+		gegner = new SetV2Gegner().fertig();
+		klassen = new SetV2Klassen().fertig();
 		karteBild3 = new KarteBild3();
 	}
 
@@ -32,20 +32,20 @@ public class NKampfTest
 	public void test()
 	{
 		Einstellungen e = new Einstellungen();
-		Charakterkarte held = setV2Klassen.gibKarte("Geist");
-		Waffenkarte heldWaffe = setV2Waffen.gibKarte("Spiegelsplitter");
+		Charakterkarte held = klassen.gibKarte("Geist");
+		Waffenkarte heldWaffe = waffen.gibKarte("Spiegelsplitter");
 		Charakterkarte gegner = new Charakterkarte("TGegner", 8, 7, 6, 6, 10);
-		Waffenkarte gegnerWaffe = setV2Waffen.gibKarte("Großer Stock");
+		Waffenkarte gegnerWaffe = waffen.gibKarte("Großer Stock");
 
 		NTeilnehmer nt0 = new NTeilnehmer(e, held, heldWaffe, null);
 		NTeilnehmer nt1 = new NTeilnehmer(e, gegner, gegnerWaffe, null);
 
-		NKampf nKampf = new NKampf(e, List.of(nt0), List.of(nt1), new Kartenstapel<>(setV2Aktionen));
+		NKampf nKampf = new NKampf(e, List.of(nt0), List.of(nt1), new Kartenstapel<>(aktionen));
 		nKampf.start();
 		nKampf.anfangstrigger();
 		nKampf.beginneZug();
-		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schnellangriff"), MitWaffe.HW, nt1));
-		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Powerangriff"), MitWaffe.HW, nt0));
+		Assert.assertTrue(nKampf.aktionskarte(nt0, aktionen.gibKarte("Schnellangriff"), MitWaffe.HW, nt1));
+		Assert.assertTrue(nKampf.aktionskarte(nt1, aktionen.gibKarte("Powerangriff"), MitWaffe.HW, nt0));
 		//nKampf.gegnerAktionskarten();
 		System.out.println(karteBild3.inZeilen(List.of(held, heldWaffe, nt0.getAktionKarte(), gegner,
 				gegnerWaffe, nt1.getAktionKarte()), 7));
@@ -61,9 +61,9 @@ public class NKampfTest
 		Assert.assertEquals(14, nt0.getLeben());
 		Assert.assertEquals(21, nt1.getLeben());
 		nKampf.beginneZug();
-		Assert.assertFalse(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Disruptorangriff"), MitWaffe.HW, nt1));
-		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schutzangriff"), MitWaffe.HW, nt1));
-		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Brecher"), MitWaffe.HW, nt0));
+		Assert.assertFalse(nKampf.aktionskarte(nt0, aktionen.gibKarte("Disruptorangriff"), MitWaffe.HW, nt1));
+		Assert.assertTrue(nKampf.aktionskarte(nt0, aktionen.gibKarte("Schutzangriff"), MitWaffe.HW, nt1));
+		Assert.assertTrue(nKampf.aktionskarte(nt1, aktionen.gibKarte("Brecher"), MitWaffe.HW, nt0));
 		//nKampf.gegnerAktionskarten();
 		System.out.println(karteBild3.inZeilen(List.of(held, heldWaffe, nt0.getAktionKarte(), gegner,
 				gegnerWaffe, nt1.getAktionKarte()), 7));
@@ -77,9 +77,4 @@ public class NKampfTest
 		Assert.assertEquals(8, nt0.getLeben());
 		Assert.assertEquals(13, nt1.getLeben());
 	}
-
-	/*public static void main(String[] args)
-	{
-
-	}*/
 }

@@ -6,16 +6,11 @@ import java.util.stream.*;
 
 public class Kartenset<T extends EffektKarte>
 {
-	private Map<String, T> karten;
+	private final Map<String, T> karten;
 
-	public Kartenset()
+	public Kartenset(Map<String, T> karten)
 	{
-		karten = new HashMap<>();
-	}
-
-	public void neueKarte(T neueKarte)
-	{
-		karten.put(neueKarte.name(), neueKarte);
+		this.karten = karten;
 	}
 
 	public T gibKarte(String name)
@@ -26,14 +21,6 @@ public class Kartenset<T extends EffektKarte>
 	public List<T> alleKarten()
 	{
 		return new ArrayList<>(karten.values());
-	}
-
-	public <U extends T> Kartenset<U> teilset(Class<U> klasse)
-	{
-		Kartenset<U> teilset = new Kartenset<>();
-		karten.values().stream().filter(e -> e.getClass().equals(klasse))
-				.forEach(e -> teilset.neueKarte((U) e));
-		return teilset;
 	}
 
 	public List<T> findeKarten(String suche)

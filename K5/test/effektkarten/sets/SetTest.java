@@ -1,24 +1,27 @@
 package effektkarten.sets;
 
 import effektkarten.ansichtkarte.*;
+import effektkarten.karten.*;
 import java.util.*;
 import java.util.stream.*;
 import effektkarten.kartebild.*;
+import org.junit.*;
 
 public class SetTest
 {
-	private SetV2Aktionen aktionen;
-	private SetV2Waffen waffen;
-	private SetV2Gegner gegner;
-	private SetV2Klassen klassen;
+	private Kartenset<Aktionskarte> aktionen;
+	private Kartenset<Waffenkarte> waffen;
+	private Kartenset<Gegner> gegner;
+	private Kartenset<Charakterkarte> klassen;
 	private KarteBild3 karteBild3;
 
+	@Before
 	public void init()
 	{
-		aktionen = new SetV2Aktionen();
-		waffen = new SetV2Waffen();
-		gegner = new SetV2Gegner();
-		klassen = new SetV2Klassen();
+		aktionen = new SetV2Aktionen().fertig();
+		waffen = new SetV2Waffen().fertig();
+		gegner = new SetV2Gegner().fertig();
+		klassen = new SetV2Klassen().fertig();
 		karteBild3 = new KarteBild3();
 	}
 

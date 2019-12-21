@@ -1,31 +1,32 @@
 package effektkarten.sets;
 
 import effektkarten.ansichtkarte.*;
-import java.util.*;
 import effektkarten.kartebild.*;
+import effektkarten.karten.*;
+import java.util.*;
 import org.junit.*;
 
 public class SetV2Test
 {
-	private SetV2Aktionen setV2Aktionen;
-	private SetV2Waffen setV2Waffen;
-	private SetV2Klassen setV2Klassen;
-	private SetV2Gegner setV2Gegner;
+	private Kartenset<Aktionskarte> aktionen;
+	private Kartenset<Waffenkarte> waffen;
+	private Kartenset<Gegner> gegner;
+	private Kartenset<Charakterkarte> klassen;
 	private List<EffektKarte> alleKarten;
 	private KarteBild3 karteBild3;
 
 	@Before
 	public void init()
 	{
-		setV2Aktionen = new SetV2Aktionen();
-		setV2Waffen = new SetV2Waffen();
-		setV2Klassen = new SetV2Klassen();
-		setV2Gegner = new SetV2Gegner();
+		aktionen = new SetV2Aktionen().fertig();
+		waffen = new SetV2Waffen().fertig();
+		gegner = new SetV2Gegner().fertig();
+		klassen = new SetV2Klassen().fertig();
 		alleKarten = new ArrayList<>();
-		alleKarten.addAll(setV2Aktionen.alleKarten());
-		alleKarten.addAll(setV2Waffen.alleKarten());
-		alleKarten.addAll(setV2Klassen.alleKarten());
-		alleKarten.addAll(setV2Gegner.alleKarten());
+		alleKarten.addAll(aktionen.alleKarten());
+		alleKarten.addAll(waffen.alleKarten());
+		alleKarten.addAll(gegner.alleKarten());
+		alleKarten.addAll(klassen.alleKarten());
 		karteBild3 = new KarteBild3();
 	}
 
@@ -38,25 +39,25 @@ public class SetV2Test
 	@Test
 	public void aktionen()
 	{
-		System.out.println(karteBild3.inZeilen(new ArrayList<>(setV2Aktionen.alleKarten()), 7));
+		System.out.println(karteBild3.inZeilen(new ArrayList<>(aktionen.alleKarten()), 7));
 	}
 
 	@Test
 	public void waffen()
 	{
-		System.out.println(karteBild3.inZeilen(new ArrayList<>(setV2Waffen.alleKarten()), 7));
+		System.out.println(karteBild3.inZeilen(new ArrayList<>(waffen.alleKarten()), 7));
 	}
 
 	@Test
 	public void klassen()
 	{
-		System.out.println(karteBild3.inZeilen(new ArrayList<>(setV2Klassen.alleKarten()), 7));
+		System.out.println(karteBild3.inZeilen(new ArrayList<>(klassen.alleKarten()), 7));
 	}
 
 	@Test
 	public void gegner()
 	{
-		System.out.println(karteBild3.inZeilen(new ArrayList<>(setV2Gegner.alleKarten()), 7));
+		System.out.println(karteBild3.inZeilen(new ArrayList<>(gegner.alleKarten()), 7));
 	}
 
 	@Test
@@ -72,7 +73,7 @@ public class SetV2Test
 				List.of("A", "10", "Blablah", "2"), List.of("C", "-4", "D", "12868884"), List.of("12000"),
 				List.of(new KartenEffekt("# ", "Wugu Wuguwugu A_+_1 V_-_1", 0){})))
 				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
-		System.out.println(Arrays.stream(karteBild3.karteBild(new SetV2Gegner().gibKarte("Koba")))
+		System.out.println(Arrays.stream(karteBild3.karteBild(gegner.gibKarte("Koba")))
 				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
 	}
 }
