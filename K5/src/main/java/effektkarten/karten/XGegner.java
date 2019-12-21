@@ -8,8 +8,8 @@ public class XGegner implements Gegner
 {
 	public static final int X_ANZAHL = 5;
 
-	private final Charakterkarte basiskarte;
-	private final boolean[] xWerte;
+	public final Charakterkarte basiskarte;
+	public final boolean[] xWerte;
 	public final int[] xExp;
 
 	public XGegner(Charakterkarte basiskarte, boolean[] xWerte, int[] xExp)

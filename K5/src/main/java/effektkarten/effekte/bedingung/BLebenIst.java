@@ -5,8 +5,8 @@ import effektkarten.effekte.ziel.*;
 
 public class BLebenIst implements Bedingung
 {
-	private final Vergleich vergleich;
-	private final int zu;
+	public final Vergleich vergleich;
+	public final int zu;
 
 	public BLebenIst(Vergleich vergleich, int zu)
 	{

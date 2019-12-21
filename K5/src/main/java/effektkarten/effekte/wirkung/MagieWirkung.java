@@ -5,8 +5,8 @@ import effektkarten.effekte.ziel.*;
 
 public class MagieWirkung implements DirektWirkung
 {
-	private final int magie;
-	private final boolean gegner;
+	public final int magie;
+	public final boolean gegner;
 
 	public MagieWirkung(int magie, boolean gegner)
 	{

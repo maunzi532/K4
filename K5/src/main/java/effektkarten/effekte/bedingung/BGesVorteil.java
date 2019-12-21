@@ -5,7 +5,7 @@ import effektkarten.effekte.ziel.*;
 
 public class BGesVorteil implements Bedingung
 {
-	private final int min;
+	public final int min;
 
 	public BGesVorteil()
 	{

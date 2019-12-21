@@ -5,15 +5,15 @@ import effektkarten.effekte.ziel.*;
 
 public class StatWirkung implements Wirkung
 {
-	private final String text;
-	private final int angriff;
-	private final int geschwindigkeit;
-	private final int verteidigung;
-	private final int mindestschaden;
-	private final int mindestschutz;
-	private final int magie;
-	private final int extraangriffe;
-	private final int setzeangriffe;
+	public final String text;
+	public final int angriff;
+	public final int geschwindigkeit;
+	public final int verteidigung;
+	public final int mindestschaden;
+	public final int mindestschutz;
+	public final int magie;
+	public final int extraangriffe;
+	public final int setzeangriffe;
 
 	public StatWirkung(int angriff, int geschwindigkeit, int verteidigung)
 	{

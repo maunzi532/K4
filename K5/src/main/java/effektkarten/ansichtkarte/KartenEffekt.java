@@ -2,9 +2,9 @@ package effektkarten.ansichtkarte;
 
 public abstract class KartenEffekt implements Kartentext
 {
-	private final String typ;
-	private final String text;
-	private final int num;
+	public final String typ;
+	public final String text;
+	public final int num;
 
 	public KartenEffekt(String typ, String text, int num)
 	{

@@ -5,10 +5,10 @@ import effektkarten.effekte.ziel.*;
 
 public abstract class DatenWirkung implements Wirkung
 {
-	private final Wirkungswert wirktAuf;
-	private final int multiplikator;
-	private final int divisor;
-	private final int max;
+	public final Wirkungswert wirktAuf;
+	public final int multiplikator;
+	public final int divisor;
+	public final int max;
 
 	public DatenWirkung(Wirkungswert wirktAuf, int multiplikator, int divisor, int max)
 	{

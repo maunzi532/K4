@@ -5,7 +5,7 @@ import effektkarten.effekte.ziel.*;
 
 public class BLebenVergleich implements Bedingung
 {
-	private final Vergleich vergleich;
+	public final Vergleich vergleich;
 
 	public BLebenVergleich(Vergleich vergleich)
 	{

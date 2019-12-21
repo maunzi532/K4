@@ -6,7 +6,7 @@ import java.util.*;
 
 public class DirektTriggerEffekt extends TriggerEffekt
 {
-	private final DirektWirkung direktWirkung;
+	public final DirektWirkung direktWirkung;
 
 	public DirektTriggerEffekt(String text, int num, StartTrigger startTrigger,
 			StartTriggerSeite startSeite,

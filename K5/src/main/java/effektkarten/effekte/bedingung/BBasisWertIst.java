@@ -5,10 +5,10 @@ import effektkarten.effekte.ziel.*;
 
 public class BBasisWertIst implements Bedingung
 {
-	private final Basiswert wert;
-	private final EffektZielKartentyp von;
-	private final Vergleich vergleich;
-	private final int zu;
+	public final Basiswert wert;
+	public final EffektZielKartentyp von;
+	public final Vergleich vergleich;
+	public final int zu;
 
 	public BBasisWertIst(Basiswert wert, EffektZielKartentyp von, Vergleich vergleich, int zu)
 	{

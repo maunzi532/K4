@@ -5,7 +5,7 @@ import effektkarten.effekte.ziel.*;
 
 public class WWaffeAngriff implements Wirkung
 {
-	private final int multiplikator;
+	public final int multiplikator;
 
 	public WWaffeAngriff(int multiplikator)
 	{

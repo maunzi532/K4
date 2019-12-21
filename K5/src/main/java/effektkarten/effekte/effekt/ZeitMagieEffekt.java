@@ -6,12 +6,12 @@ import java.util.*;
 
 public class ZeitMagieEffekt extends MagieEffekt
 {
-	private final EndTrigger endTrigger;
-	private final int dauer;
-	private final boolean betrifftGegner;
-	private final EffektZielKartentyp an;
-	private final MitWaffe zielWaffe;
-	private final Wirkung wirkung;
+	public final EndTrigger endTrigger;
+	public final int dauer;
+	public final boolean betrifftGegner;
+	public final EffektZielKartentyp an;
+	public final MitWaffe zielWaffe;
+	public final Wirkung wirkung;
 
 	public ZeitMagieEffekt(String text, int num, int magieKosten, List<Bedingung> bedingungen,
 			EndTrigger endTrigger, int dauer, boolean betrifftGegner, EffektZielKartentyp an,

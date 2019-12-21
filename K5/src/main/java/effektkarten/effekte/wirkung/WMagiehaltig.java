@@ -5,8 +5,8 @@ import effektkarten.effekte.ziel.*;
 
 public class WMagiehaltig implements Wirkung
 {
-	private final Wirkungswert wirktAuf;
-	private final int max;
+	public final Wirkungswert wirktAuf;
+	public final int max;
 
 	public WMagiehaltig(Wirkungswert wirktAuf, int max)
 	{

@@ -5,9 +5,9 @@ import effektkarten.effekte.ziel.*;
 
 public class BBasisWertVergleich implements Bedingung
 {
-	private final Basiswert wert;
-	private final EffektZielKartentyp von;
-	private final Vergleich vergleich;
+	public final Basiswert wert;
+	public final EffektZielKartentyp von;
+	public final Vergleich vergleich;
 
 	public BBasisWertVergleich(Basiswert wert, EffektZielKartentyp von, Vergleich vergleich)
 	{

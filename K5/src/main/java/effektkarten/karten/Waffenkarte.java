@@ -5,13 +5,13 @@ import java.util.*;
 
 public class Waffenkarte implements EffektKarte
 {
-	private final String name;
-	private final int kosten;
-	private final int angriff;
-	private final int geschwindigkeit;
-	private final int klassencode;
-	private final boolean gegnerOK;
-	private final List<KartenEffekt> effekte;
+	public final String name;
+	public final int kosten;
+	public final int angriff;
+	public final int geschwindigkeit;
+	public final int klassencode;
+	public final boolean gegnerOK;
+	public final List<KartenEffekt> effekte;
 
 	public Waffenkarte(String name, int kosten, int angriff, int geschwindigkeit, int klassencode,
 			boolean gegnerOK, KartenEffekt... effekte)

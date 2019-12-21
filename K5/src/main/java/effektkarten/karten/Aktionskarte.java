@@ -5,13 +5,13 @@ import java.util.*;
 
 public class Aktionskarte implements EffektKarte
 {
-	private final String name;
-	private final int magieMod;
-	private final int angriffMod;
-	private final int geschwindigkeitMod;
-	private final boolean hw;
-	private final boolean ladeMitMagie;
-	private final List<KartenEffekt> effekte;
+	public final String name;
+	public final int magieMod;
+	public final int angriffMod;
+	public final int geschwindigkeitMod;
+	public final boolean hw;
+	public final boolean ladeMitMagie;
+	public final List<KartenEffekt> effekte;
 
 	public Aktionskarte(String name, int magieMod, int angriffMod, int geschwindigkeitMod, boolean hw, KartenEffekt... effekte)
 	{
@@ -84,6 +84,20 @@ public class Aktionskarte implements EffektKarte
 		return werte;
 	}
 
+	private static void addWert(List<String> werte, String name, int wert)
+	{
+		if(wert != 0)
+		{
+			werte.add(name);
+			werte.add((wert > 0 ? "+" : "") + wert);
+		}
+		else
+		{
+			werte.add("");
+			werte.add("");
+		}
+	}
+
 	@Override
 	public List<String> werteLU()
 	{
@@ -100,20 +114,6 @@ public class Aktionskarte implements EffektKarte
 	public List<String> werteR()
 	{
 		return null;
-	}
-
-	private static void addWert(List<String> werte, String name, int wert)
-	{
-		if(wert != 0)
-		{
-			werte.add(name);
-			werte.add((wert > 0 ? "+" : "") + wert);
-		}
-		else
-		{
-			werte.add("");
-			werte.add("");
-		}
 	}
 
 	@Override
