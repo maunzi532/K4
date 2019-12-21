@@ -1,7 +1,6 @@
 package mapsets;
 
 import dungeonmap.*;
-import kartenset.*;
 
 public class SetV2MapKarten extends AKartenset<MapKarte>
 {

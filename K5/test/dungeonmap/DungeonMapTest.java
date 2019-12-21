@@ -1,7 +1,7 @@
 package dungeonmap;
 
-import kartenset.*;
 import main.*;
+import map2.*;
 import mapsets.*;
 import org.junit.*;
 

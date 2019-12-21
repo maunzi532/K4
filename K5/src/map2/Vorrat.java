@@ -1,12 +1,11 @@
 package map2;
 
 import dungeonmap.*;
-import effekt.*;
+import effektkarten.effekte.eigenschaften.*;
 import java.util.*;
 import java.util.stream.*;
 import kampf.*;
-import karten.*;
-import kartenset.*;
+import effektkarten.karten.*;
 import logik.*;
 import main.*;
 
@@ -195,19 +194,19 @@ public class Vorrat
 		}
 	}
 
-	public void waffeAblegen(int numH, W w)
+	public void waffeAblegen(int numH, MitWaffe mitWaffe)
 	{
-		if(w == W.HW)
+		if(mitWaffe == MitWaffe.HW)
 			helden.get(numH).hauptwaffe = null;
-		if(w == W.NW)
+		if(mitWaffe == MitWaffe.NW)
 			helden.get(numH).nebenwaffe = null;
 	}
 
-	public void waffeAusruesten(int numH, W w, int numW)
+	public void waffeAusruesten(int numH, MitWaffe mitWaffe, int numW)
 	{
-		if(w == W.HW)
+		if(mitWaffe == MitWaffe.HW)
 			helden.get(numH).hauptwaffe = waffen.get(numW);
-		if(w == W.NW)
+		if(mitWaffe == MitWaffe.NW)
 			helden.get(numH).nebenwaffe = waffen.get(numW);
 	}
 

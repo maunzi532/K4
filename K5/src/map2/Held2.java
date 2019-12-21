@@ -1,10 +1,10 @@
 package map2;
 
 import kampf.*;
-import karten.*;
-import kartenset.*;
+import effektkarten.karten.*;
 import logik.*;
 import main.*;
+import effektkarten.sets.*;
 
 public class Held2
 {

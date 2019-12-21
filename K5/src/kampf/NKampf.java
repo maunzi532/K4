@@ -1,10 +1,10 @@
 package kampf;
 
-import effekt.*;
+import effektkarten.effekte.eigenschaften.*;
 import java.util.*;
-import karten.*;
-import kartenset.*;
+import effektkarten.karten.*;
 import main.*;
+import map2.*;
 
 public class NKampf
 {
@@ -63,9 +63,9 @@ public class NKampf
 		for(NTeilnehmer n : alle)
 		{
 			if(n.nHauptwaffe != null)
-				n.triggereEffekte1va(n.getWaffeKarte(W.HW).effekte(), StartTrigger.VERWENDET, W.HW);
+				n.triggereEffekte1va(n.getWaffeKarte(MitWaffe.HW).effekte(), StartTrigger.VERWENDET, MitWaffe.HW);
 			if(n.nNebenwaffe != null)
-				n.triggereEffekte1va(n.getWaffeKarte(W.NW).effekte(), StartTrigger.VERWENDET, W.NW);
+				n.triggereEffekte1va(n.getWaffeKarte(MitWaffe.NW).effekte(), StartTrigger.VERWENDET, MitWaffe.NW);
 			n.triggereEffekte(StartTrigger.ANFANG, false);
 		}
 	}
@@ -125,7 +125,7 @@ public class NKampf
 		return ok;
 	}
 
-	public boolean aktionskarte(NTeilnehmer n, Aktionskarte aktionskarte, W mit, NTeilnehmer ziel)
+	public boolean aktionskarte(NTeilnehmer n, Aktionskarte aktionskarte, MitWaffe mit, NTeilnehmer ziel)
 	{
 		if(n.aktionGeht(aktionskarte, mit, ziel))
 		{
@@ -142,8 +142,8 @@ public class NKampf
 		{
 			boolean ausgeben = n.getMagie() >= 5;
 			NTeilnehmer ziel = spieler.get(spieler.size() > 1 ? r.nextInt(spieler.size()) : 0);
-			n.setzeAktion(aktionsKartenstapel.durchsucheAlle(aktionskarte -> n.aktionGeht(aktionskarte, W.HW, ziel) &&
-					(!ausgeben || aktionskarte.getMagieMod() < 0 || aktionskarte.isLadeMitMagie())).orElseThrow(), W.HW, ziel);
+			n.setzeAktion(aktionsKartenstapel.durchsucheAlle(aktionskarte -> n.aktionGeht(aktionskarte, MitWaffe.HW, ziel) &&
+					(!ausgeben || aktionskarte.getMagieMod() < 0 || aktionskarte.isLadeMitMagie())).orElseThrow(), MitWaffe.HW, ziel);
 		}
 	}
 

@@ -1,15 +1,15 @@
 package kampf;
 
-import basiskarte.*;
-import effekt.*;
-import effekt.kampf.*;
-import effekt.wirkung.*;
+import effektkarten.effekte.*;
+import effektkarten.effekte.effekt.*;
+import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.wirkung.*;
 import java.util.*;
 import java.util.stream.*;
-import karten.*;
+import effektkarten.karten.*;
 import main.*;
 
-public class NTeilnehmer implements NTI
+public class NTeilnehmer implements EffektZielCharakter
 {
 	private Einstellungen e;
 	//Charakter
@@ -30,7 +30,7 @@ public class NTeilnehmer implements NTI
 
 	//Aktion
 	private NAktion nAktion;
-	private W mit;
+	private MitWaffe mit;
 	private NTeilnehmer ziel;
 
 	//Werte für diesen Zug
@@ -92,9 +92,9 @@ public class NTeilnehmer implements NTI
 		else
 		{
 			if(nHauptwaffe != null)
-				triggereEffekte1va(getWaffeKarte(W.HW).effekte(), startTrigger, W.HW);
+				triggereEffekte1va(getWaffeKarte(MitWaffe.HW).effekte(), startTrigger, MitWaffe.HW);
 			if(nNebenwaffe != null)
-				triggereEffekte1va(getWaffeKarte(W.NW).effekte(), startTrigger, W.NW);
+				triggereEffekte1va(getWaffeKarte(MitWaffe.NW).effekte(), startTrigger, MitWaffe.NW);
 		}
 	}
 
@@ -103,16 +103,16 @@ public class NTeilnehmer implements NTI
 		triggereEffekte2(effekte, startTrigger, null, null);
 	}
 
-	public void triggereEffekte1va(List<KartenEffekt> effekte, StartTrigger startTrigger, W mit1)
+	public void triggereEffekte1va(List<KartenEffekt> effekte, StartTrigger startTrigger, MitWaffe mit1)
 	{
 		triggereEffekte2(effekte, startTrigger, null, mit1);
 	}
 
-	public void triggereEffekte2(List<KartenEffekt> effekte, StartTrigger startTrigger, NTeilnehmer ang, W mit1)
+	public void triggereEffekte2(List<KartenEffekt> effekte, StartTrigger startTrigger, NTeilnehmer ang, MitWaffe mit1)
 	{
 		boolean eigene;
 		NTeilnehmer ziel1;
-		W mit2 = mit1 == null ? mit : mit1;
+		MitWaffe mit2 = mit1 == null ? mit : mit1;
 		if(ang == null)
 		{
 			eigene = true;
@@ -161,9 +161,9 @@ public class NTeilnehmer implements NTI
 		nAktion.beendeEffekte(trigger);
 	}
 
-	public void beendeEffekte(W w)
+	public void beendeEffekte(MitWaffe mitWaffe)
 	{
-		nWaffe(w).beendeEffekte(EndTrigger.VERWENDET);
+		nWaffe(mitWaffe).beendeEffekte(EndTrigger.VERWENDET);
 	}
 
 	public void waffenTauschen()
@@ -174,7 +174,7 @@ public class NTeilnehmer implements NTI
 		gesVorteil0 = -1;
 	}
 
-	public boolean aktionGeht(Aktionskarte aktionskarte, W mit, NTeilnehmer ziel)
+	public boolean aktionGeht(Aktionskarte aktionskarte, MitWaffe mit, NTeilnehmer ziel)
 	{
 		if(!aktiv() || nWaffe(mit) == null)
 			return false;
@@ -184,7 +184,7 @@ public class NTeilnehmer implements NTI
 		return nAktion1.magieAenderung() + nCharakter.magieAenderung() + nWaffe(mit).magieAenderung() + magie >= 0;
 	}
 
-	public void setzeAktion(Aktionskarte aktionskarte, W mit, NTeilnehmer ziel)
+	public void setzeAktion(Aktionskarte aktionskarte, MitWaffe mit, NTeilnehmer ziel)
 	{
 		nAktion = new NAktion(aktionskarte);
 		this.mit = mit;
@@ -196,13 +196,13 @@ public class NTeilnehmer implements NTI
 	{
 		for(NTeilnehmer ziel : ziele)
 		{
-			if(aktionGeht(aktionskarte, W.HW, ziel) || aktionGeht(aktionskarte, W.NW, ziel))
+			if(aktionGeht(aktionskarte, MitWaffe.HW, ziel) || aktionGeht(aktionskarte, MitWaffe.NW, ziel))
 				return true;
 		}
 		return false;
 	}
 
-	public boolean gibtMagieAus(NAktion nAktion1, W mit, NTeilnehmer ziel)
+	public boolean gibtMagieAus(NAktion nAktion1, MitWaffe mit, NTeilnehmer ziel)
 	{
 		if(nAktion1.magieAenderung() + nCharakter.magieAenderung() + nWaffe(mit).magieAenderung() < 0)
 			return true;
@@ -304,7 +304,7 @@ public class NTeilnehmer implements NTI
 		return angegriffenVon;
 	}
 
-	public W getMit()
+	public MitWaffe getMit()
 	{
 		return mit;
 	}
@@ -334,24 +334,25 @@ public class NTeilnehmer implements NTI
 		return leben;
 	}
 
-	public NCharakter nCharakter()
+	public NWaffe nWaffe(MitWaffe mitWaffe)
 	{
-		return nCharakter;
+		return switch(mitWaffe)
+				{
+					case HW -> nHauptwaffe;
+					case NW -> nNebenwaffe;
+					default -> throw new RuntimeException();
+				};
 	}
 
-	public NWaffe nWaffe(W w)
+	@Override
+	public EffektZielKarte effektZielKarte(EffektZielKartentyp kartentyp, MitWaffe mitWaffe)
 	{
-		return switch(w)
-		{
-			case HW -> nHauptwaffe;
-			case NW -> nNebenwaffe;
-			default -> throw new RuntimeException();
-		};
-	}
-
-	public NAktion nAktion()
-	{
-		return nAktion;
+		return switch(kartentyp)
+				{
+					case CHARAKTER -> nCharakter;
+					case WAFFE -> nWaffe(mitWaffe);
+					case AKTION -> nAktion;
+				};
 	}
 
 	public Charakterkarte getCharakterKarte()
@@ -359,9 +360,9 @@ public class NTeilnehmer implements NTI
 		return nCharakter.karte;
 	}
 
-	public Waffenkarte getWaffeKarte(W w)
+	public Waffenkarte getWaffeKarte(MitWaffe mitWaffe)
 	{
-		switch(w)
+		switch(mitWaffe)
 		{
 			case HW ->
 			{

@@ -1,7 +1,6 @@
 package kampf;
 
-import effekt.*;
-import effekt.kampf.*;
+import effektkarten.effekte.effekt.*;
 
 public class MagieEffektOption
 {

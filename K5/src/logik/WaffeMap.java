@@ -1,6 +1,6 @@
 package logik;
 
-import karten.*;
+import effektkarten.karten.*;
 
 public class WaffeMap
 {

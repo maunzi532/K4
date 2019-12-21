@@ -1,8 +1,8 @@
 package dungeonmap;
 
 import java.util.*;
-import kartenset.*;
 import main.*;
+import map2.*;
 
 public class DungeonMap
 {

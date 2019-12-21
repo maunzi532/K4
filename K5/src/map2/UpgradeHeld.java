@@ -1,6 +1,6 @@
 package map2;
 
-import karten.*;
+import effektkarten.karten.*;
 
 public class UpgradeHeld extends UpgradeCharakter
 {

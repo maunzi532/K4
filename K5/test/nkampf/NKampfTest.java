@@ -1,14 +1,14 @@
 package nkampf;
 
-import effekt.*;
+import effektkarten.effekte.eigenschaften.*;
 import java.util.*;
 import kampf.*;
-import kartebild.*;
-import karten.*;
-import kartenset.*;
+import effektkarten.kartebild.*;
+import effektkarten.karten.*;
 import main.*;
+import map2.*;
 import org.junit.*;
-import sets.*;
+import effektkarten.sets.*;
 
 public class NKampfTest
 {
@@ -44,8 +44,8 @@ public class NKampfTest
 		nKampf.start();
 		nKampf.anfangstrigger();
 		nKampf.beginneZug();
-		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schnellangriff"), W.HW, nt1));
-		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Powerangriff"), W.HW, nt0));
+		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schnellangriff"), MitWaffe.HW, nt1));
+		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Powerangriff"), MitWaffe.HW, nt0));
 		//nKampf.gegnerAktionskarten();
 		System.out.println(karteBild3.inZeilen(List.of(held, heldWaffe, nt0.getAktionKarte(), gegner,
 				gegnerWaffe, nt1.getAktionKarte()), 7));
@@ -61,9 +61,9 @@ public class NKampfTest
 		Assert.assertEquals(14, nt0.getLeben());
 		Assert.assertEquals(21, nt1.getLeben());
 		nKampf.beginneZug();
-		Assert.assertFalse(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Disruptorangriff"), W.HW, nt1));
-		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schutzangriff"), W.HW, nt1));
-		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Brecher"), W.HW, nt0));
+		Assert.assertFalse(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Disruptorangriff"), MitWaffe.HW, nt1));
+		Assert.assertTrue(nKampf.aktionskarte(nt0, setV2Aktionen.gibKarte("Schutzangriff"), MitWaffe.HW, nt1));
+		Assert.assertTrue(nKampf.aktionskarte(nt1, setV2Aktionen.gibKarte("Brecher"), MitWaffe.HW, nt0));
 		//nKampf.gegnerAktionskarten();
 		System.out.println(karteBild3.inZeilen(List.of(held, heldWaffe, nt0.getAktionKarte(), gegner,
 				gegnerWaffe, nt1.getAktionKarte()), 7));

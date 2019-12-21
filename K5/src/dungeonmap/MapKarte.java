@@ -1,9 +1,9 @@
 package dungeonmap;
 
-import basiskarte.*;
+import effektkarten.ansichtkarte.*;
 import java.util.*;
 
-public class MapKarte implements AKarte
+public class MapKarte implements StapelKarte
 {
 	public static final int ym = 2;
 	public static final int xm = 2;
