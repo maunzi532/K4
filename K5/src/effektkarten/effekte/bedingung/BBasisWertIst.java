@@ -1,7 +1,7 @@
 package effektkarten.effekte.bedingung;
 
-import effektkarten.effekte.*;
 import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.*;
 
 public class BBasisWertIst implements Bedingung
 {

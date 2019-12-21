@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Ersetzen3
 {
-	private HashMap<String, String> ersetzen = new HashMap<>();
+	private final HashMap<String, String> ersetzen = new HashMap<>();
 
 	public Ersetzen3()
 	{

@@ -1,11 +1,10 @@
 package effektkarten.effekte.wirkung;
 
 import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.*;
 
 public class StatWirkung implements Wirkung
 {
-	//private static final String[] statnamen = new String[]{"A_", "G_", "V_", "Mindestschaden ", "Mindestschutz "};
-
 	private final String text;
 	private final int angriff;
 	private final int geschwindigkeit;
@@ -38,6 +37,21 @@ public class StatWirkung implements Wirkung
 		this.extraangriffe = extraangriffe;
 		this.setzeangriffe = setzeangriffe;
 		text = generateText();
+	}
+
+	@Override
+	public int wert(Wirkungswert wert, int daten)
+	{
+		return switch(wert)
+				{
+					case ANGRIFF -> angriff;
+					case GESCHWINDIGKEIT -> geschwindigkeit;
+					case VERTEIDIGUNG -> verteidigung;
+					case MINDESTSCHADEN -> mindestschaden;
+					case MINDESTSCHUTZ -> mindestschutz;
+					case EXTRAANGRIFFE -> extraangriffe;
+					case MAGIE -> magie;
+				};
 	}
 
 	private int[] werte()
@@ -84,42 +98,8 @@ public class StatWirkung implements Wirkung
 		return sb.toString();
 	}
 
-	public int getAngriff(int daten)
-	{
-		return angriff;
-	}
-
-	public int getGeschwindigkeit(int daten)
-	{
-		return geschwindigkeit;
-	}
-
-	public int getVerteidigung(int daten)
-	{
-		return verteidigung;
-	}
-
-	public int getMindestschaden(int daten)
-	{
-		return mindestschaden;
-	}
-
-	public int getMindestschutz(int daten)
-	{
-		return mindestschutz;
-	}
-
-	public int getMagie(int daten)
-	{
-		return magie;
-	}
-
-	public int getExtraangriffe(int daten)
-	{
-		return extraangriffe;
-	}
-
-	public int getSetzeangriffe(int daten)
+	@Override
+	public int setzeangriffeWert(int daten)
 	{
 		return setzeangriffe;
 	}

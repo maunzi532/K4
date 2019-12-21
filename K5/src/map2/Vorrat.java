@@ -69,30 +69,30 @@ public class Vorrat
 		}
 	}
 
-	public List<Gegner> zieheGegner(int minExp, int maxExp, int startAnzahl, Kartenstapel<Charakterkarte> gegnerKartenstapel, Random r)
+	public List<Charakterkarte> zieheGegner(int minExp, int maxExp, int startAnzahl, Kartenstapel<Gegner> gegnerKartenstapel, Random r)
 	{
 		for(int anzahl = startAnzahl; anzahl < startAnzahl + e.gegnerAnzahlZiehenVersuche; anzahl++)
 		{
-			List<Charakterkarte> gegner1 = zieheGegnerAnzahl(minExp, maxExp, anzahl, gegnerKartenstapel);
+			List<Gegner> gegner1 = zieheGegnerAnzahl(minExp, maxExp, anzahl, gegnerKartenstapel);
 			if(gegner1 != null)
 				return xWerteBestimmen(gegner1, minExp, maxExp, r);
 		}
 		throw new RuntimeException();
 	}
 
-	public List<Charakterkarte> zieheGegnerAnzahl(int minExp, int maxExp, int anzahl, Kartenstapel<Charakterkarte> gegnerKartenstapel)
+	public List<Gegner> zieheGegnerAnzahl(int minExp, int maxExp, int anzahl, Kartenstapel<Gegner> gegnerKartenstapel)
 	{
-		List<Charakterkarte> gegner1 = new ArrayList<>();
+		List<Gegner> gegner1 = new ArrayList<>();
 		int minExpN = minExp;
 		int maxExpN = maxExp;
 		for(int noch = anzahl; noch > 0; noch--)
 		{
 			int minExp1 = minExpN / noch;
 			int maxExp1 = -Math.floorDiv(-maxExpN, noch);
-			Optional<Charakterkarte> gegnerKarte = gegnerKartenstapel.durchsucheAlle(karte -> karte.maxExp() >= minExp1 && karte.minExp() <= maxExp1);
+			Optional<Gegner> gegnerKarte = gegnerKartenstapel.durchsucheAlle(karte -> karte.maxExp() >= minExp1 && karte.minExp() <= maxExp1);
 			if(gegnerKarte.isPresent())
 			{
-				Charakterkarte karte1 = gegnerKarte.get();
+				Gegner karte1 = gegnerKarte.get();
 				minExpN -= karte1.maxExp();
 				maxExpN -= karte1.minExp();
 				gegner1.add(karte1);
@@ -106,52 +106,52 @@ public class Vorrat
 		return gegner1;
 	}
 
-	public List<Gegner> xWerteBestimmen(List<Charakterkarte> gegner1, int minExp, int maxExp, Random r)
+	public List<Charakterkarte> xWerteBestimmen(List<Gegner> gegner1, int minExp, int maxExp, Random r)
 	{
-		List<Gegner> gegner = new ArrayList<>();
+		List<Charakterkarte> gegner = new ArrayList<>();
 		int minExpA = minExp;
 		int maxExpA = maxExp;
-		int minExpK = gegner1.stream().mapToInt(Charakterkarte::minExp).sum();
-		int maxExpK = gegner1.stream().mapToInt(Charakterkarte::maxExp).sum();
-		for(Charakterkarte g : gegner1)
+		int minExpK = gegner1.stream().mapToInt(Gegner::minExp).sum();
+		int maxExpK = gegner1.stream().mapToInt(Gegner::maxExp).sum();
+		for(Gegner g : gegner1)
 		{
-			if(g instanceof XGegnerKarte)
+			if(g instanceof XGegner)
 			{
-				XGegnerKarte gx = (XGegnerKarte) g;
+				XGegner gx = (XGegner) g;
 				minExpK -= gx.minExp();
 				maxExpK -= gx.maxExp();
 				int minExpK1 = minExpK;
 				int maxExpK1 = maxExpK;
 				int minExpA1 = minExpA;
 				int maxExpA1 = maxExpA;
-				List<Integer> moeglich = IntStream.range(0, gx.xExp.length)
+				List<Integer> moeglich = IntStream.range(0, XGegner.X_ANZAHL)
 						.filter(f -> maxExpK1 + gx.xExp[f] >= minExpA1 && minExpK1 + gx.xExp[f] <= maxExpA1).boxed().collect(Collectors.toList());
 				int x = moeglich.get(moeglich.size() > 1 ? r.nextInt(moeglich.size()) : 0);
-				minExpA -= g.getExp(x);
-				maxExpA -= g.getExp(x);
-				gegner.add(new Gegner(gx, x));
+				minExpA -= gx.xExp[x];
+				maxExpA -= gx.xExp[x];
+				gegner.add(gx.erstelleCharakterkarte(x));
 			}
-			else
+			else if(g instanceof StandardGegner)
 			{
-				minExpA -= g.minExp();
-				maxExpA -= g.maxExp();
-				minExpK -= g.minExp();
-				maxExpK -= g.maxExp();
-				gegner.add(new Gegner(g));
+				StandardGegner gs = (StandardGegner) g;
+				minExpA -= gs.exp;
+				maxExpA -= gs.exp;
+				minExpK -= gs.exp;
+				maxExpK -= gs.exp;
+				gegner.add(gs.charakterkarte);
 			}
 		}
 		return gegner;
 	}
 
-	public List<NTeilnehmer> waffenkartenZiehen(List<Gegner> gegner, Kartenstapel<Waffenkarte> waffenKartenstapel)
+	public List<NTeilnehmer> waffenkartenZiehen(List<Charakterkarte> gegner, Kartenstapel<Waffenkarte> waffenKartenstapel)
 	{
 		List<NTeilnehmer> l = new ArrayList<>();
-		for(Gegner g : gegner)
+		for(Charakterkarte g : gegner)
 		{
-			Charakterkarte gegnerkarte = g.charakterkarte();
-			int waffenwert = gegnerkarte.getWaffenwert();
+			int waffenwert = g.getWaffenwert();
 			Waffenkarte w1 = waffenKartenstapel.durchsucheAlle(f -> gegnerOK(f, waffenwert)).orElseThrow();
-			l.add(new NTeilnehmer(e, gegnerkarte, w1, null));
+			l.add(new NTeilnehmer(e, g, w1, null));
 		}
 		return l;
 	}

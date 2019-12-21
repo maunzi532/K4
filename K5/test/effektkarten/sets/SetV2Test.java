@@ -1,7 +1,6 @@
 package effektkarten.sets;
 
-import effektkarten.effekte.*;
-import effektkarten.effekte.effekt.*;
+import effektkarten.ansichtkarte.*;
 import java.util.*;
 import effektkarten.kartebild.*;
 import org.junit.*;

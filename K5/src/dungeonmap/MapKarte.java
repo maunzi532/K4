@@ -1,7 +1,7 @@
 package dungeonmap;
 
-import effektkarten.ansichtkarte.*;
 import java.util.*;
+import stapelkarten.*;
 
 public class MapKarte implements StapelKarte
 {

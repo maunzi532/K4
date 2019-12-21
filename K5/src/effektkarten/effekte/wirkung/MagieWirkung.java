@@ -1,7 +1,7 @@
 package effektkarten.effekte.wirkung;
 
-import effektkarten.effekte.*;
 import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.*;
 
 public class MagieWirkung implements DirektWirkung
 {

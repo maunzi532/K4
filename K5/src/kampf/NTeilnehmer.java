@@ -1,9 +1,10 @@
 package kampf;
 
-import effektkarten.effekte.*;
+import effektkarten.ansichtkarte.*;
 import effektkarten.effekte.effekt.*;
 import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.wirkung.*;
+import effektkarten.effekte.ziel.*;
 import java.util.*;
 import java.util.stream.*;
 import effektkarten.karten.*;

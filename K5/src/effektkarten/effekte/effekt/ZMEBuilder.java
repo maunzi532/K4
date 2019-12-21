@@ -1,8 +1,7 @@
 package effektkarten.effekte.effekt;
 
-import effektkarten.effekte.bedingung.*;
 import effektkarten.effekte.eigenschaften.*;
-import effektkarten.effekte.wirkung.*;
+import effektkarten.effekte.ziel.*;
 import java.util.*;
 
 public class ZMEBuilder

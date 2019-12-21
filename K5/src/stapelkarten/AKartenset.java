@@ -1,6 +1,5 @@
-package mapsets;
+package stapelkarten;
 
-import effektkarten.ansichtkarte.*;
 import java.util.*;
 
 public class AKartenset<T extends StapelKarte>

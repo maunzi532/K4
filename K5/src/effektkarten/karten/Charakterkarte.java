@@ -1,19 +1,18 @@
 package effektkarten.karten;
 
-import effektkarten.effekte.*;
-import effektkarten.effekte.effekt.*;
+import effektkarten.ansichtkarte.*;
 import java.util.*;
 
 public class Charakterkarte implements EffektKarte
 {
-	protected final String name;
-	protected final int angriff;
-	protected final int waffenwert;
-	protected final int geschwindigkeit;
-	protected final int verteidigung;
-	protected final int leben;
-	protected final int exp;
-	protected final List<KartenEffekt> effekte;
+	public final String name;
+	public final int angriff;
+	public final int waffenwert;
+	public final int geschwindigkeit;
+	public final int verteidigung;
+	public final int leben;
+	public final int exp;
+	public final List<KartenEffekt> effekte;
 
 	public Charakterkarte(String name, int angriff, int waffenwert, int geschwindigkeit, int verteidigung, int leben, KartenEffekt... effekte)
 	{
@@ -94,26 +93,6 @@ public class Charakterkarte implements EffektKarte
 		return leben;
 	}
 
-	public int getExp(int x)
-	{
-		return exp;
-	}
-
-	public int minExp()
-	{
-		return exp;
-	}
-
-	public int maxExp()
-	{
-		return exp;
-	}
-
-	public int inBereich(int min, int max)
-	{
-		return exp >= min && exp <= max ? 0 : -1;
-	}
-
 	@Override
 	public List<String> werteLO()
 	{
@@ -135,7 +114,7 @@ public class Charakterkarte implements EffektKarte
 	{
 		if(exp > 0)
 			return List.of(String.valueOf(exp));
-		return null;
+		return List.of();
 	}
 
 	@Override

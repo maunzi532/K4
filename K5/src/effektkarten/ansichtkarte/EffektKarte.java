@@ -1,8 +1,7 @@
-package effektkarten.effekte;
+package effektkarten.ansichtkarte;
 
-import effektkarten.ansichtkarte.*;
-import effektkarten.effekte.effekt.*;
 import java.util.*;
+import stapelkarten.*;
 
 public interface EffektKarte extends StapelKarte, BildKarte
 {

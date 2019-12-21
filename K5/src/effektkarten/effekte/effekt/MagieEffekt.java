@@ -1,8 +1,8 @@
 package effektkarten.effekte.effekt;
 
-import effektkarten.effekte.*;
-import effektkarten.effekte.bedingung.*;
+import effektkarten.ansichtkarte.*;
 import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.*;
 import java.util.*;
 
 public abstract class MagieEffekt extends KartenEffekt

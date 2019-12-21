@@ -2,6 +2,7 @@ package mapsets;
 
 import dungeonmap.*;
 import java.util.*;
+import stapelkarten.*;
 
 public class SetV2MittelMapKarten extends AKartenset<MapKarte> implements MittelMapKartenset
 {

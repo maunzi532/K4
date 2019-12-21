@@ -1,13 +1,12 @@
 package kampf;
 
-import effektkarten.effekte.*;
 import effektkarten.effekte.eigenschaften.*;
-import effektkarten.effekte.wirkung.*;
+import effektkarten.effekte.ziel.*;
 import java.util.*;
 
 public abstract class NKarte implements EffektZielKarte
 {
-	private List<AnEffekt> aktiveEffekte;
+	private List<AktiverEffekt> aktiveEffekte;
 
 	public NKarte()
 	{
@@ -16,39 +15,52 @@ public abstract class NKarte implements EffektZielKarte
 
 	public abstract int magieAenderung();
 
+	public int wert(Wirkungswert wert)
+	{
+
+		int basiswert = switch(wert)
+				{
+					case ANGRIFF -> basisWert(Basiswert.ANGRIFF);
+					case GESCHWINDIGKEIT -> basisWert(Basiswert.GESCHWINDIGKEIT);
+					case VERTEIDIGUNG -> basisWert(Basiswert.VERTEIDIGUNG);
+					case MINDESTSCHADEN, MINDESTSCHUTZ, EXTRAANGRIFFE, MAGIE -> 0;
+				};
+		return basiswert + aktiveEffekte.stream().mapToInt(ae -> ae.wert(wert)).sum();
+	}
+
 	public int angriff()
 	{
-		return basisWert(Basiswert.ANGRIFF) + aktiveEffekte.stream().mapToInt(AnEffekt::angriff).sum();
+		return wert(Wirkungswert.ANGRIFF);
 	}
 
 	public int geschwindigkeit()
 	{
-		return basisWert(Basiswert.GESCHWINDIGKEIT) + aktiveEffekte.stream().mapToInt(AnEffekt::geschwindigkeit).sum();
+		return wert(Wirkungswert.GESCHWINDIGKEIT);
 	}
 
 	public int verteidigung()
 	{
-		return basisWert(Basiswert.VERTEIDIGUNG) + aktiveEffekte.stream().mapToInt(AnEffekt::verteidigung).sum();
+		return wert(Wirkungswert.VERTEIDIGUNG);
 	}
 
 	public int mindestschaden()
 	{
-		return aktiveEffekte.stream().mapToInt(AnEffekt::mindestschaden).sum();
+		return wert(Wirkungswert.MINDESTSCHADEN);
 	}
 
 	public int mindestschutz()
 	{
-		return aktiveEffekte.stream().mapToInt(AnEffekt::mindestschutz).sum();
+		return wert(Wirkungswert.MINDESTSCHUTZ);
 	}
 
 	public int extraangriffe()
 	{
-		return aktiveEffekte.stream().mapToInt(AnEffekt::extraangriffe).sum();
+		return wert(Wirkungswert.EXTRAANGRIFFE);
 	}
 
 	public int setzeangriffe()
 	{
-		return aktiveEffekte.stream().mapToInt(AnEffekt::setzeangriffe).max().orElse(-1);
+		return aktiveEffekte.stream().mapToInt(AktiverEffekt::setzeangriffe).max().orElse(-1);
 	}
 
 	public int setzeangriffe(int vorher)
@@ -60,16 +72,27 @@ public abstract class NKarte implements EffektZielKarte
 	@Override
 	public void neuerEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
 	{
-		aktiveEffekte.add(anEffekt);
-		anEffekt.triggere(n, ziel, mit);
+		aktiveEffekte.add(new AktiverEffekt(anEffekt, n, ziel, mit));
 	}
 
 	public void beendeEffekte(EndTrigger trigger)
 	{
-		aktiveEffekte.removeIf(e -> e.tick(trigger));
+		for(int i = 0; i < aktiveEffekte.size();)
+		{
+			Optional<AktiverEffekt> aktualisiert = aktiveEffekte.get(i).tick(trigger);
+			if(aktualisiert.isPresent())
+			{
+				aktiveEffekte.set(i, aktualisiert.get());
+				i++;
+			}
+			else
+			{
+				aktiveEffekte.remove(i);
+			}
+		}
 	}
 
-	public List<AnEffekt> aktiveEffekte()
+	public List<AktiverEffekt> aktiveEffekte()
 	{
 		return aktiveEffekte;
 	}

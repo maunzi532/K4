@@ -1,7 +1,7 @@
 package effektkarten.effekte.wirkung;
 
-import effektkarten.effekte.*;
 import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.*;
 
 public abstract class DatenWirkung implements Wirkung
 {
@@ -22,7 +22,7 @@ public abstract class DatenWirkung implements Wirkung
 	public abstract int triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit);
 
 	@Override
-	public int getWert(Wirkungswert wert, int daten)
+	public int wert(Wirkungswert wert, int daten)
 	{
 		if(wert == wirktAuf)
 		{

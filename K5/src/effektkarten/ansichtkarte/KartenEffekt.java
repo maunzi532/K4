@@ -1,6 +1,4 @@
-package effektkarten.effekte.effekt;
-
-import effektkarten.ansichtkarte.*;
+package effektkarten.ansichtkarte;
 
 public abstract class KartenEffekt implements Kartentext
 {

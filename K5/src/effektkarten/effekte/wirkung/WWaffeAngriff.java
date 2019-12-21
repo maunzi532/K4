@@ -1,7 +1,7 @@
 package effektkarten.effekte.wirkung;
 
-import effektkarten.effekte.*;
 import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.*;
 
 public class WWaffeAngriff implements Wirkung
 {
@@ -19,9 +19,12 @@ public class WWaffeAngriff implements Wirkung
 	}
 
 	@Override
-	public int getAngriff(int daten)
+	public int wert(Wirkungswert wert, int daten)
 	{
-		return daten * multiplikator;
+		if(wert == Wirkungswert.ANGRIFF)
+			return daten * multiplikator;
+		else
+			return 0;
 	}
 
 	@Override

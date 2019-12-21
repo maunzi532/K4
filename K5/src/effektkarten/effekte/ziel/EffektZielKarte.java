@@ -1,7 +1,6 @@
-package effektkarten.effekte;
+package effektkarten.effekte.ziel;
 
 import effektkarten.effekte.eigenschaften.*;
-import effektkarten.effekte.wirkung.*;
 
 public interface EffektZielKarte
 {

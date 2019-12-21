@@ -1,7 +1,7 @@
-package effektkarten.effekte.wirkung;
+package effektkarten.effekte.ziel;
 
-import effektkarten.effekte.*;
 import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.*;
 
 public interface DirektWirkung
 {

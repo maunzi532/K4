@@ -1,7 +1,7 @@
 package effektkarten.effekte.wirkung;
 
-import effektkarten.effekte.*;
 import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.*;
 
 public class WMagiehaltig implements Wirkung
 {
@@ -21,7 +21,7 @@ public class WMagiehaltig implements Wirkung
 	}
 
 	@Override
-	public int getWert(Wirkungswert wert, int daten)
+	public int wert(Wirkungswert wert, int daten)
 	{
 		if(wert == wirktAuf)
 		{

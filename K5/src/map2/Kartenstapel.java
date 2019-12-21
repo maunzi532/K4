@@ -1,10 +1,11 @@
 package map2;
 
 import effektkarten.ansichtkarte.*;
-import effektkarten.effekte.*;
 import java.util.*;
 import java.util.function.*;
 import effektkarten.sets.*;
+import java.util.stream.*;
+import stapelkarten.*;
 
 public class Kartenstapel<T extends StapelKarte>
 {
@@ -13,9 +14,9 @@ public class Kartenstapel<T extends StapelKarte>
 	public List<T> umlauf;
 	public Deque<T> ablage;
 
-	public Kartenstapel(Kartenset set)
+	public Kartenstapel(Kartenset<?> set)
 	{
-		karten = set.alleKarten();
+		karten = set.alleKarten().stream().map(e -> (T) e).collect(Collectors.toList());
 		deck = new LinkedList<>(karten);
 		Collections.shuffle(deck);
 		umlauf = new ArrayList<>();
@@ -79,8 +80,8 @@ public class Kartenstapel<T extends StapelKarte>
 
 	public void ablage(T k)
 	{
-		if(!umlauf.remove(k))
-			throw new RuntimeException();
+		/*if(!umlauf.remove(k))
+			throw new RuntimeException();*/
 		ablage.addLast(k);
 	}
 

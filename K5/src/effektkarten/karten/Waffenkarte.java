@@ -1,7 +1,6 @@
 package effektkarten.karten;
 
-import effektkarten.effekte.*;
-import effektkarten.effekte.effekt.*;
+import effektkarten.ansichtkarte.*;
 import java.util.*;
 
 public class Waffenkarte implements EffektKarte
