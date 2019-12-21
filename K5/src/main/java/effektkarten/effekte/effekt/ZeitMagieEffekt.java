@@ -27,11 +27,10 @@ public class ZeitMagieEffekt extends MagieEffekt
 	}
 
 	@Override
-	public void aktiviere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public void aktiviere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{
-		super.aktiviere(n, ziel, mit);
+		super.aktiviere(n, ziel);
 		EffektZielCharakter betrifft = betrifftGegner ? ziel : n;
-		MitWaffe zielWaffe1 = zielWaffe == MitWaffe.VERWENDET ? mit : zielWaffe;
-		betrifft.effektZielKarte(an, zielWaffe1).neuerEffekt(new AnEffekt(wirkung, endTrigger, dauer), n, ziel, mit);
+		betrifft.effektZielKarte(an).neuerEffekt(new AnEffekt(wirkung, endTrigger, dauer), n, ziel);
 	}
 }

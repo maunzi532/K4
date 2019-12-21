@@ -25,5 +25,7 @@ public interface EffektZielCharakter
 
 	boolean isGibtMagieAus();
 
-	EffektZielKarte effektZielKarte(EffektZielKartentyp kartentyp, MitWaffe mitWaffe);
+	EffektZielKarte effektZielKarte(EffektZielKartentyp kartentyp);
+
+	EffektZielKarte effektZielKarte(EffektZielKartentyp kartentyp, MitWaffe zielWaffe);
 }

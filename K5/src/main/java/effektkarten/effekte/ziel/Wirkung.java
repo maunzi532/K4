@@ -4,7 +4,7 @@ import effektkarten.effekte.eigenschaften.*;
 
 public interface Wirkung
 {
-	default int triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	default int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{
 		return 0;
 	}

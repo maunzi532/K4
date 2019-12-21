@@ -76,54 +76,27 @@ public class NTeilnehmer implements EffektZielCharakter
 		angegriffenVon.clear();
 	}
 
-	public void triggereEffekte(StartTrigger startTrigger, boolean aktionAktiv)
+	public void triggereEffekteVorAktion(StartTrigger startTrigger)
 	{
-		triggereEffekte1(getCharakterKarte().effekte(), startTrigger);
-		if(aktionAktiv)
-		{
-			triggereEffekte1(getWaffeKarte(mit).effekte(), startTrigger);
-			triggereEffekte1(getAktionKarte().effekte(), startTrigger);
-			if(ziel != null)
-			{
-				ziel.triggereEffekte2(getCharakterKarte().effekte(), startTrigger, this, null);
-				ziel.triggereEffekte2(getWaffeKarte(mit).effekte(), startTrigger, this, null);
-				ziel.triggereEffekte2(getAktionKarte().effekte(), startTrigger, this, null);
-			}
-		}
-		else
-		{
-			if(nHauptwaffe != null)
-				triggereEffekte1va(getWaffeKarte(MitWaffe.HW).effekte(), startTrigger, MitWaffe.HW);
-			if(nNebenwaffe != null)
-				triggereEffekte1va(getWaffeKarte(MitWaffe.NW).effekte(), startTrigger, MitWaffe.NW);
-		}
+		triggereEffekte(getCharakterKarte().effekte(), startTrigger, true, null, null);
+		if(nHauptwaffe != null)
+			triggereEffekte(nHauptwaffe.karte.effekte(), startTrigger, true, null, MitWaffe.HW);
+		if(nNebenwaffe != null)
+			triggereEffekte(nNebenwaffe.karte.effekte(), startTrigger, true, null, MitWaffe.NW);
 	}
 
-	public void triggereEffekte1(List<KartenEffekt> effekte, StartTrigger startTrigger)
+	public void triggereEffekteMitAktion(StartTrigger startTrigger)
 	{
-		triggereEffekte2(effekte, startTrigger, null, null);
+		triggereEffekte(getCharakterKarte().effekte(), startTrigger, true, ziel, null);
+		triggereEffekte(getWaffeKarte(mit).effekte(), startTrigger, true, ziel, null);
+		triggereEffekte(getAktionKarte().effekte, startTrigger, true, ziel, null);
+		ziel.triggereEffekte(getCharakterKarte().effekte(), startTrigger, false, this, null);
+		ziel.triggereEffekte(getWaffeKarte(mit).effekte(), startTrigger, false, this, null);
+		ziel.triggereEffekte(getAktionKarte().effekte(), startTrigger, false, this, null);
 	}
 
-	public void triggereEffekte1va(List<KartenEffekt> effekte, StartTrigger startTrigger, MitWaffe mit1)
+	private void triggereEffekte(List<KartenEffekt> effekte, StartTrigger startTrigger, boolean eigene, NTeilnehmer andererChar, MitWaffe nichtMit)
 	{
-		triggereEffekte2(effekte, startTrigger, null, mit1);
-	}
-
-	public void triggereEffekte2(List<KartenEffekt> effekte, StartTrigger startTrigger, NTeilnehmer ang, MitWaffe mit1)
-	{
-		boolean eigene;
-		NTeilnehmer ziel1;
-		MitWaffe mit2 = mit1 == null ? mit : mit1;
-		if(ang == null)
-		{
-			eigene = true;
-			ziel1 = ziel;
-		}
-		else
-		{
-			eigene = false;
-			ziel1 = ang;
-		}
 		for(KartenEffekt e : effekte)
 		{
 			if(e instanceof TriggerEffekt)
@@ -131,9 +104,9 @@ public class NTeilnehmer implements EffektZielCharakter
 				TriggerEffekt te = (TriggerEffekt) e;
 				if(te.getStartTrigger() == startTrigger && eigene ? te.getStartSeite().eigeneOK : te.getStartSeite().gegnerOK)
 				{
-					if(te.bedingungen.stream().allMatch(n -> n.ok(this, ziel1, mit2)))
+					if(te.bedingungen.stream().allMatch(n -> n.ok(this, andererChar, nichtMit)))
 					{
-						te.triggere(this, ziel1, mit2);
+						te.triggere(this, andererChar);
 					}
 				}
 			}
@@ -142,7 +115,7 @@ public class NTeilnehmer implements EffektZielCharakter
 
 	public void aktiviereMagieEffekte()
 	{
-		magieEffektOptionen.stream().filter(e -> e.benutzen).forEach(e -> e.magieEffekt.aktiviere(this, ziel, mit));
+		magieEffektOptionen.stream().filter(e -> e.benutzen).forEach(e -> e.magieEffekt.aktiviere(this, ziel));
 	}
 
 	public void beendeEffekte(EndTrigger trigger)
@@ -175,14 +148,19 @@ public class NTeilnehmer implements EffektZielCharakter
 		gesVorteil0 = -1;
 	}
 
-	public boolean aktionGeht(Aktionskarte aktionskarte, MitWaffe mit, NTeilnehmer ziel)
+	public int kombinierterWert(Wirkungswert wert, MitWaffe mitWaffe, NAktion mitAktion)
 	{
-		if(!aktiv() || nWaffe(mit) == null)
+		return nCharakter.wert(wert) + nWaffe(mitWaffe).wert(wert) + mitAktion.wert(wert);
+	}
+
+	public boolean aktionGeht(Aktionskarte aktionskarte, MitWaffe mitWaffe, NTeilnehmer ziel)
+	{
+		if(!aktiv() || nWaffe(mitWaffe) == null)
 			return false;
 		NAktion nAktion1 = new NAktion(aktionskarte);
-		if(nWaffe(mit).aktiveEffekte().stream().anyMatch(e -> e.wirkung instanceof WNichtVerwendbar))
+		if(nWaffe(mitWaffe).aktiveEffekte().stream().anyMatch(e -> e.wirkung instanceof WNichtVerwendbar))
 			return false;
-		return nAktion1.magieAenderung() + nCharakter.magieAenderung() + nWaffe(mit).magieAenderung() + magie >= 0;
+		return kombinierterWert(Wirkungswert.MAGIE, mitWaffe, nAktion1) + magie >= 0;
 	}
 
 	public void setzeAktion(Aktionskarte aktionskarte, MitWaffe mit, NTeilnehmer ziel)
@@ -203,16 +181,21 @@ public class NTeilnehmer implements EffektZielCharakter
 		return false;
 	}
 
-	public boolean gibtMagieAus(NAktion nAktion1, MitWaffe mit, NTeilnehmer ziel)
+	public boolean gibtMagieAus(NAktion nAktion1, MitWaffe mitWaffe, NTeilnehmer ziel)
 	{
-		if(nAktion1.magieAenderung() + nCharakter.magieAenderung() + nWaffe(mit).magieAenderung() < 0)
+		if(kombinierterWert(Wirkungswert.MAGIE, mitWaffe, nAktion1) < 0)
 			return true;
 		return nAktion1.ladeMitMagie() && magie > 0;
 	}
 
+	public int kombinierterWert(Wirkungswert wert)
+	{
+		return nCharakter.wert(wert) + nWaffe(mit).wert(wert) + nAktion.wert(wert);
+	}
+
 	public void zahleMagie()
 	{
-		magie += nCharakter.magieAenderung() + nWaffe(mit).magieAenderung() + nAktion.magieAenderung();
+		magie += kombinierterWert(Wirkungswert.MAGIE);
 		if(nAktion.ladeMitMagie())
 		{
 			geladeneMagie = magie;
@@ -223,7 +206,7 @@ public class NTeilnehmer implements EffektZielCharakter
 	public void erstelleMagieEffektOptionen()
 	{
 		magieEffektOptionen.addAll(nWaffe(mit).karte.effekte().stream().filter(e -> e instanceof MagieEffekt).map(e -> (MagieEffekt) e)
-				.filter(e -> e.kannAktivieren(this, ziel, mit)).map(e -> new MagieEffektOption(nWaffe(mit), e)).collect(Collectors.toList()));
+				.filter(e -> e.kannAktivieren(this, ziel)).map(e -> new MagieEffektOption(nWaffe(mit), e)).collect(Collectors.toList()));
 	}
 
 	public boolean magieEffektOptionenOK()
@@ -233,7 +216,7 @@ public class NTeilnehmer implements EffektZielCharakter
 
 	public void berechneGes()
 	{
-		gesAktion = Math.max(nCharakter.geschwindigkeit() + nWaffe(mit).geschwindigkeit() + nAktion.geschwindigkeit(), 0);
+		gesAktion = Math.max(kombinierterWert(Wirkungswert.GESCHWINDIGKEIT), 0);
 	}
 
 	public int gesVorteil()
@@ -259,7 +242,7 @@ public class NTeilnehmer implements EffektZielCharakter
 			else
 				anzahlAngriffe++;
 		}
-		anzahlAngriffe += nCharakter.extraangriffe() + nWaffe(mit).extraangriffe() + nAktion.extraangriffe();
+		anzahlAngriffe += kombinierterWert(Wirkungswert.EXTRAANGRIFFE);
 		if(anzahlAngriffe < 1)
 			anzahlAngriffe = 1;
 		anzahlAngriffe = nCharakter.setzeangriffe(anzahlAngriffe);
@@ -270,16 +253,16 @@ public class NTeilnehmer implements EffektZielCharakter
 	public void angriff(int num)
 	{
 		if(num == 0)
-			triggereEffekte(StartTrigger.EINMAL_VOR, true);
-		triggereEffekte(StartTrigger.IMMER_VOR, true);
-		int normalSchaden = Math.max(nCharakter.angriff() + nWaffe(mit).angriff() + nAktion.angriff() + gesBonusAngriff, 0)
-				- Math.max(ziel.nCharakter.verteidigung() + ziel.nWaffe(ziel.mit).verteidigung() + ziel.nAktion.verteidigung(), 0);
-		int mindestschaden = nCharakter.mindestschaden() + nWaffe(mit).mindestschaden() + nAktion.mindestschaden() + gesBonusMindestschaden
-				- ziel.nCharakter.mindestschutz() - ziel.nWaffe(ziel.mit).mindestschutz() - ziel.nAktion.mindestschutz();
+			triggereEffekteMitAktion(StartTrigger.EINMAL_VOR);
+		triggereEffekteMitAktion(StartTrigger.IMMER_VOR);
+		int normalSchaden = Math.max(0, kombinierterWert(Wirkungswert.ANGRIFF) + gesBonusAngriff)
+				- Math.max(0, ziel.kombinierterWert(Wirkungswert.VERTEIDIGUNG));
+		int mindestschaden = kombinierterWert(Wirkungswert.MINDESTSCHADEN) + gesBonusMindestschaden
+				- ziel.kombinierterWert(Wirkungswert.MINDESTSCHUTZ);
 		ziel.leben -= Math.max(Math.max(normalSchaden, mindestschaden), 0);
 		if(num == 0)
-			triggereEffekte(StartTrigger.EINMAL_NACH, true);
-		triggereEffekte(StartTrigger.IMMER_NACH, true);
+			triggereEffekteMitAktion(StartTrigger.EINMAL_NACH);
+		triggereEffekteMitAktion(StartTrigger.IMMER_NACH);
 		beendeEffekte(EndTrigger.NACH_ANGRIFF);
 		ziel.beendeEffekte(EndTrigger.NACH_ANGEGRIFFEN);
 		ziel.angegriffenVon.add(this);
@@ -346,12 +329,23 @@ public class NTeilnehmer implements EffektZielCharakter
 	}
 
 	@Override
-	public EffektZielKarte effektZielKarte(EffektZielKartentyp kartentyp, MitWaffe mitWaffe)
+	public EffektZielKarte effektZielKarte(EffektZielKartentyp kartentyp)
 	{
 		return switch(kartentyp)
 				{
 					case CHARAKTER -> nCharakter;
-					case WAFFE -> nWaffe(mitWaffe);
+					case WAFFE -> nWaffe(mit);
+					case AKTION -> nAktion;
+				};
+	}
+
+	@Override
+	public EffektZielKarte effektZielKarte(EffektZielKartentyp kartentyp, MitWaffe zielWaffe)
+	{
+		return switch(kartentyp)
+				{
+					case CHARAKTER -> nCharakter;
+					case WAFFE -> nWaffe(zielWaffe);
 					case AKTION -> nAktion;
 				};
 	}

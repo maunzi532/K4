@@ -6,7 +6,7 @@ import effektkarten.effekte.ziel.*;
 public class BMagieAusgeben implements Bedingung
 {
 	@Override
-	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)
 	{
 		return n.isGibtMagieAus();
 	}

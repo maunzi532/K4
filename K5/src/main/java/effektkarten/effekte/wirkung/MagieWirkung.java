@@ -1,6 +1,5 @@
 package effektkarten.effekte.wirkung;
 
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
 public class MagieWirkung implements DirektWirkung
@@ -15,7 +14,7 @@ public class MagieWirkung implements DirektWirkung
 	}
 
 	@Override
-	public void triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public void triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{
 		if(gegner)
 		{

@@ -62,11 +62,8 @@ public class NKampf
 	{
 		for(NTeilnehmer n : alle)
 		{
-			if(n.nHauptwaffe != null)
-				n.triggereEffekte1va(n.getWaffeKarte(MitWaffe.HW).effekte(), StartTrigger.VERWENDET, MitWaffe.HW);
-			if(n.nNebenwaffe != null)
-				n.triggereEffekte1va(n.getWaffeKarte(MitWaffe.NW).effekte(), StartTrigger.VERWENDET, MitWaffe.NW);
-			n.triggereEffekte(StartTrigger.ANFANG, false);
+			n.triggereEffekteVorAktion(StartTrigger.VERWENDET);
+			n.triggereEffekteVorAktion(StartTrigger.ANFANG);
 		}
 	}
 
@@ -88,12 +85,12 @@ public class NKampf
 				if(aktionskartenOK())
 					break;
 				else
-					kartenZurueck();
+					aktionskartenZurueck();
 			}
 		}
 	}
 
-	public void kartenZurueck()
+	public void aktionskartenZurueck()
 	{
 		if(aktionsKartenstapel != null)
 			aktionenOptionen.forEach(aktionsKartenstapel::ablage);
@@ -172,7 +169,7 @@ public class NKampf
 		}
 		for(NTeilnehmer n : alle)
 		{
-			n.triggereEffekte(StartTrigger.GES_VOR, true);
+			n.triggereEffekteMitAktion(StartTrigger.GES_VOR);
 		}
 		for(NTeilnehmer n : alle)
 		{
@@ -182,7 +179,7 @@ public class NKampf
 		sortiert.sort(Comparator.comparing(NTeilnehmer::getGesAktion).thenComparing(e -> e.gesVorteil0).thenComparing(e -> e.index).reversed());
 		for(NTeilnehmer n : alle)
 		{
-			n.triggereEffekte(StartTrigger.GES_NACH, true);
+			n.triggereEffekteMitAktion(StartTrigger.GES_NACH);
 		}
 		for(NTeilnehmer n : alle)
 		{
@@ -209,7 +206,7 @@ public class NKampf
 	{
 		for(NTeilnehmer n : alle)
 		{
-			n.triggereEffekte(StartTrigger.ZUGENDE, true);
+			n.triggereEffekteMitAktion(StartTrigger.ZUGENDE);
 		}
 		if(aktionsKartenstapel != null)
 		{
@@ -223,12 +220,12 @@ public class NKampf
 		gegner.removeIf(e -> !e.aktiv());
 		if(spieler.isEmpty())
 		{
-			kartenZurueck();
+			aktionskartenZurueck();
 			return -1;
 		}
 		if(gegner.isEmpty())
 		{
-			kartenZurueck();
+			aktionskartenZurueck();
 			return 1;
 		}
 		alle = new ArrayList<>();

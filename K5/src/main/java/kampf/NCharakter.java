@@ -13,12 +13,6 @@ public class NCharakter extends NKarte
 	}
 
 	@Override
-	public int magieAenderung()
-	{
-		return 0;
-	}
-
-	@Override
 	public int basisWert(Basiswert wert)
 	{
 		return switch(wert)

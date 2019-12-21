@@ -11,7 +11,7 @@ public class WGesVorteilWirkung extends DatenWirkung
 	}
 
 	@Override
-	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{
 		int gesVorteil = n.getGesAktion() - ziel.getGesAktion();
 		return Math.max(gesVorteil, 0);

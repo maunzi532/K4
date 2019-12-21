@@ -11,9 +11,9 @@ public class AktiverEffekt
 	public final int dauer;
 	public final int daten;
 
-	public AktiverEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public AktiverEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel)
 	{
-		this(anEffekt.wirkung, anEffekt.endTrigger, anEffekt.dauer, anEffekt.wirkung.triggere(n, ziel, mit));
+		this(anEffekt.wirkung, anEffekt.endTrigger, anEffekt.dauer, anEffekt.wirkung.triggere(n, ziel));
 	}
 
 	private AktiverEffekt(Wirkung wirkung, EndTrigger endTrigger, int dauer, int daten)

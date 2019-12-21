@@ -35,5 +35,5 @@ public abstract class TriggerEffekt extends KartenEffekt
 		return bedingungen;
 	}
 
-	public abstract void triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit);
+	public abstract void triggere(EffektZielCharakter n, EffektZielCharakter ziel);
 }

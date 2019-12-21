@@ -17,8 +17,8 @@ public class DirektTriggerEffekt extends TriggerEffekt
 	}
 
 	@Override
-	public void triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public void triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{
-		direktWirkung.triggere(n, ziel, mit);
+		direktWirkung.triggere(n, ziel);
 	}
 }

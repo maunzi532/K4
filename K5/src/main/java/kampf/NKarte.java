@@ -13,49 +13,22 @@ public abstract class NKarte implements EffektZielKarte
 		aktiveEffekte = new ArrayList<>();
 	}
 
-	public abstract int magieAenderung();
+	public int basisMagieAenderung()
+	{
+		return 0;
+	}
 
 	public int wert(Wirkungswert wert)
 	{
-
 		int basiswert = switch(wert)
 				{
 					case ANGRIFF -> basisWert(Basiswert.ANGRIFF);
 					case GESCHWINDIGKEIT -> basisWert(Basiswert.GESCHWINDIGKEIT);
 					case VERTEIDIGUNG -> basisWert(Basiswert.VERTEIDIGUNG);
-					case MINDESTSCHADEN, MINDESTSCHUTZ, EXTRAANGRIFFE, MAGIE -> 0;
+					case MAGIE -> basisMagieAenderung();
+					case MINDESTSCHADEN, MINDESTSCHUTZ, EXTRAANGRIFFE -> 0;
 				};
 		return basiswert + aktiveEffekte.stream().mapToInt(ae -> ae.wert(wert)).sum();
-	}
-
-	public int angriff()
-	{
-		return wert(Wirkungswert.ANGRIFF);
-	}
-
-	public int geschwindigkeit()
-	{
-		return wert(Wirkungswert.GESCHWINDIGKEIT);
-	}
-
-	public int verteidigung()
-	{
-		return wert(Wirkungswert.VERTEIDIGUNG);
-	}
-
-	public int mindestschaden()
-	{
-		return wert(Wirkungswert.MINDESTSCHADEN);
-	}
-
-	public int mindestschutz()
-	{
-		return wert(Wirkungswert.MINDESTSCHUTZ);
-	}
-
-	public int extraangriffe()
-	{
-		return wert(Wirkungswert.EXTRAANGRIFFE);
 	}
 
 	public int setzeangriffe()
@@ -70,9 +43,9 @@ public abstract class NKarte implements EffektZielKarte
 	}
 
 	@Override
-	public void neuerEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public void neuerEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel)
 	{
-		aktiveEffekte.add(new AktiverEffekt(anEffekt, n, ziel, mit));
+		aktiveEffekte.add(new AktiverEffekt(anEffekt, n, ziel));
 	}
 
 	public void beendeEffekte(EndTrigger trigger)

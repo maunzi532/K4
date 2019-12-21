@@ -13,7 +13,7 @@ public class NAktion extends NKarte
 	}
 
 	@Override
-	public int magieAenderung()
+	public int basisMagieAenderung()
 	{
 		return karte.getMagieMod();
 	}

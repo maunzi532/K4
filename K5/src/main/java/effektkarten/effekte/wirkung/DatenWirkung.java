@@ -19,7 +19,7 @@ public abstract class DatenWirkung implements Wirkung
 	}
 
 	@Override
-	public abstract int triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit);
+	public abstract int triggere(EffektZielCharakter n, EffektZielCharakter ziel);
 
 	@Override
 	public int wert(Wirkungswert wert, int daten)

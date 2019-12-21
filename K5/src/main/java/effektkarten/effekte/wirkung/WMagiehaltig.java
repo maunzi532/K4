@@ -15,7 +15,7 @@ public class WMagiehaltig implements Wirkung
 	}
 
 	@Override
-	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{
 		return n.getGeladeneMagie();
 	}

@@ -11,7 +11,7 @@ public class WAktuelleMagieWirkung extends DatenWirkung
 	}
 
 	@Override
-	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{
 		return n.getMagie();
 	}

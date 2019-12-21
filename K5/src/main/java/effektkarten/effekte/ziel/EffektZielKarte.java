@@ -6,5 +6,5 @@ public interface EffektZielKarte
 {
 	int basisWert(Basiswert wert);
 
-	void neuerEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit);
+	void neuerEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel);
 }

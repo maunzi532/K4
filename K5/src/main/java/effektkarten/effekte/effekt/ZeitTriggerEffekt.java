@@ -28,10 +28,16 @@ public class ZeitTriggerEffekt extends TriggerEffekt
 	}
 
 	@Override
-	public void triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public void triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{
 		EffektZielCharakter betrifft = betrifftGegner ? ziel : n;
-		MitWaffe zielWaffe1 = zielWaffe == MitWaffe.VERWENDET ? mit : zielWaffe;
-		betrifft.effektZielKarte(an, zielWaffe1).neuerEffekt(new AnEffekt(wirkung, endTrigger, dauer), n, ziel, mit);
+		if(zielWaffe == MitWaffe.VERWENDET)
+		{
+			betrifft.effektZielKarte(an).neuerEffekt(new AnEffekt(wirkung, endTrigger, dauer), n, ziel);
+		}
+		else
+		{
+			betrifft.effektZielKarte(an, zielWaffe).neuerEffekt(new AnEffekt(wirkung, endTrigger, dauer), n, ziel);
+		}
 	}
 }

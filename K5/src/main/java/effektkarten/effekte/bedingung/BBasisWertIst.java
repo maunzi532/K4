@@ -19,9 +19,9 @@ public class BBasisWertIst implements Bedingung
 	}
 
 	@Override
-	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)
 	{
-		return vergleich.evaluiere(n.effektZielKarte(von, mit).basisWert(wert), zu);
+		return vergleich.evaluiere(n.effektZielKarte(von).basisWert(wert), zu);
 	}
 
 	@Override

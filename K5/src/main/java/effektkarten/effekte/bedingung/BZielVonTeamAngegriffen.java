@@ -6,7 +6,7 @@ import effektkarten.effekte.ziel.*;
 public class BZielVonTeamAngegriffen implements Bedingung
 {
 	@Override
-	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)
 	{
 		return ziel.getAngegriffenVon().stream().anyMatch(e -> e != n);
 	}

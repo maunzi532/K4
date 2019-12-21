@@ -16,8 +16,7 @@ public class SetV2Aktionen extends KartensetBuilder<Aktionskarte>
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.angriff(-2)).createZTE()));
 		neueKarte(new Aktionskarte("Powerangriff", 1, 3, -3, false));
 		neueKarte(new Aktionskarte("Ausholen", -3, 0, 0, false,
-				new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.ZUGENDE).setAn(
-						EffektZielKartentyp.WAFFE)
+				new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.ZUGENDE).setAn(EffektZielKartentyp.WAFFE)
 						.setZielWaffe(MitWaffe.HW).setWirkung(StatWirkung.angriff(6)).setDauer(2).createZTE()));
 		neueKarte(new Aktionskarte("Adrenalin", 0, 1, 0, false,
 				new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)

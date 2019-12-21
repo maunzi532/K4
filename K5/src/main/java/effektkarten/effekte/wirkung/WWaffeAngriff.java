@@ -13,9 +13,9 @@ public class WWaffeAngriff implements Wirkung
 	}
 
 	@Override
-	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{
-		return n.effektZielKarte(EffektZielKartentyp.WAFFE, mit).basisWert(Basiswert.ANGRIFF);
+		return n.effektZielKarte(EffektZielKartentyp.WAFFE).basisWert(Basiswert.ANGRIFF);
 	}
 
 	@Override

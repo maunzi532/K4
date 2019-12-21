@@ -6,9 +6,9 @@ import effektkarten.effekte.ziel.*;
 public class BHauptwaffe implements Bedingung
 {
 	@Override
-	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe mit)
+	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)
 	{
-		return mit == MitWaffe.HW;
+		return n.getMit() == MitWaffe.HW || nichtMit == MitWaffe.HW;
 	}
 
 	@Override
