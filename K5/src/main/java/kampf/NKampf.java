@@ -3,6 +3,7 @@ package kampf;
 import effektkarten.effekte.eigenschaften.*;
 import java.util.*;
 import effektkarten.karten.*;
+import java.util.function.*;
 import main.*;
 import stapelkarten.*;
 
@@ -122,6 +123,11 @@ public class NKampf
 		return ok;
 	}
 
+	public List<Aktionskarte> aktionenOptionen()
+	{
+		return aktionenOptionen;
+	}
+
 	public boolean aktionskarte(NTeilnehmer n, Aktionskarte aktionskarte, MitWaffe mit, NTeilnehmer ziel)
 	{
 		if(n.aktionGeht(aktionskarte, mit, ziel))
@@ -133,14 +139,16 @@ public class NKampf
 		return false;
 	}
 
-	public void gegnerAktionskarten(Random r)
+	public void gegnerAktionskarten(IntBinaryOperator zielSpielerAuswahl)
 	{
-		for(NTeilnehmer n : gegner)
+		for(int i = 0; i < gegner.size(); i++)
 		{
+			NTeilnehmer n = gegner.get(i);
 			boolean ausgeben = n.getMagie() >= 5;
-			NTeilnehmer ziel = spieler.get(spieler.size() > 1 ? r.nextInt(spieler.size()) : 0);
+			NTeilnehmer ziel = spieler.get(zielSpielerAuswahl.applyAsInt(i, spieler.size()));
 			n.setzeAktion(aktionsKartenstapel.durchsucheAlle(aktionskarte -> n.aktionGeht(aktionskarte, MitWaffe.HW, ziel) &&
-					(!ausgeben || aktionskarte.getMagieMod() < 0 || aktionskarte.isLadeMitMagie())).orElseThrow(), MitWaffe.HW, ziel);
+							(!ausgeben || aktionskarte.getMagieMod() < 0 || aktionskarte.isLadeMitMagie()))
+							.orElseThrow(), MitWaffe.HW, ziel);
 		}
 	}
 

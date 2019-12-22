@@ -45,7 +45,7 @@ public class DungeonMapTest
 	@Test
 	public void forschenTest()
 	{
-		Kartenstapel<MapKarte> mapStapel = new Kartenstapel<>(new SetV2MapKarten().fertig());
+		Kartenstapel<MapKarte> mapStapel = new MischKartenstapel<>(new SetV2MapKarten().fertig());
 		dungeonMap.erstelleMittelWeg(mittelMapKartenset);
 		Spielfigur spielfigur = dungeonMap.erstelleSpielfigur();
 		spielfigur.geheZu(spielfigur.getY() - MapKarte.ym, spielfigur.getX() - MapKarte.xm);

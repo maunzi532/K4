@@ -8,6 +8,7 @@ import java.util.*;
 import kampf.*;
 import main.*;
 import org.junit.*;
+import stapelkarten.*;
 
 public class NKampfTest
 {
@@ -71,6 +72,47 @@ public class NKampfTest
 		nKampf.zugV();
 		nKampf.angriffe();
 		nKampf.beendeZug();
+		Assert.assertEquals(2, nt0.getMagie());
+		Assert.assertEquals(0, nt1.getMagie());
+		Assert.assertEquals(8, nt0.getLeben());
+		Assert.assertEquals(13, nt1.getLeben());
+	}
+
+	@Test
+	public void test2()
+	{
+		SortierterKartenstapel<Aktionskarte> kartenstapel = new SortierterKartenstapel<>(aktionen,
+				"Schnellangriff", "Geschwindigkeitsbelohnung", "Ausholen", "Powerstoß",
+				"Powerangriff", "Schutzangriff", "Disruptorangriff", "Brecher");
+		Test1v1 tn = new Test1v1(kartenstapel);
+		tn.spieler(klassen.gibKarte("Geist"), waffen.gibKarte("Spiegelsplitter"));
+		StandardGegner gegner = new StandardGegner("TGegner", 8, 7, 6, 6, 10, 20);
+		tn.gegner(gegner, waffen.gibKarte("Großer Stock"));
+		tn.start(false);
+		tn.beginneZug();
+		Assert.assertTrue(tn.aktionskarte(0, MitWaffe.HW));
+		tn.gegnerAktionskarten();
+		Assert.assertTrue(tn.magieEffekte());
+		tn.gesBerechnen();
+		NTeilnehmer nt0 = tn.getSpieler();
+		NTeilnehmer nt1 = tn.getGegner();
+		Assert.assertEquals(24, nt0.getLeben());
+		Assert.assertEquals(30, nt1.getLeben());
+		tn.angriffe();
+		Assert.assertEquals(0, tn.beendeZug());
+		tn.aktionskartenAblegen();
+		Assert.assertEquals(1, nt0.getMagie());
+		Assert.assertEquals(1, nt1.getMagie());
+		Assert.assertEquals(14, nt0.getLeben());
+		Assert.assertEquals(21, nt1.getLeben());
+		tn.beginneZug();
+		Assert.assertTrue(tn.aktionskarte(3, MitWaffe.HW));
+		tn.gegnerAktionskarten();
+		Assert.assertTrue(tn.magieEffekte());
+		tn.gesBerechnen();
+		tn.angriffe();
+		Assert.assertEquals(0, tn.beendeZug());
+		tn.aktionskartenAblegen();
 		Assert.assertEquals(2, nt0.getMagie());
 		Assert.assertEquals(0, nt1.getMagie());
 		Assert.assertEquals(8, nt0.getLeben());

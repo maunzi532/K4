@@ -113,11 +113,6 @@ public class NTeilnehmer implements EffektZielCharakter
 		}
 	}
 
-	public void aktiviereMagieEffekte()
-	{
-		magieEffektOptionen.stream().filter(e -> e.benutzen).forEach(e -> e.magieEffekt.aktiviere(this, ziel));
-	}
-
 	public void beendeEffekte(EndTrigger trigger)
 	{
 		nCharakter.beendeEffekte(trigger);
@@ -212,6 +207,11 @@ public class NTeilnehmer implements EffektZielCharakter
 	public boolean magieEffektOptionenOK()
 	{
 		return magieEffektOptionen.stream().filter(e -> e.benutzen).mapToInt(e -> e.magieEffekt.magieKosten).sum() <= magie;
+	}
+
+	public void aktiviereMagieEffekte()
+	{
+		magieEffektOptionen.stream().filter(e -> e.benutzen).forEach(e -> e.magieEffekt.aktiviere(this, ziel));
 	}
 
 	public void berechneGes()

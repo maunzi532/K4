@@ -16,7 +16,7 @@ public class Kartenset<T extends EffektKarte>
 
 	public Kartenstapel<T> kartenstapel()
 	{
-		return new Kartenstapel<>(karten.values());
+		return new MischKartenstapel<>(karten.values());
 	}
 
 	public T gibKarte(String name)
