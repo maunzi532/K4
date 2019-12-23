@@ -1,6 +1,6 @@
 package mapsets;
 
-import dungeonmap.*;
+import dungeonmap.karte.*;
 
 public class SetV2MittelMapKarten extends KartenlisteBuilder<MapKarte>
 {

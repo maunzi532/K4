@@ -1,4 +1,6 @@
-package dungeonmap;
+package dungeonmap.karte;
+
+import java.util.*;
 
 public enum MapTeil
 {
@@ -51,4 +53,10 @@ public enum MapTeil
 	public final String titel1;
 	public final String ok0;
 	public final String ok1;
+
+	public static Map<Character, MapTeil> charZuMapTeil = Map.ofEntries(Map.entry('X', NICHTS),
+			Map.entry(' ', WEG), Map.entry('G', GEGNER), Map.entry('T', TRANK),
+			Map.entry('H', HAENDLER), Map.entry('W', WAFFENKISTE), Map.entry('|', WAND),
+			Map.entry('S', START), Map.entry('Z', ZIEL),
+			Map.entry('M', MITTELBOSSGEGNER), Map.entry('B', BOSSGEGNER));
 }

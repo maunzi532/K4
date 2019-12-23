@@ -1,6 +1,5 @@
-package dungeonmap;
+package dungeonmap.karte;
 
-import java.util.*;
 import stapelkarten.*;
 
 public class MapKarte implements StapelKarte
@@ -11,31 +10,26 @@ public class MapKarte implements StapelKarte
 	private static final int xm2 = xm * 2;
 	public static final int xw = xm * 2 + 1;
 	public static final int yw = ym * 2 + 1;
-	private static Map<Character, MapTeil> charZuMapTeil = Map.ofEntries(Map.entry('X', MapTeil.NICHTS),
-			Map.entry(' ', MapTeil.WEG), Map.entry('G', MapTeil.GEGNER), Map.entry('T', MapTeil.TRANK),
-			Map.entry('H', MapTeil.HAENDLER), Map.entry('W', MapTeil.WAFFENKISTE), Map.entry('|', MapTeil.WAND),
-			Map.entry('S', MapTeil.START), Map.entry('Z', MapTeil.ZIEL),
-			Map.entry('M', MapTeil.MITTELBOSSGEGNER), Map.entry('B', MapTeil.BOSSGEGNER));
 
-	private MapTeil[] inhalt;
-	private int[] modifier;
-	private int modLimit;
-	private boolean umdrehbar;
+	private final MapTeil[] inhalt;
+	private final int[] modifier;
+	private final int modLimit;
+	private final boolean umdrehbar;
 
 	public MapKarte(String input)
 	{
 		String[] split = input.split("\n");
-		if(split[0].isEmpty())
-			umdrehbar = true;
+		umdrehbar = split[0].isEmpty();
 		inhalt = new MapTeil[yw * xw];
 		modifier = new int[inhalt.length];
 		for(int iy = 0; iy < yw; iy++)
 		{
 			for(int ix = 0; ix < xw; ix++)
 			{
-				inhalt[iy * xw + ix] = charZuMapTeil.get(split[iy + 1].charAt(ix));
+				inhalt[iy * xw + ix] = MapTeil.charZuMapTeil.get(split[iy + 1].charAt(ix));
 			}
 		}
+		int nMod = 0;
 		if(split.length > yw + 1)
 		{
 			for(int iy = 0; iy < yw; iy++)
@@ -43,26 +37,25 @@ public class MapKarte implements StapelKarte
 				for(int ix = 0; ix < xw; ix++)
 				{
 					int mod = split[iy + 1 + yw].charAt(ix) - '0' - 1;
-					modLimit = Math.max(modLimit, mod + 1);
+					nMod = Math.max(nMod, mod + 1);
 					modifier[iy * xw + ix] = mod;
 				}
 			}
 		}
 		else
 		{
-			int nmod = 0;
 			for(int i = 0; i < inhalt.length; i++)
 			{
 				if(inhalt[i].hatModifier)
 				{
-					modifier[i] = nmod;
-					nmod++;
+					modifier[i] = nMod;
+					nMod++;
 				}
 				else
 					modifier[i] = -1;
 			}
-			modLimit = nmod;
 		}
+		modLimit = nMod;
 	}
 
 	public int getModLimit()
@@ -75,27 +68,27 @@ public class MapKarte implements StapelKarte
 		return umdrehbar;
 	}
 
-	public MapTeil ort(int y, int x, boolean verkehrt)
+	public MapTeil ort(int yf, int xf, boolean verkehrt)
 	{
 		if(verkehrt)
 		{
-			return inhalt[(ym2 - y) * xw + (xm2 - x)];
+			return inhalt[(ym2 - yf) * xw + (xm2 - xf)];
 		}
 		else
 		{
-			return inhalt[y * xw + x];
+			return inhalt[yf * xw + xf];
 		}
 	}
 
-	public int ortM(int y, int x, boolean verkehrt)
+	public int ortM(int yf, int xf, boolean verkehrt)
 	{
 		if(verkehrt)
 		{
-			return modifier[(ym2 - y) * xw + (xm2 - x)];
+			return modifier[(ym2 - yf) * xw + (xm2 - xf)];
 		}
 		else
 		{
-			return modifier[y * xw + x];
+			return modifier[yf * xw + xf];
 		}
 	}
 

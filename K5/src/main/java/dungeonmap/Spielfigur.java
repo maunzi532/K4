@@ -1,32 +1,32 @@
 package dungeonmap;
 
+import dungeonmap.karte.*;
 import java.util.*;
+import java.util.function.*;
 
 public class Spielfigur
 {
 	private static final int[] richtungenY = new int[]{-1, 0, 1, 0};
 	private static final int[] richtungenX = new int[]{0, 1, 0, -1};
 
-	private DungeonMap map;
-	private int y, x;
-	private int ly, lx;
+	private final KartenMap map;
+	private FeldKoordinaten fa;
+	private FeldKoordinaten lf;
 	private boolean inBewegung;
 	private List<KoordinatenNum> bewegungsgraph;
-	private Deque<KoordinatenNum> pfad = new ArrayDeque<>();
+	private final Deque<KoordinatenNum> pfad = new ArrayDeque<>();
 
-	public Spielfigur(DungeonMap map, int y, int x)
+	public Spielfigur(KartenMap map, FeldKoordinaten f)
 	{
 		this.map = map;
-		this.y = y;
-		this.x = x;
-		ly = y;
-		lx = x;
+		fa = f;
+		lf = f;
 		erstelleBewegungsgraph();
 	}
 
 	public boolean blockiert()
 	{
-		return ly != y || lx != x;
+		return !lf.equals(fa);
 	}
 
 	public void erstelleBewegungsgraph()
@@ -35,20 +35,21 @@ public class Spielfigur
 		int i = 0;
 		if(blockiert())
 		{
-			bewegungsgraph.add(new KoordinatenNum(y, x, 0));
+			bewegungsgraph.add(new KoordinatenNum(fa, 0));
 			i++;
 		}
-		bewegungsgraph.add(new KoordinatenNum(ly, lx, i));
+		bewegungsgraph.add(new KoordinatenNum(fa, i));
 		for(; i < bewegungsgraph.size(); i++)
 		{
 			KoordinatenNum ak = bewegungsgraph.get(i);
-			if(map.begehbar(ak.y, ak.x) == Begehbar.GEHT)
+			if(map.begehbar(ak.f) == Begehbar.GEHT)
 			{
 				for(int r = 0; r < 4; r++)
 				{
-					if(map.begehbar(ak.y + richtungenY[r], ak.x + richtungenX[r]) != Begehbar.NEIN)
+					FeldKoordinaten f1 = FeldKoordinaten.f(ak.f.yf() + richtungenY[r], ak.f.xf() + richtungenX[r]);
+					if(map.begehbar(f1) != Begehbar.NEIN)
 					{
-						KoordinatenNum neu = new KoordinatenNum(ak.y + richtungenY[r], ak.x + richtungenX[r], ak.s + 1);
+						KoordinatenNum neu = new KoordinatenNum(f1, ak.s + 1);
 						int vorIndex = bewegungsgraph.indexOf(neu);
 						if(vorIndex < 0)
 						{
@@ -65,9 +66,9 @@ public class Spielfigur
 		}
 	}
 
-	public boolean geheZu(int y, int x)
+	public boolean geheZu(FeldKoordinaten f1, Supplier<Boolean> lrRNG)
 	{
-		int zielIndex = bewegungsgraph.indexOf(new KoordinatenNum(y, x, 0));
+		int zielIndex = bewegungsgraph.indexOf(new KoordinatenNum(f1, 0));
 		if(zielIndex < 0)
 			return false;
 		KoordinatenNum ak = bewegungsgraph.get(zielIndex);
@@ -75,23 +76,23 @@ public class Spielfigur
 		while(ak.s > 0)
 		{
 			pfad.addLast(ak);
-			KoordinatenNum ak0 = nk(ak, ak.y - 1, ak.x);
+			KoordinatenNum ak0 = nk(ak, FeldKoordinaten.f(ak.f.yf() - 1, ak.f.xf()));
 			if(ak0 != null)
 				ak = ak0;
 			else
 			{
-				KoordinatenNum ak1 = nk(ak, ak.y + 1, ak.x);
+				KoordinatenNum ak1 = nk(ak, FeldKoordinaten.f(ak.f.yf() + 1, ak.f.xf()));
 				if(ak1 != null)
 					ak = ak1;
 				else
 				{
-					int r = (int)((System.currentTimeMillis() % 2) * 2 - 1);
-					KoordinatenNum ak2 = nk(ak, ak.y, ak.x + r);
+					int r = lrRNG.get() ? 1 : -1;
+					KoordinatenNum ak2 = nk(ak, FeldKoordinaten.f(ak.f.yf(), ak.f.xf() + r));
 					if(ak2 != null)
 						ak = ak2;
 					else
 					{
-						KoordinatenNum ak3 = nk(ak, ak.y, ak.x - r);
+						KoordinatenNum ak3 = nk(ak, FeldKoordinaten.f(ak.f.yf(), ak.f.xf() - r));
 						if(ak3 != null)
 							ak = ak3;
 						else
@@ -104,9 +105,9 @@ public class Spielfigur
 		return true;
 	}
 
-	private KoordinatenNum nk(KoordinatenNum vor, int y, int x)
+	private KoordinatenNum nk(KoordinatenNum vor, FeldKoordinaten f1)
 	{
-		int zielIndex = bewegungsgraph.indexOf(new KoordinatenNum(y, x, 0));
+		int zielIndex = bewegungsgraph.indexOf(new KoordinatenNum(f1, 0));
 		if(zielIndex < 0)
 			return null;
 		KoordinatenNum ak = bewegungsgraph.get(zielIndex);
@@ -120,14 +121,11 @@ public class Spielfigur
 		if(pfad.isEmpty())
 			return;
 		KoordinatenNum ak = pfad.removeLast();
-		ly = y;
-		lx = x;
-		y = ak.y;
-		x = ak.x;
-		if(map.begehbar(y, x) == Begehbar.GEHT)
+		lf = fa;
+		fa = ak.f;
+		if(map.begehbar(fa) == Begehbar.GEHT)
 		{
-			ly = y;
-			lx = x;
+			lf = fa;
 		}
 		if(pfad.isEmpty())
 		{
@@ -141,29 +139,28 @@ public class Spielfigur
 		return !inBewegung;
 	}
 
-	public KoordinatenNum kannForschen()
+	public FeldKoordinaten kannForschen()
 	{
 		if(blockiert())
 			return null;
 		for(int i = 0; i < 4; i++)
 		{
-			int sy = y + richtungenY[i];
-			int sx = x + richtungenX[i];
-			if(map.inMap(sy, sx) && !map.feld(sy, sx))
+			FeldKoordinaten f1 = FeldKoordinaten.f(fa.yf() + richtungenY[i], fa.xf() + richtungenX[i]);
+			if(map.isInMap(f1) && !map.existiertKarte(f1))
 			{
-				return new KoordinatenNum(sy, sx, 0);
+				return f1;
 			}
 		}
 		return null;
 	}
 
-	public int getY()
+	public int getYF()
 	{
-		return y;
+		return fa.yf();
 	}
 
-	public int getX()
+	public int getXF()
 	{
-		return x;
+		return fa.xf();
 	}
 }

@@ -13,7 +13,7 @@ import stapelkarten.*;
 public class Vorrat
 {
 	public Einstellungen e;
-	public DungeonMap map;
+	public KartenMap map;
 	public List<Spielfigur> spielfiguren;
 	public List<Held2> helden;
 	public List<WaffeMap> waffen;
@@ -29,7 +29,7 @@ public class Vorrat
 	public Vorrat(Einstellungen e)
 	{
 		this.e = e;
-		map = new DungeonMap(e);
+		map = new KartenMap(e);
 		spielfiguren = new ArrayList<>();
 		helden = new ArrayList<>();
 		waffen = new ArrayList<>();
@@ -42,7 +42,7 @@ public class Vorrat
 		beiHaendler = new ArrayList<>();
 		for(int i = 0; i < e.anzahlSpieler; i++)
 		{
-			spielfiguren.add(map.erstelleSpielfigur());
+			spielfiguren.add(new Spielfigur(map, map.startPosition()));
 			helden.add(null);
 		}
 	}

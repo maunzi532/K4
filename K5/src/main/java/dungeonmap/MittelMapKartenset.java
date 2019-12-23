@@ -1,5 +1,6 @@
 package dungeonmap;
 
+import dungeonmap.karte.*;
 import java.util.*;
 
 public class MittelMapKartenset

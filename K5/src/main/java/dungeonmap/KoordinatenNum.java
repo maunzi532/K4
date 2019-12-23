@@ -4,12 +4,12 @@ import java.util.*;
 
 public class KoordinatenNum
 {
-	public final int y, x, s;
+	public final FeldKoordinaten f;
+	public final int s;
 
-	public KoordinatenNum(int y, int x, int s)
+	public KoordinatenNum(FeldKoordinaten f, int s)
 	{
-		this.y = y;
-		this.x = x;
+		this.f = f;
 		this.s = s;
 	}
 
@@ -19,13 +19,12 @@ public class KoordinatenNum
 		if(this == o) return true;
 		if(!(o instanceof KoordinatenNum)) return false;
 		KoordinatenNum that = (KoordinatenNum) o;
-		return y == that.y &&
-				x == that.x;
+		return Objects.equals(f, that.f);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(y, x);
+		return Objects.hash(f);
 	}
 }

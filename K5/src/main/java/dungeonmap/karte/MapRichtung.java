@@ -1,4 +1,4 @@
-package dungeonmap;
+package dungeonmap.karte;
 
 public enum MapRichtung
 {
