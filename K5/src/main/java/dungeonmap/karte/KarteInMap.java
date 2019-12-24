@@ -1,6 +1,5 @@
-package dungeonmap;
+package dungeonmap.karte;
 
-import dungeonmap.karte.*;
 import java.util.*;
 
 public class KarteInMap
@@ -23,28 +22,28 @@ public class KarteInMap
 		this.verwendet = verwendet;
 	}
 
-	public MapTeil ort(int yf, int xf)
+	public MapTeil ort(FeldKoordinaten f)
 	{
-		return karte.ort(yf, xf, verkehrt);
+		return karte.ort(f, verkehrt);
 	}
 
-	public int ortM(int yf, int xf)
+	public int ortM(FeldKoordinaten f)
 	{
-		return karte.ortM(yf, xf, verkehrt);
+		return karte.ortM(f, verkehrt);
 	}
 
-	public boolean isVerwendet(int yf, int xf)
+	public boolean isVerwendet(FeldKoordinaten f)
 	{
-		int mod = karte.ortM(yf, xf, verkehrt);
+		int mod = karte.ortM(f, verkehrt);
 		if(mod >= 0)
 			return verwendet[mod];
 		else
 			return false;
 	}
 
-	public KarteInMap verwende(int yf, int xf)
+	public KarteInMap verwende(FeldKoordinaten f)
 	{
-		int mod = karte.ortM(yf, xf, verkehrt);
+		int mod = karte.ortM(f, verkehrt);
 		if(mod >= 0)
 			return verwende(mod);
 		else
@@ -58,12 +57,12 @@ public class KarteInMap
 		return new KarteInMap(karte, verkehrt, verwendetNeu);
 	}
 
-	public Begehbar begehbar(int yf, int xf)
+	public Begehbar begehbar(FeldKoordinaten f)
 	{
-		if(isVerwendet(yf, xf))
-			return ort(yf, xf).begehbar1;
+		if(isVerwendet(f))
+			return ort(f).begehbar1;
 		else
-			return ort(yf, xf).begehbar0;
+			return ort(f).begehbar0;
 	}
 
 	public int anschluss(MapRichtung seite)

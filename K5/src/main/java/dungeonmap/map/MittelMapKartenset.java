@@ -1,4 +1,4 @@
-package dungeonmap;
+package dungeonmap.map;
 
 import dungeonmap.karte.*;
 import java.util.*;

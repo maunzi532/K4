@@ -1,10 +1,12 @@
-package dungeonmap;
+package dungeonmap.karte;
 
-import dungeonmap.karte.*;
 import java.util.*;
 
 public interface FeldKoordinaten extends KartenKoordinaten
 {
+	int ym = 2;
+	int xm = 2;
+
 	int yf();
 
 	int xf();
@@ -23,10 +25,15 @@ public interface FeldKoordinaten extends KartenKoordinaten
 		return new F(yk, xk, yf, xf);
 	}
 
+	static F add(FeldKoordinaten f, int yf, int xf)
+	{
+		return new F(f, yf, xf);
+	}
+
 	class F implements FeldKoordinaten
 	{
-		private static final int ywF = MapKarte.ym * 2 + 1;
-		private static final int xwF = MapKarte.xm * 2 + 1;
+		private static final int ywF = ym * 2 + 1;
+		private static final int xwF = xm * 2 + 1;
 
 		private final int yf, xf;
 
@@ -40,6 +47,12 @@ public interface FeldKoordinaten extends KartenKoordinaten
 		{
 			this.yf = yk * ywF + yf;
 			this.xf = xk * xwF + xf;
+		}
+
+		private F(FeldKoordinaten f, int yf, int xf)
+		{
+			this.yf = f.yf() + yf;
+			this.xf = f.xf() + xf;
 		}
 
 		@Override

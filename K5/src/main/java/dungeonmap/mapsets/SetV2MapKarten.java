@@ -1,4 +1,4 @@
-package mapsets;
+package dungeonmap.mapsets;
 
 import dungeonmap.karte.*;
 

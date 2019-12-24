@@ -1,6 +1,6 @@
 package map2;
 
-import dungeonmap.*;
+import dungeonmap.map.*;
 import effektkarten.effekte.eigenschaften.*;
 import java.util.*;
 import java.util.stream.*;

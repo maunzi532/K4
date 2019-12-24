@@ -1,4 +1,4 @@
-package dungeonmap;
+package dungeonmap.karte;
 
 import java.util.*;
 
@@ -13,6 +13,11 @@ public interface KartenKoordinaten
 		return new K(yk, xk);
 	}
 
+	static KartenKoordinaten add(KartenKoordinaten k, int yk, int xk)
+	{
+		return new K(k, yk, xk);
+	}
+
 	class K implements KartenKoordinaten
 	{
 		private final int yk, xk;
@@ -21,6 +26,12 @@ public interface KartenKoordinaten
 		{
 			this.yk = yk;
 			this.xk = xk;
+		}
+
+		private K(KartenKoordinaten k, int yk, int xk)
+		{
+			this.yk = k.yk() + yk;
+			this.xk = k.xk() + xk;
 		}
 
 		@Override

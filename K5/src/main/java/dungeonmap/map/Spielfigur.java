@@ -1,4 +1,4 @@
-package dungeonmap;
+package dungeonmap.map;
 
 import dungeonmap.karte.*;
 import java.util.*;
@@ -46,7 +46,7 @@ public class Spielfigur
 			{
 				for(int r = 0; r < 4; r++)
 				{
-					FeldKoordinaten f1 = FeldKoordinaten.f(ak.f.yf() + richtungenY[r], ak.f.xf() + richtungenX[r]);
+					FeldKoordinaten f1 = FeldKoordinaten.add(ak.f, richtungenY[r], richtungenX[r]);
 					if(map.begehbar(f1) != Begehbar.NEIN)
 					{
 						KoordinatenNum neu = new KoordinatenNum(f1, ak.s + 1);
@@ -76,23 +76,23 @@ public class Spielfigur
 		while(ak.s > 0)
 		{
 			pfad.addLast(ak);
-			KoordinatenNum ak0 = nk(ak, FeldKoordinaten.f(ak.f.yf() - 1, ak.f.xf()));
+			KoordinatenNum ak0 = nk(ak, FeldKoordinaten.add(ak.f, -1, 0));
 			if(ak0 != null)
 				ak = ak0;
 			else
 			{
-				KoordinatenNum ak1 = nk(ak, FeldKoordinaten.f(ak.f.yf() + 1, ak.f.xf()));
+				KoordinatenNum ak1 = nk(ak, FeldKoordinaten.add(ak.f, 1, 0));
 				if(ak1 != null)
 					ak = ak1;
 				else
 				{
 					int r = lrRNG.get() ? 1 : -1;
-					KoordinatenNum ak2 = nk(ak, FeldKoordinaten.f(ak.f.yf(), ak.f.xf() + r));
+					KoordinatenNum ak2 = nk(ak, FeldKoordinaten.add(ak.f, 0, r));
 					if(ak2 != null)
 						ak = ak2;
 					else
 					{
-						KoordinatenNum ak3 = nk(ak, FeldKoordinaten.f(ak.f.yf(), ak.f.xf() - r));
+						KoordinatenNum ak3 = nk(ak, FeldKoordinaten.add(ak.f, 0, -r));
 						if(ak3 != null)
 							ak = ak3;
 						else
@@ -145,7 +145,7 @@ public class Spielfigur
 			return null;
 		for(int i = 0; i < 4; i++)
 		{
-			FeldKoordinaten f1 = FeldKoordinaten.f(fa.yf() + richtungenY[i], fa.xf() + richtungenX[i]);
+			FeldKoordinaten f1 = FeldKoordinaten.add(fa, richtungenY[i], richtungenX[i]);
 			if(map.isInMap(f1) && !map.existiertKarte(f1))
 			{
 				return f1;
@@ -154,13 +154,8 @@ public class Spielfigur
 		return null;
 	}
 
-	public int getYF()
+	public FeldKoordinaten getFA()
 	{
-		return fa.yf();
-	}
-
-	public int getXF()
-	{
-		return fa.xf();
+		return fa;
 	}
 }

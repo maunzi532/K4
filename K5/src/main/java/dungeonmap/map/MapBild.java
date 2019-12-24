@@ -1,4 +1,4 @@
-package dungeonmap;
+package dungeonmap.map;
 
 import dungeonmap.karte.*;
 
@@ -6,6 +6,8 @@ public class MapBild
 {
 	public static final int yc = 3;
 	public static final int xc = 5;
+	public static final int ywF = FeldKoordinaten.ym * 2 + 1;
+	public static final int xwF = FeldKoordinaten.xm * 2 + 1;
 
 	private KartenMap map;
 
@@ -16,8 +18,8 @@ public class MapBild
 
 	public char[][][][] erstelleBild()
 	{
-		int ys = KartenMap.ywF * map.yhMap;
-		int xs = KartenMap.xwF * map.xwMap;
+		int ys = ywF * map.yhMap;
+		int xs = xwF * map.xwMap;
 		char[][][][] arr = new char[ys][xs][yc][xc];
 		for(int iy = 0; iy < ys; iy++)
 		{
@@ -54,8 +56,8 @@ public class MapBild
 	public String erstelleTextBild()
 	{
 		char[][][][] arr = erstelleBild();
-		int ys = KartenMap.ywF * map.yhMap;
-		int xs = KartenMap.xwF * map.xwMap;
+		int ys = ywF * map.yhMap;
+		int xs = xwF * map.xwMap;
 		StringBuilder sb = new StringBuilder();
 		for(int iy = 0; iy < ys; iy++)
 		{
@@ -74,8 +76,8 @@ public class MapBild
 	public String[] erstelleTextBild1()
 	{
 		char[][][][] arr = erstelleBild();
-		int ys = KartenMap.ywF * map.yhMap;
-		int xs = KartenMap.xwF * map.xwMap;
+		int ys = ywF * map.yhMap;
+		int xs = xwF * map.xwMap;
 		String[] re = new String[ys * yc];
 		for(int iy = 0; iy < ys; iy++)
 		{
@@ -97,11 +99,11 @@ public class MapBild
 		StringBuilder sb = new StringBuilder();
 		for(int iy0 = 0; iy0 < map.yhMap; iy0++)
 		{
-			for(int iy1 = 0; iy1 < KartenMap.ywF; iy1++)
+			for(int iy1 = 0; iy1 < ywF; iy1++)
 			{
 				for(int ix0 = 0; ix0 < map.xwMap; ix0++)
 				{
-					for(int ix1 = 0; ix1 < KartenMap.xwF; ix1++)
+					for(int ix1 = 0; ix1 < xwF; ix1++)
 					{
 						FeldKoordinaten f = FeldKoordinaten.k(iy0, ix0, iy1, ix1);
 						if(map.existiertKarte(f))

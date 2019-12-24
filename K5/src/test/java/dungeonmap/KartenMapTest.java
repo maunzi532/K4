@@ -1,9 +1,10 @@
 package dungeonmap;
 
 import dungeonmap.karte.*;
+import dungeonmap.map.*;
 import java.util.*;
 import main.*;
-import mapsets.*;
+import dungeonmap.mapsets.*;
 import org.junit.*;
 import stapelkarten.*;
 
@@ -53,7 +54,7 @@ public class KartenMapTest
 		Kartenstapel<MapKarte> mapStapel = new MischKartenstapel<>(new SetV2MapKarten().fertig());
 		kartenMap.erstelleMittelWeg(mittelMapKartenset, Collections::shuffle);
 		Spielfigur spielfigur = new Spielfigur(kartenMap, kartenMap.startPosition());
-		spielfigur.geheZu(FeldKoordinaten.f(spielfigur.getYF() - MapKarte.ym, spielfigur.getXF() - MapKarte.xm), () -> System.currentTimeMillis() % 2 == 0);
+		spielfigur.geheZu(FeldKoordinaten.add(spielfigur.getFA(), -FeldKoordinaten.ym, -FeldKoordinaten.xm), () -> System.currentTimeMillis() % 2 == 0);
 		while(!spielfigur.bewegungFertig())
 		{
 			spielfigur.bewege();

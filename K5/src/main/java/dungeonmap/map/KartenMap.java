@@ -1,4 +1,4 @@
-package dungeonmap;
+package dungeonmap.map;
 
 import dungeonmap.karte.*;
 import java.util.*;
@@ -8,11 +8,9 @@ import stapelkarten.*;
 
 public class KartenMap
 {
-	public static final int ywF = MapKarte.ym * 2 + 1;
-	public static final int xwF = MapKarte.xm * 2 + 1;
 
 	public final int yhMap;
-	public final int xmMap;
+	private final int xmMap;
 	public final int xwMap;
 	private final int immerWegW;
 	private final List<Integer> mittelBossOrte;
@@ -50,23 +48,23 @@ public class KartenMap
 
 	public MapTeil ort(FeldKoordinaten f)
 	{
-		return karte(f).ort(f.yfInnen(), f.xfInnen());
+		return karte(f).ort(f);
 	}
 
 	public boolean isVerwendet(FeldKoordinaten f)
 	{
-		return karte(f).isVerwendet(f.yfInnen(), f.xfInnen());
+		return karte(f).isVerwendet(f);
 	}
 
 	public void verwende(FeldKoordinaten f)
 	{
-		setzeKarte(f, karte(f).verwende(f.yfInnen(), f.xfInnen()));
+		setzeKarte(f, karte(f).verwende(f));
 	}
 
 	public Begehbar begehbar(FeldKoordinaten f)
 	{
 		if(existiertKarte(f))
-			return karte(f).begehbar(f.yfInnen(), f.xfInnen());
+			return karte(f).begehbar(f);
 		else
 			return Begehbar.NEIN;
 	}
@@ -101,7 +99,7 @@ public class KartenMap
 
 	public int anschlussAussen(KartenKoordinaten k, MapRichtung seite)
 	{
-		KartenKoordinaten k1 = KartenKoordinaten.k(k.yk() + seite.y, k.xk() + seite.x);
+		KartenKoordinaten k1 = KartenKoordinaten.add(k, seite.y, seite.x);
 		int re = 0;
 		if(existiertKarte(k1))
 		{
@@ -109,7 +107,7 @@ public class KartenMap
 		}
 		if(re == 0 && k.xk() >= xmMap - immerWegW && k.xk() <= xmMap + immerWegW)
 		{
-			KartenKoordinaten k2 = KartenKoordinaten.k(k.yk() + seite.y, k.xk() - seite.x);
+			KartenKoordinaten k2 = KartenKoordinaten.add(k, seite.y, -seite.x);
 			if(existiertKarte(k2) && karte(k2).anschluss(seite) == 1)
 			{
 				re = 1;
@@ -120,7 +118,7 @@ public class KartenMap
 
 	public FeldKoordinaten startPosition()
 	{
-		return FeldKoordinaten.k(yhMap, xmMap, -1, MapKarte.xm);
+		return FeldKoordinaten.k(yhMap, xmMap, -1, FeldKoordinaten.xm);
 	}
 
 	public void forsche(FeldKoordinaten f, Kartenstapel<MapKarte> mapStapel)
