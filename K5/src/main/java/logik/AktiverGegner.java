@@ -1,4 +1,4 @@
-package map2;
+package logik;
 
 import effektkarten.karten.*;
 
