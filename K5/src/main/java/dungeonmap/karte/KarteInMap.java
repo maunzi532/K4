@@ -12,7 +12,7 @@ public class KarteInMap
 	{
 		this.karte = karte;
 		this.verkehrt = verkehrt;
-		verwendet = new boolean[karte.getModLimit()];
+		verwendet = new boolean[karte.modLimit()];
 	}
 
 	private KarteInMap(MapKarte karte, boolean verkehrt, boolean[] verwendet)
@@ -52,7 +52,7 @@ public class KarteInMap
 
 	public KarteInMap verwende(int num)
 	{
-		boolean[] verwendetNeu = Arrays.copyOf(verwendet, karte.getModLimit());
+		boolean[] verwendetNeu = Arrays.copyOf(verwendet, karte.modLimit());
 		verwendetNeu[num] = true;
 		return new KarteInMap(karte, verkehrt, verwendetNeu);
 	}

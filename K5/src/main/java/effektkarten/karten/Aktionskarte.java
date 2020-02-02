@@ -3,36 +3,11 @@ package effektkarten.karten;
 import effektkarten.ansichtkarte.*;
 import java.util.*;
 
-public class Aktionskarte implements EffektKarte
+public record Aktionskarte(String name, int magieMod, int angriffMod, int geschwindigkeitMod, boolean hw, boolean ladeMitMagie, List<KartenEffekt> effekte) implements EffektKarte
 {
-	public final String name;
-	public final int magieMod;
-	public final int angriffMod;
-	public final int geschwindigkeitMod;
-	public final boolean hw;
-	public final boolean ladeMitMagie;
-	public final List<KartenEffekt> effekte;
-
-	public Aktionskarte(String name, int magieMod, int angriffMod, int geschwindigkeitMod, boolean hw, KartenEffekt... effekte)
-	{
-		this.name = name;
-		this.magieMod = magieMod;
-		this.angriffMod = angriffMod;
-		this.geschwindigkeitMod = geschwindigkeitMod;
-		this.hw = hw;
-		ladeMitMagie = false;
-		this.effekte = Arrays.asList(effekte);
-	}
-
 	public Aktionskarte(String name, int magieMod, int angriffMod, int geschwindigkeitMod, boolean hw, boolean ladeMitMagie, KartenEffekt... effekte)
 	{
-		this.name = name;
-		this.magieMod = magieMod;
-		this.angriffMod = angriffMod;
-		this.geschwindigkeitMod = geschwindigkeitMod;
-		this.hw = hw;
-		this.ladeMitMagie = ladeMitMagie;
-		this.effekte = Arrays.asList(effekte);
+		this(name, magieMod, angriffMod, geschwindigkeitMod, hw, ladeMitMagie, Arrays.asList(effekte));
 	}
 
 	@Override
@@ -41,29 +16,10 @@ public class Aktionskarte implements EffektKarte
 		return name;
 	}
 
-	public int getMagieMod()
+	@Override
+	public List<KartenEffekt> effekte()
 	{
-		return magieMod;
-	}
-
-	public int getAngriffMod()
-	{
-		return angriffMod;
-	}
-
-	public int getGeschwindigkeitMod()
-	{
-		return geschwindigkeitMod;
-	}
-
-	public boolean isHw()
-	{
-		return hw;
-	}
-
-	public boolean isLadeMitMagie()
-	{
-		return ladeMitMagie;
+		return effekte;
 	}
 
 	@Override
@@ -84,7 +40,7 @@ public class Aktionskarte implements EffektKarte
 		return werte;
 	}
 
-	private static void addWert(List<String> werte, String name, int wert)
+	private void addWert(List<String> werte, String name, int wert)
 	{
 		if(wert != 0)
 		{
@@ -114,11 +70,5 @@ public class Aktionskarte implements EffektKarte
 	public List<String> werteR()
 	{
 		return null;
-	}
-
-	@Override
-	public List<KartenEffekt> effekte()
-	{
-		return effekte;
 	}
 }

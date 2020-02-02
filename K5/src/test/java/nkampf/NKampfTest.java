@@ -34,7 +34,7 @@ public class NKampfTest
 		Einstellungen e = new Einstellungen();
 		Charakterkarte held = klassen.gibKarte("Geist");
 		Waffenkarte heldWaffe = waffen.gibKarte("Spiegelsplitter");
-		Charakterkarte gegner = new Charakterkarte("TGegner", 8, 7, 6, 6, 10);
+		Charakterkarte gegner = new Charakterkarte("TGegner", 8, 7, 6, 6, 10, 20);
 		Waffenkarte gegnerWaffe = waffen.gibKarte("Großer Stock");
 
 		NTeilnehmer nt0 = new NTeilnehmer(e, held, heldWaffe, null);

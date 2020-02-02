@@ -35,7 +35,7 @@ public class TestNKampf
 
 	public void gegner(StandardGegner gegner, Waffenkarte hw)
 	{
-		gegner0.add(new NTeilnehmer(e, gegner.charakterkarte, hw, null));
+		gegner0.add(new NTeilnehmer(e, gegner.charakterkarte(), hw, null));
 	}
 
 	public void xGegner(XGegner gegner, int x, Waffenkarte hw)

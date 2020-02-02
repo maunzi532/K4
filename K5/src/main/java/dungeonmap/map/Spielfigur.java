@@ -29,6 +29,23 @@ public class Spielfigur
 		return !lf.equals(fa);
 	}
 
+	private record KoordinatenNum(FeldKoordinaten f, int s)
+	{
+		@Override
+		public boolean equals(Object o)
+		{
+			if(this == o) return true;
+			if(!(o instanceof KoordinatenNum that)) return false;
+			return Objects.equals(f, that.f);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return Objects.hash(f);
+		}
+	}
+
 	public void erstelleBewegungsgraph()
 	{
 		bewegungsgraph = new ArrayList<>();
@@ -42,20 +59,20 @@ public class Spielfigur
 		for(; i < bewegungsgraph.size(); i++)
 		{
 			KoordinatenNum ak = bewegungsgraph.get(i);
-			if(map.begehbar(ak.f) == Begehbar.GEHT)
+			if(map.begehbar(ak.f()) == Begehbar.GEHT)
 			{
 				for(int r = 0; r < 4; r++)
 				{
-					FeldKoordinaten f1 = FeldKoordinaten.add(ak.f, richtungenY[r], richtungenX[r]);
+					FeldKoordinaten f1 = FeldKoordinaten.add(ak.f(), richtungenY[r], richtungenX[r]);
 					if(map.begehbar(f1) != Begehbar.NEIN)
 					{
-						KoordinatenNum neu = new KoordinatenNum(f1, ak.s + 1);
+						KoordinatenNum neu = new KoordinatenNum(f1, ak.s() + 1);
 						int vorIndex = bewegungsgraph.indexOf(neu);
 						if(vorIndex < 0)
 						{
 							bewegungsgraph.add(neu);
 						}
-						else if(neu.s < bewegungsgraph.get(vorIndex).s)
+						else if(neu.s() < bewegungsgraph.get(vorIndex).s())
 						{
 							bewegungsgraph.remove(vorIndex);
 							bewegungsgraph.add(neu);
@@ -73,26 +90,26 @@ public class Spielfigur
 			return false;
 		KoordinatenNum ak = bewegungsgraph.get(zielIndex);
 		pfad.clear();
-		while(ak.s > 0)
+		while(ak.s() > 0)
 		{
 			pfad.addLast(ak);
-			KoordinatenNum ak0 = nk(ak, FeldKoordinaten.add(ak.f, -1, 0));
+			KoordinatenNum ak0 = nk(ak, FeldKoordinaten.add(ak.f(), -1, 0));
 			if(ak0 != null)
 				ak = ak0;
 			else
 			{
-				KoordinatenNum ak1 = nk(ak, FeldKoordinaten.add(ak.f, 1, 0));
+				KoordinatenNum ak1 = nk(ak, FeldKoordinaten.add(ak.f(), 1, 0));
 				if(ak1 != null)
 					ak = ak1;
 				else
 				{
 					int r = lrRNG.get() ? 1 : -1;
-					KoordinatenNum ak2 = nk(ak, FeldKoordinaten.add(ak.f, 0, r));
+					KoordinatenNum ak2 = nk(ak, FeldKoordinaten.add(ak.f(), 0, r));
 					if(ak2 != null)
 						ak = ak2;
 					else
 					{
-						KoordinatenNum ak3 = nk(ak, FeldKoordinaten.add(ak.f, 0, -r));
+						KoordinatenNum ak3 = nk(ak, FeldKoordinaten.add(ak.f(), 0, -r));
 						if(ak3 != null)
 							ak = ak3;
 						else
@@ -111,7 +128,7 @@ public class Spielfigur
 		if(zielIndex < 0)
 			return null;
 		KoordinatenNum ak = bewegungsgraph.get(zielIndex);
-		if(ak.s < vor.s)
+		if(ak.s() < vor.s())
 			return ak;
 		return null;
 	}
@@ -122,7 +139,7 @@ public class Spielfigur
 			return;
 		KoordinatenNum ak = pfad.removeLast();
 		lf = fa;
-		fa = ak.f;
+		fa = ak.f();
 		if(map.begehbar(fa) == Begehbar.GEHT)
 		{
 			lf = fa;

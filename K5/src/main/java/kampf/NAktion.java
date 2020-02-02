@@ -15,7 +15,7 @@ public class NAktion extends NKarte
 	@Override
 	public int basisMagieAenderung()
 	{
-		return karte.getMagieMod();
+		return karte.magieMod();
 	}
 
 	@Override
@@ -23,14 +23,14 @@ public class NAktion extends NKarte
 	{
 		return switch(wert)
 		{
-			case ANGRIFF -> karte.getAngriffMod();
-			case GESCHWINDIGKEIT -> karte.getGeschwindigkeitMod();
+			case ANGRIFF -> karte.angriffMod();
+			case GESCHWINDIGKEIT -> karte.geschwindigkeitMod();
 			case WAFFENWERT, VERTEIDIGUNG, LEBEN -> 0;
 		};
 	}
 
 	public boolean ladeMitMagie()
 	{
-		return karte.isLadeMitMagie();
+		return karte.ladeMitMagie();
 	}
 }

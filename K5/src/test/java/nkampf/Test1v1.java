@@ -33,7 +33,7 @@ public class Test1v1
 
 	public void gegner(StandardGegner gegner1, Waffenkarte hw)
 	{
-		gegner = new NTeilnehmer(e, gegner1.charakterkarte, hw, null);
+		gegner = new NTeilnehmer(e, gegner1.charakterkarte(), hw, null);
 	}
 
 	public void xGegner(XGegner gegner1, int x, Waffenkarte hw)

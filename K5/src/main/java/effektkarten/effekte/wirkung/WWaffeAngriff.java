@@ -3,15 +3,8 @@ package effektkarten.effekte.wirkung;
 import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
-public class WWaffeAngriff implements Wirkung
+public record WWaffeAngriff(int multiplikator) implements Wirkung
 {
-	public final int multiplikator;
-
-	public WWaffeAngriff(int multiplikator)
-	{
-		this.multiplikator = multiplikator;
-	}
-
 	@Override
 	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{

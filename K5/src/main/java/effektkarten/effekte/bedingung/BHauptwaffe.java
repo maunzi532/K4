@@ -3,7 +3,7 @@ package effektkarten.effekte.bedingung;
 import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
-public class BHauptwaffe implements Bedingung
+public record BHauptwaffe() implements Bedingung
 {
 	@Override
 	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)

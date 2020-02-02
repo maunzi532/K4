@@ -126,20 +126,20 @@ public class Vorrat
 				int minExpA1 = minExpA;
 				int maxExpA1 = maxExpA;
 				List<Integer> moeglich = IntStream.range(0, XGegner.X_ANZAHL)
-						.filter(f -> maxExpK1 + gx.xExp[f] >= minExpA1 && minExpK1 + gx.xExp[f] <= maxExpA1).boxed().collect(Collectors.toList());
+						.filter(f -> maxExpK1 + gx.xExp()[f] >= minExpA1 && minExpK1 + gx.xExp()[f] <= maxExpA1).boxed().collect(Collectors.toList());
 				int x = moeglich.get(moeglich.size() > 1 ? r.nextInt(moeglich.size()) : 0);
-				minExpA -= gx.xExp[x];
-				maxExpA -= gx.xExp[x];
+				minExpA -= gx.xExp()[x];
+				maxExpA -= gx.xExp()[x];
 				gegner.add(new AktiverGegner(gx, gx.erstelleCharakterkarte(x)));
 			}
-			else if(g instanceof StandardGegner)
+			else if(g instanceof StandardGegner gs)
 			{
-				StandardGegner gs = (StandardGegner) g;
-				minExpA -= gs.exp;
-				maxExpA -= gs.exp;
-				minExpK -= gs.exp;
-				maxExpK -= gs.exp;
-				gegner.add(new AktiverGegner(gs, gs.charakterkarte));
+				Charakterkarte ch = gs.charakterkarte();
+				minExpA -= ch.exp();
+				maxExpA -= ch.exp();
+				minExpK -= ch.exp();
+				maxExpK -= ch.exp();
+				gegner.add(new AktiverGegner(gs, ch));
 			}
 		}
 		return gegner;
@@ -150,7 +150,7 @@ public class Vorrat
 		List<NTeilnehmer> l = new ArrayList<>();
 		for(Charakterkarte g : gegner)
 		{
-			int waffenwert = g.getWaffenwert();
+			int waffenwert = g.waffenwert();
 			Waffenkarte w1 = waffenKartenstapel.durchsucheAlle(f -> gegnerOK(f, waffenwert)).orElseThrow();
 			l.add(new NTeilnehmer(e, g, w1, null));
 		}
@@ -159,7 +159,7 @@ public class Vorrat
 
 	private boolean gegnerOK(Waffenkarte karte, int waffenwert)
 	{
-		return karte.getKosten() >= waffenwert + e.gegnerWaffenwertMin && karte.getKosten() <= waffenwert + e.gegnerWaffenwertMax;
+		return karte.kosten() >= waffenwert + e.gegnerWaffenwertMin && karte.kosten() <= waffenwert + e.gegnerWaffenwertMax;
 	}
 
 	public boolean haendlerBetreten(int num)
@@ -186,12 +186,12 @@ public class Vorrat
 
 	public void haendlerAngebot(Kartenstapel<Waffenkarte> waffenKartenstapel)
 	{
-		int min = beiHaendler.stream().mapToInt(f -> helden.get(f).upgradeHeld.charakterkarte().getWaffenwert()).min().orElseThrow() + e.gegnerWaffenwertMin;
-		int max = beiHaendler.stream().mapToInt(f -> helden.get(f).upgradeHeld.charakterkarte().getWaffenwert()).max().orElseThrow() + e.gegnerWaffenwertMax;
+		int min = beiHaendler.stream().mapToInt(f -> helden.get(f).upgradeHeld.charakterkarte().waffenwert()).min().orElseThrow() + e.gegnerWaffenwertMin;
+		int max = beiHaendler.stream().mapToInt(f -> helden.get(f).upgradeHeld.charakterkarte().waffenwert()).max().orElseThrow() + e.gegnerWaffenwertMax;
 		int anzahl = e.basisHaendlerAuswahl + e.extraHaendlerAuswahlProHaendler * anzahlHaendler;
 		for(int i = 0; i < anzahl; i++)
 		{
-			waffenKartenstapel.durchsucheAlle(f -> f.getKosten() >= min && f.getKosten() <= max);
+			waffenKartenstapel.durchsucheAlle(f -> f.kosten() >= min && f.kosten() <= max);
 		}
 	}
 
@@ -224,11 +224,6 @@ public class Vorrat
 	public boolean unverwendet(int numW)
 	{
 		WaffeMap w1 = waffen.get(numW);
-		for(Held2 h : helden)
-		{
-			if(h.hauptwaffe == w1 || h.nebenwaffe == w1)
-				return false;
-		}
-		return true;
+		return helden.stream().noneMatch(h -> h.hauptwaffe == w1 || h.nebenwaffe == w1);
 	}
 }

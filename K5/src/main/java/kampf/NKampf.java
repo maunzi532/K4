@@ -147,7 +147,7 @@ public class NKampf
 			boolean ausgeben = n.getMagie() >= 5;
 			NTeilnehmer ziel = spieler.get(zielSpielerAuswahl.applyAsInt(i, spieler.size()));
 			n.setzeAktion(aktionsKartenstapel.durchsucheAlle(aktionskarte -> n.aktionGeht(aktionskarte, MitWaffe.HW, ziel) &&
-							(!ausgeben || aktionskarte.getMagieMod() < 0 || aktionskarte.isLadeMitMagie()))
+							(!ausgeben || aktionskarte.magieMod() < 0 || aktionskarte.ladeMitMagie()))
 							.orElseThrow(), MitWaffe.HW, ziel);
 		}
 	}

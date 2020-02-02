@@ -79,7 +79,7 @@ public class SetV2Gegner extends KartensetBuilder<Gegner>
 				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.ANFANG)
 						.setWirkung(StatWirkung.magie(2)).setEndTrigger(EndTrigger.VERWENDET).createZTE(),
 				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_VOR)
-						.setWirkung(new WAktuelleMagieWirkung(Wirkungswert.ANGRIFF, 1, 1, 5))
+						.setWirkung(new DatenWirkung(DatenWirkung.Typ.AKTUELLE_MAGIE, Wirkungswert.ANGRIFF, 1, 1, 5))
 						.setEndTrigger(EndTrigger.NACH_ANGRIFF).createZTE()));
 		neueKarte(new StandardGegner("Blob", 5, 6, 9, 9, 8, 31));
 		neueKarte(new StandardGegner("Obermittelgegner", 12, 12, 12, 12, 12, 398));

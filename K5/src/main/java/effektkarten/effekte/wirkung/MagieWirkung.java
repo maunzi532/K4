@@ -2,17 +2,8 @@ package effektkarten.effekte.wirkung;
 
 import effektkarten.effekte.ziel.*;
 
-public class MagieWirkung implements DirektWirkung
+public record MagieWirkung(int magie, boolean gegner) implements DirektWirkung
 {
-	public final int magie;
-	public final boolean gegner;
-
-	public MagieWirkung(int magie, boolean gegner)
-	{
-		this.magie = magie;
-		this.gegner = gegner;
-	}
-
 	@Override
 	public void triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{

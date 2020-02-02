@@ -9,7 +9,7 @@ public class MapBild
 	public static final int ywF = FeldKoordinaten.ym * 2 + 1;
 	public static final int xwF = FeldKoordinaten.xm * 2 + 1;
 
-	private KartenMap map;
+	private final KartenMap map;
 
 	public MapBild(KartenMap map)
 	{

@@ -3,18 +3,11 @@ package effektkarten.effekte.bedingung;
 import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
-public class BGesVorteil implements Bedingung
+public record BGesVorteil(int min) implements Bedingung
 {
-	public final int min;
-
 	public BGesVorteil()
 	{
-		min = 1;
-	}
-
-	public BGesVorteil(int min)
-	{
-		this.min = min;
+		this(1);
 	}
 
 	@Override

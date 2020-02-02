@@ -3,17 +3,8 @@ package effektkarten.effekte.wirkung;
 import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
-public class WMagiehaltig implements Wirkung
+public record WMagiehaltig(Wirkungswert wirktAuf, int max) implements Wirkung
 {
-	public final Wirkungswert wirktAuf;
-	public final int max;
-
-	public WMagiehaltig(Wirkungswert wirktAuf, int max)
-	{
-		this.wirktAuf = wirktAuf;
-		this.max = max;
-	}
-
 	@Override
 	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
 	{

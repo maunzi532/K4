@@ -7,7 +7,7 @@ public abstract class KartensetBuilder<T extends EffektKarte>
 {
 	private final Map<String, T> karten;
 
-	protected KartensetBuilder()
+	public KartensetBuilder()
 	{
 		karten = new HashMap<>();
 	}

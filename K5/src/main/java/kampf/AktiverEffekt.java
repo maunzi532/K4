@@ -13,7 +13,7 @@ public class AktiverEffekt
 
 	public AktiverEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel)
 	{
-		this(anEffekt.wirkung, anEffekt.endTrigger, anEffekt.dauer, anEffekt.wirkung.triggere(n, ziel));
+		this(anEffekt.wirkung(), anEffekt.endTrigger(), anEffekt.dauer(), anEffekt.wirkung().triggere(n, ziel));
 	}
 
 	private AktiverEffekt(Wirkung wirkung, EndTrigger endTrigger, int dauer, int daten)

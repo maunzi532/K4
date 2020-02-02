@@ -3,21 +3,8 @@ package effektkarten.effekte.bedingung;
 import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
-public class BBasisWertIst implements Bedingung
+public record BBasisWertIst(Basiswert wert, EffektZielKartentyp von, Vergleich vergleich, int zu) implements Bedingung
 {
-	public final Basiswert wert;
-	public final EffektZielKartentyp von;
-	public final Vergleich vergleich;
-	public final int zu;
-
-	public BBasisWertIst(Basiswert wert, EffektZielKartentyp von, Vergleich vergleich, int zu)
-	{
-		this.wert = wert;
-		this.von = von;
-		this.vergleich = vergleich;
-		this.zu = zu;
-	}
-
 	@Override
 	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)
 	{

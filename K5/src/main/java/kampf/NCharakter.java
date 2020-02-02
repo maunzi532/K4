@@ -17,11 +17,11 @@ public class NCharakter extends NKarte
 	{
 		return switch(wert)
 		{
-			case ANGRIFF -> karte.getAngriff();
-			case WAFFENWERT -> karte.getWaffenwert();
-			case GESCHWINDIGKEIT -> karte.getGeschwindigkeit();
-			case VERTEIDIGUNG -> karte.getVerteidigung();
-			case LEBEN -> karte.getLeben();
+			case ANGRIFF -> karte.angriff();
+			case WAFFENWERT -> karte.waffenwert();
+			case GESCHWINDIGKEIT -> karte.geschwindigkeit();
+			case VERTEIDIGUNG -> karte.verteidigung();
+			case LEBEN -> karte.leben();
 		};
 	}
 }

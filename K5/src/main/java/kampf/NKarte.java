@@ -6,7 +6,7 @@ import java.util.*;
 
 public abstract class NKarte implements EffektZielKarte
 {
-	private List<AktiverEffekt> aktiveEffekte;
+	private final List<AktiverEffekt> aktiveEffekte;
 
 	public NKarte()
 	{

@@ -3,26 +3,12 @@ package effektkarten.karten;
 import effektkarten.ansichtkarte.*;
 import java.util.*;
 
-public class Waffenkarte implements EffektKarte
+public record Waffenkarte(String name, int kosten, int angriff, int geschwindigkeit, int klassencode,
+		boolean gegnerOK, List<KartenEffekt> effekte) implements EffektKarte
 {
-	public final String name;
-	public final int kosten;
-	public final int angriff;
-	public final int geschwindigkeit;
-	public final int klassencode;
-	public final boolean gegnerOK;
-	public final List<KartenEffekt> effekte;
-
-	public Waffenkarte(String name, int kosten, int angriff, int geschwindigkeit, int klassencode,
-			boolean gegnerOK, KartenEffekt... effekte)
+	public Waffenkarte(String name, int kosten, int angriff, int geschwindigkeit, int klassencode, boolean gegnerOK, KartenEffekt... effekte)
 	{
-		this.name = name;
-		this.kosten = kosten;
-		this.angriff = angriff;
-		this.geschwindigkeit = geschwindigkeit;
-		this.klassencode = klassencode;
-		this.gegnerOK = gegnerOK;
-		this.effekte = Arrays.asList(effekte);
+		this(name, kosten, angriff, geschwindigkeit, klassencode, gegnerOK, Arrays.asList(effekte));
 	}
 
 	@Override
@@ -31,34 +17,16 @@ public class Waffenkarte implements EffektKarte
 		return name;
 	}
 
-	public int getKosten()
+	@Override
+	public int klassencode()
 	{
-		return kosten;
+		return klassencode;
 	}
 
-	public int getAngriff(int nAngriff)
+	@Override
+	public List<KartenEffekt> effekte()
 	{
-		return angriff;
-	}
-
-	public int getAngriff()
-	{
-		return angriff;
-	}
-
-	public int getGeschwindigkeit(int nAngriff)
-	{
-		return geschwindigkeit;
-	}
-
-	public int getGeschwindigkeit()
-	{
-		return geschwindigkeit;
-	}
-
-	public boolean isGegnerOK()
-	{
-		return gegnerOK;
+		return effekte;
 	}
 
 	@Override
@@ -79,17 +47,5 @@ public class Waffenkarte implements EffektKarte
 	public List<String> werteR()
 	{
 		return null;
-	}
-
-	@Override
-	public int klassencode()
-	{
-		return klassencode;
-	}
-
-	@Override
-	public List<KartenEffekt> effekte()
-	{
-		return effekte;
 	}
 }

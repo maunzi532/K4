@@ -3,15 +3,8 @@ package effektkarten.effekte.bedingung;
 import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
-public class BLebenVergleich implements Bedingung
+public record BLebenVergleich(Vergleich vergleich) implements Bedingung
 {
-	public final Vergleich vergleich;
-
-	public BLebenVergleich(Vergleich vergleich)
-	{
-		this.vergleich = vergleich;
-	}
-
 	@Override
 	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)
 	{

@@ -8,7 +8,6 @@ import stapelkarten.*;
 
 public class KartenMap
 {
-
 	public final int yhMap;
 	private final int xmMap;
 	public final int xwMap;
@@ -87,7 +86,7 @@ public class KartenMap
 
 	public boolean kartePasst(MapKarte karte, KartenKoordinaten k, boolean verkehrt)
 	{
-		if(verkehrt && !karte.isUmdrehbar())
+		if(verkehrt && !karte.umdrehbar())
 			return false;
 		for(MapRichtung seite : MapRichtung.values())
 		{

@@ -27,7 +27,7 @@ public class WaffeMap implements EffektKarte
 	@Override
 	public String name()
 	{
-		return karte.name;
+		return karte.name();
 	}
 
 	@Override
@@ -51,6 +51,6 @@ public class WaffeMap implements EffektKarte
 	@Override
 	public List<KartenEffekt> effekte()
 	{
-		return karte.effekte;
+		return karte.effekte();
 	}
 }

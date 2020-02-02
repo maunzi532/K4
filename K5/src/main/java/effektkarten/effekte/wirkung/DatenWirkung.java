@@ -3,23 +3,23 @@ package effektkarten.effekte.wirkung;
 import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
-public abstract class DatenWirkung implements Wirkung
+public record DatenWirkung(Typ typ, Wirkungswert wirktAuf, int multiplikator, int divisor, int max) implements Wirkung
 {
-	public final Wirkungswert wirktAuf;
-	public final int multiplikator;
-	public final int divisor;
-	public final int max;
-
-	public DatenWirkung(Wirkungswert wirktAuf, int multiplikator, int divisor, int max)
+	public enum Typ
 	{
-		this.wirktAuf = wirktAuf;
-		this.multiplikator = multiplikator;
-		this.divisor = divisor;
-		this.max = max;
+		GES_VORTEIL,
+		AKTUELLE_MAGIE;
 	}
 
 	@Override
-	public abstract int triggere(EffektZielCharakter n, EffektZielCharakter ziel);
+	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
+	{
+		return switch(typ)
+		{
+			case GES_VORTEIL -> Math.max(0, n.getGesAktion() - ziel.getGesAktion());
+			case AKTUELLE_MAGIE -> n.getMagie();
+		};
+	}
 
 	@Override
 	public int wert(Wirkungswert wert, int daten)
@@ -36,7 +36,14 @@ public abstract class DatenWirkung implements Wirkung
 		return 0;
 	}
 
-	public abstract String nameDaten();
+	public String nameDaten()
+	{
+		return switch(typ)
+		{
+			case GES_VORTEIL -> "Ges._Vorteil";
+			case AKTUELLE_MAGIE -> "Magie";
+		};
+	}
 
 	@Override
 	public String text()

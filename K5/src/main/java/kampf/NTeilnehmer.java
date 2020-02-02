@@ -46,7 +46,7 @@ public class NTeilnehmer implements EffektZielCharakter
 
 	public NTeilnehmer(Einstellungen e, Charakterkarte charakterkarte, Waffenkarte hauptwafffe, Waffenkarte nebenwaffe)
 	{
-		this(e, charakterkarte, hauptwafffe, nebenwaffe, charakterkarte.getLeben() * e.lebenMultiplikator);
+		this(e, charakterkarte, hauptwafffe, nebenwaffe, charakterkarte.leben() * e.lebenMultiplikator);
 	}
 
 	public NTeilnehmer(Einstellungen e, Charakterkarte charakterkarte, Waffenkarte hauptwafffe, Waffenkarte nebenwaffe, int leben)
@@ -89,7 +89,7 @@ public class NTeilnehmer implements EffektZielCharakter
 	{
 		triggereEffekte(getCharakterKarte().effekte(), startTrigger, true, ziel, null);
 		triggereEffekte(getWaffeKarte(mit).effekte(), startTrigger, true, ziel, null);
-		triggereEffekte(getAktionKarte().effekte, startTrigger, true, ziel, null);
+		triggereEffekte(getAktionKarte().effekte(), startTrigger, true, ziel, null);
 		ziel.triggereEffekte(getCharakterKarte().effekte(), startTrigger, false, this, null);
 		ziel.triggereEffekte(getWaffeKarte(mit).effekte(), startTrigger, false, this, null);
 		ziel.triggereEffekte(getAktionKarte().effekte(), startTrigger, false, this, null);
@@ -268,11 +268,13 @@ public class NTeilnehmer implements EffektZielCharakter
 		ziel.angegriffenVon.add(this);
 	}
 
+	@Override
 	public int getGeladeneMagie()
 	{
 		return geladeneMagie;
 	}
 
+	@Override
 	public int getGesAktion()
 	{
 		return gesAktion;
@@ -283,36 +285,43 @@ public class NTeilnehmer implements EffektZielCharakter
 		return anzahlAngriffe;
 	}
 
+	@Override
 	public List<NTeilnehmer> getAngegriffenVon()
 	{
 		return angegriffenVon;
 	}
 
+	@Override
 	public MitWaffe getMit()
 	{
 		return mit;
 	}
 
+	@Override
 	public NTeilnehmer getZiel()
 	{
 		return ziel;
 	}
 
+	@Override
 	public boolean aktiv()
 	{
 		return leben > 0;
 	}
 
+	@Override
 	public int getMagie()
 	{
 		return magie;
 	}
 
+	@Override
 	public void setMagie(int magie)
 	{
 		this.magie = magie;
 	}
 
+	@Override
 	public int getLeben()
 	{
 		return leben;
@@ -380,6 +389,7 @@ public class NTeilnehmer implements EffektZielCharakter
 		return nAktion != null ? nAktion.karte : null;
 	}
 
+	@Override
 	public boolean isGibtMagieAus()
 	{
 		return gibtMagieAus;

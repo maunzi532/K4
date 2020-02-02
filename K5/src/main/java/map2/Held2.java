@@ -51,7 +51,7 @@ public class Held2
 
 	public int maxLeben()
 	{
-		return (charakterkarte.getLeben() + upgrades[4]) * e.lebenMultiplikator;
+		return (charakterkarte.leben() + upgrades[4]) * e.lebenMultiplikator;
 	}
 
 	public boolean kampfbereit()
@@ -63,7 +63,7 @@ public class Held2
 			return false;
 		if(nebenwaffe == null)
 		{
-			return hauptwaffe.karte.isGegnerOK();
+			return hauptwaffe.karte.gegnerOK();
 		}
 		else
 		{

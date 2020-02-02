@@ -26,18 +26,6 @@ public class XGegnerBuilder
 		xWerte = new boolean[5];
 	}
 
-	public XGegnerBuilder(String name, int angriff, int waffenwert, int geschwindigkeit, int verteidigung, int leben, List<KartenEffekt> effekte)
-	{
-		this.name = name;
-		this.angriff = angriff;
-		this.waffenwert = waffenwert;
-		this.geschwindigkeit = geschwindigkeit;
-		this.verteidigung = verteidigung;
-		this.leben = leben;
-		this.effekte = effekte;
-		xWerte = new boolean[5];
-	}
-
 	public XGegnerBuilder xAngriff()
 	{
 		xWerte[0] = true;
@@ -72,6 +60,6 @@ public class XGegnerBuilder
 	{
 		if(xExp.length != XGegner.X_ANZAHL)
 			throw new RuntimeException();
-		return new XGegner(new Charakterkarte(name, angriff, waffenwert, geschwindigkeit, verteidigung, leben, effekte), xWerte, xExp);
+		return new XGegner(new Charakterkarte(name, angriff, waffenwert, geschwindigkeit, verteidigung, leben, 0, effekte), xWerte, xExp);
 	}
 }

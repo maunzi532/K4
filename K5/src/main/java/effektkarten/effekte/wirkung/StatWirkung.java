@@ -104,6 +104,7 @@ public class StatWirkung implements Wirkung
 		return setzeangriffe;
 	}
 
+	@Override
 	public String text()
 	{
 		return text;

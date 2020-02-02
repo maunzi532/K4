@@ -16,8 +16,7 @@ public enum MapTeil
 	START(false, 'S', 'S', Begehbar.GEHT, Begehbar.GEHT),
 	ZIEL(false, 'Z', 'Z', Begehbar.GEHT, Begehbar.GEHT);
 
-	MapTeil(boolean hatModifier, char zeichen0, char zeichen1, Begehbar begehbar0,
-			Begehbar begehbar1)
+	MapTeil(boolean hatModifier, char zeichen0, char zeichen1, Begehbar begehbar0, Begehbar begehbar1)
 	{
 		this.hatModifier = hatModifier;
 		this.zeichen0 = zeichen0;

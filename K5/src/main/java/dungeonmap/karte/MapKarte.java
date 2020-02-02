@@ -56,12 +56,12 @@ public class MapKarte implements StapelKarte
 		modLimit = nMod;
 	}
 
-	public int getModLimit()
+	public int modLimit()
 	{
 		return modLimit;
 	}
 
-	public boolean isUmdrehbar()
+	public boolean umdrehbar()
 	{
 		return umdrehbar;
 	}
@@ -92,7 +92,7 @@ public class MapKarte implements StapelKarte
 
 	public int anschluss(MapRichtung seite, boolean verkehrt)
 	{
-		return ort(FeldKoordinaten.f(
-				FeldKoordinaten.ym + seite.y * FeldKoordinaten.ym, FeldKoordinaten.xm + seite.x * FeldKoordinaten.xm), verkehrt) == MapTeil.NICHTS ? -1 : 1;
+		return ort(FeldKoordinaten.f(FeldKoordinaten.ym + seite.y * FeldKoordinaten.ym,
+				FeldKoordinaten.xm + seite.x * FeldKoordinaten.xm), verkehrt) == MapTeil.NICHTS ? -1 : 1;
 	}
 }

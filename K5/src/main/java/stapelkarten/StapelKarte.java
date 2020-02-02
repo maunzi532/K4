@@ -1,6 +1,3 @@
 package stapelkarten;
 
-public interface StapelKarte
-{
-
-}
+public interface StapelKarte {}

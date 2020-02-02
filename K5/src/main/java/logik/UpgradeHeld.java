@@ -4,21 +4,21 @@ import effektkarten.karten.*;
 
 public class UpgradeHeld
 {
-	private Charakterkarte charakter;
-	private int[] werteUpgrades;
+	private final Charakterkarte basiskarte;
+	private final int[] werteUpgrades;
 
-	public UpgradeHeld(Charakterkarte charakter, int[] werteUpgrades)
+	public UpgradeHeld(Charakterkarte basiskarte, int[] werteUpgrades)
 	{
-		this.charakter = charakter;
+		this.basiskarte = basiskarte;
 		this.werteUpgrades = werteUpgrades;
 	}
 
 	public Charakterkarte charakterkarte()
 	{
-		return new Charakterkarte(charakter.name(), charakter.getAngriff() + werteUpgrades[0],
-				charakter.getWaffenwert() + werteUpgrades[1],
-				charakter.getGeschwindigkeit() + werteUpgrades[2],
-				charakter.getVerteidigung() + werteUpgrades[3],
-				charakter.getLeben() + werteUpgrades[4], charakter.effekte());
+		return new Charakterkarte(basiskarte.name(), basiskarte.angriff() + werteUpgrades[0],
+				basiskarte.waffenwert() + werteUpgrades[1],
+				basiskarte.geschwindigkeit() + werteUpgrades[2],
+				basiskarte.verteidigung() + werteUpgrades[3],
+				basiskarte.leben() + werteUpgrades[4], 0, basiskarte.effekte());
 	}
 }
