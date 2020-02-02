@@ -42,11 +42,10 @@ public class Held2
 		return null; //TODO
 	}
 
-	public static Held2 initial(Klasse klasse, Kartenstapel<Waffenkarte> waffenkartenstapel,
-			Kartenset<Charakterkarte> charakterkarten, Einstellungen einstellungen)
+	public static Held2 initial(Klasse klasse, Kartenset<Charakterkarte> charakterkarten, Kartenstapel<Waffenkarte> waffenkartenstapel, Einstellungen e)
 	{
-		return new Held2(klasse, new WaffeMap(waffenkartenstapel.entnehmeKarte(e -> e.name().equals(klasse.startwaffe())), true), null,
-				new int[5], 0, charakterkarten, einstellungen);
+		return new Held2(klasse, new WaffeMap(waffenkartenstapel.entnehmeKarte(k -> k.name().equals(klasse.startwaffe())), true), null,
+				new int[5], 0, charakterkarten, e);
 	}
 
 	public int maxLeben()

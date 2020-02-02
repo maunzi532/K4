@@ -40,6 +40,10 @@ public class Vorrat
 		anzahlHaendler = 0;
 		haendlerBereit = true;
 		beiHaendler = new ArrayList<>();
+	}
+
+	public void erstelleSpielfiguren()
+	{
 		for(int i = 0; i < e.anzahlSpieler; i++)
 		{
 			spielfiguren.add(new Spielfigur(map, map.startPosition()));
