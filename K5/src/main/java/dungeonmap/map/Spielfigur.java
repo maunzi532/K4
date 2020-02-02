@@ -151,24 +151,24 @@ public class Spielfigur
 		}
 	}
 
-	public boolean bewegungFertig()
+	public boolean inBewegung()
 	{
-		return !inBewegung;
+		return inBewegung;
 	}
 
-	public FeldKoordinaten kannForschen()
+	public Optional<FeldKoordinaten> kannForschen()
 	{
 		if(blockiert())
-			return null;
+			return Optional.empty();
 		for(int i = 0; i < 4; i++)
 		{
 			FeldKoordinaten f1 = FeldKoordinaten.add(fa, richtungenY[i], richtungenX[i]);
 			if(map.isInMap(f1) && !map.existiertKarte(f1))
 			{
-				return f1;
+				return Optional.of(f1);
 			}
 		}
-		return null;
+		return Optional.empty();
 	}
 
 	public FeldKoordinaten getFA()

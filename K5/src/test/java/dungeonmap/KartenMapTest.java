@@ -55,12 +55,12 @@ public class KartenMapTest
 		kartenMap.erstelleMittelWeg(mittelMapKartenset, Collections::shuffle);
 		Spielfigur spielfigur = new Spielfigur(kartenMap, kartenMap.startPosition());
 		spielfigur.geheZu(FeldKoordinaten.add(spielfigur.getFA(), -FeldKoordinaten.ym, -FeldKoordinaten.xm), () -> System.currentTimeMillis() % 2 == 0);
-		while(!spielfigur.bewegungFertig())
+		while(spielfigur.inBewegung())
 		{
 			spielfigur.bewege();
 		}
-		FeldKoordinaten f = spielfigur.kannForschen();
-		kartenMap.forsche(f, mapStapel);
+		Optional<FeldKoordinaten> f = spielfigur.kannForschen();
+		kartenMap.forsche(f.orElseThrow(), mapStapel);
 		System.out.println(mapBild.mapAlsText());
 	}
 }

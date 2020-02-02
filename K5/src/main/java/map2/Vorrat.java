@@ -14,8 +14,7 @@ public class Vorrat
 {
 	public Einstellungen e;
 	public KartenMap map;
-	public List<Spielfigur> spielfiguren;
-	public List<Held2> helden;
+	public List<Spieler> spieler;
 	public List<WaffeMap> waffen;
 	public Map<ExpTrank, Integer> traenke;
 	public int unaufgeteilteExp;
@@ -30,8 +29,7 @@ public class Vorrat
 	{
 		this.e = e;
 		map = new KartenMap(e);
-		spielfiguren = new ArrayList<>();
-		helden = new ArrayList<>();
+		spieler = new ArrayList<>();
 		waffen = new ArrayList<>();
 		traenke = new HashMap<>();
 		unaufgeteilteExp = 0;
@@ -46,14 +44,15 @@ public class Vorrat
 	{
 		for(int i = 0; i < e.anzahlSpieler; i++)
 		{
-			spielfiguren.add(new Spielfigur(map, map.startPosition()));
-			helden.add(null);
+			Spieler s = new Spieler();
+			s.spielfigur = new Spielfigur(map, map.startPosition());
+			spieler.add(s);
 		}
 	}
 
 	public void erstelleHeld(Held2 h1, int num)
 	{
-		helden.set(num, h1);
+		spieler.get(num).held = h1;
 		if(h1.hauptwaffe != null)
 			waffen.add(h1.hauptwaffe);
 		if(h1.nebenwaffe != null)
@@ -190,8 +189,8 @@ public class Vorrat
 
 	public void haendlerAngebot(Kartenstapel<Waffenkarte> waffenKartenstapel)
 	{
-		int min = beiHaendler.stream().mapToInt(f -> helden.get(f).upgradeHeld.charakterkarte().waffenwert()).min().orElseThrow() + e.gegnerWaffenwertMin;
-		int max = beiHaendler.stream().mapToInt(f -> helden.get(f).upgradeHeld.charakterkarte().waffenwert()).max().orElseThrow() + e.gegnerWaffenwertMax;
+		int min = beiHaendler.stream().mapToInt(f -> spieler.get(f).held().upgradeHeld.charakterkarte().waffenwert()).min().orElseThrow() + e.gegnerWaffenwertMin;
+		int max = beiHaendler.stream().mapToInt(f -> spieler.get(f).held().upgradeHeld.charakterkarte().waffenwert()).max().orElseThrow() + e.gegnerWaffenwertMax;
 		int anzahl = e.basisHaendlerAuswahl + e.extraHaendlerAuswahlProHaendler * anzahlHaendler;
 		for(int i = 0; i < anzahl; i++)
 		{
@@ -202,22 +201,22 @@ public class Vorrat
 	public void waffeAblegen(int numH, MitWaffe mitWaffe)
 	{
 		if(mitWaffe == MitWaffe.HW)
-			helden.get(numH).hauptwaffe = null;
+			spieler.get(numH).held().hauptwaffe = null;
 		if(mitWaffe == MitWaffe.NW)
-			helden.get(numH).nebenwaffe = null;
+			spieler.get(numH).held().nebenwaffe = null;
 	}
 
 	public void waffeAusruesten(int numH, MitWaffe mitWaffe, int numW)
 	{
 		if(mitWaffe == MitWaffe.HW)
-			helden.get(numH).hauptwaffe = waffen.get(numW);
+			spieler.get(numH).held().hauptwaffe = waffen.get(numW);
 		if(mitWaffe == MitWaffe.NW)
-			helden.get(numH).nebenwaffe = waffen.get(numW);
+			spieler.get(numH).held().nebenwaffe = waffen.get(numW);
 	}
 
 	public void waffenTauschen(int numH)
 	{
-		helden.get(numH).tauscheWaffen();
+		spieler.get(numH).held().tauscheWaffen();
 	}
 
 	public List<Integer> unverwendeteWaffen()
@@ -228,6 +227,6 @@ public class Vorrat
 	public boolean unverwendet(int numW)
 	{
 		WaffeMap w1 = waffen.get(numW);
-		return helden.stream().noneMatch(h -> h.hauptwaffe == w1 || h.nebenwaffe == w1);
+		return spieler.stream().noneMatch(s -> s.held().hauptwaffe == w1 || s.held().nebenwaffe == w1);
 	}
 }

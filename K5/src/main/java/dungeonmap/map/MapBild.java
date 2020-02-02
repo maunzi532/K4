@@ -121,4 +121,75 @@ public class MapBild
 		}
 		return sb.toString();
 	}
+
+	public char[][][][] erstelleBild(KartenKoordinaten k1, KartenKoordinaten k2)
+	{
+		int ysK = k1.yk();
+		int xsK = k1.xk();
+		int ywK = k2.yk() - k1.yk() + 1;
+		int xwK = k2.xk() - k1.xk() + 1;
+		int ysF = ywF * ywK;
+		int xsF = xwF * xwK;
+		char[][][][] arr = new char[ysF][xsF][yc][xc];
+		for(int iy = 0; iy < ysF; iy++)
+		{
+			for(int ix = 0; ix < xsF; ix++)
+			{
+				FeldKoordinaten f = FeldKoordinaten.k(ysK, xsK, iy, ix);
+				if(map.existiertKarte(f))
+				{
+					MapTeil teil = map.ort(f);
+					boolean verwendet = map.isVerwendet(f);
+					for(int ky = 0; ky < yc; ky++)
+					{
+						for(int kx = 0; kx < xc; kx++)
+						{
+							arr[iy][ix][ky][kx] = verwendet ? teil.zeichen1 : teil.zeichen0;
+						}
+					}
+				}
+				else if(map.isInMap(f))
+				{
+					for(int ky = 0; ky < yc; ky++)
+					{
+						for(int kx = 0; kx < xc; kx++)
+						{
+							arr[iy][ix][ky][kx] = '\u2588';
+						}
+					}
+				}
+				else
+				{
+					for(int ky = 0; ky < yc; ky++)
+					{
+						for(int kx = 0; kx < xc; kx++)
+						{
+							arr[iy][ix][ky][kx] = ' ';
+						}
+					}
+				}
+			}
+		}
+		return arr;
+	}
+
+	public String erstelleTextBild(KartenKoordinaten k1, KartenKoordinaten k2)
+	{
+		char[][][][] arr = erstelleBild(k1, k2);
+		StringBuilder sb = new StringBuilder();
+		int ys = arr.length;
+		for(int iy = 0; iy < ys; iy++)
+		{
+			int xs = arr[iy].length;
+			for(int ky = 0; ky < yc; ky++)
+			{
+				for(int ix = 0; ix < xs; ix++)
+				{
+					sb.append(arr[iy][ix][ky]);
+				}
+				sb.append('\n');
+			}
+		}
+		return sb.toString();
+	}
 }

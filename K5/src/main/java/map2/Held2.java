@@ -18,7 +18,7 @@ public class Held2
 	public int[] upgrades;
 	public int exp;
 	public int leben;
-	public HeldStatus trankStatus;
+	public TrankStatus trankStatus;
 	public int gegnerExpLevel;
 
 	public Held2(Klasse klasse, WaffeMap hauptwaffe, WaffeMap nebenwaffe, int[] upgrades, int exp,
@@ -33,7 +33,7 @@ public class Held2
 		this.upgrades = upgrades;
 		this.exp = exp;
 		leben = maxLeben();
-		trankStatus = HeldStatus.MAXIMAL;
+		trankStatus = TrankStatus.MAXIMAL;
 		gegnerExpLevel = 0;
 	}
 
@@ -55,7 +55,7 @@ public class Held2
 
 	public boolean kampfbereit()
 	{
-		if(trankStatus == HeldStatus.BESIEGT)
+		if(trankStatus == TrankStatus.BESIEGT)
 			return false;
 		//Waffenklassen überprüfen
 		if(hauptwaffe == null || hauptwaffe.benutzungen <= 0)
@@ -87,15 +87,15 @@ public class Held2
 		this.leben = leben;
 		if(leben <= 0)
 		{
-			trankStatus = HeldStatus.BESIEGT;
+			trankStatus = TrankStatus.BESIEGT;
 		}
 		else if(leben >= maxLeben())
 		{
-			trankStatus = HeldStatus.MAXIMAL;
+			trankStatus = TrankStatus.MAXIMAL;
 		}
 		else
 		{
-			trankStatus = HeldStatus.NORMAL;
+			trankStatus = TrankStatus.NORMAL;
 		}
 		if(hauptwaffe != null)
 		{
@@ -118,15 +118,15 @@ public class Held2
 						if(leben >= maxLeben())
 						{
 							leben = maxLeben();
-							trankStatus = HeldStatus.MAXIMAL;
+							trankStatus = TrankStatus.MAXIMAL;
 						}
 						else
-							trankStatus = HeldStatus.TRANK;
+							trankStatus = TrankStatus.TRANK;
 					}
 			case TRANK ->
 					{
 						leben = maxLeben();
-						trankStatus = HeldStatus.MAXIMAL;
+						trankStatus = TrankStatus.MAXIMAL;
 					}
 		}
 	}

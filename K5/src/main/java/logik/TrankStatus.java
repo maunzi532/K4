@@ -1,6 +1,6 @@
 package logik;
 
-public enum HeldStatus
+public enum TrankStatus
 {
 	NORMAL,
 	TRANK,
