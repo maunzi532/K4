@@ -78,7 +78,8 @@ public class Vorrat
 			if(gegner1 != null)
 				return xWerteBestimmen(gegner1, minExp, maxExp, r);
 		}
-		throw new RuntimeException();
+		throw new RuntimeException("Gegner ziehen unmöglich (Exp: " + minExp + "-" + maxExp
+		                           + "Anzahl: " + startAnzahl + "-" + (startAnzahl + e.gegnerAnzahlZiehenVersuche - 1) + ")");
 	}
 
 	public List<Gegner> zieheGegnerAnzahl(int minExp, int maxExp, int anzahl, Kartenstapel<Gegner> gegnerKartenstapel)

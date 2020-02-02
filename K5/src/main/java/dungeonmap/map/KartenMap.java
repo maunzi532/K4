@@ -147,7 +147,7 @@ public class KartenMap
 			}
 			else
 			{
-				throw new RuntimeException();
+				throw new RuntimeException("Map-Karten-Stapel leer");
 			}
 		}
 	}

@@ -59,7 +59,7 @@ public class XGegnerBuilder
 	public XGegner xExp(int... xExp)
 	{
 		if(xExp.length != XGegner.X_ANZAHL)
-			throw new RuntimeException();
+			throw new RuntimeException("Anzahl Exp-Werte für X-Gegner \"" + name + "\" muss " + XGegner.X_ANZAHL + " sein");
 		return new XGegner(new Charakterkarte(name, angriff, waffenwert, geschwindigkeit, verteidigung, leben, 0, effekte), xWerte, xExp);
 	}
 }

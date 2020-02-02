@@ -25,7 +25,7 @@ public class Rahmen3
 		{
 			case 1 -> c1;
 			case 2 -> c2;
-			default -> throw new RuntimeException();
+			default -> throw new RuntimeException("Rahmen existiert nicht (" + linien + " linien)");
 		};
 	}
 }

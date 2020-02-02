@@ -37,7 +37,7 @@ public class Held2
 		gegnerExpLevel = 0;
 	}
 
-	public static Held2 lesen(String input, Kartenset<Charakterkarte> charakterkarten, Einstellungen einstellungen)
+	public static Held2 lesen(String input, Kartenset<Charakterkarte> charakterkarten, Einstellungen e)
 	{
 		return null; //TODO
 	}

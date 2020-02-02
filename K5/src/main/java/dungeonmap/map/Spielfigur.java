@@ -113,7 +113,7 @@ public class Spielfigur
 						if(ak3 != null)
 							ak = ak3;
 						else
-							throw new RuntimeException();
+							throw new RuntimeException("Fehler in Code");
 					}
 				}
 			}

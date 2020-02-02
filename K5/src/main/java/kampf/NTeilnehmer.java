@@ -333,7 +333,7 @@ public class NTeilnehmer implements EffektZielCharakter
 				{
 					case HW -> nHauptwaffe;
 					case NW -> nNebenwaffe;
-					default -> throw new RuntimeException();
+					default -> throw new RuntimeException("Nur HW oder NW erlaubt");
 				};
 	}
 
@@ -380,7 +380,7 @@ public class NTeilnehmer implements EffektZielCharakter
 					return null;
 				return nNebenwaffe.karte;
 			}
-			default -> throw new RuntimeException();
+			default -> throw new RuntimeException("Nur HW oder NW erlaubt");
 		}
 	}
 

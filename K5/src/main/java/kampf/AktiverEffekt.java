@@ -11,17 +11,17 @@ public class AktiverEffekt
 	public final int dauer;
 	public final int daten;
 
-	public AktiverEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel)
-	{
-		this(anEffekt.wirkung(), anEffekt.endTrigger(), anEffekt.dauer(), anEffekt.wirkung().triggere(n, ziel));
-	}
-
 	private AktiverEffekt(Wirkung wirkung, EndTrigger endTrigger, int dauer, int daten)
 	{
 		this.wirkung = wirkung;
 		this.endTrigger = endTrigger;
 		this.dauer = dauer;
 		this.daten = daten;
+	}
+
+	public AktiverEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel)
+	{
+		this(anEffekt.wirkung(), anEffekt.endTrigger(), anEffekt.dauer(), anEffekt.wirkung().triggere(n, ziel));
 	}
 
 	public Optional<AktiverEffekt> tick(EndTrigger trigger)
