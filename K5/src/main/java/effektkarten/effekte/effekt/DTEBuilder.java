@@ -56,7 +56,7 @@ public class DTEBuilder
 		return new DirektTriggerEffekt(text, num, startTrigger, startTriggerSeite, bedingungen, direktWirkung);
 	}
 
-	public DTEBuilder generiereText()
+	private void generiereText()
 	{
 		StringBuilder sb = new StringBuilder();
 		if(startTriggerSeite == StartTriggerSeite.GEGNER)
@@ -76,6 +76,5 @@ public class DTEBuilder
 		}
 		sb.append(direktWirkung.text());
 		text = sb.toString();
-		return this;
 	}
 }

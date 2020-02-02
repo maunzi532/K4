@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ZTEBuilder
 {
-	private EffektZielKartentyp auf;
+	private final EffektZielKartentyp auf;
 	private String text;
 	private int num = 0;
 	private StartTrigger startTrigger;
@@ -101,7 +101,7 @@ public class ZTEBuilder
 				betrifftGegner, an, zielWaffe, wirkung);
 	}
 
-	public ZTEBuilder generiereText()
+	private void generiereText()
 	{
 		StringBuilder sb = new StringBuilder();
 		if(startTriggerSeite == StartTriggerSeite.GEGNER)
@@ -173,6 +173,5 @@ public class ZTEBuilder
 			sb.append(", endet nachdem Anwender angegriffen wurde");
 		}
 		text = sb.toString();
-		return this;
 	}
 }

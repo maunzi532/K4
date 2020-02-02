@@ -14,8 +14,6 @@ public record BLebenVergleich(Vergleich vergleich) implements Bedingung
 	@Override
 	public String text()
 	{
-		StringBuilder sb = new StringBuilder();
-		sb.append("Leben ").append(vergleich.text).append(" Leben_(Ziel)");
-		return sb.toString();
+		return "Leben " + vergleich.text + " Leben_(Ziel)";
 	}
 }

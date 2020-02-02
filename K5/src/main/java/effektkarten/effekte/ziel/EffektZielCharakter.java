@@ -13,10 +13,6 @@ public interface EffektZielCharakter
 
 	MitWaffe getMit();
 
-	EffektZielCharakter getZiel();
-
-	boolean aktiv();
-
 	int getMagie();
 
 	void setMagie(int magie);

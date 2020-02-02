@@ -165,10 +165,10 @@ public class KarteBild3 implements Zeichner3
 			int zeile = klassencode ? laengen.werteH + 6 : laengen.werteH + 4;
 			for(Kartentext text : effektText)
 			{
-				String typ = text.getTyp();
+				String typ = text.typ();
 				int start = 2 + typ.length();
 				int platz = laengen.karteW - start - 2;
-				String textAktuell = text.getText();
+				String textAktuell = text.text();
 				List<String> zeilen = new ArrayList<>();
 				while(textAktuell.length() > platz)
 				{

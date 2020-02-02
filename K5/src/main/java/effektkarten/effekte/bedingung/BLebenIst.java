@@ -14,8 +14,6 @@ public record BLebenIst(Vergleich vergleich, int zu) implements Bedingung
 	@Override
 	public String text()
 	{
-		StringBuilder sb = new StringBuilder();
-		sb.append("Leben ").append(vergleich.text).append(" ").append(zu);
-		return sb.toString();
+		return "Leben " + vergleich.text + " " + zu;
 	}
 }

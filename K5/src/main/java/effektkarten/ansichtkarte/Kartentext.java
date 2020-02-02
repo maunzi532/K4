@@ -2,7 +2,7 @@ package effektkarten.ansichtkarte;
 
 public interface Kartentext
 {
-	String getTyp();
+	String typ();
 
-	String getText();
+	String text();
 }

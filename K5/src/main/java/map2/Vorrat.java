@@ -117,9 +117,8 @@ public class Vorrat
 		int maxExpK = gegner1.stream().mapToInt(Gegner::maxExp).sum();
 		for(Gegner g : gegner1)
 		{
-			if(g instanceof XGegner)
+			if(g instanceof XGegner gx)
 			{
-				XGegner gx = (XGegner) g;
 				minExpK -= gx.minExp();
 				maxExpK -= gx.maxExp();
 				int minExpK1 = minExpK;

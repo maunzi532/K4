@@ -8,9 +8,9 @@ import java.util.stream.*;
 
 public class SortierterKartenstapel<T extends EffektKarte> implements Kartenstapel<T>
 {
-	private LinkedList<T> deck;
-	private List<T> umlauf;
-	private Deque<T> ablage;
+	private final LinkedList<T> deck;
+	private final List<T> umlauf;
+	private final Deque<T> ablage;
 
 	public SortierterKartenstapel(Kartenset<T> kartenset, String... kartennamen)
 	{
@@ -26,6 +26,8 @@ public class SortierterKartenstapel<T extends EffektKarte> implements Kartenstap
 		{
 			ablageInsDeck();
 		}
+		if(deck.isEmpty())
+			throw new RuntimeException("Keine Karten in Deck oder Ablage");
 		T k = deck.removeFirst();
 		umlauf.add(k);
 		return Optional.ofNullable(k);
@@ -71,8 +73,7 @@ public class SortierterKartenstapel<T extends EffektKarte> implements Kartenstap
 	@Override
 	public void ablage(T k)
 	{
-		/*if(!umlauf.remove(k))
-			throw new RuntimeException();*/
+		umlauf.remove(k);
 		ablage.addLast(k);
 	}
 

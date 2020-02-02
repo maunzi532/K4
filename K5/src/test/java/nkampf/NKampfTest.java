@@ -40,7 +40,8 @@ public class NKampfTest
 		NTeilnehmer nt0 = new NTeilnehmer(e, held, heldWaffe, null);
 		NTeilnehmer nt1 = new NTeilnehmer(e, gegner, gegnerWaffe, null);
 
-		NKampf nKampf = new NKampf(e, List.of(nt0), List.of(nt1), aktionen.kartenstapel());
+		NKampf nKampf = new NKampf(e, List.of(nt0), List.of(nt1), new SortierterKartenstapel<>(aktionen,
+				"Schutzangriff", "Geschwindigkeitsbelohnung", "Ausholen", "Powerstoß"));
 		nKampf.start();
 		nKampf.anfangstrigger();
 		nKampf.beginneZug();

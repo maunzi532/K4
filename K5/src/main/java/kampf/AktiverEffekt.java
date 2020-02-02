@@ -46,9 +46,4 @@ public class AktiverEffekt
 	{
 		return wirkung.setzeangriffeWert(daten);
 	}
-
-	public String text()
-	{
-		return wirkung.text();
-	}
 }

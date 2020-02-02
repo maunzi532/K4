@@ -5,14 +5,12 @@ import java.util.function.*;
 
 public class MischKartenstapel<T extends StapelKarte> implements Kartenstapel<T>
 {
-	private List<T> karten;
-	private LinkedList<T> deck;
-	private List<T> umlauf;
-	private Deque<T> ablage;
+	private final LinkedList<T> deck;
+	private final List<T> umlauf;
+	private final Deque<T> ablage;
 
 	public MischKartenstapel(Collection<T> karten)
 	{
-		this.karten = new ArrayList<>(karten);
 		deck = new LinkedList<>(karten);
 		Collections.shuffle(deck);
 		umlauf = new ArrayList<>();
@@ -72,8 +70,8 @@ public class MischKartenstapel<T extends StapelKarte> implements Kartenstapel<T>
 	@Override
 	public void ablage(T k)
 	{
-		/*if(!umlauf.remove(k))
-			throw new RuntimeException();*/
+		if(!umlauf.remove(k))
+			throw new RuntimeException("Nicht vorhandene Karte abgelegt");
 		ablage.addLast(k);
 	}
 

@@ -20,20 +20,5 @@ public abstract class TriggerEffekt extends KartenEffekt
 		this.bedingungen = bedingungen;
 	}
 
-	public StartTrigger getStartTrigger()
-	{
-		return startTrigger;
-	}
-
-	public StartTriggerSeite getStartSeite()
-	{
-		return startSeite;
-	}
-
-	public List<Bedingung> getBedingungen()
-	{
-		return bedingungen;
-	}
-
 	public abstract void triggere(EffektZielCharakter n, EffektZielCharakter ziel);
 }

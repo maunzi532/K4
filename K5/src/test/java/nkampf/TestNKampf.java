@@ -9,10 +9,10 @@ import stapelkarten.*;
 
 public class TestNKampf
 {
-	private List<NTeilnehmer> spieler0;
-	private List<NTeilnehmer> gegner0;
-	private Einstellungen e;
-	private Kartenstapel<Aktionskarte> aktionen;
+	private final List<NTeilnehmer> spieler0;
+	private final List<NTeilnehmer> gegner0;
+	private final Einstellungen e;
+	private final Kartenstapel<Aktionskarte> aktionen;
 	private NKampf nk;
 
 	public TestNKampf(Kartenstapel<Aktionskarte> aktionen)

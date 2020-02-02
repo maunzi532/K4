@@ -9,15 +9,15 @@ import stapelkarten.*;
 
 public class NKampf
 {
-	private Einstellungen e;
-	private List<NTeilnehmer> spieler0;
-	private List<NTeilnehmer> gegner0;
+	private final Einstellungen e;
+	private final List<NTeilnehmer> spieler0;
+	private final List<NTeilnehmer> gegner0;
 	private List<NTeilnehmer> spieler;
 	private List<NTeilnehmer> gegner;
 	private List<NTeilnehmer> alle;
 	private List<NTeilnehmer> sortiert;
-	private Kartenstapel<Aktionskarte> aktionsKartenstapel;
-	private List<Aktionskarte> aktionenOptionen;
+	private final Kartenstapel<Aktionskarte> aktionsKartenstapel;
+	private final List<Aktionskarte> aktionenOptionen;
 
 	public NKampf(Einstellungen e, List<NTeilnehmer> spieler0, List<NTeilnehmer> gegner0,
 			Kartenstapel<Aktionskarte> aktionsKartenstapel)

@@ -11,8 +11,8 @@ public class Test1v1
 {
 	private NTeilnehmer spieler;
 	private NTeilnehmer gegner;
-	private Einstellungen e;
-	private Kartenstapel<Aktionskarte> aktionen;
+	private final Einstellungen e;
+	private final Kartenstapel<Aktionskarte> aktionen;
 	private NKampf nk;
 
 	public Test1v1(Kartenstapel<Aktionskarte> aktionen)

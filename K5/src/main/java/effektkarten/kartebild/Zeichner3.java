@@ -24,7 +24,10 @@ public interface Zeichner3
 			for(int i = 0; i < zeilentrenner.length; i++)
 			{
 				if(zeilentrenner[i] == iy)
+				{
 					iyc = 3;
+					break;
+				}
 			}
 			for(int ix = 0; ix < xw(); ix++)
 			{

@@ -14,19 +14,14 @@ public abstract class KartenEffekt implements Kartentext
 	}
 
 	@Override
-	public String getTyp()
+	public String typ()
 	{
 		return typ;
 	}
 
 	@Override
-	public String getText()
+	public String text()
 	{
 		return text;
-	}
-
-	public int getNum()
-	{
-		return num;
 	}
 }

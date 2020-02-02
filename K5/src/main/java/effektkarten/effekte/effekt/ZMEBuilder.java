@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ZMEBuilder
 {
-	private EffektZielKartentyp auf;
+	private final EffektZielKartentyp auf;
 	private String text;
 	private int num = 0;
 	private int magieKosten;
@@ -94,7 +94,7 @@ public class ZMEBuilder
 				betrifftGegner, an, zielWaffe, wirkung);
 	}
 
-	public ZMEBuilder generiereText()
+	private void generiereText()
 	{
 		StringBuilder sb = new StringBuilder();
 		if(!bedingungen.isEmpty())
@@ -147,6 +147,5 @@ public class ZMEBuilder
 			sb.append(" (").append(dauer).append("_Züge)");
 		}
 		text = sb.toString();
-		return this;
 	}
 }

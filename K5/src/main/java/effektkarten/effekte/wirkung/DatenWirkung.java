@@ -8,7 +8,7 @@ public record DatenWirkung(Typ typ, Wirkungswert wirktAuf, int multiplikator, in
 	public enum Typ
 	{
 		GES_VORTEIL,
-		AKTUELLE_MAGIE;
+		AKTUELLE_MAGIE
 	}
 
 	@Override

@@ -12,9 +12,9 @@ import main.*;
 
 public class NTeilnehmer implements EffektZielCharakter
 {
-	private Einstellungen e;
+	private final Einstellungen e;
 	//Charakter
-	private NCharakter nCharakter;
+	private final NCharakter nCharakter;
 
 	//Waffen
 	public NWaffe nHauptwaffe;
@@ -42,7 +42,7 @@ public class NTeilnehmer implements EffektZielCharakter
 	private int gesBonusAngriff;
 	private int gesBonusMindestschaden;
 	private int anzahlAngriffe;
-	private List<NTeilnehmer> angegriffenVon;
+	private final List<NTeilnehmer> angegriffenVon;
 
 	public NTeilnehmer(Einstellungen e, Charakterkarte charakterkarte, Waffenkarte hauptwafffe, Waffenkarte nebenwaffe)
 	{
@@ -99,10 +99,9 @@ public class NTeilnehmer implements EffektZielCharakter
 	{
 		for(KartenEffekt e : effekte)
 		{
-			if(e instanceof TriggerEffekt)
+			if(e instanceof TriggerEffekt te)
 			{
-				TriggerEffekt te = (TriggerEffekt) e;
-				if(te.getStartTrigger() == startTrigger && eigene ? te.getStartSeite().eigeneOK : te.getStartSeite().gegnerOK)
+				if(te.startTrigger == startTrigger && eigene ? te.startSeite.eigeneOK : te.startSeite.gegnerOK)
 				{
 					if(te.bedingungen.stream().allMatch(n -> n.ok(this, andererChar, nichtMit)))
 					{
@@ -297,13 +296,11 @@ public class NTeilnehmer implements EffektZielCharakter
 		return mit;
 	}
 
-	@Override
 	public NTeilnehmer getZiel()
 	{
 		return ziel;
 	}
 
-	@Override
 	public boolean aktiv()
 	{
 		return leben > 0;
