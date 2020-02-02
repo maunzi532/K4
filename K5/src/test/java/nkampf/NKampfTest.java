@@ -31,7 +31,7 @@ public class NKampfTest
 	@Test
 	public void test()
 	{
-		Einstellungen e = new Einstellungen();
+		Einstellungen e = Einstellungen.lies("Einstellungen", "1 Spieler");
 		Charakterkarte held = klassen.gibKarte("Geist");
 		Waffenkarte heldWaffe = waffen.gibKarte("Spiegelsplitter");
 		Charakterkarte gegner = new Charakterkarte("TGegner", 8, 7, 6, 6, 10, 20);
@@ -85,7 +85,7 @@ public class NKampfTest
 		SortierterKartenstapel<Aktionskarte> kartenstapel = new SortierterKartenstapel<>(aktionen,
 				"Schnellangriff", "Geschwindigkeitsbelohnung", "Ausholen", "Powerstoß",
 				"Powerangriff", "Schutzangriff", "Disruptorangriff", "Brecher");
-		Test1v1 tn = new Test1v1(kartenstapel);
+		Test1v1 tn = new Test1v1(Einstellungen.lies("Einstellungen", "1 Spieler"), kartenstapel);
 		tn.spieler(klassen.gibKarte("Geist"), waffen.gibKarte("Spiegelsplitter"));
 		StandardGegner gegner = new StandardGegner("TGegner", 8, 7, 6, 6, 10, 20);
 		tn.gegner(gegner, waffen.gibKarte("Großer Stock"));

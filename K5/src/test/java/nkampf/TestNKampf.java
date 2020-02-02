@@ -15,11 +15,11 @@ public class TestNKampf
 	private final Kartenstapel<Aktionskarte> aktionen;
 	private NKampf nk;
 
-	public TestNKampf(Kartenstapel<Aktionskarte> aktionen)
+	public TestNKampf(Einstellungen e, Kartenstapel<Aktionskarte> aktionen)
 	{
 		spieler0 = new ArrayList<>();
 		gegner0 = new ArrayList<>();
-		e = new Einstellungen();
+		this.e = e;
 		this.aktionen = aktionen;
 	}
 

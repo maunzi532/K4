@@ -18,7 +18,7 @@ public class KartenMapTest
 	@Before
 	public void before()
 	{
-		e = new Einstellungen();
+		e = Einstellungen.lies("Einstellungen", "1 Spieler");;
 		kartenMap = new KartenMap(e);
 		mittelMapKartenset = new MittelMapKartenset(new SetV2MittelMapKarten().fertig());
 		mapBild = new MapBild(kartenMap);

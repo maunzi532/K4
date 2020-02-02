@@ -1,6 +1,10 @@
 package main;
 
+import java.io.*;
+import java.net.*;
+import java.nio.file.*;
 import java.util.*;
+import java.util.stream.*;
 
 public class Einstellungen
 {
@@ -31,33 +35,65 @@ public class Einstellungen
 	public final int lebenMultiplikator;
 	public final int gesBonusAbstand;
 
-	public Einstellungen()
+	public Einstellungen(List<List<String>> input)
 	{
-		anzahlSpieler = 2;
-		laengeHauptWeg = 5; //Start, L, R, Beide, Boss
-		maxSeitwaerts = 3;
-		sicherSeitwaertsMin = 1; //muss weiterführen
-		mittelBossOrte = List.of(2); //Mitte
-		bossgegnerKartennamen = List.of("Mittelgegner", "Fortschreitender Gegner");
-		traenkeProSpieler = 2; //Am anfang und nach MittelBoss
-		trankExp = List.of(10, 40);
-		waffenkistenWerte = List.of(6, 7, 8, 9, 10); //1 Waffe pro spieler
-		wandKosten = 20;
-		basisHaendlerAuswahl = 3;
-		extraHaendlerAuswahlProHaendler = 1;
-		haendlerNiedrigstesAngebot = -1;
-		haendlerHoechstesAngebot = 2;
-		gegnerZeilenExpBonus = List.of(0, 10, 20, 40, 70, 100); //0 - 10, 10 - 20, ... , 70 - 100
-		gegnerExpAbfolge = List.of(10, 15, 20, 35, 50, 75);
-		gegnerExpAbfolgeMultiplikator = 10;
-		gegnerExpStart = 0; //10
-		gegnerExpWeiter = 1; //10, 15, 20, 35, 50, 75, 100, ...
-		gegnerAnzahlZiehenVersuche = 3;
-		gegnerWaffenwertMin = -1;
-		gegnerWaffenwertMax = 0;
-		basisAktionenOptionen = 3;
-		extraAktionenOptionenProSpieler = 1;
-		lebenMultiplikator = 3;
-		gesBonusAbstand = 5;
+		Map<String, String> map = new HashMap<>();
+		for(List<String> input1 : input)
+		{
+			input1.forEach(e -> map.put(e.substring(0, e.indexOf(" = ")), e.substring(e.indexOf(" = ") + 3, e.indexOf(";"))));
+		}
+		anzahlSpieler = Integer.parseInt(map.get("anzahlSpieler"));
+		laengeHauptWeg = Integer.parseInt(map.get("laengeHauptWeg"));
+		maxSeitwaerts = Integer.parseInt(map.get("maxSeitwaerts"));
+		sicherSeitwaertsMin = Integer.parseInt(map.get("sicherSeitwaertsMin"));
+		mittelBossOrte = intList(map.get("mittelBossOrte"));
+		bossgegnerKartennamen = stringList(map.get("bossgegnerKartennamen"));
+		traenkeProSpieler = Integer.parseInt(map.get("traenkeProSpieler"));
+		trankExp = intList(map.get("trankExp"));
+		waffenkistenWerte = intList(map.get("waffenkistenWerte"));
+		wandKosten = Integer.parseInt(map.get("wandKosten"));
+		basisHaendlerAuswahl = Integer.parseInt(map.get("basisHaendlerAuswahl"));
+		extraHaendlerAuswahlProHaendler = Integer.parseInt(map.get("extraHaendlerAuswahlProHaendler"));
+		haendlerNiedrigstesAngebot = Integer.parseInt(map.get("haendlerNiedrigstesAngebot"));
+		haendlerHoechstesAngebot = Integer.parseInt(map.get("haendlerHoechstesAngebot"));
+		gegnerZeilenExpBonus = intList(map.get("gegnerZeilenExpBonus"));
+		gegnerExpAbfolge = intList(map.get("gegnerExpAbfolge"));
+		gegnerExpAbfolgeMultiplikator = Integer.parseInt(map.get("gegnerExpAbfolgeMultiplikator"));
+		gegnerExpStart = Integer.parseInt(map.get("gegnerExpStart"));
+		gegnerExpWeiter = Integer.parseInt(map.get("gegnerExpWeiter"));
+		gegnerAnzahlZiehenVersuche = Integer.parseInt(map.get("gegnerAnzahlZiehenVersuche"));
+		gegnerWaffenwertMin = Integer.parseInt(map.get("gegnerWaffenwertMin"));
+		gegnerWaffenwertMax = Integer.parseInt(map.get("gegnerWaffenwertMax"));
+		basisAktionenOptionen = Integer.parseInt(map.get("basisAktionenOptionen"));
+		extraAktionenOptionenProSpieler = Integer.parseInt(map.get("extraAktionenOptionenProSpieler"));
+		lebenMultiplikator = Integer.parseInt(map.get("lebenMultiplikator"));
+		gesBonusAbstand = Integer.parseInt(map.get("gesBonusAbstand"));
+	}
+
+	private List<Integer> intList(String value)
+	{
+		return Arrays.stream(value.substring(value.indexOf("(") + 1, value.indexOf(")")).split(", "))
+				.map(Integer::parseInt).collect(Collectors.toList());
+	}
+
+	private List<String> stringList(String value)
+	{
+		return Arrays.stream(value.substring(value.indexOf("(") + 1, value.indexOf(")")).split(", "))
+				.map(v -> v.substring(1, v.length() - 1)).collect(Collectors.toList());
+	}
+
+	public static Einstellungen lies(String... dateien)
+	{
+		ClassLoader cl = ClassLoader.getSystemClassLoader();
+		return new Einstellungen(Arrays.stream(dateien).map(f ->
+		{
+			try
+			{
+				return Files.readAllLines(Paths.get(Objects.requireNonNull(cl.getResource(f)).toURI()));
+			}catch(IOException | URISyntaxException ex)
+			{
+				throw new RuntimeException(ex);
+			}
+		}).collect(Collectors.toList()));
 	}
 }

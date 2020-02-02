@@ -15,9 +15,9 @@ public class Test1v1
 	private final Kartenstapel<Aktionskarte> aktionen;
 	private NKampf nk;
 
-	public Test1v1(Kartenstapel<Aktionskarte> aktionen)
+	public Test1v1(Einstellungen e, Kartenstapel<Aktionskarte> aktionen)
 	{
-		e = new Einstellungen();
+		this.e = e;
 		this.aktionen = aktionen;
 	}
 
