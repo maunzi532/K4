@@ -6,6 +6,7 @@ import dungeonmap.mapsets.*;
 import effektkarten.kartebild.*;
 import effektkarten.karten.*;
 import effektkarten.sets.*;
+import gui.text.*;
 import java.util.*;
 import java.util.stream.*;
 import main.*;
@@ -37,7 +38,8 @@ public class TextGUI
 	private Kartenstapel<MapKarte> mapKartenstapel;
 	private Einstellungen e;
 	private Vorrat vorrat;
-	private MapBild mapBild;
+	private MapBild2 mapBild2;
+	private MapBild2Daten mapBild2Daten;
 	private Random rng;
 
 	private int aktuellerSpielerNum;
@@ -58,10 +60,11 @@ public class TextGUI
 		e = Einstellungen.lies("Einstellungen", sca.nextLine() + " Spieler");
 		vorrat = new Vorrat(e);
 		vorrat.map.erstelleMittelWeg(new MittelMapKartenset(new SetV2MittelMapKarten().fertig()), Collections::shuffle);
-		mapBild = new MapBild(vorrat.map);
+		mapBild2 = new MapBild2();
+		mapBild2Daten = new MapBild2Daten(3, 5);
 		rng = new Random();
 		vorrat.erstelleSpielfiguren();
-		System.out.println(mapBild.mapAlsText());
+		System.out.println(mapBild2.erstelleKleinBild(mapBild2.felder(vorrat.map, List.of())));
 		List<Klasse> klassenOptionen = new ArrayList<>(Arrays.asList(Klassen.values()));
 		for(int i = 0; i < e.anzahlSpieler; i++)
 		{
@@ -126,27 +129,56 @@ public class TextGUI
 
 	private void mapText(Spieler s)
 	{
-		//lokale map ansicht
-		KartenKoordinaten ka = s.spielfigur().getFA();
-		System.out.println(mapBild.erstelleTextBild(KartenKoordinaten.add(ka, -1, -1), KartenKoordinaten.add(ka, 1, 1)));
+		System.out.println(mapBild2.erstelleTextBild(mapBild2Daten, mapBild2.felder(vorrat.map, 4, 6, s.spielfigur().getFA(), vorrat.spieler)));
 	}
 
 	private void mapAktion(String input, Spieler s)
 	{
 		String[] inputA = input.split(" ");
-		switch(inputA[0].toLowerCase())
+		int cursor = 0;
+		FeldKoordinaten zf = s.spielfigur().getFA();
+		while(cursor < inputA.length)
 		{
-			case "v" ->
-					{
-						int n = inputA.length > 1 ? Integer.parseInt(inputA[1]) : 1;
-						s.spielfigur().geheZu(FeldKoordinaten.add(s.spielfigur().getFA(), -n, 0), rng::nextBoolean);
-					}
+			String c1 = inputA[cursor].toLowerCase();
+			int n;
+			switch(c1)
+			{
+				case "v", "z", "l", "r" ->
+						{
+							n = inputA.length > cursor + 1 ? Integer.parseInt(inputA[cursor + 1]) : 1;
+							cursor += 2;
+						}
+				default ->
+						{
+							n = 1;
+							cursor += 1;
+						}
+			}
+			switch(c1)
+			{
+				case "v" -> zf = FeldKoordinaten.add(zf, -n, 0);
+				case "z" -> zf = FeldKoordinaten.add(zf, n, 0);
+				case "l" -> zf = FeldKoordinaten.add(zf, 0, -n);
+				case "r" -> zf = FeldKoordinaten.add(zf, 0, n);
+			}
 		}
-		while(s.spielfigur().inBewegung())
+		if(!zf.equals(s.spielfigur().getFA()))
 		{
-			s.spielfigur().bewege();
+			s.spielfigur().geheZu(zf, rng::nextBoolean);
+			while(s.spielfigur().inBewegung())
+			{
+				mapText(s);
+				try
+				{
+					Thread.sleep(100);
+				}catch(InterruptedException ex)
+				{
+					throw new RuntimeException(ex);
+				}
+				s.spielfigur().bewege();
+			}
+			s.spielfigur().kannForschen().ifPresent(f1 -> vorrat.forsche(f1, mapKartenstapel));
+			mapText(s);
 		}
-		Optional<FeldKoordinaten> f = s.spielfigur().kannForschen();
-		f.ifPresent(f1 -> vorrat.map.forsche(f1, mapKartenstapel));
 	}
 }

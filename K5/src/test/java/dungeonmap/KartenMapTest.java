@@ -2,9 +2,10 @@ package dungeonmap;
 
 import dungeonmap.karte.*;
 import dungeonmap.map.*;
+import dungeonmap.mapsets.*;
+import gui.text.*;
 import java.util.*;
 import main.*;
-import dungeonmap.mapsets.*;
 import org.junit.*;
 import stapelkarten.*;
 
@@ -13,15 +14,15 @@ public class KartenMapTest
 	private Einstellungen e;
 	private KartenMap kartenMap;
 	private MittelMapKartenset mittelMapKartenset;
-	private MapBild mapBild;
+	private MapBild2 mapBild2;
 
 	@Before
 	public void before()
 	{
-		e = Einstellungen.lies("Einstellungen", "1 Spieler");;
+		e = Einstellungen.lies("Einstellungen", "1 Spieler");
 		kartenMap = new KartenMap(e);
 		mittelMapKartenset = new MittelMapKartenset(new SetV2MittelMapKarten().fertig());
-		mapBild = new MapBild(kartenMap);
+		mapBild2 = new MapBild2();
 	}
 
 	@Test
@@ -38,14 +39,14 @@ public class KartenMapTest
 				new KarteInMap(new MapKarte("\nXX XX\nXX XX\n     \nXG HX\nXXSXX\n00000\n00000\n00000\n00000\n00000"), false));
 		kartenMap.setzeKarte(KartenKoordinaten.k(0, e.maxSeitwaerts),
 				new KarteInMap(new MapKarte("\nXXZXX\nX   X\nXBBBX\nX   X\nXX XX\n00000\n00000\n00000\n00000\n00000"), false));
-		System.out.println(mapBild.mapAlsText());
+		System.out.println(mapBild2.erstelleKleinBild(mapBild2.felder(kartenMap, List.of())));
 	}
 
 	@Test
 	public void mittelMapTest()
 	{
 		kartenMap.erstelleMittelWeg(mittelMapKartenset, Collections::shuffle);
-		System.out.println(mapBild.mapAlsText());
+		System.out.println(mapBild2.erstelleKleinBild(mapBild2.felder(kartenMap, List.of())));
 	}
 
 	@Test
@@ -61,6 +62,6 @@ public class KartenMapTest
 		}
 		Optional<FeldKoordinaten> f = spielfigur.kannForschen();
 		kartenMap.forsche(f.orElseThrow(), mapStapel);
-		System.out.println(mapBild.mapAlsText());
+		System.out.println(mapBild2.erstelleKleinBild(mapBild2.felder(kartenMap, List.of())));
 	}
 }

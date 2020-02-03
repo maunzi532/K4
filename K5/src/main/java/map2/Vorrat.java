@@ -1,11 +1,12 @@
 package map2;
 
+import dungeonmap.karte.*;
 import dungeonmap.map.*;
 import effektkarten.effekte.eigenschaften.*;
+import effektkarten.karten.*;
 import java.util.*;
 import java.util.stream.*;
 import kampf.*;
-import effektkarten.karten.*;
 import logik.*;
 import main.*;
 import stapelkarten.*;
@@ -44,7 +45,7 @@ public class Vorrat
 	{
 		for(int i = 0; i < e.anzahlSpieler; i++)
 		{
-			Spieler s = new Spieler();
+			Spieler s = new Spieler(i);
 			s.spielfigur = new Spielfigur(map, map.startPosition());
 			spieler.add(s);
 		}
@@ -228,5 +229,11 @@ public class Vorrat
 	{
 		WaffeMap w1 = waffen.get(numW);
 		return spieler.stream().noneMatch(s -> s.held().hauptwaffe == w1 || s.held().nebenwaffe == w1);
+	}
+
+	public void forsche(FeldKoordinaten f, Kartenstapel<MapKarte> mapStapel)
+	{
+		map.forsche(f, mapStapel);
+		spieler.forEach(s -> s.spielfigur().erstelleBewegungsgraph());
 	}
 }

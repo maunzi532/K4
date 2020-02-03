@@ -13,6 +13,7 @@ public class Spielfigur
 	private FeldKoordinaten fa;
 	private FeldKoordinaten lf;
 	private boolean inBewegung;
+	private FeldKoordinaten ziel;
 	private List<KoordinatenNum> bewegungsgraph;
 	private final Deque<KoordinatenNum> pfad = new ArrayDeque<>();
 
@@ -118,6 +119,7 @@ public class Spielfigur
 				}
 			}
 		}
+		ziel = f1;
 		inBewegung = true;
 		return true;
 	}
@@ -156,6 +158,16 @@ public class Spielfigur
 		return inBewegung;
 	}
 
+	public Optional<FeldKoordinaten> ziel()
+	{
+		return inBewegung ? Optional.of(ziel) : Optional.empty();
+	}
+
+	public FeldKoordinaten getFA()
+	{
+		return fa;
+	}
+
 	public Optional<FeldKoordinaten> kannForschen()
 	{
 		if(blockiert())
@@ -169,10 +181,5 @@ public class Spielfigur
 			}
 		}
 		return Optional.empty();
-	}
-
-	public FeldKoordinaten getFA()
-	{
-		return fa;
 	}
 }
