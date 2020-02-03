@@ -13,7 +13,6 @@ public class SetV2Klassen extends KartensetBuilder<Charakterkarte>
 		neueKarte(new Charakterkarte("Roboter", 8, 7, 8, 10, 5, 0));
 		neueKarte(new Charakterkarte("Geist", 5, 8, 9, 7, 8, 0));
 		neueKarte(new Charakterkarte("Wasserwesen", 8, 5, 8, 7, 9, 0));
-		neueKarte(new Charakterkarte("Pflanzenbeschw." /*"Pflanzenbeschwörer"*/, 8, 8, 5, 7, 9, 0));
-		//alleKarten().forEach(e -> System.out.println(e.getName() + " " + (e.getAngriff() + e.getWaffenwert() + e.getGeschwindigkeit() + e.getVerteidigung() + e.getLeben())));
+		neueKarte(new Charakterkarte("Pflanzenbeschwörer", 8, 8, 5, 7, 9, 0));
 	}
 }

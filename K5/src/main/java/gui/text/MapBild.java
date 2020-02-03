@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.stream.*;
 import map2.*;
 
-public class MapBild2
+public class MapBild
 {
 	public FeldKoordinaten fokus(KartenMap map, int ys, int xs, FeldKoordinaten ort)
 	{

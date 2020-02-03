@@ -56,7 +56,7 @@ public class Spielfigur
 			bewegungsgraph.add(new KoordinatenNum(fa, 0));
 			i++;
 		}
-		bewegungsgraph.add(new KoordinatenNum(fa, i));
+		bewegungsgraph.add(new KoordinatenNum(lf, i));
 		for(; i < bewegungsgraph.size(); i++)
 		{
 			KoordinatenNum ak = bewegungsgraph.get(i);

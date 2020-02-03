@@ -38,10 +38,9 @@ public class TextGUI
 	private Kartenstapel<MapKarte> mapKartenstapel;
 	private Einstellungen e;
 	private Vorrat vorrat;
-	private MapBild2 mapBild2;
+	private MapBild mapBild;
 	private MapBild2Daten mapBild2Daten;
 	private Random rng;
-
 	private int aktuellerSpielerNum;
 
 	public void start()
@@ -60,15 +59,14 @@ public class TextGUI
 		e = Einstellungen.lies("Einstellungen", sca.nextLine() + " Spieler");
 		vorrat = new Vorrat(e);
 		vorrat.map.erstelleMittelWeg(new MittelMapKartenset(new SetV2MittelMapKarten().fertig()), Collections::shuffle);
-		mapBild2 = new MapBild2();
-		mapBild2Daten = new MapBild2Daten(3, 5);
+		mapBild = new MapBild();
+		mapBild2Daten = new MapBild2Daten(2, 5);
 		rng = new Random();
 		vorrat.erstelleSpielfiguren();
-		System.out.println(mapBild2.erstelleKleinBild(mapBild2.felder(vorrat.map, List.of())));
+		System.out.println(mapBild.erstelleKleinBild(mapBild.felder(vorrat.map, List.of())));
 		List<Klasse> klassenOptionen = new ArrayList<>(Arrays.asList(Klassen.values()));
 		for(int i = 0; i < e.anzahlSpieler; i++)
 		{
-			//erstelle Held
 			System.out.println("Spieler " + (i + 1));
 			System.out.println("Klassen: " + klassenOptionen.stream()
 					.map(k -> k.klassenName() + " (" + k.toString() + ")").collect(Collectors.joining(", ")));
@@ -129,7 +127,7 @@ public class TextGUI
 
 	private void mapText(Spieler s)
 	{
-		System.out.println(mapBild2.erstelleTextBild(mapBild2Daten, mapBild2.felder(vorrat.map, 4, 6, s.spielfigur().getFA(), vorrat.spieler)));
+		System.out.println(mapBild.erstelleTextBild(mapBild2Daten, mapBild.felder(vorrat.map, 6, 6, s.spielfigur().getFA(), vorrat.spieler)));
 	}
 
 	private void mapAktion(String input, Spieler s)
