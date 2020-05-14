@@ -4,7 +4,7 @@ import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
-public class DirektTriggerEffekt extends TriggerEffekt
+public final class DirektTriggerEffekt extends TriggerEffekt
 {
 	public final DirektWirkung direktWirkung;
 

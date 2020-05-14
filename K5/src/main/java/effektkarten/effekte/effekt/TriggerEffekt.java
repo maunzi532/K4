@@ -11,7 +11,7 @@ public abstract class TriggerEffekt extends KartenEffekt
 	public final StartTriggerSeite startSeite;
 	public final List<Bedingung> bedingungen;
 
-	public TriggerEffekt(String typ, String text, int num, StartTrigger startTrigger,
+	protected TriggerEffekt(String typ, String text, int num, StartTrigger startTrigger,
 			StartTriggerSeite startSeite, List<Bedingung> bedingungen)
 	{
 		super(typ, text, num);

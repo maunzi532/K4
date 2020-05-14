@@ -8,10 +8,10 @@ public enum Basiswert
 	VERTEIDIGUNG("V"),
 	LEBEN("L");
 
+	public final String kurz;
+
 	Basiswert(String kurz)
 	{
 		this.kurz = kurz;
 	}
-
-	public String kurz;
 }

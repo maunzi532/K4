@@ -10,10 +10,10 @@ public enum Wirkungswert
 	EXTRAANGRIFFE("Extraangriff"),
 	MAGIE("Magie für Angriffe ");
 
+	public final String text;
+
 	Wirkungswert(String text)
 	{
 		this.text = text;
 	}
-
-	public String text;
 }

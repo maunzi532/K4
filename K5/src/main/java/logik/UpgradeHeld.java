@@ -2,7 +2,7 @@ package logik;
 
 import effektkarten.karten.*;
 
-public class UpgradeHeld
+public final class UpgradeHeld
 {
 	private final Charakterkarte basiskarte;
 	private final int[] werteUpgrades;

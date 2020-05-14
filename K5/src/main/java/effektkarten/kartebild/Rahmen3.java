@@ -1,21 +1,19 @@
 package effektkarten.kartebild;
 
-public class Rahmen3
+public final class Rahmen3
 {
-	public static final char[][] c1 = new char[][]
-			{
-					{'┌', '─', '┐', '┬'},
-					{'│', ' ', '│', '│'},
-					{'└', '─', '┘', '┴'},
-					{'├', '─', '┤', ' '}
-			};
-	public static final char[][] c2 = new char[][]
-			{
-					{'╔', '═', '╗', '╤'},
-					{'║', ' ', '║', '│'},
-					{'╚', '═', '╝', '╧'},
-					{'╟', '─', '╢', ' '}
-			};
+	private static final char[][] c1 = {
+			{'┌', '─', '┐', '┬'},
+			{'│', ' ', '│', '│'},
+			{'└', '─', '┘', '┴'},
+			{'├', '─', '┤', ' '}
+	};
+	private static final char[][] c2 = {
+			{'╔', '═', '╗', '╤'},
+			{'║', ' ', '║', '│'},
+			{'╚', '═', '╝', '╧'},
+			{'╟', '─', '╢', ' '}
+	};
 
 	public final char[][] c;
 

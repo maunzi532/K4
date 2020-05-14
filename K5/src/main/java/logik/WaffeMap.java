@@ -4,7 +4,7 @@ import effektkarten.ansichtkarte.*;
 import effektkarten.karten.*;
 import java.util.*;
 
-public class WaffeMap implements EffektKarte
+public final class WaffeMap implements EffektKarte
 {
 	private static final int ALLE_KLASSEN = 0b11111111;
 

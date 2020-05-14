@@ -7,12 +7,12 @@ public enum Vergleich
 	G(">"),
 	GG("≥");
 
+	public final String text;
+
 	Vergleich(String text)
 	{
 		this.text = text;
 	}
-
-	public String text;
 
 	public boolean evaluiere(int wert, int vergleichswert)
 	{

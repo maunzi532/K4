@@ -4,7 +4,7 @@ import dungeonmap.karte.*;
 import java.util.*;
 import java.util.function.*;
 
-public class Spielfigur
+public final class Spielfigur
 {
 	private static final int[] richtungenY = new int[]{-1, 0, 1, 0};
 	private static final int[] richtungenX = new int[]{0, 1, 0, -1};

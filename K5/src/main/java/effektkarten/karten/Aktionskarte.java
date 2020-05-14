@@ -40,11 +40,11 @@ public record Aktionskarte(String name, int magieMod, int angriffMod, int geschw
 		return werte;
 	}
 
-	private void addWert(List<String> werte, String name, int wert)
+	private void addWert(List<? super String> werte, String wertName, int wert)
 	{
 		if(wert != 0)
 		{
-			werte.add(name);
+			werte.add(wertName);
 			werte.add((wert > 0 ? "+" : "") + wert);
 		}
 		else

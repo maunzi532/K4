@@ -6,7 +6,7 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.stream.*;
 
-public class Einstellungen
+public final class Einstellungen
 {
 	public final int anzahlSpieler;
 	public final int laengeHauptWeg;
@@ -40,7 +40,7 @@ public class Einstellungen
 		Map<String, String> map = new HashMap<>();
 		for(List<String> input1 : input)
 		{
-			input1.forEach(e -> map.put(e.substring(0, e.indexOf(" = ")), e.substring(e.indexOf(" = ") + 3, e.indexOf(";"))));
+			input1.forEach(e -> map.put(e.substring(0, e.indexOf(" = ")), e.substring(e.indexOf(" = ") + 3, e.indexOf(';'))));
 		}
 		anzahlSpieler = Integer.parseInt(map.get("anzahlSpieler"));
 		laengeHauptWeg = Integer.parseInt(map.get("laengeHauptWeg"));
@@ -72,13 +72,13 @@ public class Einstellungen
 
 	private List<Integer> intList(String value)
 	{
-		return Arrays.stream(value.substring(value.indexOf("(") + 1, value.indexOf(")")).split(", "))
+		return Arrays.stream(value.substring(value.indexOf('(') + 1, value.indexOf(')')).split(", "))
 				.map(Integer::parseInt).collect(Collectors.toList());
 	}
 
 	private List<String> stringList(String value)
 	{
-		return Arrays.stream(value.substring(value.indexOf("(") + 1, value.indexOf(")")).split(", "))
+		return Arrays.stream(value.substring(value.indexOf('(') + 1, value.indexOf(')')).split(", "))
 				.map(v -> v.substring(1, v.length() - 1)).collect(Collectors.toList());
 	}
 

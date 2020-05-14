@@ -3,7 +3,7 @@ package effektkarten.karten;
 import effektkarten.ansichtkarte.*;
 import java.util.*;
 
-public class XGegnerBuilder
+public final class XGegnerBuilder
 {
 	private final String name;
 	private final int angriff;

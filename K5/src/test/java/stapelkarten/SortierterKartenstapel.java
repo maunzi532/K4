@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
-public class SortierterKartenstapel<T extends EffektKarte> implements Kartenstapel<T>
+public final class SortierterKartenstapel<T extends EffektKarte> implements Kartenstapel<T>
 {
 	private final LinkedList<T> deck;
 	private final List<T> umlauf;
@@ -71,10 +71,10 @@ public class SortierterKartenstapel<T extends EffektKarte> implements Kartenstap
 	}
 
 	@Override
-	public void ablage(T k)
+	public void ablage(T karte)
 	{
-		umlauf.remove(k);
-		ablage.addLast(k);
+		umlauf.remove(karte);
+		ablage.addLast(karte);
 	}
 
 	@Override

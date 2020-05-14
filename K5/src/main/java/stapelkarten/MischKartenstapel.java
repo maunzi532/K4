@@ -3,7 +3,7 @@ package stapelkarten;
 import java.util.*;
 import java.util.function.*;
 
-public class MischKartenstapel<T extends StapelKarte> implements Kartenstapel<T>
+public final class MischKartenstapel<T extends StapelKarte> implements Kartenstapel<T>
 {
 	private final LinkedList<T> deck;
 	private final List<T> umlauf;
@@ -24,9 +24,9 @@ public class MischKartenstapel<T extends StapelKarte> implements Kartenstapel<T>
 		{
 			ablageInsDeck();
 		}
-		T k = deck.removeFirst();
-		umlauf.add(k);
-		return Optional.ofNullable(k);
+		T karte = deck.removeFirst();
+		umlauf.add(karte);
+		return Optional.ofNullable(karte);
 	}
 
 	@Override
@@ -42,18 +42,18 @@ public class MischKartenstapel<T extends StapelKarte> implements Kartenstapel<T>
 		{
 			return Optional.empty();
 		}
-		T k = deck.removeFirst();
-		umlauf.add(k);
-		return Optional.of(k);
+		T karte = deck.removeFirst();
+		umlauf.add(karte);
+		return Optional.of(karte);
 	}
 
 	@Override
 	public T entnehmeKarte(Predicate<T> check)
 	{
-		T k1 = deck.stream().filter(check).findFirst().orElseThrow();
-		deck.remove(k1);
-		umlauf.add(k1);
-		return k1;
+		T karte = deck.stream().filter(check).findFirst().orElseThrow();
+		deck.remove(karte);
+		umlauf.add(karte);
+		return karte;
 	}
 
 	@Override
@@ -68,11 +68,11 @@ public class MischKartenstapel<T extends StapelKarte> implements Kartenstapel<T>
 	}
 
 	@Override
-	public void ablage(T k)
+	public void ablage(T karte)
 	{
-		if(!umlauf.remove(k))
+		if(!umlauf.remove(karte))
 			throw new RuntimeException("Nicht vorhandene Karte abgelegt");
-		ablage.addLast(k);
+		ablage.addLast(karte);
 	}
 
 	@Override

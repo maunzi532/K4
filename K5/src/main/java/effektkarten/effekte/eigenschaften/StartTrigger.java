@@ -12,7 +12,7 @@ public enum StartTrigger
 	IMMER_NACH("✱ "),
 	ZUGENDE("");
 
-	public String symbol;
+	public final String symbol;
 
 	StartTrigger(String symbol)
 	{

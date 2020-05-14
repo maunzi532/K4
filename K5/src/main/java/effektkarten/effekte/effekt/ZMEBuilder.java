@@ -4,7 +4,7 @@ import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
-public class ZMEBuilder
+public final class ZMEBuilder
 {
 	private final EffektZielKartentyp auf;
 	private String text;

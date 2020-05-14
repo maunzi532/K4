@@ -2,7 +2,7 @@ package gui;
 
 import org.junit.*;
 
-public class Test1
+public final class Test1
 {
 	@Test
 	public void test1()

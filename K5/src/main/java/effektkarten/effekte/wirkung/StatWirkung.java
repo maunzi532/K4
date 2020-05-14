@@ -3,7 +3,7 @@ package effektkarten.effekte.wirkung;
 import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
-public class StatWirkung implements Wirkung
+public final class StatWirkung implements Wirkung
 {
 	public final String text;
 	public final int angriff;

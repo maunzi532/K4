@@ -2,7 +2,7 @@ package dungeonmap.mapsets;
 
 import dungeonmap.karte.*;
 
-public class SetV2MapKarten extends KartenlisteBuilder<MapKarte>
+public final class SetV2MapKarten extends KartenlisteBuilder<MapKarte>
 {
 	public SetV2MapKarten()
 	{

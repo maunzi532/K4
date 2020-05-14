@@ -3,11 +3,11 @@ package dungeonmap.mapsets;
 import java.util.*;
 import stapelkarten.*;
 
-public class KartenlisteBuilder<T extends StapelKarte>
+public abstract class KartenlisteBuilder<T extends StapelKarte>
 {
 	private final List<T> karten;
 
-	public KartenlisteBuilder()
+	protected KartenlisteBuilder()
 	{
 		karten = new ArrayList<>();
 	}

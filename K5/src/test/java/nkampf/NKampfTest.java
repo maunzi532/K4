@@ -10,7 +10,7 @@ import main.*;
 import org.junit.*;
 import stapelkarten.*;
 
-public class NKampfTest
+public final class NKampfTest
 {
 	private Kartenset<Aktionskarte> aktionen;
 	private Kartenset<Waffenkarte> waffen;
@@ -53,14 +53,14 @@ public class NKampfTest
 		nKampf.magieZahlen();
 		Assert.assertTrue(nKampf.magieEffektOptionenOK());
 		nKampf.zugV();
-		Assert.assertEquals(24, nt0.getLeben());
-		Assert.assertEquals(30, nt1.getLeben());
+		Assert.assertEquals(nt0.getLeben(), 24);
+		Assert.assertEquals(nt1.getLeben(), 30);
 		nKampf.angriffe();
 		nKampf.beendeZug();
-		Assert.assertEquals(1, nt0.getMagie());
-		Assert.assertEquals(1, nt1.getMagie());
-		Assert.assertEquals(14, nt0.getLeben());
-		Assert.assertEquals(21, nt1.getLeben());
+		Assert.assertEquals(nt0.getMagie(), 1);
+		Assert.assertEquals(nt1.getMagie(), 1);
+		Assert.assertEquals(nt0.getLeben(), 14);
+		Assert.assertEquals(nt1.getLeben(), 21);
 		nKampf.beginneZug();
 		Assert.assertFalse(nKampf.aktionskarte(nt0, aktionen.gibKarte("Disruptorangriff"), MitWaffe.HW, nt1));
 		Assert.assertTrue(nKampf.aktionskarte(nt0, aktionen.gibKarte("Schutzangriff"), MitWaffe.HW, nt1));
@@ -73,10 +73,10 @@ public class NKampfTest
 		nKampf.zugV();
 		nKampf.angriffe();
 		nKampf.beendeZug();
-		Assert.assertEquals(2, nt0.getMagie());
-		Assert.assertEquals(0, nt1.getMagie());
-		Assert.assertEquals(8, nt0.getLeben());
-		Assert.assertEquals(13, nt1.getLeben());
+		Assert.assertEquals(nt0.getMagie(), 2);
+		Assert.assertEquals(nt1.getMagie(), 0);
+		Assert.assertEquals(nt0.getLeben(), 8);
+		Assert.assertEquals(nt1.getLeben(), 13);
 	}
 
 	@Test
@@ -97,26 +97,26 @@ public class NKampfTest
 		tn.gesBerechnen();
 		NTeilnehmer nt0 = tn.getSpieler();
 		NTeilnehmer nt1 = tn.getGegner();
-		Assert.assertEquals(24, nt0.getLeben());
-		Assert.assertEquals(30, nt1.getLeben());
+		Assert.assertEquals(nt0.getLeben(), 24);
+		Assert.assertEquals(nt1.getLeben(), 30);
 		tn.angriffe();
-		Assert.assertEquals(0, tn.beendeZug());
+		Assert.assertEquals(tn.beendeZug(), 0);
 		tn.aktionskartenAblegen();
-		Assert.assertEquals(1, nt0.getMagie());
-		Assert.assertEquals(1, nt1.getMagie());
-		Assert.assertEquals(14, nt0.getLeben());
-		Assert.assertEquals(21, nt1.getLeben());
+		Assert.assertEquals(nt0.getMagie(), 1);
+		Assert.assertEquals(nt1.getMagie(), 1);
+		Assert.assertEquals(nt0.getLeben(), 14);
+		Assert.assertEquals(nt1.getLeben(), 21);
 		tn.beginneZug();
 		Assert.assertTrue(tn.aktionskarte(3, MitWaffe.HW));
 		tn.gegnerAktionskarten();
 		Assert.assertTrue(tn.magieEffekte());
 		tn.gesBerechnen();
 		tn.angriffe();
-		Assert.assertEquals(0, tn.beendeZug());
+		Assert.assertEquals(tn.beendeZug(), 0);
 		tn.aktionskartenAblegen();
-		Assert.assertEquals(2, nt0.getMagie());
-		Assert.assertEquals(0, nt1.getMagie());
-		Assert.assertEquals(8, nt0.getLeben());
-		Assert.assertEquals(13, nt1.getLeben());
+		Assert.assertEquals(nt0.getMagie(), 2);
+		Assert.assertEquals(nt1.getMagie(), 0);
+		Assert.assertEquals(nt0.getLeben(), 8);
+		Assert.assertEquals(nt1.getLeben(), 13);
 	}
 }

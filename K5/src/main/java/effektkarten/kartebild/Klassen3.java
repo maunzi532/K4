@@ -1,6 +1,6 @@
 package effektkarten.kartebild;
 
-public class Klassen3
+public final class Klassen3
 {
 	public final int anzahlKlassen;
 	public final int alleKlassenCode;

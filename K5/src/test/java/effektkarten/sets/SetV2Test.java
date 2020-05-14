@@ -6,7 +6,7 @@ import effektkarten.karten.*;
 import java.util.*;
 import org.junit.*;
 
-public class SetV2Test
+public final class SetV2Test
 {
 	private Kartenset<Aktionskarte> aktionen;
 	private Kartenset<Waffenkarte> waffen;
@@ -76,9 +76,17 @@ public class SetV2Test
 				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
 		System.out.println(Arrays.stream(karteBild3.karteBild("Fortgeschrittener Magischer Stab", 0b11111111,
 				List.of("A", "10", "Blablah", "2"), List.of("C", "-4", "D", "12868884"), List.of("12000"),
-				List.of(new KartenEffekt("# ", "Wugu Wuguwugu A_+_1 V_-_1", 0){})))
+				List.of(new TestEffekt())))
 				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
 		System.out.println(Arrays.stream(karteBild3.karteBild(gegner.gibKarte("Koba")))
 				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
+	}
+
+	private static class TestEffekt extends KartenEffekt
+	{
+		public TestEffekt()
+		{
+			super("# ", "Wugu Wuguwugu A_+_1 V_-_1", 0);
+		}
 	}
 }

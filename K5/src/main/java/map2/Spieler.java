@@ -2,7 +2,7 @@ package map2;
 
 import dungeonmap.map.*;
 
-public class Spieler
+public final class Spieler
 {
 	public int nummer;
 	public Spielfigur spielfigur;

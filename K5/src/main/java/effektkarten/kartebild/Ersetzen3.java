@@ -2,9 +2,9 @@ package effektkarten.kartebild;
 
 import java.util.*;
 
-public class Ersetzen3
+public final class Ersetzen3
 {
-	private final HashMap<String, String> ersetzen = new HashMap<>();
+	private final Map<String, String> ersetzen = new HashMap<>();
 
 	public Ersetzen3()
 	{

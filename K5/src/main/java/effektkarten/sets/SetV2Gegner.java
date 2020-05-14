@@ -6,7 +6,7 @@ import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.wirkung.*;
 import effektkarten.karten.*;
 
-public class SetV2Gegner extends KartensetBuilder<Gegner>
+public final class SetV2Gegner extends KartensetBuilder<Gegner>
 {
 	public SetV2Gegner()
 	{

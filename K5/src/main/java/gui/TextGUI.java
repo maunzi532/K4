@@ -13,7 +13,7 @@ import main.*;
 import map2.*;
 import stapelkarten.*;
 
-public class TextGUI
+public final class TextGUI
 {
 	public static void main(String[] args)
 	{

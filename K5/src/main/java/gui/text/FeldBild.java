@@ -4,7 +4,7 @@ import dungeonmap.karte.*;
 import java.util.*;
 import map2.*;
 
-public class FeldBild
+public final class FeldBild
 {
 	private final boolean inMap;
 	private final boolean existiert;

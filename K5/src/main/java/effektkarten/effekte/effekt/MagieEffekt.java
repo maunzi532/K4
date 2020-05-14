@@ -9,7 +9,7 @@ public abstract class MagieEffekt extends KartenEffekt
 	public final int magieKosten;
 	public final List<Bedingung> bedingungen;
 
-	public MagieEffekt(String typ, String text, int num, int magieKosten, List<Bedingung> bedingungen)
+	protected MagieEffekt(String typ, String text, int num, int magieKosten, List<Bedingung> bedingungen)
 	{
 		super(typ, text, num);
 		this.magieKosten = magieKosten;

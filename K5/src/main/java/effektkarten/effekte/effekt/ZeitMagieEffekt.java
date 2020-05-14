@@ -4,7 +4,7 @@ import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
-public class ZeitMagieEffekt extends MagieEffekt
+public final class ZeitMagieEffekt extends MagieEffekt
 {
 	public final EndTrigger endTrigger;
 	public final int dauer;

@@ -7,7 +7,7 @@ import main.*;
 import effektkarten.sets.*;
 import stapelkarten.*;
 
-public class Held2
+public final class Held2
 {
 	public Einstellungen e;
 	public Klasse klasse;

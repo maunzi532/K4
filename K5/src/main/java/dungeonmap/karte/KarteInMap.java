@@ -2,7 +2,7 @@ package dungeonmap.karte;
 
 import java.util.*;
 
-public class KarteInMap
+public final class KarteInMap
 {
 	private final MapKarte karte;
 	private final boolean verkehrt;

@@ -3,7 +3,7 @@ package dungeonmap.map;
 import dungeonmap.karte.*;
 import java.util.*;
 
-public class MittelMapKartenset
+public final class MittelMapKartenset
 {
 	private final List<MapKarte> karten;
 

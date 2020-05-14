@@ -1,13 +1,13 @@
 package effektkarten.sets;
 
 import effektkarten.ansichtkarte.*;
+import effektkarten.kartebild.*;
 import effektkarten.karten.*;
 import java.util.*;
 import java.util.stream.*;
-import effektkarten.kartebild.*;
 import org.junit.*;
 
-public class SetTest
+public final class SetTest
 {
 	private Kartenset<Aktionskarte> aktionen;
 	private Kartenset<Waffenkarte> waffen;

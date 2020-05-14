@@ -4,7 +4,7 @@ import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
-public class ZeitTriggerEffekt extends TriggerEffekt
+public final class ZeitTriggerEffekt extends TriggerEffekt
 {
 	public final EndTrigger endTrigger;
 	public final int dauer;

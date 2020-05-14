@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
-public class MainGUI extends Application
+public final class MainGUI extends Application
 {
 	public static void main(String[] args)
 	{

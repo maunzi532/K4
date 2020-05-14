@@ -4,7 +4,7 @@ import effektkarten.ansichtkarte.*;
 import java.util.*;
 import java.util.stream.*;
 
-public class KarteBild3 implements Zeichner3
+public final class KarteBild3 implements Zeichner3
 {
 	//"─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿"
 	//"▪▫▬▭▮▯▰▱▲△▴▵▶▷▸▹►▻▼▽▾▿◀◁◂◃◄◅◆◇◈◉◊○◌◍◎●◐◑◒◓◔◕◖◗◘◙◚◛◜◝◞◟◠◡◢◣◤◥◦◧◨◩◪◫◬◭◮◯◰◱◲◳◴◵◶◷◸◹◺◻◼◽◾◿☀☁☂☃☄★☆☇☈☉☊☋☌☍☎☏☐☑☒☓☔☕"
@@ -172,7 +172,7 @@ public class KarteBild3 implements Zeichner3
 				List<String> zeilen = new ArrayList<>();
 				while(textAktuell.length() > platz)
 				{
-					int teilen = textAktuell.substring(0, platz + 1).lastIndexOf(" ");
+					int teilen = textAktuell.substring(0, platz + 1).lastIndexOf(' ');
 					if(teilen >= 0)
 						zeilen.add(textAktuell.substring(0, teilen));
 					else

@@ -15,7 +15,7 @@ public interface Kartenstapel<T extends StapelKarte>
 
 	void ablageInsDeck();
 
-	void ablage(T k);
+	void ablage(T karte);
 
 	Optional<T> durchsucheAlle(Predicate<T> check);
 }

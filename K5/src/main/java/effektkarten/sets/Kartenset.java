@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.stream.*;
 import stapelkarten.*;
 
-public class Kartenset<T extends EffektKarte>
+public final class Kartenset<T extends EffektKarte>
 {
 	private final Map<String, T> karten;
 

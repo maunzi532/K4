@@ -117,7 +117,7 @@ public class NTeilnehmer implements EffektZielCharakter
 		nCharakter.beendeEffekte(trigger);
 		if(trigger == EndTrigger.NACH_ANGRIFF)
 		{
-			nWaffe(mit).beendeEffekte(trigger);
+			nWaffe(mit).beendeEffekte(EndTrigger.NACH_ANGRIFF);
 		}
 		else
 		{

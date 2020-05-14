@@ -1,6 +1,6 @@
 package effektkarten.kartebild;
 
-public class Laengen3
+public final class Laengen3
 {
 	public final int karteH;
 	public final int karteW;

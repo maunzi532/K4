@@ -5,9 +5,6 @@ import stapelkarten.*;
 
 public interface EffektKarte extends StapelKarte, BildKarte
 {
-	@Override
-	String name();
-
 	List<KartenEffekt> effekte();
 
 	@Override

@@ -5,11 +5,12 @@ import dungeonmap.map.*;
 import dungeonmap.mapsets.*;
 import gui.text.*;
 import java.util.*;
+import java.util.Optional;
 import main.*;
 import org.junit.*;
 import stapelkarten.*;
 
-public class KartenMapTest
+public final class KartenMapTest
 {
 	private Einstellungen e;
 	private KartenMap kartenMap;

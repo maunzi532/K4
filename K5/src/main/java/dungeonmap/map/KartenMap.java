@@ -6,7 +6,7 @@ import java.util.function.*;
 import main.*;
 import stapelkarten.*;
 
-public class KartenMap
+public final class KartenMap
 {
 	public final int yhMap;
 	private final int xmMap;

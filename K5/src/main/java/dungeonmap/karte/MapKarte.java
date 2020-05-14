@@ -2,7 +2,7 @@ package dungeonmap.karte;
 
 import stapelkarten.*;
 
-public class MapKarte implements StapelKarte
+public final class MapKarte implements StapelKarte
 {
 	private static final int ym2 = FeldKoordinaten.ym * 2;
 	private static final int xm2 = FeldKoordinaten.xm * 2;

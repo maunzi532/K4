@@ -2,7 +2,7 @@ package effektkarten.sets;
 
 import effektkarten.karten.*;
 
-public class SetV2Klassen extends KartensetBuilder<Charakterkarte>
+public final class SetV2Klassen extends KartensetBuilder<Charakterkarte>
 {
 	public SetV2Klassen()
 	{

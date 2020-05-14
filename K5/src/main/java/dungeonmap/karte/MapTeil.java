@@ -16,6 +16,16 @@ public enum MapTeil
 	START(false, 'S', 'S', Begehbar.GEHT, Begehbar.GEHT),
 	ZIEL(false, 'Z', 'Z', Begehbar.GEHT, Begehbar.GEHT);
 
+	public final boolean hatModifier;
+	public final char zeichen0;
+	public final char zeichen1;
+	public final Begehbar begehbar0;
+	public final Begehbar begehbar1;
+	public final String titel0;
+	public final String titel1;
+	public final String ok0;
+	public final String ok1;
+
 	MapTeil(boolean hatModifier, char zeichen0, char zeichen1, Begehbar begehbar0, Begehbar begehbar1)
 	{
 		this.hatModifier = hatModifier;
@@ -42,16 +52,6 @@ public enum MapTeil
 		this.ok0 = ok0;
 		this.ok1 = ok1;
 	}
-
-	public final boolean hatModifier;
-	public final char zeichen0;
-	public final char zeichen1;
-	public final Begehbar begehbar0;
-	public final Begehbar begehbar1;
-	public final String titel0;
-	public final String titel1;
-	public final String ok0;
-	public final String ok1;
 
 	public static Map<Character, MapTeil> charZuMapTeil = Map.ofEntries(Map.entry('X', NICHTS),
 			Map.entry(' ', WEG), Map.entry('G', GEGNER), Map.entry('T', TRANK),

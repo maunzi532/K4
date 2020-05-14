@@ -11,7 +11,7 @@ import logik.*;
 import main.*;
 import stapelkarten.*;
 
-public class Vorrat
+public final class Vorrat
 {
 	public Einstellungen e;
 	public KartenMap map;

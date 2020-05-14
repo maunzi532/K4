@@ -4,7 +4,7 @@ import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
-public class ZTEBuilder
+public final class ZTEBuilder
 {
 	private final EffektZielKartentyp auf;
 	private String text;

@@ -4,7 +4,7 @@ import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
-public class DTEBuilder
+public final class DTEBuilder
 {
 	private String text;
 	private int num = 0;

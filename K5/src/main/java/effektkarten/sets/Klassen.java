@@ -13,16 +13,16 @@ public enum Klassen implements Klasse
 	W("Wasserwesen", "Wasserkugel", 6),
 	P("Pflanzenbeschwörer", "Beschwörungsstab", 7);
 
+	public final String name;
+	public final String startwaffe;
+	public final int positionInKlassencode;
+	
 	Klassen(String name, String startwaffe, int positionInKlassencode)
 	{
 		this.name = name;
 		this.startwaffe = startwaffe;
 		this.positionInKlassencode = positionInKlassencode;
 	}
-
-	public String name;
-	public String startwaffe;
-	public int positionInKlassencode;
 
 	@Override
 	public String klassenName()

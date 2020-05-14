@@ -6,7 +6,7 @@ public abstract class KartenEffekt implements Kartentext
 	public final String text;
 	public final int num;
 
-	public KartenEffekt(String typ, String text, int num)
+	protected KartenEffekt(String typ, String text, int num)
 	{
 		this.typ = typ;
 		this.text = text;

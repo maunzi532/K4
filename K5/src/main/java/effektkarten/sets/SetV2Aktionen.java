@@ -6,7 +6,7 @@ import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.wirkung.*;
 import effektkarten.karten.*;
 
-public class SetV2Aktionen extends KartensetBuilder<Aktionskarte>
+public final class SetV2Aktionen extends KartensetBuilder<Aktionskarte>
 {
 	public SetV2Aktionen()
 	{

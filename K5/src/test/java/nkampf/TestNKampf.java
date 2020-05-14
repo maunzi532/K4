@@ -7,7 +7,7 @@ import kampf.*;
 import main.*;
 import stapelkarten.*;
 
-public class TestNKampf
+public final class TestNKampf
 {
 	private final List<NTeilnehmer> spieler0;
 	private final List<NTeilnehmer> gegner0;

@@ -6,12 +6,12 @@ public enum StartTriggerSeite
 	GEGNER(false, true),
 	BEIDE(true, true);
 
+	public final boolean eigeneOK;
+	public final boolean gegnerOK;
+
 	StartTriggerSeite(boolean eigeneOK, boolean gegnerOK)
 	{
 		this.eigeneOK = eigeneOK;
 		this.gegnerOK = gegnerOK;
 	}
-
-	public boolean eigeneOK;
-	public boolean gegnerOK;
 }
