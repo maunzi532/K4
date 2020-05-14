@@ -1,10 +1,10 @@
-package effektkarten.effekte.ziel;
+package effektkarten.effekte.wirkung;
 
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.EffektZielCharakter;
 
 public interface Wirkung
 {
-	default int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
+	default int triggere(EffektZielCharakter sender, EffektZielCharakter ziel)
 	{
 		return 0;
 	}

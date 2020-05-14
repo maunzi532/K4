@@ -1,4 +1,4 @@
-package effektkarten.kartebild;
+package effektkarten.textbild;
 
 public interface Zeichner3
 {
@@ -21,9 +21,9 @@ public interface Zeichner3
 				iyc = 2;
 			else
 				iyc = 1;
-			for(int i = 0; i < zeilentrenner.length; i++)
+			for(int zt1 : zeilentrenner)
 			{
-				if(zeilentrenner[i] == iy)
+				if(zt1 == iy)
 				{
 					iyc = 3;
 					break;
@@ -38,19 +38,19 @@ public interface Zeichner3
 					ixc = 2;
 				else
 					ixc = 1;
-				bild[iy][ix] = rahmen.c[iyc][ixc];
+				bild[iy][ix] = rahmen.chars[iyc][ixc];
 			}
 		}
 	}
 
 	default void linieInnen(char[][] bild, Rahmen3 rahmen, int y0, int y1, int x)
 	{
-		bild[y0][x] = rahmen.c[0][3];
+		bild[y0][x] = rahmen.chars[0][3];
 		for(int iy = y0 + 1; iy < y1; iy++)
 		{
-			bild[iy][x] = rahmen.c[1][3];
+			bild[iy][x] = rahmen.chars[1][3];
 		}
-		bild[y1][x] = rahmen.c[2][3];
+		bild[y1][x] = rahmen.chars[2][3];
 	}
 
 	default void rahmenInnen(char[][] bild, Rahmen3 rahmen, int y0, int y1, int x0, int x1)
@@ -73,7 +73,7 @@ public interface Zeichner3
 					ixc = 2;
 				else
 					ixc = 1;
-				bild[iy][ix] = rahmen.c[iyc][ixc];
+				bild[iy][ix] = rahmen.chars[iyc][ixc];
 			}
 		}
 	}
@@ -82,7 +82,7 @@ public interface Zeichner3
 	{
 		char[] chars = text.toCharArray();
 		int shLen = x1 - x0 - 3;
-		int start = chars.length > shLen ? x0 + 1 : x0 + 2;
+		int start = x0 + (chars.length > shLen ? 1 : 2);
 		int end = Math.min(chars.length + start, x1 - 1);
 		if(end - start >= 0)
 			System.arraycopy(chars, 0, bild[y], start, end - start);

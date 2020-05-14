@@ -1,10 +1,11 @@
 package main;
 
-import java.io.*;
-import java.net.*;
-import java.nio.file.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 public final class Einstellungen
 {
@@ -85,11 +86,11 @@ public final class Einstellungen
 	public static Einstellungen lies(String... dateien)
 	{
 		ClassLoader cl = ClassLoader.getSystemClassLoader();
-		return new Einstellungen(Arrays.stream(dateien).map(f ->
+		return new Einstellungen(Arrays.stream(dateien).map(resource ->
 		{
 			try
 			{
-				return Files.readAllLines(Paths.get(Objects.requireNonNull(cl.getResource(f)).toURI()));
+				return Files.readAllLines(Paths.get(Objects.requireNonNull(cl.getResource(resource)).toURI()));
 			}catch(IOException | URISyntaxException ex)
 			{
 				throw new RuntimeException(ex);

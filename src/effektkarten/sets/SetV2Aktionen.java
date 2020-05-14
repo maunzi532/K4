@@ -1,18 +1,20 @@
 package effektkarten.sets;
 
 import effektkarten.effekte.bedingung.*;
+import effektkarten.effekte.wirkung.MagieWirkung;
 import effektkarten.effekte.effekt.*;
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.wirkung.*;
+import effektkarten.effekte.ziel.*;
 import effektkarten.karten.*;
 
+@SuppressWarnings("MagicNumber")
 public final class SetV2Aktionen extends KartensetBuilder<Aktionskarte>
 {
 	public SetV2Aktionen()
 	{
 		neueKarte(new Aktionskarte("Zeitlupe", -4, 0, 6, false, false));
 		neueKarte(new Aktionskarte("Disruptorangriff", -3, -2, 4, true,
-				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)
+				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.angriff(-2)).createZTE()));
 		neueKarte(new Aktionskarte("Powerangriff", 1, 3, -3, false, false));
 		neueKarte(new Aktionskarte("Ausholen", -3, 0, 0, false,
@@ -26,7 +28,7 @@ public final class SetV2Aktionen extends KartensetBuilder<Aktionskarte>
 						.setWirkung(new WMagiehaltig(Wirkungswert.ANGRIFF, 8)).createZTE()));
 		neueKarte(new Aktionskarte("Brecher", -1, 2, -3, true,
 				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.EINMAL_NACH)
-						.setDauer(2).setBetrifftGegner(true).setAn(EffektZielKartentyp.WAFFE).setZielWaffe(MitWaffe.HW)
+						.setDauer(2).setBetrifft(ZeitEffektBetrifft.ZIEL).setAn(EffektZielKartentyp.WAFFE).setZielWaffe(MitWaffe.HW)
 						.setWirkung(StatWirkung.angriff(-3)).createZTE()));
 		neueKarte(new Aktionskarte("Geladener Angriff", -5, 0, 0, false,
 				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
@@ -65,7 +67,7 @@ public final class SetV2Aktionen extends KartensetBuilder<Aktionskarte>
 				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
 						.setWirkung(StatWirkung.verteidigung(3)).createZTE()));
 		neueKarte(new Aktionskarte("Powerstoß", -2, 1, 6, false,
-				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)
+				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.verteidigung(5)).createZTE()));
 		neueKarte(new Aktionskarte("Doppelschlag", -1, -2, 3, false,
 				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
@@ -92,7 +94,7 @@ public final class SetV2Aktionen extends KartensetBuilder<Aktionskarte>
 				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.IMMER_VOR).setBedingungen(new BZielVonTeamAngegriffen())
 						.setWirkung(StatWirkung.angriff(4)).setEndTrigger(EndTrigger.NACH_ANGRIFF).createZTE()));
 		neueKarte(new Aktionskarte("Eisschlag", -1, 0, 0, false,
-				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifftGegner(true)
+				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.geschwindigkeit(-2)).setDauer(3).createZTE()));
 		neueKarte(new Aktionskarte("Schnellschlag", -3, -2, 3, false,
 				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
@@ -119,10 +121,10 @@ public final class SetV2Aktionen extends KartensetBuilder<Aktionskarte>
 						.setStartTriggerSeite(StartTriggerSeite.GEGNER).setWirkung(StatWirkung.angriff(-2)).createZTE()));
 		neueKarte(new Aktionskarte("Ninjaschlag", 1, -2, 0, false,
 				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
-						.setWirkung(new DatenWirkung(DatenWirkung.Typ.GES_VORTEIL, Wirkungswert.ANGRIFF, 1, 1, 5)).createZTE()));
+						.setWirkung(new DatenWirkung(DatenWirkungTyp.GES_VORTEIL, Wirkungswert.ANGRIFF, 1, 1, 5)).createZTE()));
 		neueKarte(new Aktionskarte("Schneller Laser", 1, -2, 0, false,
 				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
-						.setWirkung(new DatenWirkung(DatenWirkung.Typ.GES_VORTEIL, Wirkungswert.MINDESTSCHADEN, 1, 3, 3)).createZTE()));
+						.setWirkung(new DatenWirkung(DatenWirkungTyp.GES_VORTEIL, Wirkungswert.MINDESTSCHADEN, 1, 3, 3)).createZTE()));
 		neueKarte(new Aktionskarte("Geschwindigkeitsbelohnung", 2, -2, 0, false,
 				false, new ZTEBuilder(EffektZielKartentyp.AKTION).setStartTrigger(StartTrigger.GES_NACH)
 						.setBedingungen(new BBasisWertVergleich(Basiswert.GESCHWINDIGKEIT, EffektZielKartentyp.CHARAKTER, Vergleich.G))

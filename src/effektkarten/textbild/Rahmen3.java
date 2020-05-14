@@ -1,4 +1,4 @@
-package effektkarten.kartebild;
+package effektkarten.textbild;
 
 public final class Rahmen3
 {
@@ -15,11 +15,11 @@ public final class Rahmen3
 			{'╟', '─', '╢', ' '}
 	};
 
-	public final char[][] c;
+	public final char[][] chars;
 
 	public Rahmen3(int linien)
 	{
-		c = switch(linien)
+		chars = switch(linien)
 		{
 			case 1 -> c1;
 			case 2 -> c2;

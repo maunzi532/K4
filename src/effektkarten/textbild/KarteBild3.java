@@ -1,4 +1,4 @@
-package effektkarten.kartebild;
+package effektkarten.textbild;
 
 import effektkarten.ansichtkarte.*;
 import java.util.*;
@@ -51,7 +51,7 @@ public final class KarteBild3 implements Zeichner3
 				karte.werteLO(), karte.werteLU(), karte.werteR(), karte.text());
 	}
 
-	public char[][] karteBild(String name, Integer klassencode, List<String> werteLO, List<String> werteLU, List<String> werteR, List<Kartentext> effektText)
+	public char[][] karteBild(String name, Integer klassencode, List<String> werteLO, List<String> werteLU, List<String> werteR, List<? extends Kartentext> effektText)
 	{
 		char[][] bild = erstellen();
 		rahmen(bild, klassencode != null);
@@ -73,24 +73,18 @@ public final class KarteBild3 implements Zeichner3
 
 	private void werte(char[][] bild, List<String> werteLO, List<String> werteLU, List<String> werteR)
 	{
-		int platz = werteR == null ? laengen.werteW : laengen.werte1;
-		if(werteLO != null)
+		int platz = werteR.isEmpty() ? laengen.werteW : laengen.werte1;
+		for(int i = 0; i < werteLO.size() / 2; i++)
 		{
-			for(int i = 0; i < werteLO.size() / 2; i++)
-			{
-				wertL(bild[3 + i], werteLO.get(i * 2),
-						werteLO.get(i * 2 + 1), platz, werteR != null && werteR.size() > 1);
-			}
+			wertL(bild[3 + i], werteLO.get(i * 2),
+					werteLO.get(i * 2 + 1), platz, werteR.size() > 1);
 		}
-		if(werteLU != null)
+		for(int i = 0; i < werteLU.size() / 2; i++)
 		{
-			for(int i = 0; i < werteLU.size() / 2; i++)
-			{
-				wertL(bild[3 + laengen.werteH - werteLU.size() / 2 + i], werteLU.get(i * 2),
-						werteLU.get(i * 2 + 1), platz, werteR != null && werteR.size() > 1);
-			}
+			wertL(bild[3 + laengen.werteH - werteLU.size() / 2 + i], werteLU.get(i * 2),
+					werteLU.get(i * 2 + 1), platz, werteR.size() > 1);
 		}
-		if(werteR != null)
+		if(!werteR.isEmpty())
 		{
 			int ys1 = 5 - (werteR.size() - 1) / 2;
 			for(int i = 0; i < werteR.size(); i++)
@@ -109,8 +103,7 @@ public final class KarteBild3 implements Zeichner3
 
 	private void wertL(char[] bildTeil, String w0, String w1, int platz, boolean kl)
 	{
-		if(kl && !w1.endsWith("+X"))
-			platz -= 2;
+		int platzX = kl && !w1.endsWith("+X") ? platz - 2 : platz;
 		for(int j = 0; j < w0.length() && j < platz; j++)
 		{
 			bildTeil[2 + j] = w0.charAt(j);
@@ -125,13 +118,12 @@ public final class KarteBild3 implements Zeichner3
 
 	private void kartenname(char[][] bild, String name)
 	{
-		if(name.length() > laengen.karteW - 2)
-			name = ersetzen.ersetze(name);
-		int start = name.length() >= laengen.karteW - 2 ? 1 : 2;
-		for(int i = 0; i < name.length(); i++)
+		String nameAngepasst = name.length() > laengen.karteW - 2 ? ersetzen.ersetze(name) : name;
+		int start = nameAngepasst.length() >= laengen.karteW - 2 ? 1 : 2;
+		for(int i = 0; i < nameAngepasst.length(); i++)
 		{
 			if(start + i < laengen.karteW - 1)
-				bild[1][start + i] = name.charAt(i);
+				bild[1][start + i] = nameAngepasst.charAt(i);
 		}
 	}
 
@@ -158,11 +150,11 @@ public final class KarteBild3 implements Zeichner3
 		}
 	}
 
-	private void effekte(char[][] bild, boolean klassencode, List<Kartentext> effektText)
+	private void effekte(char[][] bild, boolean klassencode, List<? extends Kartentext> effektText)
 	{
 		if(effektText != null)
 		{
-			int zeile = klassencode ? laengen.werteH + 6 : laengen.werteH + 4;
+			int zeile = laengen.werteH + (klassencode ? 6 : 4);
 			for(Kartentext text : effektText)
 			{
 				String typ = text.typ();

@@ -22,28 +22,28 @@ public final class KarteInMap
 		this.verwendet = verwendet;
 	}
 
-	public MapTeil ort(FeldKoordinaten f)
+	public MapTeil ort(FeldPosition fp)
 	{
-		return karte.ort(f, verkehrt);
+		return karte.ort(fp, verkehrt);
 	}
 
-	public int ortM(FeldKoordinaten f)
+	public int ortM(FeldPosition fp)
 	{
-		return karte.ortM(f, verkehrt);
+		return karte.ortM(fp, verkehrt);
 	}
 
-	public boolean isVerwendet(FeldKoordinaten f)
+	public boolean isVerwendet(FeldPosition fp)
 	{
-		int mod = karte.ortM(f, verkehrt);
+		int mod = karte.ortM(fp, verkehrt);
 		if(mod >= 0)
 			return verwendet[mod];
 		else
 			return false;
 	}
 
-	public KarteInMap verwende(FeldKoordinaten f)
+	public KarteInMap verwende(FeldPosition fp)
 	{
-		int mod = karte.ortM(f, verkehrt);
+		int mod = karte.ortM(fp, verkehrt);
 		if(mod >= 0)
 			return verwende(mod);
 		else
@@ -57,12 +57,12 @@ public final class KarteInMap
 		return new KarteInMap(karte, verkehrt, verwendetNeu);
 	}
 
-	public Begehbar begehbar(FeldKoordinaten f)
+	public Begehbar begehbar(FeldPosition fp)
 	{
-		if(isVerwendet(f))
-			return ort(f).begehbar1;
+		if(isVerwendet(fp))
+			return ort(fp).begehbar1;
 		else
-			return ort(f).begehbar0;
+			return ort(fp).begehbar0;
 	}
 
 	public int anschluss(MapRichtung seite)

@@ -1,14 +1,13 @@
 package effektkarten.effekte.wirkung;
 
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
 public record WWaffeAngriff(int multiplikator) implements Wirkung
 {
 	@Override
-	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
+	public int triggere(EffektZielCharakter sender, EffektZielCharakter ziel)
 	{
-		return n.effektZielKarte(EffektZielKartentyp.WAFFE).basisWert(Basiswert.ANGRIFF);
+		return sender.effektZielKarte(EffektZielKartentyp.WAFFE).basisWert(Basiswert.ANGRIFF);
 	}
 
 	@Override

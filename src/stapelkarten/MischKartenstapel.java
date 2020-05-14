@@ -48,7 +48,7 @@ public final class MischKartenstapel<T extends StapelKarte> implements Kartensta
 	}
 
 	@Override
-	public T entnehmeKarte(Predicate<T> check)
+	public T entnehmeKarte(Predicate<? super T> check)
 	{
 		T karte = deck.stream().filter(check).findFirst().orElseThrow();
 		deck.remove(karte);
@@ -76,7 +76,7 @@ public final class MischKartenstapel<T extends StapelKarte> implements Kartensta
 	}
 
 	@Override
-	public Optional<T> durchsucheAlle(Predicate<T> check)
+	public Optional<T> durchsucheAlle(Predicate<? super T> check)
 	{
 		int anzahl = effektiveDeckKartenAnzahl();
 		for(int i = 0; i < anzahl; i++)

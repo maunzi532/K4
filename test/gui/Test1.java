@@ -1,6 +1,6 @@
 package gui;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
 
 public final class Test1
 {

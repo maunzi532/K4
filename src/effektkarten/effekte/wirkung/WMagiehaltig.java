@@ -1,14 +1,13 @@
 package effektkarten.effekte.wirkung;
 
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
 public record WMagiehaltig(Wirkungswert wirktAuf, int max) implements Wirkung
 {
 	@Override
-	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
+	public int triggere(EffektZielCharakter sender, EffektZielCharakter ziel)
 	{
-		return n.getGeladeneMagie();
+		return sender.getGeladeneMagie();
 	}
 
 	@Override
@@ -24,6 +23,6 @@ public record WMagiehaltig(Wirkungswert wirktAuf, int max) implements Wirkung
 	@Override
 	public String text()
 	{
-		return wirktAuf.text + "ist um gezahlte Magie erhöht (max. " + max + ")";
+		return wirktAuf.text + "ist um gezahlte Magie erhöht (max. " + max + ')';
 	}
 }

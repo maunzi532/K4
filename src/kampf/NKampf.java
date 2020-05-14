@@ -1,17 +1,19 @@
 package kampf;
 
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.effekt.StartTrigger;
+import effektkarten.effekte.ziel.EndTrigger;
+import effektkarten.effekte.ziel.MitWaffe;
 import java.util.*;
 import effektkarten.karten.*;
 import java.util.function.*;
 import main.*;
 import stapelkarten.*;
 
-public class NKampf
+public final class NKampf
 {
 	private final Einstellungen e;
-	private final List<NTeilnehmer> spieler0;
-	private final List<NTeilnehmer> gegner0;
+	private final List<NTeilnehmer> alleSpieler;
+	private final List<NTeilnehmer> alleGegner;
 	private List<NTeilnehmer> spieler;
 	private List<NTeilnehmer> gegner;
 	private List<NTeilnehmer> alle;
@@ -19,30 +21,30 @@ public class NKampf
 	private final Kartenstapel<Aktionskarte> aktionsKartenstapel;
 	private final List<Aktionskarte> aktionenOptionen;
 
-	public NKampf(Einstellungen e, List<NTeilnehmer> spieler0, List<NTeilnehmer> gegner0,
+	public NKampf(Einstellungen e, List<NTeilnehmer> alleSpieler, List<NTeilnehmer> alleGegner,
 			Kartenstapel<Aktionskarte> aktionsKartenstapel)
 	{
 		this.e = e;
-		this.spieler0 = spieler0;
-		this.gegner0 = gegner0;
+		this.alleSpieler = alleSpieler;
+		this.alleGegner = alleGegner;
 		this.aktionsKartenstapel = aktionsKartenstapel;
 		aktionenOptionen = new ArrayList<>();
 	}
 
 	public List<NTeilnehmer> getAlleSpieler()
 	{
-		return spieler0;
+		return alleSpieler;
 	}
 
 	public List<NTeilnehmer> getAlleGegner()
 	{
-		return gegner0;
+		return alleGegner;
 	}
 
 	public void start()
 	{
-		spieler = new ArrayList<>(spieler0);
-		gegner = new ArrayList<>(gegner0);
+		spieler = new ArrayList<>(alleSpieler);
+		gegner = new ArrayList<>(alleGegner);
 		for(int i = 0; i < spieler.size(); i++)
 		{
 			spieler.get(i).index = i;
@@ -79,7 +81,8 @@ public class NKampf
 			int anzahlVersuche = aktionsKartenstapel.effektiveDeckKartenAnzahl();
 			for(int i = 0; i < anzahlVersuche; i++)
 			{
-				while(aktionenOptionen.size() < e.basisAktionenOptionen + e.extraAktionenOptionenProSpieler * spieler0.size())
+				while(aktionenOptionen.size() < e.basisAktionenOptionen + e.extraAktionenOptionenProSpieler * alleSpieler
+						.size())
 				{
 					aktionenOptionen.add(aktionsKartenstapel.erhalteKarte().orElseThrow());
 				}
@@ -103,7 +106,7 @@ public class NKampf
 		return aktionskartenOKR(new ArrayList<>(), 0);
 	}
 
-	private boolean aktionskartenOKR(List<Integer> verwendetNum, int spielerNum)
+	private boolean aktionskartenOKR(List<? super Integer> verwendetNum, int spielerNum)
 	{
 		if(spielerNum >= spieler.size())
 			return true;
@@ -184,7 +187,7 @@ public class NKampf
 			n.berechneGes();
 		}
 		sortiert = new ArrayList<>(alle);
-		sortiert.sort(Comparator.comparing(NTeilnehmer::getGesAktion).thenComparing(e -> e.gesVorteil0).thenComparing(e -> e.index).reversed());
+		sortiert.sort(Comparator.comparing(NTeilnehmer::getGesAktion).thenComparing(e1 -> e1.gesVorteil0).thenComparing(e2 -> e2.index).reversed());
 		for(NTeilnehmer n : alle)
 		{
 			n.triggereEffekteMitAktion(StartTrigger.GES_NACH);
@@ -224,8 +227,8 @@ public class NKampf
 					aktionsKartenstapel.ablage(n.getAktionKarte());
 			}
 		}
-		spieler.removeIf(e -> !e.aktiv());
-		gegner.removeIf(e -> !e.aktiv());
+		spieler.removeIf(spieler1 -> !spieler1.aktiv());
+		gegner.removeIf(gegner1 -> !gegner1.aktiv());
 		if(spieler.isEmpty())
 		{
 			aktionskartenZurueck();

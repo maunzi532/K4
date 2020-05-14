@@ -1,4 +1,4 @@
-package effektkarten.effekte.eigenschaften;
+package effektkarten.effekte.ziel;
 
 public enum MitWaffe
 {

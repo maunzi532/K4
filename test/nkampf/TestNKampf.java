@@ -1,6 +1,6 @@
 package nkampf;
 
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.MitWaffe;
 import effektkarten.karten.*;
 import java.util.*;
 import kampf.*;

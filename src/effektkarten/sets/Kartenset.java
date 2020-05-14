@@ -31,12 +31,12 @@ public final class Kartenset<T extends EffektKarte>
 
 	public List<T> findeKarten(String suche)
 	{
-		String sucheLow = suche.toLowerCase();
+		String sucheLow = suche.toLowerCase(Locale.GERMAN);
 		return karten.keySet().stream().filter(e -> match(sucheLow, e)).map(karten::get).collect(Collectors.toList());
 	}
 
 	private boolean match(String sucheLow, String test)
 	{
-		return test.toLowerCase().startsWith(sucheLow);
+		return test.toLowerCase(Locale.GERMAN).startsWith(sucheLow);
 	}
 }

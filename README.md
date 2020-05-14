@@ -1,2 +1,5 @@
 # KdE:K
-Requires JDK 12
+Requires:  
+JDK 14  
+JavaFX 14  
+JUnit 5

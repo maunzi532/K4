@@ -1,11 +1,11 @@
 package kampf;
 
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.Basiswert;
 import effektkarten.karten.*;
 
-public class NCharakter extends NKarte
+public final class NCharakter extends NKarte
 {
-	public Charakterkarte karte;
+	public final Charakterkarte karte;
 
 	public NCharakter(Charakterkarte karte)
 	{

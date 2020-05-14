@@ -40,12 +40,12 @@ public record Waffenkarte(String name, int kosten, int angriff, int geschwindigk
 	@Override
 	public List<String> werteLU()
 	{
-		return null;
+		return List.of();
 	}
 
 	@Override
 	public List<String> werteR()
 	{
-		return null;
+		return List.of();
 	}
 }

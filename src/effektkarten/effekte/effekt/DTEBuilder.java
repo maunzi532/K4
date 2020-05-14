@@ -1,13 +1,13 @@
 package effektkarten.effekte.effekt;
 
-import effektkarten.effekte.eigenschaften.*;
-import effektkarten.effekte.ziel.*;
+import effektkarten.effekte.bedingung.Bedingung;
+import effektkarten.effekte.wirkung.DirektWirkung;
 import java.util.*;
 
 public final class DTEBuilder
 {
 	private String text;
-	private int num = 0;
+	private int num;
 	private StartTrigger startTrigger;
 	private StartTriggerSeite startTriggerSeite = StartTriggerSeite.EIGENE;
 	private List<Bedingung> bedingungen = List.of();

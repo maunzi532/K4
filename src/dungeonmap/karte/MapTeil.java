@@ -4,7 +4,7 @@ import java.util.*;
 
 public enum MapTeil
 {
-	NICHTS(false, '\u2588', '\u2588', Begehbar.NEIN, Begehbar.NEIN),
+	NICHTS(false, '█', '█', Begehbar.NEIN, Begehbar.NEIN),
 	WEG(false, ' ', ' ', Begehbar.GEHT, Begehbar.GEHT),
 	GEGNER(true, 'G', 'g', Begehbar.NURBETRETEN, Begehbar.GEHT, "Gegner", "Gegner", "Kampf", "Kampf"),
 	TRANK(true, 'T', 't', Begehbar.GEHT, Begehbar.GEHT, "Trank", null, "Trinken", null),
@@ -53,7 +53,7 @@ public enum MapTeil
 		this.ok1 = ok1;
 	}
 
-	public static Map<Character, MapTeil> charZuMapTeil = Map.ofEntries(Map.entry('X', NICHTS),
+	public static final Map<Character, MapTeil> charZuMapTeil = Map.ofEntries(Map.entry('X', NICHTS),
 			Map.entry(' ', WEG), Map.entry('G', GEGNER), Map.entry('T', TRANK),
 			Map.entry('H', HAENDLER), Map.entry('W', WAFFENKISTE), Map.entry('|', WAND),
 			Map.entry('S', START), Map.entry('Z', ZIEL),

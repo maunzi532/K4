@@ -1,6 +1,6 @@
 package kampf;
 
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.wirkung.Wirkungswert;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
@@ -8,7 +8,7 @@ public abstract class NKarte implements EffektZielKarte
 {
 	private final List<AktiverEffekt> aktiveEffekte;
 
-	public NKarte()
+	protected NKarte()
 	{
 		aktiveEffekte = new ArrayList<>();
 	}
@@ -18,7 +18,7 @@ public abstract class NKarte implements EffektZielKarte
 		return 0;
 	}
 
-	public int wert(Wirkungswert wert)
+	public final int wert(Wirkungswert wert)
 	{
 		int basiswert = switch(wert)
 				{
@@ -31,24 +31,24 @@ public abstract class NKarte implements EffektZielKarte
 		return basiswert + aktiveEffekte.stream().mapToInt(ae -> ae.wert(wert)).sum();
 	}
 
-	public int setzeangriffe()
+	public final int setzeangriffe()
 	{
 		return aktiveEffekte.stream().mapToInt(AktiverEffekt::setzeangriffe).max().orElse(-1);
 	}
 
-	public int setzeangriffe(int vorher)
+	public final int setzeangriffe(int vorher)
 	{
 		int se = setzeangriffe();
 		return se < 0 ? vorher : se;
 	}
 
 	@Override
-	public void neuerEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel)
+	public final void neuerEffekt(AnEffekt anEffekt, EffektZielCharakter sender, EffektZielCharakter ziel)
 	{
-		aktiveEffekte.add(new AktiverEffekt(anEffekt, n, ziel));
+		aktiveEffekte.add(new AktiverEffekt(anEffekt, sender, ziel));
 	}
 
-	public void beendeEffekte(EndTrigger trigger)
+	public final void beendeEffekte(EndTrigger trigger)
 	{
 		for(int i = 0; i < aktiveEffekte.size();)
 		{
@@ -65,7 +65,7 @@ public abstract class NKarte implements EffektZielKarte
 		}
 	}
 
-	public List<AktiverEffekt> aktiveEffekte()
+	public final List<AktiverEffekt> aktiveEffekte()
 	{
 		return aktiveEffekte;
 	}

@@ -12,12 +12,12 @@ public abstract class KartenlisteBuilder<T extends StapelKarte>
 		karten = new ArrayList<>();
 	}
 
-	public void neueKarte(T karte)
+	public final void neueKarte(T karte)
 	{
 		karten.add(karte);
 	}
 
-	public List<T> fertig()
+	public final List<T> fertig()
 	{
 		return karten;
 	}

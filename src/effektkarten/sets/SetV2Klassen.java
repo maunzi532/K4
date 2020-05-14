@@ -2,6 +2,7 @@ package effektkarten.sets;
 
 import effektkarten.karten.*;
 
+@SuppressWarnings("MagicNumber")
 public final class SetV2Klassen extends KartensetBuilder<Charakterkarte>
 {
 	public SetV2Klassen()

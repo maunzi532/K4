@@ -1,11 +1,13 @@
 package effektkarten.sets;
 
 import effektkarten.effekte.bedingung.*;
+import effektkarten.effekte.wirkung.MagieWirkung;
 import effektkarten.effekte.effekt.*;
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.wirkung.*;
+import effektkarten.effekte.ziel.*;
 import effektkarten.karten.*;
 
+@SuppressWarnings("MagicNumber")
 public final class SetV2Waffen extends KartensetBuilder<Waffenkarte>
 {
 	private static final int ALLE = 0b11111111;
@@ -17,7 +19,7 @@ public final class SetV2Waffen extends KartensetBuilder<Waffenkarte>
 						.setWirkung(new WNichtVerwendbar()).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Giftbogen", 12, 0, 8, 0b01000001,
 				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH)
-						.setBetrifftGegner(true).setAn(EffektZielKartentyp.CHARAKTER).setDauer(2)
+						.setBetrifft(ZeitEffektBetrifft.ZIEL).setAn(EffektZielKartentyp.CHARAKTER).setDauer(2)
 						.setWirkung(new StatWirkung(0, -2, -2)).createZTE()));
 		neueKarte(new Waffenkarte("Fortgeschrittener Auslassstab", 13, 4, 6, ALLE,
 				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_VOR).setBedingungen(new BMagieAusgeben())
@@ -30,7 +32,7 @@ public final class SetV2Waffen extends KartensetBuilder<Waffenkarte>
 						.setBedingungen(new BBasisWertVergleich(Basiswert.ANGRIFF, EffektZielKartentyp.CHARAKTER, Vergleich.K))
 						.setWirkung(StatWirkung.angriff(4)).createZTE()));
 		neueKarte(new Waffenkarte("Steinschleuder", 11, 3, 7, 0b01010011,
-				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)
+				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.angriff(-3)).createZTE()));
 		neueKarte(new Waffenkarte("Fortgeschrittene Waffe", 12, 7, 5, ALLE, true));
 		neueKarte(new Waffenkarte("Stange", 5, 4, 1, ALLE, true));
@@ -41,7 +43,7 @@ public final class SetV2Waffen extends KartensetBuilder<Waffenkarte>
 				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH).setBedingungen(new BMagieAusgeben())
 						.setWirkung(StatWirkung.mindestschutz(1)).createZTE()));
 		neueKarte(new Waffenkarte("Schleimkanone", 9, 2, 4, 0b00000110,
-				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifftGegner(true)
+				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.geschwindigkeit(-5)).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Ozonsplitter", 12, 0, 12, 0b00011110,
 				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET)
@@ -49,23 +51,23 @@ public final class SetV2Waffen extends KartensetBuilder<Waffenkarte>
 						.setEndTrigger(EndTrigger.VERWENDET).createZTE(),
 				new ZTEBuilder(EffektZielKartentyp.WAFFE).setNum(1).setStartTrigger(StartTrigger.IMMER_NACH)
 						.setBedingungen(new BHauptwaffe()).setWirkung(StatWirkung.mindestschutz(-1))
-						.setBetrifftGegner(true).setAn(EffektZielKartentyp.CHARAKTER).setDauer(2).createZTE()));
+						.setBetrifft(ZeitEffektBetrifft.ZIEL).setAn(EffektZielKartentyp.CHARAKTER).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Etwas kleiner Stock", 9, 2, 7, ALLE, true));
 		neueKarte(new Waffenkarte("Anfängerschwert", 5, 2, 3, ALLE, true));
 		neueKarte(new Waffenkarte("Hammer", 7, 7, 3, 0b11001000,
 				false, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.ZUGENDE)
 						.setWirkung(new WNichtVerwendbar()).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Windstab", 7, 3, 4, 0b00110001,
-				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_VOR).setBetrifftGegner(true)
+				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_VOR).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.geschwindigkeit(-3)).createZTE()));
 		neueKarte(new Waffenkarte("Ast", 9, 4, 1, 0b00000001,
 				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH)
 						.setWirkung(StatWirkung.extraangriffe(1)).createZTE()));
 		neueKarte(new Waffenkarte("Spuk", 8, 1, 6, 0b00000100,
-				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifftGegner(true)
+				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.verteidigung(-3)).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Wasserkugel", 5, 2, 2, 0b00000010,
-				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifftGegner(true)
+				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.verteidigung(-2)).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Wasserorb", 10, 6, 7, 0b00100011,
 				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET)
@@ -79,7 +81,7 @@ public final class SetV2Waffen extends KartensetBuilder<Waffenkarte>
 				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET).setBedingungen(new BHauptwaffe())
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.verteidigung(2)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));
 		neueKarte(new Waffenkarte("Wasserstein", 8, 2, 3, 0b00010010,
-				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true).setAn(
+				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL).setAn(
 				EffektZielKartentyp.CHARAKTER)
 						.setWirkung(new StatWirkung(0, -2, -2)).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Minispeer", 8, 2, 5, ALLE,
@@ -87,7 +89,7 @@ public final class SetV2Waffen extends KartensetBuilder<Waffenkarte>
 						.setWirkung(StatWirkung.angriff(1)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));
 		neueKarte(new Waffenkarte("Eisenschwert", 6, 3, 5, 0b10001000, true));
 		neueKarte(new Waffenkarte("Magische Kugel", 7, 2, 4, 0b00100110,
-				true, new ZMEBuilder(EffektZielKartentyp.WAFFE).setMagieKosten(2).setBetrifftGegner(true).setAn(
+				true, new ZMEBuilder(EffektZielKartentyp.WAFFE).setMagieKosten(2).setBetrifft(ZeitEffektBetrifft.ZIEL).setAn(
 				EffektZielKartentyp.CHARAKTER)
 						.setWirkung(StatWirkung.verteidigung(-3)).setDauer(2).createZME()));
 		neueKarte(new Waffenkarte("Minischild", 10, 2, 6, ALLE,
@@ -113,9 +115,9 @@ public final class SetV2Waffen extends KartensetBuilder<Waffenkarte>
 						.setEndTrigger(EndTrigger.VERWENDET).createZTE(),
 				new ZTEBuilder(EffektZielKartentyp.WAFFE).setNum(1).setStartTrigger(StartTrigger.IMMER_NACH)
 						.setBedingungen(new BHauptwaffe()).setWirkung(StatWirkung.verteidigung(-1))
-						.setBetrifftGegner(true).setAn(EffektZielKartentyp.CHARAKTER).setDauer(3).createZTE()));
+						.setBetrifft(ZeitEffektBetrifft.ZIEL).setAn(EffektZielKartentyp.CHARAKTER).setDauer(3).createZTE()));
 		neueKarte(new Waffenkarte("Pflanzenranke", 6, 2, 3, 0b00010001,
-				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifftGegner(true)
+				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.geschwindigkeit(-3)).setDauer(2).createZTE()));
 		neueKarte(new Waffenkarte("Geladener Stab", 8, 2, 5, 0b00100000,
 				true, new DTEBuilder().setStartTrigger(StartTrigger.ANFANG).setBedingungen(new BHauptwaffe())
@@ -140,7 +142,7 @@ public final class SetV2Waffen extends KartensetBuilder<Waffenkarte>
 				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.VERWENDET)
 						.setWirkung(StatWirkung.magie(1)).setEndTrigger(EndTrigger.VERWENDET).createZTE()));
 		neueKarte(new Waffenkarte("Schleimstab", 7, 3, 4, 0b01000111,
-				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifftGegner(true)
+				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.EINMAL_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setAn(EffektZielKartentyp.CHARAKTER).setWirkung(StatWirkung.angriff(-2)).createZTE()));
 		neueKarte(new Waffenkarte("Minilaserschwert", 10, 5, 4, ALLE,
 				true, new ZTEBuilder(EffektZielKartentyp.WAFFE).setStartTrigger(StartTrigger.GES_NACH)

@@ -2,7 +2,7 @@ package map2;
 
 import dungeonmap.karte.*;
 import dungeonmap.map.*;
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.MitWaffe;
 import effektkarten.karten.*;
 import java.util.*;
 import java.util.stream.*;
@@ -13,24 +13,24 @@ import stapelkarten.*;
 
 public final class Vorrat
 {
-	public Einstellungen e;
-	public KartenMap map;
-	public List<Spieler> spieler;
-	public List<WaffeMap> waffen;
-	public Map<ExpTrank, Integer> traenke;
+	public final Einstellungen e;
+	public final KartenMap map;
+	public final List<Spieler> spielerListe;
+	public final List<WaffeMap> waffen;
+	public final Map<ExpTrank, Integer> traenke;
 	public int unaufgeteilteExp;
 	public int bossgegnerBesiegt;
 	public int waendeBeworfen;
 	public int anzahlHaendler;
 	public boolean haendlerBereit;
 	public List<WaffeMap> haendlerAngebot;
-	public List<Integer> beiHaendler;
+	public final List<Integer> beiHaendler;
 
 	public Vorrat(Einstellungen e)
 	{
 		this.e = e;
 		map = new KartenMap(e);
-		spieler = new ArrayList<>();
+		spielerListe = new ArrayList<>();
 		waffen = new ArrayList<>();
 		traenke = new HashMap<>();
 		unaufgeteilteExp = 0;
@@ -45,15 +45,15 @@ public final class Vorrat
 	{
 		for(int i = 0; i < e.anzahlSpieler; i++)
 		{
-			Spieler s = new Spieler(i);
-			s.spielfigur = new Spielfigur(map, map.startPosition());
-			spieler.add(s);
+			Spieler spieler = new Spieler(i);
+			spieler.spielfigur = new Spielfigur(map, map.startPosition());
+			spielerListe.add(spieler);
 		}
 	}
 
 	public void erstelleHeld(Held2 h1, int num)
 	{
-		spieler.get(num).held = h1;
+		spielerListe.get(num).held = h1;
 		if(h1.hauptwaffe != null)
 			waffen.add(h1.hauptwaffe);
 		if(h1.nebenwaffe != null)
@@ -82,8 +82,8 @@ public final class Vorrat
 			if(gegner1 != null)
 				return xWerteBestimmen(gegner1, minExp, maxExp, r);
 		}
-		throw new RuntimeException("Gegner ziehen unmöglich (Exp: " + minExp + "-" + maxExp
-		                           + "Anzahl: " + startAnzahl + "-" + (startAnzahl + e.gegnerAnzahlZiehenVersuche - 1) + ")");
+		throw new RuntimeException("Gegner ziehen unmöglich (Exp: " + minExp + '-' + maxExp
+		                           + " Anzahl: " + startAnzahl + '-' + (startAnzahl + e.gegnerAnzahlZiehenVersuche - 1) + ')');
 	}
 
 	public List<Gegner> zieheGegnerAnzahl(int minExp, int maxExp, int anzahl, Kartenstapel<Gegner> gegnerKartenstapel)
@@ -112,7 +112,7 @@ public final class Vorrat
 		return gegner1;
 	}
 
-	public List<AktiverGegner> xWerteBestimmen(List<Gegner> gegner1, int minExp, int maxExp, Random r)
+	public List<AktiverGegner> xWerteBestimmen(List<? extends Gegner> gegner1, int minExp, int maxExp, Random r)
 	{
 		List<AktiverGegner> gegner = new ArrayList<>();
 		int minExpA = minExp;
@@ -178,7 +178,7 @@ public final class Vorrat
 		return true;
 	}
 
-	public void haendlerBeenden(int num, Kartenstapel<Waffenkarte> waffenKartenstapel)
+	public void haendlerBeenden(int num, Kartenstapel<? super Waffenkarte> waffenKartenstapel)
 	{
 		beiHaendler.remove((Integer) num);
 		if(beiHaendler.isEmpty())
@@ -190,8 +190,8 @@ public final class Vorrat
 
 	public void haendlerAngebot(Kartenstapel<Waffenkarte> waffenKartenstapel)
 	{
-		int min = beiHaendler.stream().mapToInt(f -> spieler.get(f).held().upgradeHeld.charakterkarte().waffenwert()).min().orElseThrow() + e.gegnerWaffenwertMin;
-		int max = beiHaendler.stream().mapToInt(f -> spieler.get(f).held().upgradeHeld.charakterkarte().waffenwert()).max().orElseThrow() + e.gegnerWaffenwertMax;
+		int min = beiHaendler.stream().mapToInt(f -> spielerListe.get(f).held().upgradeHeld.charakterkarte().waffenwert()).min().orElseThrow() + e.gegnerWaffenwertMin;
+		int max = beiHaendler.stream().mapToInt(f -> spielerListe.get(f).held().upgradeHeld.charakterkarte().waffenwert()).max().orElseThrow() + e.gegnerWaffenwertMax;
 		int anzahl = e.basisHaendlerAuswahl + e.extraHaendlerAuswahlProHaendler * anzahlHaendler;
 		for(int i = 0; i < anzahl; i++)
 		{
@@ -202,22 +202,22 @@ public final class Vorrat
 	public void waffeAblegen(int numH, MitWaffe mitWaffe)
 	{
 		if(mitWaffe == MitWaffe.HW)
-			spieler.get(numH).held().hauptwaffe = null;
+			spielerListe.get(numH).held().hauptwaffe = null;
 		if(mitWaffe == MitWaffe.NW)
-			spieler.get(numH).held().nebenwaffe = null;
+			spielerListe.get(numH).held().nebenwaffe = null;
 	}
 
 	public void waffeAusruesten(int numH, MitWaffe mitWaffe, int numW)
 	{
 		if(mitWaffe == MitWaffe.HW)
-			spieler.get(numH).held().hauptwaffe = waffen.get(numW);
+			spielerListe.get(numH).held().hauptwaffe = waffen.get(numW);
 		if(mitWaffe == MitWaffe.NW)
-			spieler.get(numH).held().nebenwaffe = waffen.get(numW);
+			spielerListe.get(numH).held().nebenwaffe = waffen.get(numW);
 	}
 
 	public void waffenTauschen(int numH)
 	{
-		spieler.get(numH).held().tauscheWaffen();
+		spielerListe.get(numH).held().tauscheWaffen();
 	}
 
 	public List<Integer> unverwendeteWaffen()
@@ -228,12 +228,12 @@ public final class Vorrat
 	public boolean unverwendet(int numW)
 	{
 		WaffeMap w1 = waffen.get(numW);
-		return spieler.stream().noneMatch(s -> s.held().hauptwaffe == w1 || s.held().nebenwaffe == w1);
+		return spielerListe.stream().noneMatch(s -> s.held().hauptwaffe == w1 || s.held().nebenwaffe == w1);
 	}
 
-	public void forsche(FeldKoordinaten f, Kartenstapel<MapKarte> mapStapel)
+	public void forsche(MapKartenPosition mkp, Kartenstapel<MapKarte> mapStapel)
 	{
-		map.forsche(f, mapStapel);
-		spieler.forEach(s -> s.spielfigur().erstelleBewegungsgraph());
+		map.forsche(mkp, mapStapel);
+		spielerListe.forEach(s -> s.spielfigur().erstelleBewegungsgraph());
 	}
 }

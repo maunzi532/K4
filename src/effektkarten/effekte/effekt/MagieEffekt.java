@@ -1,6 +1,7 @@
 package effektkarten.effekte.effekt;
 
 import effektkarten.ansichtkarte.*;
+import effektkarten.effekte.bedingung.Bedingung;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
@@ -9,20 +10,20 @@ public abstract class MagieEffekt extends KartenEffekt
 	public final int magieKosten;
 	public final List<Bedingung> bedingungen;
 
-	protected MagieEffekt(String typ, String text, int num, int magieKosten, List<Bedingung> bedingungen)
+	protected MagieEffekt(String text, int num, int magieKosten, List<Bedingung> bedingungen)
 	{
-		super(typ, text, num);
+		super("", text, num);
 		this.magieKosten = magieKosten;
 		this.bedingungen = bedingungen;
 	}
 
-	public boolean kannAktivieren(EffektZielCharakter n, EffektZielCharakter ziel)
+	public final boolean kannAktivieren(EffektZielCharakter sender, EffektZielCharakter ziel)
 	{
-		return n.getMagie() >= magieKosten && bedingungen.stream().allMatch(e -> e.ok(n, ziel, null));
+		return sender.getMagie() >= magieKosten && bedingungen.stream().allMatch(e -> e.erfuellt(sender, ziel, null));
 	}
 
-	public void aktiviere(EffektZielCharakter n, EffektZielCharakter ziel)
+	public void aktiviere(EffektZielCharakter sender, EffektZielCharakter ziel)
 	{
-		n.setMagie(n.getMagie() - magieKosten);
+		sender.setMagie(sender.getMagie() - magieKosten);
 	}
 }

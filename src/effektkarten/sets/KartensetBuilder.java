@@ -12,12 +12,12 @@ public abstract class KartensetBuilder<T extends EffektKarte>
 		karten = new HashMap<>();
 	}
 
-	protected void neueKarte(T neueKarte)
+	protected final void neueKarte(T neueKarte)
 	{
 		karten.put(neueKarte.name(), neueKarte);
 	}
 
-	public Kartenset<T> fertig()
+	public final Kartenset<T> fertig()
 	{
 		return new Kartenset<>(karten);
 	}

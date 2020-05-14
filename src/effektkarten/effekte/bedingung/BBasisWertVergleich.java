@@ -1,14 +1,13 @@
 package effektkarten.effekte.bedingung;
 
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
 public record BBasisWertVergleich(Basiswert wert, EffektZielKartentyp von, Vergleich vergleich) implements Bedingung
 {
 	@Override
-	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)
+	public boolean erfuellt(EffektZielCharakter sender, EffektZielCharakter ziel, MitWaffe nichtMit)
 	{
-		return vergleich.evaluiere(n.effektZielKarte(von).basisWert(wert), ziel.effektZielKarte(von).basisWert(wert));
+		return vergleich.evaluiere(sender.effektZielKarte(von).basisWert(wert), ziel.effektZielKarte(von).basisWert(wert));
 	}
 
 	@Override
@@ -20,12 +19,12 @@ public record BBasisWertVergleich(Basiswert wert, EffektZielKartentyp von, Vergl
 			sb.append("_(Waffe)");
 		else if(von == EffektZielKartentyp.AKTION)
 			sb.append("_(Aktion)");
-		sb.append(" ").append(vergleich.text).append(" ").append(wert.kurz).append("_(Ziel");
+		sb.append(' ').append(vergleich.text).append(' ').append(wert.kurz).append("_(Ziel");
 		if(von == EffektZielKartentyp.WAFFE)
 			sb.append(",_Waffe");
 		else if(von == EffektZielKartentyp.AKTION)
 			sb.append(",_Aktion");
-		sb.append(")");
+		sb.append(')');
 		return sb.toString();
 	}
 }

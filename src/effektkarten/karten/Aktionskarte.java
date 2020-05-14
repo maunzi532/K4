@@ -69,6 +69,6 @@ public record Aktionskarte(String name, int magieMod, int angriffMod, int geschw
 	@Override
 	public List<String> werteR()
 	{
-		return null;
+		return List.of();
 	}
 }

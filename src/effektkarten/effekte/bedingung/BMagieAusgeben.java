@@ -1,14 +1,13 @@
 package effektkarten.effekte.bedingung;
 
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
 public record BMagieAusgeben() implements Bedingung
 {
 	@Override
-	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)
+	public boolean erfuellt(EffektZielCharakter sender, EffektZielCharakter ziel, MitWaffe nichtMit)
 	{
-		return n.isGibtMagieAus();
+		return sender.isGibtMagieAus();
 	}
 
 	@Override

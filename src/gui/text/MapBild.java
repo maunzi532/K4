@@ -8,13 +8,13 @@ import map2.*;
 
 public final class MapBild
 {
-	public FeldKoordinaten fokus(KartenMap map, int ys, int xs, FeldKoordinaten ort)
+	public FeldPosition fokus(KartenMap map, int ys, int xs, FeldPosition ort)
 	{
-		FeldKoordinaten max = FeldKoordinaten.k(map.yhMap, map.xwMap, 0, 0);
-		FeldKoordinaten lv = FeldKoordinaten.add(ort, -ys, -xs);
-		FeldKoordinaten rh = FeldKoordinaten.add(ort, ys + 1, xs + 1);
-		FeldKoordinaten lv2 = FeldKoordinaten.f(-lv.yf(), -lv.xf());
-		FeldKoordinaten rh2 = FeldKoordinaten.add(rh, -max.yf(), -max.xf());
+		FeldPosition max = FeldPosition1.mkfp(map.yhMap, map.xwMap, 0, 0);
+		FeldPosition lv = FeldPosition1.addieren(ort, -ys, -xs);
+		FeldPosition rh = FeldPosition1.addieren(ort, ys + 1, xs + 1);
+		FeldPosition lv2 = FeldPosition1.fp(-lv.yf(), -lv.xf());
+		FeldPosition rh2 = FeldPosition1.addieren(rh, -max.yf(), -max.xf());
 		/*int vs = lv.yf() < 0 ? -lv.yf() : 0;
 		int hs = rh.yf() < 0 ? -rh.yf() : 0;
 		int ls = lv.xf() < 0 ? -lv.xf() : 0;
@@ -22,7 +22,7 @@ public final class MapBild
 		return ort;
 	}
 
-	public FeldBild[][] felder(KartenMap map, int ys, int xs, FeldKoordinaten fokus, List<Spieler> spieler)
+	public FeldBild[][] felder(KartenMap map, int ys, int xs, FeldPosition fokus, List<Spieler> spieler)
 	{
 		int ys2 = ys * 2 + 1;
 		int xs2 = xs * 2 + 1;
@@ -31,12 +31,12 @@ public final class MapBild
 		{
 			for(int ix = 0; ix < xs2; ix++)
 			{
-				FeldKoordinaten fa = FeldKoordinaten.add(fokus, iy - ys, ix - xs);
+				FeldPosition fa = FeldPosition1.addieren(fokus, iy - ys, ix - xs);
 				if(map.existiertKarte(fa))
 				{
 					felder[iy][ix] = new FeldBild(map.ort(fa), map.isVerwendet(fa),
-							spieler.stream().filter(s -> s.spielfigur().getFA().equals(fa)).collect(Collectors.toList()),
-							spieler.stream().filter(s -> fa.equals(s.spielfigur().ziel().orElse(null))).collect(Collectors.toList()));
+							spieler.stream().filter(spieler1 -> spieler1.spielfigur().getFA().equals(fa)).collect(Collectors.toList()),
+							spieler.stream().filter(spieler1 -> fa.equals(spieler1.spielfigur().ziel().orElse(null))).collect(Collectors.toList()));
 				}
 				else
 				{
@@ -49,7 +49,7 @@ public final class MapBild
 
 	public FeldBild[][] felder(KartenMap map, List<Spieler> spieler)
 	{
-		FeldKoordinaten max = FeldKoordinaten.k(map.yhMap, map.xwMap, 0, 0);
+		FeldPosition max = FeldPosition1.mkfp(map.yhMap, map.xwMap, 0, 0);
 		int ysF = max.yf();
 		int xsF = max.xf();
 		FeldBild[][] felder = new FeldBild[ysF][xsF];
@@ -57,12 +57,12 @@ public final class MapBild
 		{
 			for(int ix = 0; ix < xsF; ix++)
 			{
-				FeldKoordinaten fa = FeldKoordinaten.f(iy, ix);
+				FeldPosition fa = FeldPosition1.fp(iy, ix);
 				if(map.existiertKarte(fa))
 				{
 					felder[iy][ix] = new FeldBild(map.ort(fa), map.isVerwendet(fa),
-							spieler.stream().filter(s -> s.spielfigur().getFA().equals(fa)).collect(Collectors.toList()),
-							spieler.stream().filter(s -> fa.equals(s.spielfigur().ziel().orElse(null))).collect(Collectors.toList()));
+							spieler.stream().filter(spieler1 -> spieler1.spielfigur().getFA().equals(fa)).collect(Collectors.toList()),
+							spieler.stream().filter(spieler1 -> fa.equals(spieler1.spielfigur().ziel().orElse(null))).collect(Collectors.toList()));
 				}
 				else
 				{

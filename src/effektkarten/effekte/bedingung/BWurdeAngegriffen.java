@@ -1,14 +1,13 @@
 package effektkarten.effekte.bedingung;
 
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
 public record BWurdeAngegriffen() implements Bedingung
 {
 	@Override
-	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)
+	public boolean erfuellt(EffektZielCharakter sender, EffektZielCharakter ziel, MitWaffe nichtMit)
 	{
-		return !n.getAngegriffenVon().isEmpty();
+		return !sender.getAngegriffenVon().isEmpty();
 	}
 
 	@Override

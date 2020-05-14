@@ -4,7 +4,7 @@ import dungeonmap.map.*;
 
 public final class Spieler
 {
-	public int nummer;
+	public final int nummer;
 	public Spielfigur spielfigur;
 	public Held2 held;
 	public SpielerStatus status;

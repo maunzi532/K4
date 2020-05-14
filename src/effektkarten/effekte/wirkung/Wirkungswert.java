@@ -1,4 +1,4 @@
-package effektkarten.effekte.eigenschaften;
+package effektkarten.effekte.wirkung;
 
 public enum Wirkungswert
 {

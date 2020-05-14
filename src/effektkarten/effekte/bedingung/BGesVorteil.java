@@ -1,6 +1,5 @@
 package effektkarten.effekte.bedingung;
 
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
 public record BGesVorteil(int min) implements Bedingung
@@ -11,9 +10,9 @@ public record BGesVorteil(int min) implements Bedingung
 	}
 
 	@Override
-	public boolean ok(EffektZielCharakter n, EffektZielCharakter ziel, MitWaffe nichtMit)
+	public boolean erfuellt(EffektZielCharakter sender, EffektZielCharakter ziel, MitWaffe nichtMit)
 	{
-		return n.getGesAktion() - ziel.getGesAktion() >= min;
+		return sender.getGesAktion() - ziel.getGesAktion() >= min;
 	}
 
 	@Override

@@ -1,0 +1,21 @@
+IntelliJ VM Options:
+
+--module-path
+out/production:%PATH_TO_JAVAFX_SDK%/lib
+--add-exports
+javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED
+
+Use jlink:
+
+%PATH_TO_JDK%/bin/jlink
+  --module-path out/production:%PATH_TO_JAVAFX_JMODS%
+  --add-modules <module-name>
+  --output %JLINK_OUTPUT_LOCATION%
+  --launcher <launch-file-name>=<module-name>/<package>.<main-class-name>
+  --add-options \"<third-vm-option>\"
+  --add-options \"<second-vm-option>\"
+  --add-options \"--enable-preview\"
+
+Run linked:
+
+%JLINK_OUTPUT_LOCATION%/bin/<launch-file-name>

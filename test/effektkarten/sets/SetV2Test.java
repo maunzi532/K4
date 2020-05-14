@@ -1,10 +1,12 @@
 package effektkarten.sets;
 
-import effektkarten.ansichtkarte.*;
-import effektkarten.kartebild.*;
+import effektkarten.ansichtkarte.EffektKarte;
+import effektkarten.ansichtkarte.KartenEffekt;
+import effektkarten.textbild.KarteBild3;
 import effektkarten.karten.*;
 import java.util.*;
-import org.junit.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public final class SetV2Test
 {
@@ -15,7 +17,7 @@ public final class SetV2Test
 	private List<EffektKarte> alleKarten;
 	private KarteBild3 karteBild3;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		aktionen = new SetV2Aktionen().fertig();
@@ -69,22 +71,22 @@ public final class SetV2Test
 	public void karteBild3Test()
 	{
 		System.out.println(Arrays.stream(karteBild3.karteBild("Wugu",
-				null, null, null, null, null))
-				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
+				null, List.of(), List.of(), List.of(), null))
+				.map(String::new).reduce((e1, e2) -> e1 + '\n' + e2).orElseThrow());
 		System.out.println(Arrays.stream(karteBild3.karteBild("Fortgeschrittener Eisstab", 0b11010100,
-				List.of("A", "10", "B", "2"), List.of("C", "-4", "D", "4"), null, null))
-				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
+				List.of("A", "10", "B", "2"), List.of("C", "-4", "D", "4"), List.of(), null))
+				.map(String::new).reduce((e1, e2) -> e1 + '\n' + e2).orElseThrow());
 		System.out.println(Arrays.stream(karteBild3.karteBild("Fortgeschrittener Magischer Stab", 0b11111111,
 				List.of("A", "10", "Blablah", "2"), List.of("C", "-4", "D", "12868884"), List.of("12000"),
 				List.of(new TestEffekt())))
-				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
+				.map(String::new).reduce((e1, e2) -> e1 + '\n' + e2).orElseThrow());
 		System.out.println(Arrays.stream(karteBild3.karteBild(gegner.gibKarte("Koba")))
-				.map(String::new).reduce((e, f) -> e + "\n" + f).orElseThrow());
+				.map(String::new).reduce((e1, e2) -> e1 + '\n' + e2).orElseThrow());
 	}
 
-	private static class TestEffekt extends KartenEffekt
+	private static final class TestEffekt extends KartenEffekt
 	{
-		public TestEffekt()
+		private TestEffekt()
 		{
 			super("# ", "Wugu Wuguwugu A_+_1 V_-_1", 0);
 		}

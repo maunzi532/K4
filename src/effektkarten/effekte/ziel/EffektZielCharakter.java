@@ -1,6 +1,5 @@
 package effektkarten.effekte.ziel;
 
-import effektkarten.effekte.eigenschaften.*;
 import java.util.*;
 
 public interface EffektZielCharakter

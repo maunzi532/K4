@@ -28,9 +28,9 @@ public final class SortierterKartenstapel<T extends EffektKarte> implements Kart
 		}
 		if(deck.isEmpty())
 			throw new RuntimeException("Keine Karten in Deck oder Ablage");
-		T k = deck.removeFirst();
-		umlauf.add(k);
-		return Optional.ofNullable(k);
+		T karte = deck.removeFirst();
+		umlauf.add(karte);
+		return Optional.ofNullable(karte);
 	}
 
 	@Override
@@ -46,13 +46,13 @@ public final class SortierterKartenstapel<T extends EffektKarte> implements Kart
 		{
 			return Optional.empty();
 		}
-		T k = deck.removeFirst();
-		umlauf.add(k);
-		return Optional.of(k);
+		T karte = deck.removeFirst();
+		umlauf.add(karte);
+		return Optional.of(karte);
 	}
 
 	@Override
-	public T entnehmeKarte(Predicate<T> check)
+	public T entnehmeKarte(Predicate<? super T> check)
 	{
 		T k1 = deck.stream().filter(check).findFirst().orElseThrow();
 		deck.remove(k1);
@@ -78,7 +78,7 @@ public final class SortierterKartenstapel<T extends EffektKarte> implements Kart
 	}
 
 	@Override
-	public Optional<T> durchsucheAlle(Predicate<T> check)
+	public Optional<T> durchsucheAlle(Predicate<? super T> check)
 	{
 		int anzahl = effektiveDeckKartenAnzahl();
 		for(int i = 0; i < anzahl; i++)

@@ -1,6 +1,7 @@
-package effektkarten.kartebild;
+package effektkarten.textbild;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class Ersetzen3
 {
@@ -13,10 +14,11 @@ public final class Ersetzen3
 
 	public String ersetze(String von)
 	{
+		String ersetzt = von;
 		for(Map.Entry<String, String> en : ersetzen.entrySet())
 		{
-			von = von.replace(en.getKey(), en.getValue());
+			ersetzt = ersetzt.replace(en.getKey(), en.getValue());
 		}
-		return von;
+		return ersetzt;
 	}
 }

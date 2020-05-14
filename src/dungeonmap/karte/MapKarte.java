@@ -4,10 +4,10 @@ import stapelkarten.*;
 
 public final class MapKarte implements StapelKarte
 {
-	private static final int ym2 = FeldKoordinaten.ym * 2;
-	private static final int xm2 = FeldKoordinaten.xm * 2;
-	private static final int xw = FeldKoordinaten.xm * 2 + 1;
-	private static final int yw = FeldKoordinaten.ym * 2 + 1;
+	private static final int ym2 = FeldPosition.ym * 2;
+	private static final int xm2 = FeldPosition.xm * 2;
+	private static final int xw = FeldPosition.xm * 2 + 1;
+	private static final int yw = FeldPosition.ym * 2 + 1;
 
 	private final MapTeil[] inhalt;
 	private final int[] modifier;
@@ -66,33 +66,33 @@ public final class MapKarte implements StapelKarte
 		return umdrehbar;
 	}
 
-	public MapTeil ort(FeldKoordinaten f, boolean verkehrt)
+	public MapTeil ort(FeldPosition fp, boolean verkehrt)
 	{
 		if(verkehrt)
 		{
-			return inhalt[(ym2 - f.yfInnen()) * xw + (xm2 - f.xfInnen())];
+			return inhalt[(ym2 - fp.yfInnen()) * xw + (xm2 - fp.xfInnen())];
 		}
 		else
 		{
-			return inhalt[f.yfInnen() * xw + f.xfInnen()];
+			return inhalt[fp.yfInnen() * xw + fp.xfInnen()];
 		}
 	}
 
-	public int ortM(FeldKoordinaten f, boolean verkehrt)
+	public int ortM(FeldPosition fp, boolean verkehrt)
 	{
 		if(verkehrt)
 		{
-			return modifier[(ym2 - f.yfInnen()) * xw + (xm2 - f.xfInnen())];
+			return modifier[(ym2 - fp.yfInnen()) * xw + (xm2 - fp.xfInnen())];
 		}
 		else
 		{
-			return modifier[f.yfInnen() * xw + f.xfInnen()];
+			return modifier[fp.yfInnen() * xw + fp.xfInnen()];
 		}
 	}
 
 	public int anschluss(MapRichtung seite, boolean verkehrt)
 	{
-		return ort(FeldKoordinaten.f(FeldKoordinaten.ym + seite.y * FeldKoordinaten.ym,
-				FeldKoordinaten.xm + seite.x * FeldKoordinaten.xm), verkehrt) == MapTeil.NICHTS ? -1 : 1;
+		return ort(FeldPosition1.fp(FeldPosition.ym + seite.y * FeldPosition.ym,
+				FeldPosition.xm + seite.x * FeldPosition.xm), verkehrt) == MapTeil.NICHTS ? -1 : 1;
 	}
 }

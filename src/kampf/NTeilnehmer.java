@@ -2,7 +2,6 @@ package kampf;
 
 import effektkarten.ansichtkarte.*;
 import effektkarten.effekte.effekt.*;
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.wirkung.*;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
@@ -10,7 +9,7 @@ import java.util.stream.*;
 import effektkarten.karten.*;
 import main.*;
 
-public class NTeilnehmer implements EffektZielCharakter
+public final class NTeilnehmer implements EffektZielCharakter
 {
 	private final Einstellungen e;
 	//Charakter
@@ -95,15 +94,15 @@ public class NTeilnehmer implements EffektZielCharakter
 		ziel.triggereEffekte(getAktionKarte().effekte(), startTrigger, false, this, null);
 	}
 
-	private void triggereEffekte(List<KartenEffekt> effekte, StartTrigger startTrigger, boolean eigene, NTeilnehmer andererChar, MitWaffe nichtMit)
+	private void triggereEffekte(List<? extends KartenEffekt> effekte, StartTrigger startTrigger, boolean eigene, NTeilnehmer andererChar, MitWaffe nichtMit)
 	{
-		for(KartenEffekt e : effekte)
+		for(KartenEffekt effekt : effekte)
 		{
-			if(e instanceof TriggerEffekt te)
+			if(effekt instanceof TriggerEffekt te)
 			{
 				if(te.startTrigger == startTrigger && eigene ? te.startSeite.eigeneOK : te.startSeite.gegnerOK)
 				{
-					if(te.bedingungen.stream().allMatch(n -> n.ok(this, andererChar, nichtMit)))
+					if(te.bedingungen.stream().allMatch(bedingung -> bedingung.erfuellt(this, andererChar, nichtMit)))
 					{
 						te.triggere(this, andererChar);
 					}
@@ -147,12 +146,12 @@ public class NTeilnehmer implements EffektZielCharakter
 		return nCharakter.wert(wert) + nWaffe(mitWaffe).wert(wert) + mitAktion.wert(wert);
 	}
 
-	public boolean aktionGeht(Aktionskarte aktionskarte, MitWaffe mitWaffe, NTeilnehmer ziel)
+	public boolean aktionGeht(Aktionskarte aktionskarte, MitWaffe mitWaffe, NTeilnehmer ziel1)
 	{
 		if(!aktiv() || nWaffe(mitWaffe) == null)
 			return false;
 		NAktion nAktion1 = new NAktion(aktionskarte);
-		if(nWaffe(mitWaffe).aktiveEffekte().stream().anyMatch(e -> e.wirkung instanceof WNichtVerwendbar))
+		if(nWaffe(mitWaffe).aktiveEffekte().stream().anyMatch(effekt -> effekt.wirkung instanceof WNichtVerwendbar))
 			return false;
 		return kombinierterWert(Wirkungswert.MAGIE, mitWaffe, nAktion1) + magie >= 0;
 	}
@@ -165,17 +164,17 @@ public class NTeilnehmer implements EffektZielCharakter
 		gibtMagieAus = gibtMagieAus(nAktion, mit, ziel);
 	}
 
-	public boolean aktionGehtIrgendwie(Aktionskarte aktionskarte, List<NTeilnehmer> ziele)
+	public boolean aktionGehtIrgendwie(Aktionskarte aktionskarte, List<? extends NTeilnehmer> ziele)
 	{
-		for(NTeilnehmer ziel : ziele)
+		for(NTeilnehmer ziel1 : ziele)
 		{
-			if(aktionGeht(aktionskarte, MitWaffe.HW, ziel) || aktionGeht(aktionskarte, MitWaffe.NW, ziel))
+			if(aktionGeht(aktionskarte, MitWaffe.HW, ziel1) || aktionGeht(aktionskarte, MitWaffe.NW, ziel1))
 				return true;
 		}
 		return false;
 	}
 
-	public boolean gibtMagieAus(NAktion nAktion1, MitWaffe mitWaffe, NTeilnehmer ziel)
+	public boolean gibtMagieAus(NAktion nAktion1, MitWaffe mitWaffe, NTeilnehmer ziel1)
 	{
 		if(kombinierterWert(Wirkungswert.MAGIE, mitWaffe, nAktion1) < 0)
 			return true;
@@ -199,18 +198,18 @@ public class NTeilnehmer implements EffektZielCharakter
 
 	public void erstelleMagieEffektOptionen()
 	{
-		magieEffektOptionen.addAll(nWaffe(mit).karte.effekte().stream().filter(e -> e instanceof MagieEffekt).map(e -> (MagieEffekt) e)
-				.filter(e -> e.kannAktivieren(this, ziel)).map(e -> new MagieEffektOption(nWaffe(mit), e)).collect(Collectors.toList()));
+		magieEffektOptionen.addAll(nWaffe(mit).karte.effekte().stream().filter(effekt -> effekt instanceof MagieEffekt).map(effekt -> (MagieEffekt) effekt)
+				.filter(effekt -> effekt.kannAktivieren(this, ziel)).map(effekt -> new MagieEffektOption(nWaffe(mit), effekt)).collect(Collectors.toList()));
 	}
 
 	public boolean magieEffektOptionenOK()
 	{
-		return magieEffektOptionen.stream().filter(e -> e.benutzen).mapToInt(e -> e.magieEffekt.magieKosten).sum() <= magie;
+		return magieEffektOptionen.stream().filter(option -> option.benutzen).mapToInt(option -> option.magieEffekt.magieKosten).sum() <= magie;
 	}
 
 	public void aktiviereMagieEffekte()
 	{
-		magieEffektOptionen.stream().filter(e -> e.benutzen).forEach(e -> e.magieEffekt.aktiviere(this, ziel));
+		magieEffektOptionen.stream().filter(option -> option.benutzen).forEach(option -> option.magieEffekt.aktiviere(this, ziel));
 	}
 
 	public void berechneGes()

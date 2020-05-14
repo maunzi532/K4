@@ -1,11 +1,11 @@
 package kampf;
 
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.Basiswert;
 import effektkarten.karten.*;
 
-public class NAktion extends NKarte
+public final class NAktion extends NKarte
 {
-	public Aktionskarte karte;
+	public final Aktionskarte karte;
 
 	public NAktion(Aktionskarte karte)
 	{

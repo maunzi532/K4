@@ -1,8 +1,5 @@
 package effektkarten.effekte.wirkung;
 
-import effektkarten.effekte.eigenschaften.*;
-import effektkarten.effekte.ziel.*;
-
 public final class StatWirkung implements Wirkung
 {
 	public final String text;
@@ -74,25 +71,25 @@ public final class StatWirkung implements Wirkung
 			return (magie > 0 ? "+" : "") + magie + " Magie für eigene Aktionen";
 		}
 		StringBuilder sb = new StringBuilder();
-		boolean k = false;
+		boolean kombinieren = false;
 		int[] werte = werte();
 		Wirkungswert[] wt = Wirkungswert.values();
 		for(int i = 0; i < werte.length; i++)
 		{
 			if(werte[i] != 0)
 			{
-				if(k)
+				if(kombinieren)
 					sb.append(", ");
 
 				if(werte[i] > 0)
 				{
-					sb.append(wt[i].text).append("+").append(werte[i]);
+					sb.append(wt[i].text).append('+').append(werte[i]);
 				}
 				else
 				{
 					sb.append(wt[i].text).append(werte[i]);
 				}
-				k = true;
+				kombinieren = true;
 			}
 		}
 		return sb.toString();

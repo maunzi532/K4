@@ -9,17 +9,17 @@ import stapelkarten.*;
 
 public final class Held2
 {
-	public Einstellungen e;
-	public Klasse klasse;
-	public Charakterkarte charakterkarte;
-	public UpgradeHeld upgradeHeld;
+	public final Einstellungen e;
+	public final Klasse klasse;
+	public final Charakterkarte charakterkarte;
+	public final UpgradeHeld upgradeHeld;
 	public WaffeMap hauptwaffe;
 	public WaffeMap nebenwaffe;
-	public int[] upgrades;
+	public final int[] upgrades;
 	public int exp;
 	public int leben;
 	public TrankStatus trankStatus;
-	public int gegnerExpLevel;
+	public final int gegnerExpLevel;
 
 	public Held2(Klasse klasse, WaffeMap hauptwaffe, WaffeMap nebenwaffe, int[] upgrades, int exp,
 			Kartenset<Charakterkarte> charakterkarten, Einstellungen e)
@@ -44,7 +44,7 @@ public final class Held2
 
 	public static Held2 initial(Klasse klasse, Kartenset<Charakterkarte> charakterkarten, Kartenstapel<Waffenkarte> waffenkartenstapel, Einstellungen e)
 	{
-		return new Held2(klasse, new WaffeMap(waffenkartenstapel.entnehmeKarte(k -> k.name().equals(klasse.startwaffe())), true), null,
+		return new Held2(klasse, new WaffeMap(waffenkartenstapel.entnehmeKarte(karte -> karte.name().equals(klasse.startwaffe())), true), null,
 				new int[5], 0, charakterkarten, e);
 	}
 
@@ -82,9 +82,9 @@ public final class Held2
 		nebenwaffe = z;
 	}
 
-	public void nachKampf(int leben)
+	public void nachKampf(int lebenNeu)
 	{
-		this.leben = leben;
+		leben = lebenNeu;
 		if(leben <= 0)
 		{
 			trankStatus = TrankStatus.BESIEGT;

@@ -5,7 +5,7 @@ import effektkarten.effekte.ziel.*;
 public record MagieWirkung(int magie, boolean gegner) implements DirektWirkung
 {
 	@Override
-	public void triggere(EffektZielCharakter n, EffektZielCharakter ziel)
+	public void triggere(EffektZielCharakter sender, EffektZielCharakter ziel)
 	{
 		if(gegner)
 		{
@@ -13,7 +13,7 @@ public record MagieWirkung(int magie, boolean gegner) implements DirektWirkung
 		}
 		else
 		{
-			n.setMagie(Math.max(n.getMagie() + magie, 0));
+			sender.setMagie(Math.max(sender.getMagie() + magie, 0));
 		}
 	}
 
@@ -31,7 +31,7 @@ public record MagieWirkung(int magie, boolean gegner) implements DirektWirkung
 		}
 		if(magie > 0)
 		{
-			sb.append("+").append(magie);
+			sb.append('+').append(magie);
 		}
 		else
 		{

@@ -1,4 +1,4 @@
-package effektkarten.kartebild;
+package effektkarten.textbild;
 
 public final class Laengen3
 {

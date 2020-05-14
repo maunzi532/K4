@@ -1,36 +1,41 @@
 package effektkarten.effekte.effekt;
 
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.bedingung.Bedingung;
+import effektkarten.effekte.wirkung.Wirkung;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
 public final class ZeitMagieEffekt extends MagieEffekt
 {
-	public final EndTrigger endTrigger;
-	public final int dauer;
-	public final boolean betrifftGegner;
-	public final EffektZielKartentyp an;
-	public final MitWaffe zielWaffe;
-	public final Wirkung wirkung;
+	private final EndTrigger endTrigger;
+	private final int dauer;
+	private final ZeitEffektBetrifft betrifft;
+	private final EffektZielKartentyp an;
+	private final MitWaffe zielWaffe;
+	private final Wirkung wirkung;
 
 	public ZeitMagieEffekt(String text, int num, int magieKosten, List<Bedingung> bedingungen,
-			EndTrigger endTrigger, int dauer, boolean betrifftGegner, EffektZielKartentyp an,
+			EndTrigger endTrigger, int dauer, ZeitEffektBetrifft betrifft, EffektZielKartentyp an,
 			MitWaffe zielWaffe, Wirkung wirkung)
 	{
-		super("", text, num, magieKosten, bedingungen);
+		super(text, num, magieKosten, bedingungen);
 		this.endTrigger = endTrigger;
 		this.dauer = dauer;
-		this.betrifftGegner = betrifftGegner;
+		this.betrifft = betrifft;
 		this.an = an;
 		this.zielWaffe = zielWaffe;
 		this.wirkung = wirkung;
 	}
 
 	@Override
-	public void aktiviere(EffektZielCharakter n, EffektZielCharakter ziel)
+	public void aktiviere(EffektZielCharakter sender, EffektZielCharakter ziel)
 	{
-		super.aktiviere(n, ziel);
-		EffektZielCharakter betrifft = betrifftGegner ? ziel : n;
-		betrifft.effektZielKarte(an).neuerEffekt(new AnEffekt(wirkung, endTrigger, dauer), n, ziel);
+		super.aktiviere(sender, ziel);
+		EffektZielCharakter betrifftCharakter = switch(betrifft)
+				{
+					case SENDER -> sender;
+					case ZIEL -> ziel;
+				};
+		betrifftCharakter.effektZielKarte(an).neuerEffekt(new AnEffekt(wirkung, endTrigger, dauer), sender, ziel);
 	}
 }

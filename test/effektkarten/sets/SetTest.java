@@ -1,11 +1,14 @@
 package effektkarten.sets;
 
-import effektkarten.ansichtkarte.*;
-import effektkarten.kartebild.*;
+import effektkarten.ansichtkarte.EffektKarte;
+import effektkarten.textbild.KarteBild3;
 import effektkarten.karten.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.stream.*;
-import org.junit.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 public final class SetTest
 {
@@ -15,7 +18,7 @@ public final class SetTest
 	private Kartenset<Charakterkarte> klassen;
 	private KarteBild3 karteBild3;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		aktionen = new SetV2Aktionen().fertig();
@@ -25,34 +28,35 @@ public final class SetTest
 		karteBild3 = new KarteBild3();
 	}
 
-	public static void main(String[] args)
+	@Test
+	public void setTest()
 	{
 		SetTest setTest = new SetTest();
 		setTest.init();
-		Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 		String input = scanner.nextLine();
 		System.out.println("Aktionen:");
 		var ergebnisA = setTest.aktionen.findeKarten(input);
 		if(ergebnisA.size() <= 5)
-			ergebnisA.stream().map(EffektKarte::name).forEach(x -> System.out.println("\t" + x));
+			ergebnisA.stream().map(EffektKarte::name).forEach(x -> System.out.println('\t' + x));
 		else
 			System.out.println("\tZu viele");
 		System.out.println("Waffen:");
 		var ergebnisW = setTest.waffen.findeKarten(input);
 		if(ergebnisW.size() <= 5)
-			ergebnisW.stream().map(EffektKarte::name).forEach(x -> System.out.println("\t" + x));
+			ergebnisW.stream().map(EffektKarte::name).forEach(x -> System.out.println('\t' + x));
 		else
 			System.out.println("\tZu viele");
 		System.out.println("Gegner:");
 		var ergebnisG = setTest.gegner.findeKarten(input);
 		if(ergebnisG.size() <= 5)
-			ergebnisG.stream().map(EffektKarte::name).forEach(x -> System.out.println("\t" + x));
+			ergebnisG.stream().map(EffektKarte::name).forEach(x -> System.out.println('\t' + x));
 		else
 			System.out.println("\tZu viele");
 		System.out.println("Klassen:");
 		var ergebnisK = setTest.klassen.findeKarten(input);
 		if(ergebnisK.size() <= 5)
-			ergebnisK.stream().map(EffektKarte::name).forEach(x -> System.out.println("\t" + x));
+			ergebnisK.stream().map(EffektKarte::name).forEach(x -> System.out.println('\t' + x));
 		else
 			System.out.println("\tZu viele");
 		List<EffektKarte> alle = new ArrayList<>();

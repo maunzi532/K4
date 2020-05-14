@@ -1,10 +1,11 @@
 package kampf;
 
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.wirkung.Wirkung;
+import effektkarten.effekte.wirkung.Wirkungswert;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
-public class AktiverEffekt
+public final class AktiverEffekt
 {
 	public final Wirkung wirkung;
 	public final EndTrigger endTrigger;
@@ -19,9 +20,9 @@ public class AktiverEffekt
 		this.daten = daten;
 	}
 
-	public AktiverEffekt(AnEffekt anEffekt, EffektZielCharakter n, EffektZielCharakter ziel)
+	public AktiverEffekt(AnEffekt anEffekt, EffektZielCharakter sender, EffektZielCharakter ziel)
 	{
-		this(anEffekt.wirkung(), anEffekt.endTrigger(), anEffekt.dauer(), anEffekt.wirkung().triggere(n, ziel));
+		this(anEffekt.wirkung(), anEffekt.endTrigger(), anEffekt.dauer(), anEffekt.wirkung().triggere(sender, ziel));
 	}
 
 	public Optional<AktiverEffekt> tick(EndTrigger trigger)

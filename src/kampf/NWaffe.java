@@ -1,11 +1,11 @@
 package kampf;
 
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.ziel.Basiswert;
 import effektkarten.karten.*;
 
-public class NWaffe extends NKarte
+public final class NWaffe extends NKarte
 {
-	public Waffenkarte karte;
+	public final Waffenkarte karte;
 
 	public static NWaffe von(Waffenkarte karte)
 	{

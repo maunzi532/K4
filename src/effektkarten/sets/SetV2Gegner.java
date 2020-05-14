@@ -2,20 +2,22 @@ package effektkarten.sets;
 
 import effektkarten.effekte.bedingung.*;
 import effektkarten.effekte.effekt.*;
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.wirkung.*;
+import effektkarten.effekte.ziel.EffektZielKartentyp;
+import effektkarten.effekte.ziel.EndTrigger;
 import effektkarten.karten.*;
 
+@SuppressWarnings("MagicNumber")
 public final class SetV2Gegner extends KartensetBuilder<Gegner>
 {
 	public SetV2Gegner()
 	{
 		neueKarte(new StandardGegner("Giftpilz", 9, 11, 7, 8, 12, 142,
-				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)
+				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setWirkung(StatWirkung.verteidigung(-2)).setDauer(2).createZTE()));
 		neueKarte(new StandardGegner("Fortschreitender Gegner", 14, 14, 14, 14, 14, 860));
 		neueKarte(new StandardGegner("Gifto", 6, 7, 12, 12, 10, 112,
-				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)
+				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setWirkung(new StatWirkung(0, -1, -1)).setDauer(2).createZTE()));
 		neueKarte(new StandardGegner("Viecho", 5, 5, 6, 5, 7, 8));
 		neueKarte(new StandardGegner("Steini", 7, 7, 5, 8, 6, 19));
@@ -30,7 +32,7 @@ public final class SetV2Gegner extends KartensetBuilder<Gegner>
 		neueKarte(new StandardGegner("Gegner", 8, 6, 6, 6, 8, 22));
 		neueKarte(new StandardGegner("Minizombie", 6 /*8*/, 6, 5, 7, 5, 13));
 		neueKarte(new StandardGegner("Stoßer", 9, 8, 5, 8, 8, 35,
-				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)
+				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setWirkung(StatWirkung.angriff(-2)).setDauer(2).createZTE()));
 		neueKarte(new StandardGegner("Fetti", 6, 6, 5, 9, 8, 21));
 		neueKarte(new XGegnerBuilder("Pflanzerich", 7, 6, 9, 7, 5)
@@ -70,7 +72,7 @@ public final class SetV2Gegner extends KartensetBuilder<Gegner>
 				.xWaffenwert().xExp(73, 83, 93, 104, 114));
 		neueKarte(new StandardGegner("Standardgegner", 5, 5, 5, 5, 5, 5));
 		neueKarte(new StandardGegner("Brechling", 6, 8, 10, 8, 11, 79,
-				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifftGegner(true)
+				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_NACH).setBetrifft(ZeitEffektBetrifft.ZIEL)
 						.setWirkung(StatWirkung.verteidigung(-2)).createZTE()));
 		neueKarte(new StandardGegner("Dringmagier", 7, 8, 9, 8, 12, 88,
 				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.ANFANG)
@@ -79,7 +81,7 @@ public final class SetV2Gegner extends KartensetBuilder<Gegner>
 				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.ANFANG)
 						.setWirkung(StatWirkung.magie(2)).setEndTrigger(EndTrigger.VERWENDET).createZTE(),
 				new ZTEBuilder(EffektZielKartentyp.CHARAKTER).setStartTrigger(StartTrigger.IMMER_VOR)
-						.setWirkung(new DatenWirkung(DatenWirkung.Typ.AKTUELLE_MAGIE, Wirkungswert.ANGRIFF, 1, 1, 5))
+						.setWirkung(new DatenWirkung(DatenWirkungTyp.AKTUELLE_MAGIE, Wirkungswert.ANGRIFF, 1, 1, 5))
 						.setEndTrigger(EndTrigger.NACH_ANGRIFF).createZTE()));
 		neueKarte(new StandardGegner("Blob", 5, 6, 9, 9, 8, 31));
 		neueKarte(new StandardGegner("Obermittelgegner", 12, 12, 12, 12, 12, 398));

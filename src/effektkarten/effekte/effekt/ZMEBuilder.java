@@ -1,6 +1,7 @@
 package effektkarten.effekte.effekt;
 
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.bedingung.Bedingung;
+import effektkarten.effekte.wirkung.Wirkung;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
@@ -8,12 +9,12 @@ public final class ZMEBuilder
 {
 	private final EffektZielKartentyp auf;
 	private String text;
-	private int num = 0;
+	private int num;
 	private int magieKosten;
 	private List<Bedingung> bedingungen = List.of();
 	private EndTrigger endTrigger = EndTrigger.ZUG_ENDE;
 	private int dauer = 1;
-	private boolean betrifftGegner = false;
+	private ZeitEffektBetrifft betrifft = ZeitEffektBetrifft.SENDER;
 	private EffektZielKartentyp an;
 	private MitWaffe zielWaffe = MitWaffe.VERWENDET;
 	private Wirkung wirkung;
@@ -60,9 +61,9 @@ public final class ZMEBuilder
 		return this;
 	}
 
-	public ZMEBuilder setBetrifftGegner(boolean betrifftGegner)
+	public ZMEBuilder setBetrifft(ZeitEffektBetrifft betrifft)
 	{
-		this.betrifftGegner = betrifftGegner;
+		this.betrifft = betrifft;
 		return this;
 	}
 
@@ -91,7 +92,7 @@ public final class ZMEBuilder
 			generiereText();
 		}
 		return new ZeitMagieEffekt(text, num, magieKosten, bedingungen, endTrigger, dauer,
-				betrifftGegner, an, zielWaffe, wirkung);
+				betrifft, an, zielWaffe, wirkung);
 	}
 
 	private void generiereText()
@@ -109,37 +110,10 @@ public final class ZMEBuilder
 			}
 		}
 		sb.append("Zahle_").append(magieKosten).append("_Magie_für: ");
-		if(betrifftGegner)
+		switch(betrifft)
 		{
-			if(an == EffektZielKartentyp.WAFFE)
-			{
-				sb.append(switch(zielWaffe)
-				{
-					case HW -> "Ziel_HW: ";
-					case NW -> "Ziel_NW: ";
-					case VERWENDET -> "Verwendete Waffe (Ziel): ";
-				});
-			}
-			else
-			{
-				sb.append("Ziel: ");
-			}
-		}
-		else
-		{
-			if(an == EffektZielKartentyp.WAFFE)
-			{
-				sb.append(switch(zielWaffe)
-				{
-					case HW -> "HW: ";
-					case NW -> "NW: ";
-					case VERWENDET -> "";
-				});
-			}
-			if(an == EffektZielKartentyp.CHARAKTER && auf == EffektZielKartentyp.WAFFE)
-			{
-				sb.append("Anwender: ");
-			}
+			case SENDER -> betrifftSender(sb);
+			case ZIEL -> betrifftZiel(sb);
 		}
 		sb.append(wirkung.text());
 		if(dauer != 1)
@@ -147,5 +121,39 @@ public final class ZMEBuilder
 			sb.append(" (").append(dauer).append("_Züge)");
 		}
 		text = sb.toString();
+	}
+
+	private void betrifftSender(StringBuilder sb)
+	{
+		if(an == EffektZielKartentyp.WAFFE)
+		{
+			sb.append(switch(zielWaffe)
+					{
+						case HW -> "HW: ";
+						case NW -> "NW: ";
+						case VERWENDET -> "";
+					});
+		}
+		else if(an == EffektZielKartentyp.CHARAKTER && auf == EffektZielKartentyp.WAFFE)
+		{
+			sb.append("Anwender: ");
+		}
+	}
+
+	private void betrifftZiel(StringBuilder sb)
+	{
+		if(an == EffektZielKartentyp.WAFFE)
+		{
+			sb.append(switch(zielWaffe)
+					{
+						case HW -> "Ziel_HW: ";
+						case NW -> "Ziel_NW: ";
+						case VERWENDET -> "Verwendete Waffe (Ziel): ";
+					});
+		}
+		else
+		{
+			sb.append("Ziel: ");
+		}
 	}
 }

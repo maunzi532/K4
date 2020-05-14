@@ -11,11 +11,11 @@ public interface Kartenstapel<T extends StapelKarte>
 
 	Optional<T> erhalteKarteNurDeck();
 
-	T entnehmeKarte(Predicate<T> check);
+	T entnehmeKarte(Predicate<? super T> check);
 
 	void ablageInsDeck();
 
 	void ablage(T karte);
 
-	Optional<T> durchsucheAlle(Predicate<T> check);
+	Optional<T> durchsucheAlle(Predicate<? super T> check);
 }

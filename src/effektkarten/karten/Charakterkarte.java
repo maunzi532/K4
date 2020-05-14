@@ -36,7 +36,7 @@ public record Charakterkarte(String name, int angriff, int waffenwert, int gesch
 	@Override
 	public List<String> werteLU()
 	{
-		return null;
+		return List.of();
 	}
 
 	@Override
@@ -45,6 +45,6 @@ public record Charakterkarte(String name, int angriff, int waffenwert, int gesch
 		if(exp > 0)
 			return List.of(String.valueOf(exp));
 		else
-			return null;
+			return List.of();
 	}
 }

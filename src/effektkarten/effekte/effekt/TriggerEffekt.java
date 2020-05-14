@@ -1,7 +1,7 @@
 package effektkarten.effekte.effekt;
 
 import effektkarten.ansichtkarte.*;
-import effektkarten.effekte.eigenschaften.*;
+import effektkarten.effekte.bedingung.Bedingung;
 import effektkarten.effekte.ziel.*;
 import java.util.*;
 
@@ -20,5 +20,5 @@ public abstract class TriggerEffekt extends KartenEffekt
 		this.bedingungen = bedingungen;
 	}
 
-	public abstract void triggere(EffektZielCharakter n, EffektZielCharakter ziel);
+	public abstract void triggere(EffektZielCharakter sender, EffektZielCharakter ziel);
 }

@@ -1,23 +1,16 @@
 package effektkarten.effekte.wirkung;
 
-import effektkarten.effekte.eigenschaften.*;
 import effektkarten.effekte.ziel.*;
 
-public record DatenWirkung(Typ typ, Wirkungswert wirktAuf, int multiplikator, int divisor, int max) implements Wirkung
+public record DatenWirkung(DatenWirkungTyp typ, Wirkungswert wirktAuf, int multiplikator, int divisor, int max) implements Wirkung
 {
-	public enum Typ
-	{
-		GES_VORTEIL,
-		AKTUELLE_MAGIE
-	}
-
 	@Override
-	public int triggere(EffektZielCharakter n, EffektZielCharakter ziel)
+	public int triggere(EffektZielCharakter sender, EffektZielCharakter ziel)
 	{
 		return switch(typ)
 		{
-			case GES_VORTEIL -> Math.max(0, n.getGesAktion() - ziel.getGesAktion());
-			case AKTUELLE_MAGIE -> n.getMagie();
+			case GES_VORTEIL -> Math.max(0, sender.getGesAktion() - ziel.getGesAktion());
+			case AKTUELLE_MAGIE -> sender.getMagie();
 		};
 	}
 
@@ -36,7 +29,7 @@ public record DatenWirkung(Typ typ, Wirkungswert wirktAuf, int multiplikator, in
 		return 0;
 	}
 
-	public String nameDaten()
+	private String nameDaten()
 	{
 		return switch(typ)
 		{
@@ -51,16 +44,16 @@ public record DatenWirkung(Typ typ, Wirkungswert wirktAuf, int multiplikator, in
 		StringBuilder sb = new StringBuilder();
 		sb.append(wirktAuf.text).append(multiplikator >= 0 ? "+_" : "-_");
 		if(Math.abs(multiplikator) > 1 || divisor > 1)
-			sb.append("(");
+			sb.append('(');
 		sb.append(nameDaten());
 		if(Math.abs(multiplikator) > 1)
 			sb.append(" *_").append(Math.abs(multiplikator));
 		if(divisor > 1)
 			sb.append(" /_").append(divisor);
 		if(Math.abs(multiplikator) > 1 || divisor > 1)
-			sb.append(")");
+			sb.append(')');
 		if(max / multiplikator > 0)
-			sb.append(" (max._").append(max).append(")");
+			sb.append(" (max._").append(max).append(')');
 		return sb.toString();
 	}
 }

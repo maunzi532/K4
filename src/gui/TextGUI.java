@@ -1,18 +1,23 @@
 package gui;
 
 import dungeonmap.karte.*;
-import dungeonmap.map.*;
-import dungeonmap.mapsets.*;
-import effektkarten.kartebild.*;
+import dungeonmap.map.MittelMapKartenset;
+import dungeonmap.mapsets.SetV2MapKarten;
+import dungeonmap.mapsets.SetV2MittelMapKarten;
+import effektkarten.textbild.KarteBild3;
 import effektkarten.karten.*;
 import effektkarten.sets.*;
-import gui.text.*;
+import gui.text.MapBild;
+import gui.text.MapBild2Daten;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.stream.*;
-import main.*;
+import java.util.stream.Collectors;
+import main.Einstellungen;
 import map2.*;
-import stapelkarten.*;
+import stapelkarten.Kartenstapel;
+import stapelkarten.MischKartenstapel;
 
+@SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class TextGUI
 {
 	public static void main(String[] args)
@@ -45,7 +50,7 @@ public final class TextGUI
 
 	public void start()
 	{
-		sca = new Scanner(System.in);
+		sca = new Scanner(System.in, StandardCharsets.UTF_8);
 		aktionen = new SetV2Aktionen().fertig();
 		waffen = new SetV2Waffen().fertig();
 		gegner = new SetV2Gegner().fertig();
@@ -56,7 +61,7 @@ public final class TextGUI
 		gegnerKartenstapel = gegner.kartenstapel();
 		mapKartenstapel = new MischKartenstapel<>(new SetV2MapKarten().fertig());
 		System.out.print("Anzahl Spieler: ");
-		e = Einstellungen.lies("Einstellungen", sca.nextLine() + " Spieler");
+		e = Einstellungen.lies("Einstellungen", sca.nextLine() + "_Spieler");
 		vorrat = new Vorrat(e);
 		vorrat.map.erstelleMittelWeg(new MittelMapKartenset(new SetV2MittelMapKarten().fertig()), Collections::shuffle);
 		mapBild = new MapBild();
@@ -69,20 +74,20 @@ public final class TextGUI
 		{
 			System.out.println("Spieler " + (i + 1));
 			System.out.println("Klassen: " + klassenOptionen.stream()
-					.map(k -> k.klassenName() + " (" + k.toString() + ")").collect(Collectors.joining(", ")));
+					.map(klasse -> klasse.klassenName() + " (" + klasse + ')').collect(Collectors.joining(", ")));
 			System.out.print("Auswahl: ");
-			Klasse k = Klassen.valueOf(sca.nextLine().toUpperCase());
-			klassenOptionen.remove(k);
-			vorrat.erstelleHeld(Held2.initial(k, klassen, waffenKartenstapel, e), i);
+			Klasse klasse = Klassen.valueOf(sca.nextLine().toUpperCase(Locale.GERMAN));
+			klassenOptionen.remove(klasse);
+			vorrat.erstelleHeld(Held2.initial(klasse, klassen, waffenKartenstapel, e), i);
 		}
 	}
 
 	public boolean loop()
 	{
-		Spieler s = vorrat.spieler.get(aktuellerSpielerNum);
-		switch(s.status)
+		Spieler spieler = vorrat.spielerListe.get(aktuellerSpielerNum);
+		switch(spieler.status)
 		{
-			case MAP -> mapText(s);
+			case MAP -> mapText(spieler);
 			case HAENDLER_LOBBY -> {}
 			case GEGNER_LOBBY -> {}
 			case HAENDLER -> {}
@@ -108,9 +113,9 @@ public final class TextGUI
 		}
 		else
 		{
-			switch(s.status)
+			switch(spieler.status)
 			{
-				case MAP -> mapAktion(input, s);
+				case MAP -> mapAktion(input, spieler);
 				case HAENDLER_LOBBY -> {}
 				case GEGNER_LOBBY -> {}
 				case HAENDLER -> {}
@@ -125,19 +130,19 @@ public final class TextGUI
 		System.out.println("Hilfetext");
 	}
 
-	private void mapText(Spieler s)
+	private void mapText(Spieler spieler)
 	{
-		System.out.println(mapBild.erstelleTextBild(mapBild2Daten, mapBild.felder(vorrat.map, 6, 6, s.spielfigur().getFA(), vorrat.spieler)));
+		System.out.println(mapBild.erstelleTextBild(mapBild2Daten, mapBild.felder(vorrat.map, 6, 6, spieler.spielfigur().getFA(), vorrat.spielerListe)));
 	}
 
-	private void mapAktion(String input, Spieler s)
+	private void mapAktion(String input, Spieler spieler)
 	{
 		String[] inputA = input.split(" ");
 		int cursor = 0;
-		FeldKoordinaten zf = s.spielfigur().getFA();
+		FeldPosition zf = spieler.spielfigur().getFA();
 		while(cursor < inputA.length)
 		{
-			String c1 = inputA[cursor].toLowerCase();
+			String c1 = inputA[cursor].toLowerCase(Locale.GERMAN);
 			int n;
 			switch(c1)
 			{
@@ -154,18 +159,18 @@ public final class TextGUI
 			}
 			switch(c1)
 			{
-				case "v" -> zf = FeldKoordinaten.add(zf, -n, 0);
-				case "z" -> zf = FeldKoordinaten.add(zf, n, 0);
-				case "l" -> zf = FeldKoordinaten.add(zf, 0, -n);
-				case "r" -> zf = FeldKoordinaten.add(zf, 0, n);
+				case "v" -> zf = FeldPosition1.addieren(zf, -n, 0);
+				case "z" -> zf = FeldPosition1.addieren(zf, n, 0);
+				case "l" -> zf = FeldPosition1.addieren(zf, 0, -n);
+				case "r" -> zf = FeldPosition1.addieren(zf, 0, n);
 			}
 		}
-		if(!zf.equals(s.spielfigur().getFA()))
+		if(!zf.equals(spieler.spielfigur().getFA()))
 		{
-			s.spielfigur().geheZu(zf, rng::nextBoolean);
-			while(s.spielfigur().inBewegung())
+			spieler.spielfigur().geheZu(zf, rng::nextBoolean);
+			while(spieler.spielfigur().inBewegung())
 			{
-				mapText(s);
+				mapText(spieler);
 				try
 				{
 					Thread.sleep(100);
@@ -173,10 +178,10 @@ public final class TextGUI
 				{
 					throw new RuntimeException(ex);
 				}
-				s.spielfigur().bewege();
+				spieler.spielfigur().bewege();
 			}
-			s.spielfigur().kannForschen().ifPresent(f1 -> vorrat.forsche(f1, mapKartenstapel));
-			mapText(s);
+			spieler.spielfigur().kannForschen().ifPresent(mkp -> vorrat.forsche(mkp, mapKartenstapel));
+			mapText(spieler);
 		}
 	}
 }
