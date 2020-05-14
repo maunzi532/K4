@@ -1,6 +1,5 @@
 module kdE_K
 {
-	//requires javafx.base;
 	requires javafx.controls;
-	exports gui;
+	exports gui to javafx.graphics;
 }
